@@ -1,4 +1,4 @@
-# 🚀 TechTalk — Quick Git Guide
+# 🚀 TribeTalk — Quick Git Guide
 
 Repo: **`https://github.com/jeshu05/TechTalk.git`**
 
