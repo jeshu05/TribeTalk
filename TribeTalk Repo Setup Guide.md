@@ -1,6 +1,6 @@
 # 🚀 TribeTalk — Quick Git Guide
 
-Repo: **`https://github.com/jeshu05/TechTalk.git`**
+Repo: **`https://github.com/jeshu05/TribeTalk.git`**
 
 ---
 
@@ -12,15 +12,15 @@ Repo: **`https://github.com/jeshu05/TechTalk.git`**
 ### Step 2: Clone the Repository
 Open your terminal and run:
 ```bash
-git clone https://github.com/jeshu05/TechTalk.git
-cd TechTalk
+git clone https://github.com/jeshu05/TribeTalk.git
+cd TribeTalk
 ```
 
 ### Step 3: Create Your Own Branch
 Instead of working directly on `main`, create a branch named after you or some name you like once: 
 
 ```bash
-git checkout -b <branch-name>
+git checkout -b <branch-name> or git switch -c <branch-name>
 git push -u origin <branch-name>
 ```
 
@@ -72,8 +72,19 @@ git merge main
 
 ---
 
-## 💡 Troubleshooting: Git asking for a Password?
+## 💡 Troubleshooting
 
+### Error: "Author identity unknown" / "Please tell me who you are"
+If Git doesn't know who is making the commit, set your name and email once:
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+```
+*(Use the same email as your GitHub account)*
+
+---
+
+### Error: Git asking for a Password on Push?
 GitHub does **not** accept your regular account password over HTTPS. If prompted:
 
 1. Go to: **GitHub → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)**
