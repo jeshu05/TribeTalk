@@ -2,19 +2,17 @@ package com.alchemists.tribetalk.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val BlueDark = Color(0xFF0F2C59)
-val BluePrimary = Color(0xFF1E56A0)
-val BlueLight = Color(0xFFE8F1F5)
-val AccentOrange = Color(0xFFF08A5D)
-val DarkText = Color(0xFF1A1A2E)
-val LightBg = Color(0xFFFAFAFA)
-val SurfaceCard = Color(0xFFFFFFFF)
-val GrayText = Color(0xFF7F8C8D)
+// Warm Terracotta / Coral / Cream / Plum Palette
+val TerracottaPrimary = Color(0xFF9B3F4A)
+val CoralSecondary = Color(0xFFC95C5C)
+val AmberAccent = Color(0xFFE6A23C)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val AppBackground = Color(0xFFFFF8F4)
+val AppSurface = Color(0xFFFFFFFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val TextCharcoal = Color(0xFF2B2022)
+val TextMuted = Color(0xFF75676A)
+
+val SuccessTeal = Color(0xFF2F8F83)
+val WarningOrange = Color(0xFFD98B32)
+val ErrorMuted = Color(0xFFB94A48)

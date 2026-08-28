@@ -1,36 +1,26 @@
 package com.alchemists.tribetalk.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = BluePrimary,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = BluePrimary,
-    secondary = BlueDark,
-    tertiary = AccentOrange,
-    background = LightBg,
-    surface = SurfaceCard,
-    onPrimary = SurfaceCard,
-    onSecondary = SurfaceCard,
-    onBackground = DarkText,
-    onSurface = DarkText
+// Define a unified clean educational color scheme for both light and dark systems
+private val CleanColorScheme = lightColorScheme(
+    primary = TerracottaPrimary,
+    secondary = CoralSecondary,
+    tertiary = AmberAccent,
+    background = AppBackground,
+    surface = AppSurface,
+    onPrimary = AppSurface,
+    onSecondary = AppSurface,
+    onBackground = TextCharcoal,
+    onSurface = TextCharcoal
 )
 
 @Composable
@@ -39,15 +29,10 @@ fun TribeTalkTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    // Force the CleanColorScheme to maintain off-white backgrounds and white cards,
+    // preventing the dark-theme indigo background issue.
+    val colorScheme = CleanColorScheme
+    
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -55,7 +40,7 @@ fun TribeTalkTheme(
             if (context is Activity) {
                 val window = context.window
                 window.statusBarColor = colorScheme.primary.toArgb()
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
             }
         }
     }

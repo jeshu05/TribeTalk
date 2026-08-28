@@ -5,9 +5,10 @@ INJECTED from C:\Users\keshv\OneDrive\Desktop\tribetalk\TribeTalk\app\src\main\A
 INJECTED from C:\Users\keshv\OneDrive\Desktop\tribetalk\TribeTalk\app\src\main\AndroidManifest.xml:2:1-29:12
 INJECTED from C:\Users\keshv\OneDrive\Desktop\tribetalk\TribeTalk\app\src\main\AndroidManifest.xml:2:1-29:12
 MERGED from [androidx.compose.material3:material3-android:1.2.1] C:\Users\keshv\.gradle\caches\8.14.3\transforms\a9a2ce83b1ea1a7b1b943cf05f51b102\transformed\material3-release\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.material:material-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\003959ef745c979b181232dc0c16300f\transformed\material-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\bd9a792b5eaea246d7862b9048c41c38\transformed\material-icons-extended-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.animation:animation-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\8dc76d744b10ec73ae33de85aae7ae5b\transformed\animation-core-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.animation:animation-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\c8e7e670e8915b82e3877a65d4d42fdb\transformed\animation-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.foundation:foundation-layout-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\c4c0799f87e30984dfe6354a4141d2fd\transformed\foundation-layout-release\AndroidManifest.xml:2:1-7:12
@@ -122,12 +123,14 @@ INJECTED from C:\Users\keshv\OneDrive\Desktop\tribetalk\TribeTalk\app\src\main\A
 INJECTED from C:\Users\keshv\OneDrive\Desktop\tribetalk\TribeTalk\app\src\main\AndroidManifest.xml
 MERGED from [androidx.compose.material3:material3-android:1.2.1] C:\Users\keshv\.gradle\caches\8.14.3\transforms\a9a2ce83b1ea1a7b1b943cf05f51b102\transformed\material3-release\AndroidManifest.xml:20:5-44
 MERGED from [androidx.compose.material3:material3-android:1.2.1] C:\Users\keshv\.gradle\caches\8.14.3\transforms\a9a2ce83b1ea1a7b1b943cf05f51b102\transformed\material3-release\AndroidManifest.xml:20:5-44
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.material:material-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\003959ef745c979b181232dc0c16300f\transformed\material-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.material:material-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\003959ef745c979b181232dc0c16300f\transformed\material-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\f21162e4cb1db154d19b94ff37ee7513\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\bd9a792b5eaea246d7862b9048c41c38\transformed\material-icons-extended-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\bd9a792b5eaea246d7862b9048c41c38\transformed\material-icons-extended-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\cca2158ae48fbe14291baf7203662dc2\transformed\material-ripple-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.animation:animation-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\8dc76d744b10ec73ae33de85aae7ae5b\transformed\animation-core-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.animation:animation-core-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\8dc76d744b10ec73ae33de85aae7ae5b\transformed\animation-core-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.animation:animation-android:1.6.8] C:\Users\keshv\.gradle\caches\8.14.3\transforms\c8e7e670e8915b82e3877a65d4d42fdb\transformed\animation-release\AndroidManifest.xml:5:5-44

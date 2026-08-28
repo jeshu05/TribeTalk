@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.alchemists.tribetalk.app-mergeReleaseResources-38:/values-tr/values-tr.xml",
+            "outputFile": "com.alchemists.tribetalk.app-mergeReleaseResources-39:/values-tr/values-tr.xml",
             "map": [
                 {
                     "source": "C:\\Users\\keshv\\.gradle\\caches\\8.14.3\\transforms\\c44508d4e2a31bedd1fb8cf9263fe414\\transformed\\foundation-release\\res\\values-tr\\values-tr.xml",

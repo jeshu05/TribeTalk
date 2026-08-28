@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.alchemists.tribetalk.app-mergeReleaseResources-38:/values-sq/values-sq.xml",
+            "outputFile": "com.alchemists.tribetalk.app-mergeReleaseResources-39:/values-sq/values-sq.xml",
             "map": [
                 {
                     "source": "C:\\Users\\keshv\\.gradle\\caches\\8.14.3\\transforms\\a9a2ce83b1ea1a7b1b943cf05f51b102\\transformed\\material3-release\\res\\values-sq\\values-sq.xml",

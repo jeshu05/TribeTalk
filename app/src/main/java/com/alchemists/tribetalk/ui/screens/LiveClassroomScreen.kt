@@ -5,18 +5,32 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
@@ -29,38 +43,46 @@ import com.alchemists.tribetalk.translation.TranslationEngine
 import com.alchemists.tribetalk.translation.TranslationEntry
 import com.alchemists.tribetalk.translation.TranslationResult
 import com.alchemists.tribetalk.translation.OfflineFLNTranslationEngine
-import com.alchemists.tribetalk.voice.TextToSpeechManager
+import com.alchemists.tribetalk.ui.theme.*
+import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
+import com.alchemists.tribetalk.voice.VoiceTranslationBridge
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiveClassroomScreen(
     translationEngine: TranslationEngine,
     voiceInputManager: VoiceInputManager,
-    textToSpeechManager: TextToSpeechManager,
+    speechOutputManager: SpeechOutputManager,
+    voiceTranslationBridge: VoiceTranslationBridge,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
 
+    // Voice Bridge Auto-Play Toggle (Default: OFF)
+    var isVoiceBridgeEnabled by remember { mutableStateOf(false) }
+
     // Teacher -> Student State
     var teacherInput by remember { mutableStateOf("") }
     var teacherOutput by remember { mutableStateOf<TranslationResult?>(null) }
-    var teacherVoiceState by remember { mutableStateOf("Idle") }
-    var teacherSpeechState by remember { mutableStateOf("Idle") }
+    var teacherVoiceState by remember { mutableStateOf(VoiceTranslationBridge.State.Idle) }
+    var teacherSpeechState by remember { mutableStateOf("") }
     var teacherIsEditing by remember { mutableStateOf(false) }
     var teacherEditedText by remember { mutableStateOf("") }
     var teacherStatusMessage by remember { mutableStateOf("") }
+    var teacherKeyboardExpanded by remember { mutableStateOf(false) }
 
     // Student -> Teacher State
     var studentInput by remember { mutableStateOf("") }
     var studentOutput by remember { mutableStateOf<TranslationResult?>(null) }
-    var studentVoiceState by remember { mutableStateOf("Idle") }
-    var studentSpeechState by remember { mutableStateOf("Idle") }
+    var studentVoiceState by remember { mutableStateOf(VoiceTranslationBridge.State.Idle) }
+    var studentSpeechState by remember { mutableStateOf("") }
     var studentIsEditing by remember { mutableStateOf(false) }
     var studentEditedText by remember { mutableStateOf("") }
     var studentStatusMessage by remember { mutableStateOf("") }
+    var studentKeyboardExpanded by remember { mutableStateOf(false) }
 
     // Track which language side requested recording when permission is prompted
     var pendingLangRequest by remember { mutableStateOf<Language?>(null) }
@@ -71,37 +93,81 @@ fun LiveClassroomScreen(
             if (isGranted) {
                 pendingLangRequest?.let { lang ->
                     if (lang == Language.HINDI) {
-                        startTeacherListening(
-                            voiceInputManager,
-                            translationEngine,
+                        teacherVoiceState = VoiceTranslationBridge.State.Listening
+                        teacherSpeechState = "Listening..."
+                        voiceInputManager.startListening(
+                            languageCode = "hi-IN",
                             onResult = { text ->
                                 teacherInput = text
-                                teacherOutput = translationEngine.translate(text, Language.HINDI, Language.SANTALI)
-                                teacherVoiceState = "Speech Recognized"
+                                teacherVoiceState = VoiceTranslationBridge.State.Recognized
+                                voiceTranslationBridge.translateAndSpeak(
+                                    recognizedText = text,
+                                    sourceLanguage = Language.HINDI,
+                                    targetLanguage = Language.SANTALI,
+                                    isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                    onStateChange = { state, status ->
+                                        teacherVoiceState = state
+                                        teacherSpeechState = status
+                                    },
+                                    onResult = { result ->
+                                        teacherOutput = result
+                                    }
+                                )
                             },
-                            onError = { err -> teacherVoiceState = "Error: $err" },
-                            onState = { state -> teacherVoiceState = state }
+                            onError = { err ->
+                                teacherVoiceState = VoiceTranslationBridge.State.Error
+                                teacherSpeechState = "Error: $err"
+                            },
+                            onStateChange = { state ->
+                                if (state == "Listening..." || state == "Recording...") {
+                                    teacherVoiceState = VoiceTranslationBridge.State.Listening
+                                }
+                                teacherSpeechState = state
+                            }
                         )
                     } else {
-                        startStudentListening(
-                            voiceInputManager,
-                            translationEngine,
+                        studentVoiceState = VoiceTranslationBridge.State.Listening
+                        studentSpeechState = "Listening..."
+                        voiceInputManager.startListening(
+                            languageCode = "sat-IN",
                             onResult = { text ->
                                 studentInput = text
-                                studentOutput = translationEngine.translate(text, Language.SANTALI, Language.HINDI)
-                                studentVoiceState = "Speech Recognized"
+                                studentVoiceState = VoiceTranslationBridge.State.Recognized
+                                voiceTranslationBridge.translateAndSpeak(
+                                    recognizedText = text,
+                                    sourceLanguage = Language.SANTALI,
+                                    targetLanguage = Language.HINDI,
+                                    isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                    onStateChange = { state, status ->
+                                        studentVoiceState = state
+                                        studentSpeechState = status
+                                    },
+                                    onResult = { result ->
+                                        studentOutput = result
+                                    }
+                                )
                             },
-                            onError = { err -> studentVoiceState = "Error: $err" },
-                            onState = { state -> studentVoiceState = state }
+                            onError = { err ->
+                                studentVoiceState = VoiceTranslationBridge.State.Error
+                                studentSpeechState = "Error: $err"
+                            },
+                            onStateChange = { state ->
+                                if (state == "Listening..." || state == "Recording...") {
+                                    studentVoiceState = VoiceTranslationBridge.State.Listening
+                                }
+                                studentSpeechState = state
+                            }
                         )
                     }
                 }
             } else {
                 Toast.makeText(context, "Microphone permission denied", Toast.LENGTH_SHORT).show()
                 if (pendingLangRequest == Language.HINDI) {
-                    teacherVoiceState = "Permission Denied"
+                    teacherVoiceState = VoiceTranslationBridge.State.Error
+                    teacherSpeechState = "Permission Denied"
                 } else {
-                    studentVoiceState = "Permission Denied"
+                    studentVoiceState = VoiceTranslationBridge.State.Error
+                    studentSpeechState = "Permission Denied"
                 }
             }
             pendingLangRequest = null
@@ -116,28 +182,82 @@ fun LiveClassroomScreen(
 
         if (checkPermission) {
             if (lang == Language.HINDI) {
-                startTeacherListening(
-                    voiceInputManager,
-                    translationEngine,
+                if (teacherVoiceState == VoiceTranslationBridge.State.Listening) {
+                    voiceInputManager.stopListening()
+                    teacherVoiceState = VoiceTranslationBridge.State.Idle
+                    teacherSpeechState = "Idle"
+                    return
+                }
+                teacherVoiceState = VoiceTranslationBridge.State.Listening
+                teacherSpeechState = "Listening..."
+                voiceInputManager.startListening(
+                    languageCode = "hi-IN",
                     onResult = { text ->
                         teacherInput = text
-                        teacherOutput = translationEngine.translate(text, Language.HINDI, Language.SANTALI)
-                        teacherVoiceState = "Speech Recognized"
+                        teacherVoiceState = VoiceTranslationBridge.State.Recognized
+                        voiceTranslationBridge.translateAndSpeak(
+                            recognizedText = text,
+                            sourceLanguage = Language.HINDI,
+                            targetLanguage = Language.SANTALI,
+                            isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                            onStateChange = { state, status ->
+                                teacherVoiceState = state
+                                teacherSpeechState = status
+                            },
+                            onResult = { result ->
+                                teacherOutput = result
+                            }
+                        )
                     },
-                    onError = { err -> teacherVoiceState = "Error: $err" },
-                    onState = { state -> teacherVoiceState = state }
+                    onError = { err ->
+                        teacherVoiceState = VoiceTranslationBridge.State.Error
+                        teacherSpeechState = "Error: $err"
+                    },
+                    onStateChange = { state ->
+                        if (state == "Listening..." || state == "Recording...") {
+                            teacherVoiceState = VoiceTranslationBridge.State.Listening
+                        }
+                        teacherSpeechState = state
+                    }
                 )
             } else {
-                startStudentListening(
-                    voiceInputManager,
-                    translationEngine,
+                if (studentVoiceState == VoiceTranslationBridge.State.Listening) {
+                    voiceInputManager.stopListening()
+                    studentVoiceState = VoiceTranslationBridge.State.Idle
+                    studentSpeechState = "Idle"
+                    return
+                }
+                studentVoiceState = VoiceTranslationBridge.State.Listening
+                studentSpeechState = "Listening..."
+                voiceInputManager.startListening(
+                    languageCode = "sat-IN",
                     onResult = { text ->
                         studentInput = text
-                        studentOutput = translationEngine.translate(text, Language.SANTALI, Language.HINDI)
-                        studentVoiceState = "Speech Recognized"
+                        studentVoiceState = VoiceTranslationBridge.State.Recognized
+                        voiceTranslationBridge.translateAndSpeak(
+                            recognizedText = text,
+                            sourceLanguage = Language.SANTALI,
+                            targetLanguage = Language.HINDI,
+                            isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                            onStateChange = { state, status ->
+                                studentVoiceState = state
+                                studentSpeechState = status
+                            },
+                            onResult = { result ->
+                                studentOutput = result
+                            }
+                        )
                     },
-                    onError = { err -> studentVoiceState = "Error: $err" },
-                    onState = { state -> studentVoiceState = state }
+                    onError = { err ->
+                        studentVoiceState = VoiceTranslationBridge.State.Error
+                        studentSpeechState = "Error: $err"
+                    },
+                    onStateChange = { state ->
+                        if (state == "Listening..." || state == "Recording...") {
+                            studentVoiceState = VoiceTranslationBridge.State.Listening
+                        }
+                        studentSpeechState = state
+                    }
                 )
             }
         } else {
@@ -149,107 +269,61 @@ fun LiveClassroomScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Live Classroom") },
+                title = {
+                    Column {
+                        Text(
+                            "TribeTalk",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 24.sp
+                            )
+                        )
+                        Text(
+                            "Offline Classroom Translation",
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                color = MaterialTheme.colorScheme.outline,
+                                fontSize = 12.sp
+                            )
+                        )
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = {
                         voiceInputManager.stopListening()
-                        textToSpeechManager.stop()
+                        speechOutputManager.stop()
                         onBack()
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier.shadow(1.dp)
             )
         },
+        containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp)
+                .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Info Header Card
+            // Visual process pipeline indicator (restrained typography, clean Material icons)
             Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = "Information",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = "This screen displays the translation architecture flow. Use the voice cards below to simulate Hindi ↔ Santali translation in classroom mode.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-            }
-
-            // Preserved Flow Diagram Title
-            Text(
-                text = "Two-Way Speech Translation Flow",
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            // Flow Card 1: Teacher -> Student
-            FlowCard(
-                title = "1. Teacher → Student (Hindi to Santali)",
-                steps = listOf(
-                    "🎤 Teacher speaks in Hindi",
-                    "⚙️ ASR processes Hindi Speech to Text",
-                    "📝 Hindi Text generated",
-                    "🔄 Hindi → Santali Machine Translation",
-                    "🔊 Student receives Santali voice/text"
-                )
-            )
-
-            // Flow Card 2: Student -> Teacher
-            FlowCard(
-                title = "2. Student → Teacher (Santali to Hindi)",
-                steps = listOf(
-                    "🎤 Student speaks in Santali",
-                    "⚙️ ASR processes Santali Speech to Text",
-                    "📝 Santali Text generated",
-                    "🔄 Santali → Hindi Machine Translation",
-                    "🔊 Teacher receives Hindi voice/text"
-                )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Stacked Voice Translation Cards Section
-            Text(
-                text = "Live Classroom Voice Translation",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            // -----------------------------------------------------------------
-            // TEACHER PANEL (HINDI -> SANTALI)
-            // -----------------------------------------------------------------
-            Card(
-                modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -257,116 +331,295 @@ fun LiveClassroomScreen(
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        FlowItem(Icons.Default.Mic, "Speak")
+                        Text("→", color = MaterialTheme.colorScheme.outline, fontWeight = FontWeight.Bold)
+                        FlowItem(Icons.Default.Settings, "Recognize")
+                        Text("→", color = MaterialTheme.colorScheme.outline, fontWeight = FontWeight.Bold)
+                        FlowItem(Icons.Default.Refresh, "Translate")
+                        Text("→", color = MaterialTheme.colorScheme.outline, fontWeight = FontWeight.Bold)
+                        FlowItem(Icons.Default.PlayArrow, "Play")
+                    }
+
+                    Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                    // Voice Bridge Auto-Play Toggle (ON / OFF)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                text = "Voice Bridge Mode",
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = "Automatically play translated audio output",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                        }
+                        Switch(
+                            checked = isVoiceBridgeEnabled,
+                            onCheckedChange = { isVoiceBridgeEnabled = it },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = MaterialTheme.colorScheme.surface,
+                                checkedTrackColor = MaterialTheme.colorScheme.secondary
+                            )
+                        )
+                    }
+                }
+            }
+
+            // Language direction headers
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "LIVE CLASSROOM",
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 20.sp
+                    )
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Hindi",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    )
+                    Text("↔", color = MaterialTheme.colorScheme.outline, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Santali",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    )
+                }
+            }
+
+            // -----------------------------------------------------------------
+            // CARD 1: TEACHER (HINDI -> SANTALI)
+            // -----------------------------------------------------------------
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "TEACHER (Hindi)",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.primary
+                            text = "TEACHER",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 18.sp
+                            )
                         )
-                        SuggestionChip(
-                            onClick = {},
-                            label = { Text("Voice Input") }
-                        )
-                    }
-
-                    // Recording State Label
-                    if (teacherVoiceState != "Idle") {
                         Text(
-                            text = "Status: $teacherVoiceState",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = if (teacherVoiceState.startsWith("Error")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.secondary
+                            text = "Hindi ➜ Santali",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.outline
                         )
                     }
 
-                    // Manual Text Input + Microphone Button Row
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    // Large Voice Input Button (Teal for active/listening states, indigo for idle)
+                    val isTeacherListening = teacherVoiceState == VoiceTranslationBridge.State.Listening
+                    Button(
+                        onClick = { handleMicClick(Language.HINDI) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isTeacherListening) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
+                        ),
+                        shape = RoundedCornerShape(8.dp)
                     ) {
-                        OutlinedTextField(
-                            value = teacherInput,
-                            onValueChange = {
-                                teacherInput = it
-                                if (it.isEmpty()) {
-                                    teacherOutput = null
-                                    teacherIsEditing = false
-                                    teacherStatusMessage = ""
-                                }
-                            },
-                            placeholder = { Text("Speak or type in Hindi...") },
-                            modifier = Modifier.weight(1f),
-                            maxLines = 3
-                        )
-
-                        // Mic Trigger Button
-                        Button(
-                            onClick = { handleMicClick(Language.HINDI) },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (teacherVoiceState == "Listening..." || teacherVoiceState == "Recording...") MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                            ),
-                            modifier = Modifier.size(56.dp),
-                            contentPadding = PaddingValues(0.dp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
                         ) {
-                            Text("🎤", fontSize = 20.sp)
-                        }
-                    }
-
-                    // Action Controls
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Button(
-                            onClick = {
-                                if (teacherInput.isNotBlank()) {
-                                    teacherVoiceState = "Translating..."
-                                    teacherOutput = translationEngine.translate(
-                                        teacherInput,
-                                        Language.HINDI,
-                                        Language.SANTALI
-                                    )
-                                    teacherVoiceState = "Translation Complete"
-                                    teacherIsEditing = false
-                                    teacherStatusMessage = ""
-                                }
-                            },
-                            modifier = Modifier.weight(1f),
-                            enabled = teacherInput.isNotBlank()
-                        ) {
-                            Icon(imageVector = Icons.Default.Refresh, contentDescription = "Translate")
+                            Icon(
+                                imageVector = Icons.Default.Mic,
+                                contentDescription = "Speak",
+                                modifier = Modifier.size(20.dp)
+                            )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Translate")
-                        }
-
-                        OutlinedButton(
-                            onClick = {
-                                teacherInput = ""
-                                teacherOutput = null
-                                teacherVoiceState = "Idle"
-                                teacherSpeechState = "Idle"
-                                teacherIsEditing = false
-                                teacherStatusMessage = ""
-                            },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Clear")
+                            Text(
+                                text = if (isTeacherListening) "Stop Listening" else "Speak in Hindi",
+                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                            )
                         }
                     }
 
-                    // Output Display Block
+                    // State color cues and prompts
+                    if (teacherVoiceState != VoiceTranslationBridge.State.Idle) {
+                        val stateColor = when (teacherVoiceState) {
+                            VoiceTranslationBridge.State.Listening -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Recognized -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Translating -> MaterialTheme.colorScheme.primary
+                            VoiceTranslationBridge.State.TranslationComplete -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Speaking -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Error -> {
+                                if (teacherSpeechState.contains("unavailable")) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.error
+                            }
+                            else -> MaterialTheme.colorScheme.outline
+                        }
+                        Text(
+                            text = "Voice State: $teacherSpeechState",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = stateColor
+                        )
+                    }
+
+                    // Recognized input display text box
+                    if (teacherInput.isNotEmpty()) {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(
+                                text = "Recognized Hindi",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                            Surface(
+                                color = MaterialTheme.colorScheme.background,
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .border(
+                                        1.dp,
+                                        MaterialTheme.colorScheme.outlineVariant,
+                                        RoundedCornerShape(8.dp)
+                                    )
+                            ) {
+                                Text(
+                                    text = teacherInput,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                    modifier = Modifier.padding(14.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    // Collapsible Keyboard Manual Entry
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { teacherKeyboardExpanded = !teacherKeyboardExpanded }
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Keyboard Input Override",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                            Icon(
+                                imageVector = if (teacherKeyboardExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                                contentDescription = "Toggle Keyboard Input",
+                                tint = MaterialTheme.colorScheme.outline
+                            )
+                        }
+
+                        AnimatedVisibility(visible = teacherKeyboardExpanded) {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                modifier = Modifier.padding(top = 8.dp)
+                            ) {
+                                OutlinedTextField(
+                                    value = teacherInput,
+                                    onValueChange = {
+                                        teacherInput = it
+                                        if (it.isEmpty()) {
+                                            teacherOutput = null
+                                            teacherIsEditing = false
+                                            teacherStatusMessage = ""
+                                        }
+                                    },
+                                    placeholder = { Text("Type Hindi message manually...") },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    maxLines = 3
+                                )
+                                Button(
+                                    onClick = {
+                                        if (teacherInput.isNotBlank()) {
+                                            teacherVoiceState = VoiceTranslationBridge.State.Recognized
+                                            voiceTranslationBridge.translateAndSpeak(
+                                                recognizedText = teacherInput,
+                                                sourceLanguage = Language.HINDI,
+                                                targetLanguage = Language.SANTALI,
+                                                isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                                onStateChange = { state, status ->
+                                                    teacherVoiceState = state
+                                                    teacherSpeechState = status
+                                                },
+                                                onResult = { result ->
+                                                    teacherOutput = result
+                                                }
+                                            )
+                                            teacherIsEditing = false
+                                            teacherStatusMessage = ""
+                                        }
+                                    },
+                                    modifier = Modifier.align(Alignment.End),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.primary
+                                    )
+                                ) {
+                                    Text("Translate")
+                                }
+                            }
+                        }
+                    }
+
+                    // Distinct Translation Output Card (Teal successful background)
                     teacherOutput?.let { result ->
-                        Card(
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer
-                            ),
-                            modifier = Modifier.fillMaxWidth()
+                        val isAmber = result.requiresReview
+                        Surface(
+                            color = if (isAmber) {
+                                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.08f)
+                            } else {
+                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .border(
+                                    width = 1.dp,
+                                    color = if (isAmber) {
+                                        MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
+                                    } else {
+                                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
+                                    },
+                                    shape = RoundedCornerShape(8.dp)
+                                )
                         ) {
                             Column(
                                 modifier = Modifier.padding(16.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -374,27 +627,67 @@ fun LiveClassroomScreen(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = "STUDENT (Santali Translation)",
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        fontWeight = FontWeight.Bold
+                                        text = "Santali Translation",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
                                     )
-                                    Text(
-                                        text = "Offline match confidence: ${result.confidence}",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                                    )
+                                    // Confidence text & indicator dot
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.padding(horizontal = 4.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(8.dp)
+                                                .border(
+                                                    0.dp,
+                                                    Color.Transparent,
+                                                    RoundedCornerShape(4.dp)
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Surface(
+                                                color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.fillMaxSize(),
+                                                shape = RoundedCornerShape(4.dp)
+                                            ) {}
+                                        }
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = result.confidence,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                            color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
                                 }
 
-                                if (result.requiresReview) {
+                                // Large translated text
+                                Text(
+                                    text = result.translatedText,
+                                    style = MaterialTheme.typography.titleLarge.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 22.sp
+                                    ),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+
+                                // Amber warning alerts (instead of giant red blocks)
+                                if (isAmber) {
                                     Surface(
-                                        color = MaterialTheme.colorScheme.errorContainer,
-                                        shape = MaterialTheme.shapes.small
+                                        color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.12f),
+                                        shape = RoundedCornerShape(4.dp),
+                                        modifier = Modifier.border(
+                                            1.dp,
+                                            MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f),
+                                            RoundedCornerShape(4.dp)
+                                        )
                                     ) {
                                         Text(
                                             text = "⚠️ Needs teacher review",
-                                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                                            color = MaterialTheme.colorScheme.onErrorContainer,
+                                            style = MaterialTheme.typography.bodySmall.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.tertiary
+                                            ),
                                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                         )
                                     }
@@ -430,91 +723,137 @@ fun LiveClassroomScreen(
                                                         requiresReview = false
                                                     )
                                                     teacherIsEditing = false
-                                                    teacherStatusMessage = "Saved to translation memory"
+                                                    teacherStatusMessage = "✓ Saved to Translation Memory"
                                                 }
-                                            }
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary
+                                            ),
+                                            modifier = Modifier.weight(1f).height(44.dp)
                                         ) {
                                             Text("Save")
                                         }
-                                        OutlinedButton(onClick = { teacherIsEditing = false }) {
+                                        OutlinedButton(
+                                            onClick = { teacherIsEditing = false },
+                                            modifier = Modifier.weight(1f).height(44.dp)
+                                        ) {
                                             Text("Cancel")
                                         }
                                     }
                                 } else {
-                                    Text(
-                                        text = result.translatedText,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                                    )
-
                                     if (teacherStatusMessage.isNotEmpty()) {
-                                        Text(
-                                            text = teacherStatusMessage,
-                                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                                            color = MaterialTheme.colorScheme.primary
-                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = "Saved",
+                                                tint = MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Text(
+                                                text = teacherStatusMessage,
+                                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.secondary
+                                            )
+                                        }
                                     }
 
-                                    // TTS Play status message
-                                    if (teacherSpeechState != "Idle") {
-                                        Text(
-                                            text = "Voice: $teacherSpeechState",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = if (teacherSpeechState.startsWith("Error")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                                        )
-                                    }
-
+                                    // Action Buttons Row (Equal weights, no text clipping)
                                     Row(
                                         modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        // Play (TTS) Button
                                         Button(
                                             onClick = {
-                                                val isSupported = textToSpeechManager.isLanguageSupported("sat")
+                                                val isSupported = speechOutputManager.isLanguageAvailable("sat")
                                                 if (!isSupported) {
-                                                    teacherSpeechState = "Error: Santali voice unavailable on this device"
+                                                    teacherVoiceState = VoiceTranslationBridge.State.Error
+                                                    teacherSpeechState = "Santali voice unavailable on this device"
                                                 } else {
-                                                    textToSpeechManager.speak(
+                                                    speechOutputManager.speak(
                                                         result.translatedText,
                                                         "sat",
-                                                        onStart = { teacherSpeechState = "Speaking..." },
-                                                        onDone = { teacherSpeechState = "Idle" },
-                                                        onError = { err -> teacherSpeechState = "Error: $err" }
+                                                        onStart = {
+                                                            teacherVoiceState = VoiceTranslationBridge.State.Speaking
+                                                            teacherSpeechState = "Speaking..."
+                                                        },
+                                                        onDone = {
+                                                            teacherVoiceState = VoiceTranslationBridge.State.TranslationComplete
+                                                            teacherSpeechState = "Translation Complete"
+                                                        },
+                                                        onError = { err ->
+                                                            teacherVoiceState = VoiceTranslationBridge.State.Error
+                                                            teacherSpeechState = "Audio: $err"
+                                                        }
                                                     )
                                                 }
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.primary,
-                                                contentColor = MaterialTheme.colorScheme.onPrimary
-                                            )
+                                                containerColor = MaterialTheme.colorScheme.secondary
+                                            ),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
                                         ) {
-                                            Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play")
+                                            Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play", modifier = Modifier.size(16.dp))
                                             Spacer(modifier = Modifier.width(4.dp))
-                                            Text("Play")
+                                            Text("Play", fontSize = 13.sp)
                                         }
 
-                                        Row(
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        Button(
+                                            onClick = {
+                                                teacherIsEditing = true
+                                                teacherEditedText = result.translatedText
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.primary
+                                            ),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
                                         ) {
-                                            TextButton(
-                                                onClick = {
-                                                    teacherIsEditing = true
-                                                    teacherEditedText = result.translatedText
-                                                }
-                                            ) {
-                                                Text("Edit")
-                                            }
-                                            TextButton(
-                                                onClick = {
-                                                    clipboardManager.setText(AnnotatedString(result.translatedText))
-                                                    Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-                                                }
-                                            ) {
-                                                Text("Copy")
-                                            }
+                                            Icon(imageVector = Icons.Default.Edit, contentDescription = "Correct", modifier = Modifier.size(16.dp))
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Text("Correct", fontSize = 13.sp)
                                         }
+
+                                        OutlinedButton(
+                                            onClick = {
+                                                clipboardManager.setText(AnnotatedString(result.translatedText))
+                                                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                                            },
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
+                                        ) {
+                                            Text("Copy", fontSize = 13.sp)
+                                        }
+                                    }
+
+                                    // Restored Clear Button Row (Outlined style, no TM deletion)
+                                    OutlinedButton(
+                                        onClick = {
+                                            teacherInput = ""
+                                            teacherOutput = null
+                                            teacherVoiceState = VoiceTranslationBridge.State.Idle
+                                            teacherSpeechState = ""
+                                            teacherIsEditing = false
+                                            teacherStatusMessage = ""
+                                            speechOutputManager.stop()
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(44.dp),
+                                        colors = ButtonDefaults.outlinedButtonColors(
+                                            contentColor = MaterialTheme.colorScheme.error
+                                        ),
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f))
+                                    ) {
+                                        Icon(imageVector = Icons.Default.Clear, contentDescription = "Clear", modifier = Modifier.size(16.dp))
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text("Clear Card")
                                     }
                                 }
                             }
@@ -524,16 +863,17 @@ fun LiveClassroomScreen(
             }
 
             // -----------------------------------------------------------------
-            // STUDENT PANEL (SANTALI -> HINDI)
+            // CARD 2: STUDENT (SANTALI -> HINDI)
             // -----------------------------------------------------------------
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -541,112 +881,196 @@ fun LiveClassroomScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "STUDENT (Santali)",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.primary
+                            text = "STUDENT",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 18.sp
+                            )
                         )
-                        SuggestionChip(
-                            onClick = {},
-                            label = { Text("Voice Input") }
-                        )
-                    }
-
-                    // Recording State Label
-                    if (studentVoiceState != "Idle") {
                         Text(
-                            text = "Status: $studentVoiceState",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = if (studentVoiceState.startsWith("Error")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.secondary
+                            text = "Santali ➜ Hindi",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.outline
                         )
                     }
 
-                    // Manual Text Input + Microphone Button Row
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    // Large Voice Input Button
+                    val isStudentListening = studentVoiceState == VoiceTranslationBridge.State.Listening
+                    Button(
+                        onClick = { handleMicClick(Language.SANTALI) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isStudentListening) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
+                        ),
+                        shape = RoundedCornerShape(8.dp)
                     ) {
-                        OutlinedTextField(
-                            value = studentInput,
-                            onValueChange = {
-                                studentInput = it
-                                if (it.isEmpty()) {
-                                    studentOutput = null
-                                    studentIsEditing = false
-                                    studentStatusMessage = ""
-                                }
-                            },
-                            placeholder = { Text("Speak or type in Santali...") },
-                            modifier = Modifier.weight(1f),
-                            maxLines = 3
-                        )
-
-                        // Mic Trigger Button
-                        Button(
-                            onClick = { handleMicClick(Language.SANTALI) },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (studentVoiceState == "Listening..." || studentVoiceState == "Recording...") MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                            ),
-                            modifier = Modifier.size(56.dp),
-                            contentPadding = PaddingValues(0.dp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
                         ) {
-                            Text("🎤", fontSize = 20.sp)
-                        }
-                    }
-
-                    // Action Controls
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Button(
-                            onClick = {
-                                if (studentInput.isNotBlank()) {
-                                    studentVoiceState = "Translating..."
-                                    studentOutput = translationEngine.translate(
-                                        studentInput,
-                                        Language.SANTALI,
-                                        Language.HINDI
-                                    )
-                                    studentVoiceState = "Translation Complete"
-                                    studentIsEditing = false
-                                    studentStatusMessage = ""
-                                }
-                            },
-                            modifier = Modifier.weight(1f),
-                            enabled = studentInput.isNotBlank()
-                        ) {
-                            Icon(imageVector = Icons.Default.Refresh, contentDescription = "Translate")
+                            Icon(
+                                imageVector = Icons.Default.Mic,
+                                contentDescription = "Speak",
+                                modifier = Modifier.size(20.dp)
+                            )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Translate")
-                        }
-
-                        OutlinedButton(
-                            onClick = {
-                                studentInput = ""
-                                studentOutput = null
-                                studentVoiceState = "Idle"
-                                studentSpeechState = "Idle"
-                                studentIsEditing = false
-                                studentStatusMessage = ""
-                            },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Clear")
+                            Text(
+                                text = if (isStudentListening) "Stop Listening" else "Speak in Santali",
+                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                            )
                         }
                     }
 
-                    // Output Display Block
+                    // State color cues and prompts
+                    if (studentVoiceState != VoiceTranslationBridge.State.Idle) {
+                        val stateColor = when (studentVoiceState) {
+                            VoiceTranslationBridge.State.Listening -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Recognized -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Translating -> MaterialTheme.colorScheme.primary
+                            VoiceTranslationBridge.State.TranslationComplete -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Speaking -> MaterialTheme.colorScheme.secondary
+                            VoiceTranslationBridge.State.Error -> {
+                                if (studentSpeechState.contains("unavailable")) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.error
+                            }
+                            else -> MaterialTheme.colorScheme.outline
+                        }
+                        Text(
+                            text = "Voice State: $studentSpeechState",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = stateColor
+                        )
+                    }
+
+                    // Recognized input display text box
+                    if (studentInput.isNotEmpty()) {
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(
+                                text = "Recognized Santali",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                            Surface(
+                                color = MaterialTheme.colorScheme.background,
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .border(
+                                        1.dp,
+                                        MaterialTheme.colorScheme.outlineVariant,
+                                        RoundedCornerShape(8.dp)
+                                    )
+                            ) {
+                                Text(
+                                    text = studentInput,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                    modifier = Modifier.padding(14.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    // Collapsible Keyboard Manual Entry
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { studentKeyboardExpanded = !studentKeyboardExpanded }
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Keyboard Input Override",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                            Icon(
+                                imageVector = if (studentKeyboardExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                                contentDescription = "Toggle Keyboard Input",
+                                tint = MaterialTheme.colorScheme.outline
+                            )
+                        }
+
+                        AnimatedVisibility(visible = studentKeyboardExpanded) {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                modifier = Modifier.padding(top = 8.dp)
+                            ) {
+                                OutlinedTextField(
+                                    value = studentInput,
+                                    onValueChange = {
+                                        studentInput = it
+                                        if (it.isEmpty()) {
+                                            studentOutput = null
+                                            studentIsEditing = false
+                                            studentStatusMessage = ""
+                                        }
+                                    },
+                                    placeholder = { Text("Type Santali message manually...") },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    maxLines = 3
+                                )
+                                Button(
+                                    onClick = {
+                                        if (studentInput.isNotBlank()) {
+                                            studentVoiceState = VoiceTranslationBridge.State.Recognized
+                                            voiceTranslationBridge.translateAndSpeak(
+                                                recognizedText = studentInput,
+                                                sourceLanguage = Language.SANTALI,
+                                                targetLanguage = Language.HINDI,
+                                                isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                                onStateChange = { state, status ->
+                                                    studentVoiceState = state
+                                                    studentSpeechState = status
+                                                },
+                                                onResult = { result ->
+                                                    studentOutput = result
+                                                }
+                                            )
+                                            studentIsEditing = false
+                                            studentStatusMessage = ""
+                                        }
+                                    },
+                                    modifier = Modifier.align(Alignment.End),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.primary
+                                    )
+                                ) {
+                                    Text("Translate")
+                                }
+                            }
+                        }
+                    }
+
+                    // Distinct Translation Output Card (Teal successful background)
                     studentOutput?.let { result ->
-                        Card(
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer
-                            ),
-                            modifier = Modifier.fillMaxWidth()
+                        val isAmber = result.requiresReview
+                        Surface(
+                            color = if (isAmber) {
+                                MaterialTheme.colorScheme.tertiary.copy(alpha = 0.08f)
+                            } else {
+                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .border(
+                                    width = 1.dp,
+                                    color = if (isAmber) {
+                                        MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
+                                    } else {
+                                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
+                                    },
+                                    shape = RoundedCornerShape(8.dp)
+                                )
                         ) {
                             Column(
                                 modifier = Modifier.padding(16.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -654,27 +1078,67 @@ fun LiveClassroomScreen(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = "TEACHER (Hindi Translation)",
-                                        style = MaterialTheme.typography.labelLarge,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        fontWeight = FontWeight.Bold
+                                        text = "Hindi Translation",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
                                     )
-                                    Text(
-                                        text = "Offline match confidence: ${result.confidence}",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                                    )
+                                    // Confidence text & indicator dot
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.padding(horizontal = 4.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(8.dp)
+                                                .border(
+                                                    0.dp,
+                                                    Color.Transparent,
+                                                    RoundedCornerShape(4.dp)
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Surface(
+                                                color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.fillMaxSize(),
+                                                shape = RoundedCornerShape(4.dp)
+                                            ) {}
+                                        }
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = result.confidence,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                            color = if (isAmber) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
                                 }
 
-                                if (result.requiresReview) {
+                                // Large translated text
+                                Text(
+                                    text = result.translatedText,
+                                    style = MaterialTheme.typography.titleLarge.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 22.sp
+                                    ),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+
+                                // Amber warning alerts (instead of giant red blocks)
+                                if (isAmber) {
                                     Surface(
-                                        color = MaterialTheme.colorScheme.errorContainer,
-                                        shape = MaterialTheme.shapes.small
+                                        color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.12f),
+                                        shape = RoundedCornerShape(4.dp),
+                                        modifier = Modifier.border(
+                                            1.dp,
+                                            MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f),
+                                            RoundedCornerShape(4.dp)
+                                        )
                                     ) {
                                         Text(
                                             text = "⚠️ Needs teacher review",
-                                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                                            color = MaterialTheme.colorScheme.onErrorContainer,
+                                            style = MaterialTheme.typography.bodySmall.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.tertiary
+                                            ),
                                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                         )
                                     }
@@ -710,91 +1174,137 @@ fun LiveClassroomScreen(
                                                         requiresReview = false
                                                     )
                                                     studentIsEditing = false
-                                                    studentStatusMessage = "Saved to translation memory"
+                                                    studentStatusMessage = "✓ Saved to Translation Memory"
                                                 }
-                                            }
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary
+                                            ),
+                                            modifier = Modifier.weight(1f).height(44.dp)
                                         ) {
                                             Text("Save")
                                         }
-                                        OutlinedButton(onClick = { studentIsEditing = false }) {
+                                        OutlinedButton(
+                                            onClick = { studentIsEditing = false },
+                                            modifier = Modifier.weight(1f).height(44.dp)
+                                        ) {
                                             Text("Cancel")
                                         }
                                     }
                                 } else {
-                                    Text(
-                                        text = result.translatedText,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                                    )
-
                                     if (studentStatusMessage.isNotEmpty()) {
-                                        Text(
-                                            text = studentStatusMessage,
-                                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                                            color = MaterialTheme.colorScheme.primary
-                                        )
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = "Saved",
+                                                tint = MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Text(
+                                                text = studentStatusMessage,
+                                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.secondary
+                                            )
+                                        }
                                     }
 
-                                    // TTS Play status message
-                                    if (studentSpeechState != "Idle") {
-                                        Text(
-                                            text = "Voice: $studentSpeechState",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = if (studentSpeechState.startsWith("Error")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-                                        )
-                                    }
-
+                                    // Action Buttons Row (Equal weights, no text clipping)
                                     Row(
                                         modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        // Play (TTS) Button
                                         Button(
                                             onClick = {
-                                                val isSupported = textToSpeechManager.isLanguageSupported("hi")
+                                                val isSupported = speechOutputManager.isLanguageAvailable("hi")
                                                 if (!isSupported) {
-                                                    studentSpeechState = "Error: Hindi voice unavailable on this device"
+                                                    studentVoiceState = VoiceTranslationBridge.State.Error
+                                                    studentSpeechState = "Hindi voice unavailable on this device"
                                                 } else {
-                                                    textToSpeechManager.speak(
+                                                    speechOutputManager.speak(
                                                         result.translatedText,
                                                         "hi",
-                                                        onStart = { studentSpeechState = "Speaking..." },
-                                                        onDone = { studentSpeechState = "Idle" },
-                                                        onError = { err -> studentSpeechState = "Error: $err" }
+                                                        onStart = {
+                                                            studentVoiceState = VoiceTranslationBridge.State.Speaking
+                                                            studentSpeechState = "Speaking..."
+                                                        },
+                                                        onDone = {
+                                                            studentVoiceState = VoiceTranslationBridge.State.TranslationComplete
+                                                            studentSpeechState = "Translation Complete"
+                                                        },
+                                                        onError = { err ->
+                                                            studentVoiceState = VoiceTranslationBridge.State.Error
+                                                            studentSpeechState = "Audio: $err"
+                                                        }
                                                     )
                                                 }
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.primary,
-                                                contentColor = MaterialTheme.colorScheme.onPrimary
-                                            )
+                                                containerColor = MaterialTheme.colorScheme.secondary
+                                            ),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
                                         ) {
-                                            Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play")
+                                            Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Play", modifier = Modifier.size(16.dp))
                                             Spacer(modifier = Modifier.width(4.dp))
-                                            Text("Play")
+                                            Text("Play", fontSize = 13.sp)
                                         }
 
-                                        Row(
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        Button(
+                                            onClick = {
+                                                studentIsEditing = true
+                                                studentEditedText = result.translatedText
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.primary
+                                            ),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
                                         ) {
-                                            TextButton(
-                                                onClick = {
-                                                    studentIsEditing = true
-                                                    studentEditedText = result.translatedText
-                                                }
-                                            ) {
-                                                Text("Edit")
-                                            }
-                                            TextButton(
-                                                onClick = {
-                                                    clipboardManager.setText(AnnotatedString(result.translatedText))
-                                                    Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-                                                }
-                                            ) {
-                                                Text("Copy")
-                                            }
+                                            Icon(imageVector = Icons.Default.Edit, contentDescription = "Correct", modifier = Modifier.size(16.dp))
+                                            Spacer(modifier = Modifier.width(4.dp))
+                                            Text("Correct", fontSize = 13.sp)
                                         }
+
+                                        OutlinedButton(
+                                            onClick = {
+                                                clipboardManager.setText(AnnotatedString(result.translatedText))
+                                                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                                            },
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(44.dp)
+                                        ) {
+                                            Text("Copy", fontSize = 13.sp)
+                                        }
+                                    }
+
+                                    // Restored Clear Button Row (Outlined style, no TM deletion)
+                                    OutlinedButton(
+                                        onClick = {
+                                            studentInput = ""
+                                            studentOutput = null
+                                            studentVoiceState = VoiceTranslationBridge.State.Idle
+                                            studentSpeechState = ""
+                                            studentIsEditing = false
+                                            studentStatusMessage = ""
+                                            speechOutputManager.stop()
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(44.dp),
+                                        colors = ButtonDefaults.outlinedButtonColors(
+                                            contentColor = MaterialTheme.colorScheme.error
+                                        ),
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f))
+                                    ) {
+                                        Icon(imageVector = Icons.Default.Clear, contentDescription = "Clear", modifier = Modifier.size(16.dp))
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text("Clear Card")
                                     }
                                 }
                             }
@@ -806,88 +1316,22 @@ fun LiveClassroomScreen(
     }
 }
 
-private fun startTeacherListening(
-    voiceInputManager: VoiceInputManager,
-    translationEngine: TranslationEngine,
-    onResult: (String) -> Unit,
-    onError: (String) -> Unit,
-    onState: (String) -> Unit
-) {
-    voiceInputManager.startListening(
-        languageCode = "hi-IN",
-        onResult = onResult,
-        onError = onError,
-        onStateChange = onState
-    )
-}
-
-private fun startStudentListening(
-    voiceInputManager: VoiceInputManager,
-    translationEngine: TranslationEngine,
-    onResult: (String) -> Unit,
-    onError: (String) -> Unit,
-    onState: (String) -> Unit
-) {
-    voiceInputManager.startListening(
-        languageCode = "sat-IN",
-        onResult = onResult,
-        onError = onError,
-        onStateChange = onState
-    )
-}
-
 @Composable
-fun FlowCard(
-    title: String,
-    steps: List<String>
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+private fun FlowItem(icon: ImageVector, label: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary
-            )
-            HorizontalDivider()
-            steps.forEachIndexed { index, step ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(vertical = 2.dp)
-                ) {
-                    Text(
-                        text = "${index + 1}.",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = step,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-                if (index < steps.lastIndex) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 24.dp)
-                    ) {
-                        Text(
-                            text = "↓",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.secondary
-                        )
-                    }
-                }
-            }
-        }
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(16.dp)
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
-

@@ -14,8 +14,9 @@ import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
 import com.alchemists.tribetalk.ui.theme.TribeTalkTheme
-import com.alchemists.tribetalk.voice.TextToSpeechManager
+import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
+import com.alchemists.tribetalk.voice.VoiceTranslationBridge
 import java.io.File
 
 enum class Screen {
@@ -30,7 +31,8 @@ enum class Screen {
 class MainActivity : ComponentActivity() {
     private lateinit var translationEngine: OfflineFLNTranslationEngine
     private lateinit var voiceInputManager: VoiceInputManager
-    private lateinit var textToSpeechManager: TextToSpeechManager
+    private lateinit var speechOutputManager: SpeechOutputManager
+    private lateinit var voiceTranslationBridge: VoiceTranslationBridge
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +44,12 @@ class MainActivity : ComponentActivity() {
 
         // Initialize voice input and output services
         voiceInputManager = VoiceInputManager(this)
-        textToSpeechManager = TextToSpeechManager(this) { success ->
+        speechOutputManager = SpeechOutputManager(this) { success ->
             // Log or handle init state if needed
         }
+        
+        // Setup Voice translation bridge
+        voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager)
 
         setContent {
             TribeTalkTheme {
@@ -64,7 +69,8 @@ class MainActivity : ComponentActivity() {
                             LiveClassroomScreen(
                                 translationEngine = translationEngine,
                                 voiceInputManager = voiceInputManager,
-                                textToSpeechManager = textToSpeechManager,
+                                speechOutputManager = speechOutputManager,
+                                voiceTranslationBridge = voiceTranslationBridge,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
@@ -101,6 +107,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         voiceInputManager.destroy()
-        textToSpeechManager.destroy()
+        speechOutputManager.destroy()
     }
 }
