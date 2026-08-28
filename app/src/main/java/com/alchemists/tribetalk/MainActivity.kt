@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.alchemists.tribetalk.translation.MockTranslationEngine
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
@@ -23,6 +24,8 @@ enum class Screen {
 }
 
 class MainActivity : ComponentActivity() {
+    private val translationEngine = MockTranslationEngine()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,6 +44,7 @@ class MainActivity : ComponentActivity() {
                         }
                         Screen.LiveClassroom -> {
                             LiveClassroomScreen(
+                                translationEngine = translationEngine,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }

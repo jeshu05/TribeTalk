@@ -1,5 +1,6 @@
 package com.alchemists.tribetalk.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,18 +12,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.alchemists.tribetalk.translation.Language
+import com.alchemists.tribetalk.translation.TranslationEngine
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiveClassroomScreen(
+    translationEngine: TranslationEngine,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var simulatorInput by remember { mutableStateOf("") }
-    var simulatorOutput by remember { mutableStateOf("") }
-    var selectedLanguageIndex by remember { mutableIntStateOf(0) } // 0 = Hindi to Santali, 1 = Santali to Hindi
+    var sourceLanguage by remember { mutableStateOf(Language.HINDI) }
+    var targetLanguage by remember { mutableStateOf(Language.SANTALI) }
+
+    var sourceExpanded by remember { mutableStateOf(false) }
+    var targetExpanded by remember { mutableStateOf(false) }
+
+    var inputValue by remember { mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val clipboardManager = LocalClipboardManager.current
 
     Scaffold(
         topBar = {
@@ -53,7 +69,7 @@ fun LiveClassroomScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Header Info Card
+            // Header Info Card (Phase 1, preserved)
             Card(
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -70,21 +86,21 @@ fun LiveClassroomScreen(
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
-                        text = "This screen displays the translation architecture flow. In Phase 2, this will operate as a real-time, voice-activated classroom interface.",
+                        text = "This screen displays the translation architecture flow. Use the workspace below to simulate text translation between Hindi and Santali.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
             }
 
-            // Flow Diagram Title
+            // Flow Diagram Title (Phase 1, preserved)
             Text(
                 text = "Two-Way Speech Translation Flow",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.primary
             )
 
-            // Flow 1: Teacher -> Student
+            // Flow 1: Teacher -> Student (Phase 1, preserved)
             FlowCard(
                 title = "1. Teacher → Student (Hindi to Santali)",
                 steps = listOf(
@@ -96,7 +112,7 @@ fun LiveClassroomScreen(
                 )
             )
 
-            // Flow 2: Student -> Teacher
+            // Flow 2: Student -> Teacher (Phase 1, preserved)
             FlowCard(
                 title = "2. Student → Teacher (Santali to Hindi)",
                 steps = listOf(
@@ -108,106 +124,203 @@ fun LiveClassroomScreen(
                 )
             )
 
-            // Interactive Simulator Section
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Functional Translation Workspace Section (Phase 2, updated)
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
-                        text = "Translation Simulator",
+                        text = "Text Translation Workspace",
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.primary
                     )
 
-                    // Direction Selector Tab
-                    TabRow(selectedTabIndex = selectedLanguageIndex) {
-                        Tab(
-                            selected = selectedLanguageIndex == 0,
+                    // Language Selector Row
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Source Selector
+                        Box {
+                            TextButton(onClick = { sourceExpanded = true }) {
+                                Text(
+                                    text = sourceLanguage.displayName,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = sourceExpanded,
+                                onDismissRequest = { sourceExpanded = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text("Hindi") },
+                                    onClick = {
+                                        sourceLanguage = Language.HINDI
+                                        sourceExpanded = false
+                                        if (sourceLanguage == targetLanguage) {
+                                            targetLanguage = Language.SANTALI
+                                        }
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("Santali") },
+                                    onClick = {
+                                        sourceLanguage = Language.SANTALI
+                                        sourceExpanded = false
+                                        if (sourceLanguage == targetLanguage) {
+                                            targetLanguage = Language.HINDI
+                                        }
+                                    }
+                                )
+                            }
+                        }
+
+                        // Swap Button
+                        Button(
                             onClick = {
-                                selectedLanguageIndex = 0
-                                simulatorInput = ""
-                                simulatorOutput = ""
+                                val tempLang = sourceLanguage
+                                sourceLanguage = targetLanguage
+                                targetLanguage = tempLang
+
+                                val tempVal = inputValue
+                                inputValue = outputValue
+                                outputValue = tempVal
                             },
-                            text = { Text("Hindi → Santali") }
-                        )
-                        Tab(
-                            selected = selectedLanguageIndex == 1,
-                            onClick = {
-                                selectedLanguageIndex = 1
-                                simulatorInput = ""
-                                simulatorOutput = ""
-                            },
-                            text = { Text("Santali → Hindi") }
-                        )
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        ) {
+                            Text("Swap")
+                        }
+
+                        // Target Selector
+                        Box {
+                            TextButton(onClick = { targetExpanded = true }) {
+                                Text(
+                                    text = targetLanguage.displayName,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = targetExpanded,
+                                onDismissRequest = { targetExpanded = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text("Hindi") },
+                                    onClick = {
+                                        targetLanguage = Language.HINDI
+                                        targetExpanded = false
+                                        if (targetLanguage == sourceLanguage) {
+                                            sourceLanguage = Language.SANTALI
+                                        }
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("Santali") },
+                                    onClick = {
+                                        targetLanguage = Language.SANTALI
+                                        targetExpanded = false
+                                        if (targetLanguage == sourceLanguage) {
+                                            sourceLanguage = Language.HINDI
+                                        }
+                                    }
+                                )
+                            }
+                        }
                     }
 
-                    // Text Input
+                    // Multiline Text Input
                     OutlinedTextField(
-                        value = simulatorInput,
-                        onValueChange = { simulatorInput = it },
-                        label = { Text(if (selectedLanguageIndex == 0) "Type Hindi Speech Text" else "Type Santali Speech Text") },
-                        modifier = Modifier.fillMaxWidth(),
-                        maxLines = 3
+                        value = inputValue,
+                        onValueChange = { inputValue = it },
+                        placeholder = { Text("Enter or type a sentence...") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 120.dp),
+                        maxLines = 5
                     )
 
-                    // Simulator action button
-                    Button(
-                        onClick = {
-                            if (simulatorInput.isNotBlank()) {
-                                simulatorOutput = if (selectedLanguageIndex == 0) {
-                                    // Mock Hindi to Santali responses
-                                    when (simulatorInput.trim()) {
-                                        "नमस्ते", "हैलो" -> "Johar (जोहार)"
-                                        "आपका नाम क्या है?" -> "Amaḥ nutum cet’? (आमाः नुतुम चेत’?)"
-                                        "आप कैसे हैं?" -> "Ceka menama? (चेका मेनामा?)"
-                                        "चलो पढ़ते हैं" -> "Dela bon paṛhao-a (देला बोन पढ़ाओ-आ)"
-                                        else -> "[Translated Santali output placeholder]"
-                                    }
-                                } else {
-                                    // Mock Santali to Hindi responses
-                                    when (simulatorInput.trim().lowercase()) {
-                                        "johar", "जोहार" -> "नमस्ते (Namaste)"
-                                        "ceka menama?", "चेका मेनामा?" -> "आप कैसे हैं? (Aap kaise hain?)"
-                                        "amaḥ nutum cet’?", "आमाः नुतुम चेत’?" -> "आपका नाम क्या है? (Aapka naam kya hai?)"
-                                        else -> "[Translated Hindi output placeholder]"
-                                    }
-                                }
-                            }
-                        },
+                    // Action buttons
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        enabled = simulatorInput.isNotBlank()
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        Icon(imageVector = Icons.Default.Refresh, contentDescription = "Simulate")
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Simulate Pipeline")
+                        Button(
+                            onClick = {
+                                if (inputValue.isNotBlank()) {
+                                    outputValue = translationEngine.translate(
+                                        inputValue,
+                                        sourceLanguage,
+                                        targetLanguage
+                                    )
+                                }
+                            },
+                            modifier = Modifier.weight(1f),
+                            enabled = inputValue.isNotBlank()
+                        ) {
+                            Icon(imageVector = Icons.Default.Refresh, contentDescription = "Translate")
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Translate")
+                        }
+
+                        OutlinedButton(
+                            onClick = {
+                                inputValue = ""
+                                outputValue = ""
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text("Clear")
+                        }
                     }
 
-                    if (simulatorOutput.isNotEmpty()) {
-                        // Simulated translation result container
+                    if (outputValue.isNotEmpty()) {
+                        // Output Card
                         Card(
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer
                             ),
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Column(modifier = Modifier.padding(12.dp)) {
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
                                 Text(
-                                    text = "Simulated Pipeline Output:",
+                                    text = "Translated Text (Demo Output)",
                                     style = MaterialTheme.typography.labelLarge,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                                     fontWeight = FontWeight.Bold
                                 )
-                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = simulatorOutput,
+                                    text = outputValue,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer
                                 )
+                                Box(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    contentAlignment = Alignment.BottomEnd
+                                ) {
+                                    TextButton(
+                                        onClick = {
+                                            clipboardManager.setText(AnnotatedString(outputValue))
+                                            Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                                        }
+                                    ) {
+                                        Text("Copy Output")
+                                    }
+                                }
                             }
                         }
                     }
