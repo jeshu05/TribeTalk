@@ -4,7 +4,7 @@
             "outputFile": "com.alchemists.tribetalk.app-mergeDebugResources-41:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\keshv\\.gradle\\caches\\8.14.3\\transforms\\43006fec41d81a65ff1c181ade030818\\transformed\\core-1.13.1\\res\\values-v21\\values-v21.xml",
+                    "source": "C:\\Users\\keshv\\.gradle\\caches\\8.14.3\\transforms\\3c2dfb7d37226640098a3465b024e38a\\transformed\\core-1.13.1\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

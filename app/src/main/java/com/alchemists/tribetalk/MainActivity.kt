@@ -8,11 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.alchemists.tribetalk.translation.MockTranslationEngine
+import com.alchemists.tribetalk.translation.OfflineFLNTranslationEngine
+import com.alchemists.tribetalk.translation.TranslationMemory
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
 import com.alchemists.tribetalk.ui.theme.TribeTalkTheme
+import com.alchemists.tribetalk.voice.TextToSpeechManager
+import com.alchemists.tribetalk.voice.VoiceInputManager
+import java.io.File
 
 enum class Screen {
     Dashboard,
@@ -24,10 +28,24 @@ enum class Screen {
 }
 
 class MainActivity : ComponentActivity() {
-    private val translationEngine = MockTranslationEngine()
+    private lateinit var translationEngine: OfflineFLNTranslationEngine
+    private lateinit var voiceInputManager: VoiceInputManager
+    private lateinit var textToSpeechManager: TextToSpeechManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Setup persistent translation memory and FLN engine
+        val tmFile = File(filesDir, "translation_memory.csv")
+        val translationMemory = TranslationMemory(tmFile)
+        translationEngine = OfflineFLNTranslationEngine(translationMemory)
+
+        // Initialize voice input and output services
+        voiceInputManager = VoiceInputManager(this)
+        textToSpeechManager = TextToSpeechManager(this) { success ->
+            // Log or handle init state if needed
+        }
+
         setContent {
             TribeTalkTheme {
                 Surface(
@@ -45,6 +63,8 @@ class MainActivity : ComponentActivity() {
                         Screen.LiveClassroom -> {
                             LiveClassroomScreen(
                                 translationEngine = translationEngine,
+                                voiceInputManager = voiceInputManager,
+                                textToSpeechManager = textToSpeechManager,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
@@ -76,5 +96,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        voiceInputManager.destroy()
+        textToSpeechManager.destroy()
     }
 }
