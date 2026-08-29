@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.alchemists.tribetalk.translation.TranslationEngineTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-08-28T17:34:33.039Z" hostname="JK" time="0.092">
+  <properties/>
+  <testcase name="testEmptyInput" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.05"/>
+  <testcase name="testSantaliToHindiExactMatch" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.003"/>
+  <testcase name="testTeacherCorrectionAndMemoryRetrieval" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.014"/>
+  <testcase name="testUnknownPhrase" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.004"/>
+  <testcase name="testConfidenceLevels" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.008"/>
+  <testcase name="testPunctuationNormalization" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.003"/>
+  <testcase name="testWhitespaceNormalization" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.002"/>
+  <testcase name="testDuplicateCorrectionHandling" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.002"/>
+  <testcase name="testHindiToSantaliExactMatch" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.002"/>
+  <testcase name="testCaseNormalization" classname="com.alchemists.tribetalk.translation.TranslationEngineTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
