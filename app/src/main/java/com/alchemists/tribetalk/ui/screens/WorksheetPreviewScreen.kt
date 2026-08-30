@@ -24,22 +24,30 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.filled.Translate
+import com.alchemists.tribetalk.translation.TranslationEngine
 import com.alchemists.tribetalk.worksheet.QuestionType
 import com.alchemists.tribetalk.worksheet.Worksheet
+import com.alchemists.tribetalk.worksheet.WorksheetGenerator
 import com.alchemists.tribetalk.worksheet.WorksheetPdfExporter
 import com.alchemists.tribetalk.worksheet.WorksheetQuestion
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
  * Screen 2: Worksheet Preview & Teacher Editing.
  *
  * Displays the generated bilingual activities in stacked Hindi + Santali blocks.
- * Enables in-place teacher corrections and native offline A4 PDF export with Open, Share, and Print actions.
+ * Enables in-place teacher corrections, dynamic Hindi -> Santali re-translation,
+ * and native offline A4 PDF export with Open, Share, and Print actions.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorksheetPreviewScreen(
     initialWorksheet: Worksheet,
+    translationEngine: TranslationEngine,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -233,6 +241,7 @@ fun WorksheetPreviewScreen(
         TeacherEditQuestionDialog(
             question = questionToEdit,
             questionNumber = index + 1,
+            translationEngine = translationEngine,
             onDismiss = { editingQuestionIndex = null },
             onSave = { updatedQuestion ->
                 val newQuestions = currentWorksheet.questions.toMutableList().apply {
@@ -450,6 +459,7 @@ fun QuestionPreviewCard(
 fun TeacherEditQuestionDialog(
     question: WorksheetQuestion,
     questionNumber: Int,
+    translationEngine: TranslationEngine,
     onDismiss: () -> Unit,
     onSave: (WorksheetQuestion) -> Unit
 ) {
@@ -458,6 +468,11 @@ fun TeacherEditQuestionDialog(
     var selectedType by remember { mutableStateOf(question.type) }
     var optionsText by remember { mutableStateOf(question.options.joinToString("\n")) }
     var answerText by remember { mutableStateOf(question.answer) }
+    var isTranslating by remember { mutableStateOf(false) }
+    var statusMessage by remember { mutableStateOf<String?>(null) }
+
+    val coroutineScope = rememberCoroutineScope()
+    val worksheetGenerator = remember(translationEngine) { WorksheetGenerator(translationEngine) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -474,17 +489,90 @@ fun TeacherEditQuestionDialog(
                 // Hindi Field
                 OutlinedTextField(
                     value = hindiText,
-                    onValueChange = { hindiText = it },
+                    onValueChange = {
+                        hindiText = it
+                        statusMessage = null
+                    },
                     label = { Text("Hindi Text (हिन्दी)") },
                     minLines = 2,
                     maxLines = 4,
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Santali Field
+                // Secondary Action: Translate to Santali
+                OutlinedButton(
+                    onClick = {
+                        if (hindiText.isBlank()) {
+                            statusMessage = "Please enter Hindi text to translate."
+                            return@OutlinedButton
+                        }
+                        isTranslating = true
+                        statusMessage = null
+                        coroutineScope.launch {
+                            try {
+                                val result = withContext(Dispatchers.Default) {
+                                    worksheetGenerator.retranslateQuestionText(hindiText, selectedType)
+                                }
+                                santaliText = result
+                                if (result == "Translation unavailable for this text") {
+                                    statusMessage = "Translation unavailable for this text."
+                                } else {
+                                    statusMessage = "✓ Translated from edited Hindi"
+                                }
+                            } catch (e: Exception) {
+                                statusMessage = "Unable to translate. Please try again."
+                            } finally {
+                                isTranslating = false
+                            }
+                        }
+                    },
+                    enabled = !isTranslating && hindiText.isNotBlank(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(44.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    if (isTranslating) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            strokeWidth = 2.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Translating...", style = MaterialTheme.typography.labelMedium)
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.Translate,
+                            contentDescription = "Translate to Santali",
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            "TRANSLATE TO SANTALI",
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                }
+
+                if (statusMessage != null) {
+                    Text(
+                        text = statusMessage ?: "",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (statusMessage?.startsWith("✓") == true) Color(0xFF2F8F83) else MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(horizontal = 4.dp)
+                    )
+                }
+
+                // Santali Field (Editable manually, teacher changes are preserved)
                 OutlinedTextField(
                     value = santaliText,
-                    onValueChange = { santaliText = it },
+                    onValueChange = {
+                        santaliText = it
+                        statusMessage = null
+                    },
                     label = { Text("Santali Text (ᱥᱟᱱᱛᱟᱲᱤ)") },
                     minLines = 2,
                     maxLines = 4,

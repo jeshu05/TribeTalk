@@ -108,6 +108,7 @@ class MainActivity : ComponentActivity() {
                             } else {
                                 WorksheetPreviewScreen(
                                     initialWorksheet = generatedWorksheet!!,
+                                    translationEngine = translationEngine,
                                     onBack = { generatedWorksheet = null }
                                 )
                             }

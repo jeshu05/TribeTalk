@@ -174,6 +174,64 @@ class WorksheetGenerator(
     }
 
     /**
+     * Re-translates a teacher-edited Hindi question text into Santali for a specific QuestionType.
+     * Preserves question prefixes/structure where appropriate and returns "Translation unavailable for this text" if not found.
+     */
+    fun retranslateQuestionText(hindiText: String, type: QuestionType): String {
+        val trimmed = hindiText.trim()
+        if (trimmed.isEmpty()) return ""
+
+        // Extract core content if standard activity prefixes are present
+        val cleanHindi = when (type) {
+            QuestionType.WORD_MEANING -> {
+                trimmed.removePrefix("शब्द का संथाली में अर्थ लिखो:").removePrefix("शब्द का अर्थ:").trim()
+            }
+            QuestionType.FILL_IN_THE_BLANK -> {
+                trimmed.removePrefix("रिक्त स्थान भरो:").removePrefix("खाली जगह भरो:").trim()
+            }
+            QuestionType.MULTIPLE_CHOICE -> {
+                trimmed.removePrefix("पाठ के अनुसार सही विकल्प चुनें (")
+                    .removePrefix("सही विकल्प चुनें:")
+                    .removeSuffix("):")
+                    .trim()
+            }
+            QuestionType.READ_AND_ANSWER -> {
+                trimmed.removePrefix("पढ़ो और उत्तर लिखो:").removePrefix("पढ़ो और उत्तर लिखो:").removeSurrounding("'").trim()
+            }
+            QuestionType.MATCHING -> {
+                trimmed.removePrefix("सही जोड़ी मिलाओ (Match the Following):").trim()
+            }
+        }
+
+        // Check if there are multiple lines (like in matching)
+        if (type == QuestionType.MATCHING && cleanHindi.lines().size > 1) {
+            val lines = cleanHindi.lines().filter { it.isNotBlank() }
+            val translatedLines = lines.mapIndexed { index, line ->
+                val lineContent = line.replace(Regex("^\\d+\\.\\s*"), "").trim()
+                val lineSantali = translateToSantali(lineContent)
+                val displaySantali = if (lineSantali == "Translation unavailable") "Translation unavailable for this text" else lineSantali
+                "${('A' + index)}. $displaySantali"
+            }
+            return "ᱥᱟᱹᱨᱤ ᱡᱚᱲ ᱢᱮᱞᱟᱣ ᱢᱮ:\n" + translatedLines.joinToString("\n")
+        }
+
+        // Translate the clean content
+        val santaliTranslation = translateToSantali(cleanHindi)
+        if (santaliTranslation == "Translation unavailable" || santaliTranslation.isBlank()) {
+            return "Translation unavailable for this text"
+        }
+
+        // Wrap back with question structure if appropriate
+        return when (type) {
+            QuestionType.WORD_MEANING -> "ᱱᱚᱶᱟ ᱟᱹᱲᱟᱹ ᱨᱮᱭᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱢᱮᱱᱮᱛ ᱚᱞ ᱢᱮ: $santaliTranslation"
+            QuestionType.FILL_IN_THE_BLANK -> "ᱠᱷᱟᱹᱞᱤ ᱴᱷᱟᱶ ᱯᱮᱨᱮᱡᱽ ᱢᱮ: $santaliTranslation"
+            QuestionType.MULTIPLE_CHOICE -> "ᱯᱟᱴᱷ ᱞᱮᱠᱟᱛᱮ ᱥᱟᱹᱨᱤ ᱵᱟᱪᱷᱟᱣ ᱢᱮ: $santaliTranslation"
+            QuestionType.READ_AND_ANSWER -> "ᱯᱟᱲᱦᱟᱣ ᱢᱮ ᱟᱨ ᱛᱮᱞᱟ ᱚᱞ ᱢᱮ: '$santaliTranslation'"
+            QuestionType.MATCHING -> santaliTranslation
+        }
+    }
+
+    /**
      * Translates a given Hindi text into Santali using the existing TranslationEngine.
      * If the engine does not provide a valid match, checks the FLN Curriculum Database or returns "Translation unavailable".
      */

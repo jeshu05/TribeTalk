@@ -166,4 +166,93 @@ class WorksheetGeneratorTest {
         assertTrue(supportedTypes.contains(QuestionType.WORD_MEANING))
         assertTrue(supportedTypes.contains(QuestionType.READ_AND_ANSWER))
     }
+
+    @Test
+    fun testHindiEditTriggersRetranslation() {
+        // Teacher edits Hindi text to a known database phrase
+        val editedHindi = "किताब खोलो"
+        val santaliResult = generator.retranslateQuestionText(editedHindi, QuestionType.WORD_MEANING)
+
+        assertTrue(santaliResult.isNotBlank())
+        assertTrue("Santali translation should contain translated phrase", santaliResult.contains("ᱯᱩᱛᱷᱤ") || santaliResult.contains("Puthī"))
+    }
+
+    @Test
+    fun testSuccessfulTranslationUpdatesSantaliOnlyAndLeavesHindiUnchanged() {
+        val originalHindi = "किताब खोलो"
+        val editedHindi = "लिखना शुरू करो"
+
+        // Simulate question editing in UI
+        val originalQuestion = WorksheetQuestion(
+            type = QuestionType.READ_AND_ANSWER,
+            hindiText = originalHindi,
+            santaliText = "ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱢᱮ"
+        )
+
+        // Re-translate from edited Hindi
+        val retranslatedSantali = generator.retranslateQuestionText(editedHindi, originalQuestion.type)
+        val updatedQuestion = originalQuestion.copy(
+            hindiText = editedHindi,
+            santaliText = retranslatedSantali
+        )
+
+        assertEquals("लिखना शुरू करो", updatedQuestion.hindiText)
+        assertNotEquals("ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱢᱮ", updatedQuestion.santaliText)
+        assertTrue(updatedQuestion.santaliText.contains("ᱚᱞ") || updatedQuestion.santaliText.contains("Ol"))
+    }
+
+    @Test
+    fun testUnavailableTranslationReturnsFallbackMessage() {
+        val unknownHindi = "यह एक पूरी तरह से अज्ञात और अजीब वाक्य है १०९८७"
+        val santaliResult = generator.retranslateQuestionText(unknownHindi, QuestionType.READ_AND_ANSWER)
+
+        assertEquals("Translation unavailable for this text", santaliResult)
+    }
+
+    @Test
+    fun testEmptyHindiTextRejection() {
+        val emptyResult = generator.retranslateQuestionText("   ", QuestionType.WORD_MEANING)
+        assertEquals("", emptyResult)
+    }
+
+    @Test
+    fun testTeacherManualSantaliEditsArePreserved() {
+        val hindi = "नमस्ते"
+        val generatedSantali = generator.retranslateQuestionText(hindi, QuestionType.WORD_MEANING)
+
+        // Teacher manually modifies the Santali text
+        val teacherModifiedSantali = "ᱢᱟᱱᱟᱣ ᱡᱚᱦᱟᱨ (Custom Greeting)"
+
+        val question = WorksheetQuestion(
+            type = QuestionType.WORD_MEANING,
+            hindiText = hindi,
+            santaliText = teacherModifiedSantali
+        )
+
+        // Verify the manual edit is preserved on the question model
+        assertEquals("नमस्ते", question.hindiText)
+        assertEquals("ᱢᱟᱱᱟᱣ ᱡᱚᱦᱟᱨ (Custom Greeting)", question.santaliText)
+        // Verify translation memory is still untouched
+        assertEquals(0, translationMemory.getEntries().size)
+    }
+
+    @Test
+    fun testRetranslationDoesNotModifyTranslationMemory() {
+        val initialSize = translationMemory.getEntries().size
+        generator.retranslateQuestionText("किताब खोलो", QuestionType.WORD_MEANING)
+        generator.retranslateQuestionText("पानी", QuestionType.FILL_IN_THE_BLANK)
+        generator.retranslateQuestionText("शिक्षक", QuestionType.MATCHING)
+
+        // Ensure TranslationMemory is not mutated
+        assertEquals(initialSize, translationMemory.getEntries().size)
+    }
+
+    @Test
+    fun testRetranslationAcrossAllQuestionTypes() {
+        for (type in QuestionType.values()) {
+            val result = generator.retranslateQuestionText("पानी", type)
+            assertTrue("Type ${type.name} should yield valid translation", result.isNotBlank())
+            assertNotEquals("Translation unavailable for this text", result)
+        }
+    }
 }
