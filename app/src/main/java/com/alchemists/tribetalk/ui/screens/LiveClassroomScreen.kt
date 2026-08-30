@@ -95,6 +95,7 @@ fun LiveClassroomScreen(
     var isLiveVoiceRequested by remember { mutableStateOf(false) }
 
     fun startLiveVoiceSessionCoordinator() {
+        android.util.Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_INITIALIZING")
         android.util.Log.i("VoiceIntegration", "ASR_INITIALIZED")
         android.util.Log.i("LiveHindiASR", "ASR INITIALIZATION STARTED")
         isLiveVoiceActive = true
@@ -113,6 +114,7 @@ fun LiveClassroomScreen(
                 }
             },
             onUtteranceResult = { hindi, transRes ->
+                android.util.Log.i("VOICE", "[VOICE] SANTALI_TEXT = \"${transRes.translatedText}\" (${transRes.latinPhonetic})")
                 liveHindiUtterance = hindi
                 liveSantaliUtterance = transRes.translatedText
                 liveSantaliPhonetic = transRes.latinPhonetic
@@ -128,10 +130,12 @@ fun LiveClassroomScreen(
         voiceInputManager.startContinuousListening(
             languageCode = "hi-IN",
             onPartial = { partial ->
+                android.util.Log.i("VOICE", "[VOICE] HINDI_PARTIAL = $partial")
                 liveHindiUtterance = partial
                 voiceTranslationBridge.handleLivePartial(partial)
             },
             onFinal = { finalHindi ->
+                android.util.Log.i("VOICE", "[VOICE] HINDI_FINAL = $finalHindi")
                 liveHindiUtterance = finalHindi
                 voiceTranslationBridge.enqueueLiveUtterance(finalHindi)
             },
@@ -141,6 +145,7 @@ fun LiveClassroomScreen(
             },
             onStateChange = { stateStr ->
                 if (isLiveVoiceActive && (stateStr == "Listening..." || stateStr == "LIVE LISTENING")) {
+                    android.util.Log.i("VOICE", "[VOICE] ASR_LISTENING")
                     liveStatusLabel = "LIVE LISTENING"
                 }
             }
@@ -154,6 +159,7 @@ fun LiveClassroomScreen(
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
+            android.util.Log.i("VOICE", "[VOICE] RECORD_AUDIO_PERMISSION = ${if (isGranted) "GRANTED" else "DENIED"}")
             android.util.Log.i("LiveHindiASR", "MICROPHONE PERMISSION RESULT: isGranted=$isGranted")
             if (isGranted) {
                 android.util.Log.i("VoiceIntegration", "MIC_PERMISSION_GRANTED")
@@ -496,6 +502,7 @@ fun LiveClassroomScreen(
                     // Master Action Button: START LIVE VOICE / STOP LIVE VOICE
                     Button(
                         onClick = {
+                            android.util.Log.i("VOICE", "[VOICE] BUTTON_PRESSED")
                             android.util.Log.i("VoiceIntegration", "BUTTON_PRESSED")
                             android.util.Log.i("LiveHindiASR", "LIVE VOICE BUTTON PRESSED")
                             if (isLiveVoiceActive) {
@@ -508,6 +515,7 @@ fun LiveClassroomScreen(
                                     context,
                                     Manifest.permission.RECORD_AUDIO
                                 ) == PackageManager.PERMISSION_GRANTED
+                                android.util.Log.i("VOICE", "[VOICE] RECORD_AUDIO_PERMISSION = ${if (hasPermission) "GRANTED" else "DENIED"}")
                                 android.util.Log.i("LiveHindiASR", "MICROPHONE PERMISSION CHECK: granted=$hasPermission")
 
                                 if (hasPermission) {

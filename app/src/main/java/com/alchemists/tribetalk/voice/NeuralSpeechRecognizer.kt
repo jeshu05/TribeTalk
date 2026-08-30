@@ -71,6 +71,7 @@ class NeuralSpeechRecognizer(
         onResult: (String) -> Unit,
         onError: (String) -> Unit
     ) {
+        Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_INITIALIZING")
         Log.i(TAG, "[HindiASR] ASR START: Requested language=$languageCode")
         stopListening(onResult = null)
 
@@ -85,16 +86,39 @@ class NeuralSpeechRecognizer(
         val bufferSize = (minBufferSize * 2).coerceAtLeast(3200)
 
         try {
-            audioRecord = AudioRecord(
+            var initializedRecord: AudioRecord? = null
+            val audioSources = listOf(
                 MediaRecorder.AudioSource.VOICE_RECOGNITION,
-                SAMPLE_RATE,
-                CHANNEL_CONFIG,
-                AUDIO_FORMAT,
-                bufferSize
+                MediaRecorder.AudioSource.MIC,
+                MediaRecorder.AudioSource.DEFAULT
             )
 
-            if (audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
-                val err = "AudioRecord initialization failed"
+            for (src in audioSources) {
+                try {
+                    val candidate = AudioRecord(
+                        src,
+                        SAMPLE_RATE,
+                        CHANNEL_CONFIG,
+                        AUDIO_FORMAT,
+                        bufferSize
+                    )
+                    if (candidate.state == AudioRecord.STATE_INITIALIZED) {
+                        initializedRecord = candidate
+                        Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_STARTED (source=$src, 16kHz Mono 16-bit PCM)")
+                        Log.i("VOICE", "[VOICE] ASR_LISTENING")
+                        break
+                    } else {
+                        candidate.release()
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "AudioSource $src failed: ${e.message}")
+                }
+            }
+
+            audioRecord = initializedRecord
+
+            if (audioRecord == null || audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
+                val err = "AudioRecord initialization failed across all audio sources"
                 Log.e(TAG, "[HindiASR] ASR ERROR: $err")
                 mainHandler.post { onError(err) }
                 return
@@ -183,6 +207,7 @@ class NeuralSpeechRecognizer(
             if (resultCallback != null) {
                 scope.launch {
                     val transcribedText = indicConformerAsr.transcribe(pcmArray)
+                    Log.i("VOICE", "[VOICE] HINDI_FINAL = $transcribedText")
                     Log.i(TAG, "[HindiASR] FINAL RESULT: \"$transcribedText\"")
                     mainHandler.post {
                         resultCallback.invoke(transcribedText)

@@ -32,13 +32,13 @@ data class TtsHealthStatus(
  */
 class RealSantaliTTSProvider(
     private val context: Context,
-    var serverUrl: String = "http://10.0.2.2:8000"
+    var serverUrl: String = "http://172.16.102.22:8000"
 ) : AutoCloseable {
 
     companion object {
         private const val TAG = "RealSantaliTTS"
-        private const val CONNECT_TIMEOUT_MS = 6000
-        private const val READ_TIMEOUT_MS = 15000
+        private const val CONNECT_TIMEOUT_MS = 10000
+        private const val READ_TIMEOUT_MS = 45000
     }
 
     private var mediaPlayer: MediaPlayer? = null
@@ -98,6 +98,8 @@ class RealSantaliTTSProvider(
 
         val cleanUrl = serverUrl.trimEnd('/')
         val url = URL("$cleanUrl/synthesize")
+        Log.i("TTS", "[TTS] REQUEST_STARTED")
+        Log.i("TTS", "[TTS] SERVER_URL = $cleanUrl")
 
         val payload = JSONObject().apply {
             put("text", trimmed)
@@ -111,6 +113,7 @@ class RealSantaliTTSProvider(
             setRequestProperty("Content-Type", "application/json; charset=utf-8")
             setRequestProperty("Accept", "audio/wav")
         }
+        Log.i("TTS", "[TTS] HTTP_REQUEST_SENT")
 
         conn.outputStream.use { os ->
             os.write(payload)
@@ -118,8 +121,10 @@ class RealSantaliTTSProvider(
         }
 
         val code = conn.responseCode
+        Log.i("TTS", "[TTS] HTTP_STATUS = $code")
         if (code == 200) {
             val wavBytes = conn.inputStream.use { it.readBytes() }
+            Log.i("TTS", "[TTS] RESPONSE_BYTES = ${wavBytes.size}")
             Log.i(TAG, "[TTS SYNTHESIS] Received ${wavBytes.size} bytes WAV for: \"$trimmed\"")
             wavBytes
         } else {
@@ -149,6 +154,8 @@ class RealSantaliTTSProvider(
             try {
                 val cleanUrl = serverUrl.trimEnd('/')
                 val url = URL("$cleanUrl/synthesize")
+                Log.i("TTS", "[TTS] REQUEST_STARTED")
+                Log.i("TTS", "[TTS] SERVER_URL = $cleanUrl")
 
                 val payload = JSONObject().apply {
                     put("text", trimmed)
@@ -162,6 +169,7 @@ class RealSantaliTTSProvider(
                     setRequestProperty("Content-Type", "application/json; charset=utf-8")
                     setRequestProperty("Accept", "audio/wav")
                 }
+                Log.i("TTS", "[TTS] HTTP_REQUEST_SENT")
 
                 conn.outputStream.use { os ->
                     os.write(payload)
@@ -169,8 +177,10 @@ class RealSantaliTTSProvider(
                 }
 
                 val code = conn.responseCode
+                Log.i("TTS", "[TTS] HTTP_STATUS = $code")
                 if (code == 200) {
                     val wavBytes = conn.inputStream.use { it.readBytes() }
+                    Log.i("TTS", "[TTS] RESPONSE_BYTES = ${wavBytes.size}")
                     if (wavBytes.isNotEmpty()) {
                         mainHandler.post {
                             playWavBytes(wavBytes, onStart, onComplete, onError)
@@ -204,29 +214,37 @@ class RealSantaliTTSProvider(
             FileOutputStream(tempFile).use { fos ->
                 fos.write(wavBytes)
             }
+            Log.i("TTS", "[TTS] WAV_SAVED = ${tempFile.absolutePath}")
+            Log.i("PLAYER", "[PLAYER] FILE_EXISTS = ${tempFile.exists()}")
+            Log.i("PLAYER", "[PLAYER] FILE_SIZE = ${tempFile.length()}")
 
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                        .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
                 )
                 setDataSource(tempFile.absolutePath)
                 setOnPreparedListener { mp ->
                     isPlayingAudio = true
+                    Log.i("PLAYER", "[PLAYER] PREPARE_SUCCESS")
+                    Log.i("TTS", "[TTS] PLAYBACK_STARTED")
+                    Log.i("PLAYER", "[PLAYER] STARTED")
                     onStart()
                     mp.start()
                     Log.i(TAG, "[TTS PLAYBACK] Audio playback started (${wavBytes.size} bytes)")
                 }
                 setOnCompletionListener {
                     isPlayingAudio = false
+                    Log.i("PLAYER", "[PLAYER] COMPLETED")
                     Log.i(TAG, "[TTS PLAYBACK] Audio playback completed")
                     stop()
                     onComplete()
                 }
                 setOnErrorListener { _, what, extra ->
                     isPlayingAudio = false
+                    Log.e("PLAYER", "[PLAYER] ERROR: what=$what, extra=$extra")
                     Log.e(TAG, "[TTS PLAYBACK ERROR] MediaPlayer error: what=$what, extra=$extra")
                     stop()
                     onError("MediaPlayer error ($what, $extra)")
@@ -236,6 +254,7 @@ class RealSantaliTTSProvider(
             }
         } catch (e: Exception) {
             isPlayingAudio = false
+            Log.e("PLAYER", "[PLAYER] EXCEPTION: ${e.localizedMessage}", e)
             Log.e(TAG, "[TTS PLAYBACK ERROR] Failed to start playback", e)
             onError("Playback error: ${e.localizedMessage}")
         }
