@@ -159,6 +159,7 @@ class VoiceInputManager(
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
                 setRecognitionListener(object : RecognitionListener {
                     override fun onReadyForSpeech(params: Bundle?) {
+                        Log.i("VOICE", "[VOICE] ASR_LISTENING")
                         Log.i("VoiceIntegration", "ASR_LISTENING")
                         Log.i(TAG, "ASR LISTENING")
                         onStateChangeCallback?.invoke(if (isContinuousSession) "LIVE LISTENING" else "Listening...")
@@ -166,18 +167,24 @@ class VoiceInputManager(
 
                     override fun onBeginningOfSpeech() {
                         if (!isPlaybackActive) {
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] AUDIO_FRAME_RECEIVED")
                             Log.i(TAG, "AUDIO RECEIVED: Speech started")
-                            onStateChangeCallback?.invoke("Recording...")
+                            onStateChangeCallback?.invoke("ASR RECEIVING AUDIO")
                         }
                     }
 
-                    override fun onRmsChanged(rmsdB: Float) {}
+                    override fun onRmsChanged(rmsdB: Float) {
+                        if (!isPlaybackActive && rmsdB > 2.0f) {
+                            Log.d("ASR_DEBUG", "[ASR_DEBUG] rmsdB=${String.format("%.1f", rmsdB)}")
+                        }
+                    }
 
                     override fun onBufferReceived(buffer: ByteArray?) {
                         Log.v(TAG, "AUDIO RECEIVED: buffer size=${buffer?.size ?: 0}")
                     }
 
                     override fun onEndOfSpeech() {
+                        Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_STARTED")
                         Log.i(TAG, "AUDIO RECEIVED: Speech ended, decoding results")
                         onStateChangeCallback?.invoke("Processing...")
                     }
@@ -216,6 +223,9 @@ class VoiceInputManager(
                         val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                         val text = matches?.firstOrNull { it.isNotBlank() }
                         if (!isPlaybackActive && !text.isNullOrBlank()) {
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_COMPLETED")
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] FINAL_RESULT = \"$text\"")
+                            Log.i("VOICE", "[VOICE] HINDI_FINAL = $text")
                             Log.i(TAG, "ASR FINAL RESULT: \"$text\"")
                             onFinalCallback?.invoke(text)
                         } else if (!isContinuousSession) {
@@ -237,6 +247,8 @@ class VoiceInputManager(
                         val partialMatches = partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                         val partialText = partialMatches?.firstOrNull { it.isNotBlank() }
                         if (!partialText.isNullOrBlank()) {
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] PARTIAL_RESULT = \"$partialText\"")
+                            Log.i("VOICE", "[VOICE] HINDI_PARTIAL = $partialText")
                             Log.d(TAG, "ASR PARTIAL RESULT: \"$partialText\"")
                             onPartialCallback?.invoke(partialText)
                             onStateChangeCallback?.invoke("Recognizing: $partialText")
@@ -254,8 +266,7 @@ class VoiceInputManager(
                 putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, activeLanguageCode)
                 putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
                 putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-                putExtra("android.speech.extra.DICTATION_MODE", true)
-                putExtra("android.speech.extra.PREFER_OFFLINE", true)
+                putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
             }
 
             speechRecognizer?.startListening(intent)

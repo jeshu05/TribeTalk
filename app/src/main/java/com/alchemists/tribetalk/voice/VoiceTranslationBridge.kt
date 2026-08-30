@@ -114,6 +114,7 @@ class VoiceTranslationBridge(
         }
 
         val rawText = queuedItem.hindiText
+        Log.i("VOICE_PIPELINE", "[VOICE_PIPELINE] HINDI_FINAL = \"$rawText\"")
         Log.i("VoiceIntegration", "HINDI_RESULT = \"$rawText\"")
 
         // 1. NLP Processing
@@ -133,6 +134,7 @@ class VoiceTranslationBridge(
 
         // 2. Translation
         tracker.markTranslationStart()
+        Log.i("VOICE_PIPELINE", "[VOICE_PIPELINE] TRANSLATION_STARTED (text=\"${nlpResult.normalizedText}\")")
         onStateChange(State.Translating, "Translating...")
         val translationResult = try {
             withContext(Dispatchers.IO) {
@@ -150,6 +152,7 @@ class VoiceTranslationBridge(
         }
 
         tracker.markTranslationEnd()
+        Log.i("VOICE_PIPELINE", "[VOICE_PIPELINE] SANTALI_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
         Log.i("VoiceIntegration", "TRANSLATION_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
         onUtteranceResult(nlpResult.normalizedText, translationResult)
 

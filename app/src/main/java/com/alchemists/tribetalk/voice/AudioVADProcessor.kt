@@ -11,12 +11,12 @@ import kotlin.math.abs
  */
 class AudioVADProcessor(
     private val sampleRate: Int = 16000,
-    private val energyThreshold: Double = 600.0,
-    private val silenceLimitMs: Int = 100
+    private val energyThreshold: Double = 100.0,
+    private val silenceLimitMs: Int = 300
 ) {
     // 30ms frame at 16kHz = 480 samples
     val frameSizeSamples: Int = (sampleRate * 0.030).toInt()
-    private val silenceFramesLimit: Int = silenceLimitMs / 30 // ~3 frames
+    private val silenceFramesLimit: Int = silenceLimitMs / 30 // ~10 frames (300ms)
 
     private var consecutiveSilenceFrames = 0
     private val activeVoiceBuffer = mutableListOf<Short>()
@@ -53,8 +53,8 @@ class AudioVADProcessor(
                     if (consecutiveSilenceFrames <= silenceFramesLimit) {
                         for (s in frame) activeVoiceBuffer.add(s)
                     } else {
-                        // Silent interval exceeds 100ms: emit active voice segment if >= 1 sec (or at least 0.5s)
-                        if (activeVoiceBuffer.size >= sampleRate / 2) {
+                        // Silent interval exceeds limit: emit active voice segment if >= 0.3 sec
+                        if (activeVoiceBuffer.size >= sampleRate * 0.3) {
                             onVoiceFrame(activeVoiceBuffer.toShortArray())
                         }
                         activeVoiceBuffer.clear()
@@ -74,12 +74,12 @@ class AudioVADProcessor(
             }
         }
         val avgEnergy = sumEnergy / frame.size
-        // Voice characteristics: sufficient energy + normal speech zero-crossing rate
-        return avgEnergy > energyThreshold && zeroCrossings > 10 && zeroCrossings < 200
+        // Realistic voice characteristics for mobile device microphones
+        return avgEnergy > energyThreshold && zeroCrossings >= 3
     }
 
     fun flush(onVoiceFrame: (ShortArray) -> Unit) {
-        if (activeVoiceBuffer.size >= sampleRate / 4) {
+        if (activeVoiceBuffer.size >= sampleRate * 0.2) {
             onVoiceFrame(activeVoiceBuffer.toShortArray())
         }
         activeVoiceBuffer.clear()

@@ -127,26 +127,33 @@ fun LiveClassroomScreen(
         )
 
         android.util.Log.i("LiveHindiASR", "ASR START REQUESTED")
+        liveStatusLabel = "MIC STARTING"
         voiceInputManager.startContinuousListening(
             languageCode = "hi-IN",
             onPartial = { partial ->
                 android.util.Log.i("VOICE", "[VOICE] HINDI_PARTIAL = $partial")
+                liveStatusLabel = "ASR PARTIAL: $partial"
                 liveHindiUtterance = partial
                 voiceTranslationBridge.handleLivePartial(partial)
             },
             onFinal = { finalHindi ->
                 android.util.Log.i("VOICE", "[VOICE] HINDI_FINAL = $finalHindi")
+                liveStatusLabel = "ASR FINAL: $finalHindi"
                 liveHindiUtterance = finalHindi
+                teacherInput = finalHindi
                 voiceTranslationBridge.enqueueLiveUtterance(finalHindi)
             },
             onError = { err ->
                 android.util.Log.e("LiveHindiASR", "ASR ERROR: $err")
-                liveStatusLabel = "ASR: $err"
+                liveStatusLabel = "ASR ERROR: $err"
             },
             onStateChange = { stateStr ->
-                if (isLiveVoiceActive && (stateStr == "Listening..." || stateStr == "LIVE LISTENING")) {
-                    android.util.Log.i("VOICE", "[VOICE] ASR_LISTENING")
-                    liveStatusLabel = "LIVE LISTENING"
+                if (isLiveVoiceActive) {
+                    liveStatusLabel = when {
+                        stateStr.contains("Recording") || stateStr.contains("RECEIVING") -> "ASR RECEIVING AUDIO"
+                        stateStr == "Listening..." || stateStr == "LIVE LISTENING" -> "MIC ACTIVE (Listening...)"
+                        else -> stateStr
+                    }
                 }
             }
         )

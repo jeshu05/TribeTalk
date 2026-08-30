@@ -138,31 +138,54 @@ class NeuralSpeechRecognizer(
                 val audioBuffer = ShortArray(vadProcessor.frameSizeSamples) // 30ms frame (480 samples)
                 var speechDetected = false
                 var lastSpeechTimestamp = 0L
+                var frameCount = 0
+                var lastLogTime = 0L
 
                 while (isRecording) {
                     val readSamples = audioRecord?.read(audioBuffer, 0, audioBuffer.size) ?: 0
                     if (readSamples > 0) {
+                        frameCount++
+                        var sumSq = 0.0
+                        var maxAmp = 0
+                        var nonZeroCount = 0
                         for (i in 0 until readSamples) {
+                            val s = audioBuffer[i].toInt()
                             pcmAccumulator.add(audioBuffer[i])
+                            if (s != 0) nonZeroCount++
+                            val absS = abs(s)
+                            if (absS > maxAmp) maxAmp = absS
+                            sumSq += absS.toDouble() * absS.toDouble()
+                        }
+                        val rms = sqrt(sumSq / readSamples)
+
+                        val now = System.currentTimeMillis()
+                        if (now - lastLogTime >= 500L) {
+                            lastLogTime = now
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] frames=$frameCount rms=${String.format("%.1f", rms)} maxAmplitude=$maxAmp nonZeroSamples=$nonZeroCount")
+                        }
+
+                        if (rms >= 40.0 && !speechDetected) {
+                            speechDetected = true
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] AUDIO_FRAME_RECEIVED (RMS=${String.format("%.1f", rms)})")
+                            mainHandler.post { onSpeechDetected() }
                         }
 
                         vadProcessor.processSamples(audioBuffer) { _ ->
                             if (!speechDetected) {
                                 speechDetected = true
-                                Log.i(TAG, "[HindiASR] AUDIO RECEIVED: Speech activity detected by VAD")
+                                Log.i("ASR_DEBUG", "[ASR_DEBUG] Speech activity detected by VAD")
                                 mainHandler.post { onSpeechDetected() }
                             }
                             lastSpeechTimestamp = System.currentTimeMillis()
                         }
 
                         // Auto-endpoint: if speech was detected and 1.2s silence elapsed, or 6s total max
-                        val now = System.currentTimeMillis()
                         if (speechDetected && lastSpeechTimestamp > 0 && (now - lastSpeechTimestamp > 1200L)) {
-                            Log.i(TAG, "[HindiASR] Speech endpoint detected after silence")
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_STARTED (Endpoint reached)")
                             stopListening()
                             break
                         } else if (now - recordStartTimeMs > 6000L) {
-                            Log.i(TAG, "[HindiASR] Max speech duration reached (6s)")
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_STARTED (Max duration reached)")
                             stopListening()
                             break
                         }
@@ -207,6 +230,8 @@ class NeuralSpeechRecognizer(
             if (resultCallback != null) {
                 scope.launch {
                     val transcribedText = indicConformerAsr.transcribe(pcmArray)
+                    Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_COMPLETED")
+                    Log.i("ASR_DEBUG", "[ASR_DEBUG] FINAL_RESULT = \"$transcribedText\"")
                     Log.i("VOICE", "[VOICE] HINDI_FINAL = $transcribedText")
                     Log.i(TAG, "[HindiASR] FINAL RESULT: \"$transcribedText\"")
                     mainHandler.post {
