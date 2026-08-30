@@ -19,17 +19,19 @@ class VoiceInputManager(
         onError: (String) -> Unit,
         onStateChange: (String) -> Unit
     ) {
+        // Prioritize offline Neural ASR (IndicConformer) first for zero-network execution
+        if (neuralRecognizer != null) {
+            onStateChange("Listening (Offline Neural ASR)...")
+            neuralRecognizer.startListening(
+                languageCode = languageCode,
+                onSpeechDetected = { onStateChange("Recording (Neural ASR)...") },
+                onResult = { res -> onResult(res) },
+                onError = { err -> onError(err) }
+            )
+            return
+        }
+
         if (!SpeechRecognizer.isRecognitionAvailable(context)) {
-            if (neuralRecognizer != null) {
-                onStateChange("Listening (Offline Neural ASR)...")
-                neuralRecognizer.startListening(
-                    languageCode = languageCode,
-                    onSpeechDetected = { onStateChange("Recording (Neural ASR)...") },
-                    onResult = { res -> onResult(res) },
-                    onError = { err -> onError(err) }
-                )
-                return
-            }
             onError("Speech recognition is not available on this device")
             return
         }
