@@ -1,0 +1,22 @@
+{
+  "quantization_success": true,
+  "precision_comparison": {
+    "FP32": {
+      "transformer_mb": 1289.82,
+      "decoder_mb": 59.67,
+      "total_mb": 1349.49
+    },
+    "FP16": {
+      "transformer_mb": 646.45,
+      "decoder_mb": 29.87,
+      "total_mb": 676.32
+    },
+    "INT8": {
+      "transformer_mb": 325.93,
+      "decoder_mb": 21.11,
+      "total_mb": 347.04
+    }
+  },
+  "size_reduction_from_fp32_pct": 74.28,
+  "status": "PASS"
+}

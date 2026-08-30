@@ -7,7 +7,10 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 
-class VoiceInputManager(private val context: Context) {
+class VoiceInputManager(
+    private val context: Context,
+    private val neuralRecognizer: NeuralSpeechRecognizer? = null
+) {
     private var speechRecognizer: SpeechRecognizer? = null
 
     fun startListening(
@@ -17,6 +20,16 @@ class VoiceInputManager(private val context: Context) {
         onStateChange: (String) -> Unit
     ) {
         if (!SpeechRecognizer.isRecognitionAvailable(context)) {
+            if (neuralRecognizer != null) {
+                onStateChange("Listening (Offline Neural ASR)...")
+                neuralRecognizer.startListening(
+                    languageCode = languageCode,
+                    onSpeechDetected = { onStateChange("Recording (Neural ASR)...") },
+                    onResult = { res -> onResult(res) },
+                    onError = { err -> onError(err) }
+                )
+                return
+            }
             onError("Speech recognition is not available on this device")
             return
         }
@@ -42,6 +55,18 @@ class VoiceInputManager(private val context: Context) {
                 }
 
                 override fun onError(error: Int) {
+                    // Fallback to offline Neural ASR on network or no-match error
+                    if ((error == SpeechRecognizer.ERROR_NETWORK || error == SpeechRecognizer.ERROR_SERVER || error == SpeechRecognizer.ERROR_NO_MATCH) && neuralRecognizer != null) {
+                        onStateChange("Listening (Offline Neural ASR)...")
+                        neuralRecognizer.startListening(
+                            languageCode = languageCode,
+                            onSpeechDetected = { onStateChange("Recording (Neural ASR)...") },
+                            onResult = { res -> onResult(res) },
+                            onError = { err -> onError(err) }
+                        )
+                        return
+                    }
+
                     val message = when (error) {
                         SpeechRecognizer.ERROR_AUDIO -> "Audio recording error"
                         SpeechRecognizer.ERROR_CLIENT -> "Client-side error"

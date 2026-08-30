@@ -43,6 +43,8 @@ import com.alchemists.tribetalk.translation.TranslationEngine
 import com.alchemists.tribetalk.translation.TranslationEntry
 import com.alchemists.tribetalk.translation.TranslationResult
 import com.alchemists.tribetalk.translation.OfflineFLNTranslationEngine
+import com.alchemists.tribetalk.translation.HybridEdgeAITranslationEngine
+import com.alchemists.tribetalk.translation.OlChikiTransliterator
 import com.alchemists.tribetalk.ui.theme.*
 import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
@@ -319,6 +321,48 @@ fun LiveClassroomScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
+            // 8 GB RAM High-Performance Edge AI Diagnostic Ribbon
+            Surface(
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                        RoundedCornerShape(8.dp)
+                    )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(3.dp),
+                            modifier = Modifier.size(8.dp)
+                        ) {}
+                        Text(
+                            text = "8 GB RAM PROFILE: ONNX NEURAL NMT ACTIVE",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                    Text(
+                        text = "Seq2Seq Autoregressive",
+                        style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                }
+            }
+
             // Visual process pipeline indicator (restrained typography, clean Material icons)
             Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -343,7 +387,7 @@ fun LiveClassroomScreen(
                         FlowItem(Icons.Default.PlayArrow, "Play")
                     }
 
-                    Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
 
                     // Voice Bridge Auto-Play Toggle (ON / OFF)
                     Row(
@@ -661,15 +705,91 @@ fun LiveClassroomScreen(
                                     }
                                 }
 
-                                // Large translated text
-                                Text(
-                                    text = result.translatedText,
-                                    style = MaterialTheme.typography.titleLarge.copy(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 22.sp
-                                    ),
-                                    color = MaterialTheme.colorScheme.primary
-                                )
+                                // Authentic Ol Chiki Student View
+                                Surface(
+                                    color = MaterialTheme.colorScheme.surface,
+                                    shape = RoundedCornerShape(8.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .border(
+                                            1.dp,
+                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.25f),
+                                            RoundedCornerShape(8.dp)
+                                        )
+                                ) {
+                                    Column(modifier = Modifier.padding(14.dp)) {
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Text(
+                                                text = "STUDENT VIEW (OL CHIKI / ᱚᱞ ᱪᱤᱠᱤ)",
+                                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.primary
+                                            )
+                                            Surface(
+                                                color = MaterialTheme.colorScheme.primary,
+                                                shape = RoundedCornerShape(4.dp)
+                                            ) {
+                                                Text(
+                                                    text = result.engineTier,
+                                                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),
+                                                    color = MaterialTheme.colorScheme.onPrimary,
+                                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                )
+                                            }
+                                        }
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = if (result.olChikiText.isNotBlank()) result.olChikiText else result.translatedText,
+                                            style = MaterialTheme.typography.titleLarge.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 24.sp,
+                                                letterSpacing = 0.5.sp
+                                            ),
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
+                                    }
+                                }
+
+                                // Teacher Assist Heads-Up Display (HUD)
+                                if (result.phoneticDevanagari.isNotBlank()) {
+                                    Surface(
+                                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.08f),
+                                        shape = RoundedCornerShape(8.dp),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .border(
+                                                1.dp,
+                                                MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f),
+                                                RoundedCornerShape(8.dp)
+                                            )
+                                    ) {
+                                        Column(modifier = Modifier.padding(12.dp)) {
+                                            Text(
+                                                text = "TEACHER ASSIST HUD (PHONETIC GUIDE)",
+                                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.secondary
+                                            )
+                                            Spacer(modifier = Modifier.height(4.dp))
+                                            Text(
+                                                text = result.phoneticDevanagari,
+                                                style = MaterialTheme.typography.titleMedium.copy(
+                                                    fontWeight = FontWeight.SemiBold,
+                                                    fontSize = 17.sp
+                                                ),
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
+                                            Spacer(modifier = Modifier.height(2.dp))
+                                            Text(
+                                                text = "Glance & pronounce if classroom is noisy or Santali audio is muted.",
+                                                style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+                                                color = MaterialTheme.colorScheme.outline
+                                            )
+                                        }
+                                    }
+                                }
 
                                 // Amber warning alerts (instead of giant red blocks)
                                 if (isAmber) {
@@ -714,7 +834,9 @@ fun LiveClassroomScreen(
                                                         targetLang = Language.SANTALI,
                                                         category = "Teacher Correction"
                                                     )
-                                                    if (translationEngine is OfflineFLNTranslationEngine) {
+                                                    if (translationEngine is HybridEdgeAITranslationEngine) {
+                                                        translationEngine.addCorrection(correctedEntry)
+                                                    } else if (translationEngine is OfflineFLNTranslationEngine) {
                                                         translationEngine.addCorrection(correctedEntry)
                                                     }
                                                     teacherOutput = result.copy(
@@ -1165,7 +1287,9 @@ fun LiveClassroomScreen(
                                                         targetLang = Language.HINDI,
                                                         category = "Teacher Correction"
                                                     )
-                                                    if (translationEngine is OfflineFLNTranslationEngine) {
+                                                    if (translationEngine is HybridEdgeAITranslationEngine) {
+                                                        translationEngine.addCorrection(correctedEntry)
+                                                    } else if (translationEngine is OfflineFLNTranslationEngine) {
                                                         translationEngine.addCorrection(correctedEntry)
                                                     }
                                                     studentOutput = result.copy(

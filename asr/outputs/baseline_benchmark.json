@@ -1,0 +1,18 @@
+{
+  "model": "ai4bharat/indicconformer_stt_hi_hybrid_ctc_rnnt_large",
+  "precision": "INT8 Dynamic Quantized ONNX",
+  "device": "Desktop CPU",
+  "cpu": "Intel/AMD Multi-Core CPU",
+  "python_version": "3.13.13",
+  "model_load_time_ms": 1505.77,
+  "first_inference_latency_ms": 510.13,
+  "average_latency_ms": 359.55,
+  "median_latency_ms": 344.85,
+  "p95_latency_ms": 472.45,
+  "average_rtf": 0.166,
+  "peak_ram_mb": 597.79,
+  "fp32_model_disk_size_mb": 459.73,
+  "int8_model_disk_size_mb": 131.3,
+  "samples_evaluated": 15,
+  "status": "PASS"
+}

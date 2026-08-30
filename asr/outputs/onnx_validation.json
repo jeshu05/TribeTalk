@@ -1,0 +1,278 @@
+{
+  "total_samples": 30,
+  "exact_matches": 22,
+  "transcription_agreement_percentage": 73.33,
+  "status": "PASS",
+  "samples": [
+    {
+      "file": "001.wav",
+      "reference": "बच्चों आज हम गिनती सीखेंगे",
+      "fp32_text": "बच्चों आज हम गिनती सीखेंगे",
+      "int8_text": "बच्चों आज हम गिनती सीखेंगे",
+      "fp32_latency_ms": 95.68,
+      "int8_latency_ms": 536.96,
+      "match": true
+    },
+    {
+      "file": "002.wav",
+      "reference": "अपनी किताब खोलिए",
+      "fp32_text": "अपनी किताब खोलिए",
+      "int8_text": "अपनी किताब खोलिए",
+      "fp32_latency_ms": 63.93,
+      "int8_latency_ms": 329.34,
+      "match": true
+    },
+    {
+      "file": "003.wav",
+      "reference": "सब बच्चे ध्यान से सुनिए",
+      "fp32_text": "सब बच्चे ध्यान से सुनिए",
+      "int8_text": "सब बच्चे ध्यान से सुनिए",
+      "fp32_latency_ms": 76.51,
+      "int8_latency_ms": 440.07,
+      "match": true
+    },
+    {
+      "file": "004.wav",
+      "reference": "चित्र को ध्यान से देखिए",
+      "fp32_text": "क्षेत्र को ध्यान से देखिए",
+      "int8_text": "क्षेत्र को ध्यान से देखिए",
+      "fp32_latency_ms": 71.66,
+      "int8_latency_ms": 380.94,
+      "match": true
+    },
+    {
+      "file": "005.wav",
+      "reference": "पहले पांच वस्तुओं को गिनिए",
+      "fp32_text": "पहले पाँच वस्तुओं को गिनिए",
+      "int8_text": "पहले पाच वस्तुओ को गिनिए",
+      "fp32_latency_ms": 85.12,
+      "int8_latency_ms": 490.24,
+      "match": false
+    },
+    {
+      "file": "006.wav",
+      "reference": "अब मेरे साथ बोलिए",
+      "fp32_text": "अब मेरे साथ बोलिए",
+      "int8_text": "अब मेरे साथ बोलिए",
+      "fp32_latency_ms": 57.99,
+      "int8_latency_ms": 331.42,
+      "match": true
+    },
+    {
+      "file": "007.wav",
+      "reference": "एक दो तीन चार पांच",
+      "fp32_text": "एक दो तीन चार पाँच",
+      "int8_text": "एक दो तीन चार पाँच",
+      "fp32_latency_ms": 76.95,
+      "int8_latency_ms": 409.07,
+      "match": true
+    },
+    {
+      "file": "008.wav",
+      "reference": "छह सात आठ नौ दस",
+      "fp32_text": "छः सात आठ नौ दस",
+      "int8_text": "छः सात आठ नौ दस",
+      "fp32_latency_ms": 67.61,
+      "int8_latency_ms": 408.34,
+      "match": true
+    },
+    {
+      "file": "009.wav",
+      "reference": "पांच में दो जोड़िए",
+      "fp32_text": "पाँच में दो जोड़िए",
+      "int8_text": "पाँच में दो जोड़िए",
+      "fp32_latency_ms": 54.62,
+      "int8_latency_ms": 320.79,
+      "match": true
+    },
+    {
+      "file": "010.wav",
+      "reference": "चार में से एक घटाइए",
+      "fp32_text": "चार में से एक घटाए",
+      "int8_text": "चार म से एक खटाए",
+      "fp32_latency_ms": 68.99,
+      "int8_latency_ms": 368.1,
+      "match": false
+    },
+    {
+      "file": "011.wav",
+      "reference": "लाल रंग का फल कौन सा है",
+      "fp32_text": "लाल रंग का फल कौन सा है",
+      "int8_text": "लाल रंग का फल कौन सा है",
+      "fp32_latency_ms": 78.89,
+      "int8_latency_ms": 418.2,
+      "match": true
+    },
+    {
+      "file": "012.wav",
+      "reference": "यह गोल आकार है",
+      "fp32_text": "ये गोल आकार है",
+      "int8_text": "ये गोल आकार है",
+      "fp32_latency_ms": 58.3,
+      "int8_latency_ms": 328.29,
+      "match": true
+    },
+    {
+      "file": "013.wav",
+      "reference": "अपनी कॉपी में लिखिए",
+      "fp32_text": "अपनी कॉपी में लिखिए",
+      "int8_text": "अपनी कॉपी में लिखिय",
+      "fp32_latency_ms": 56.22,
+      "int8_latency_ms": 327.57,
+      "match": false
+    },
+    {
+      "file": "014.wav",
+      "reference": "अ से अनार और आ से आम",
+      "fp32_text": "आ से अनार और आ से आम",
+      "int8_text": "आसे अनार और आसे आम",
+      "fp32_latency_ms": 70.15,
+      "int8_latency_ms": 406.36,
+      "match": false
+    },
+    {
+      "file": "015.wav",
+      "reference": "क ख ग घ ङ",
+      "fp32_text": "का खा ग घर होगा",
+      "int8_text": "का खागा घरगा",
+      "fp32_latency_ms": 62.01,
+      "int8_latency_ms": 348.18,
+      "match": false
+    },
+    {
+      "file": "016.wav",
+      "reference": "बहुत अच्छा काम किया",
+      "fp32_text": "बहुत अच्छा काम किया",
+      "int8_text": "बहुत अच्छा काम किया",
+      "fp32_latency_ms": 57.15,
+      "int8_latency_ms": 337.7,
+      "match": true
+    },
+    {
+      "file": "017.wav",
+      "reference": "दरवाजा बंद कीजिए",
+      "fp32_text": "दरवाज़ा बंद कीजिए",
+      "int8_text": "दरवाज़ा बंद कीजिए",
+      "fp32_latency_ms": 59.7,
+      "int8_latency_ms": 357.32,
+      "match": true
+    },
+    {
+      "file": "018.wav",
+      "reference": "कलम और पेंसिल उठाइए",
+      "fp32_text": "कलम और पेंसिल उठाए",
+      "int8_text": "कलम और पेंसिल उठाए",
+      "fp32_latency_ms": 65.05,
+      "int8_latency_ms": 375.23,
+      "match": true
+    },
+    {
+      "file": "019.wav",
+      "reference": "आज का पाठ समाप्त हुआ",
+      "fp32_text": "आज का पाठ समाप्त हुआ",
+      "int8_text": "आज का पाठ समाप्त हुआ",
+      "fp32_latency_ms": 74.22,
+      "int8_latency_ms": 397.99,
+      "match": true
+    },
+    {
+      "file": "020.wav",
+      "reference": "नमस्ते गुरुजी",
+      "fp32_text": "नमस्ते गुरु जी",
+      "int8_text": "नमस्ते गुरू जी",
+      "fp32_latency_ms": 51.73,
+      "int8_latency_ms": 287.31,
+      "match": false
+    },
+    {
+      "file": "021.wav",
+      "reference": "क्या आप तैयार हैं",
+      "fp32_text": "क्या आप तैयार हैं",
+      "int8_text": "क्या आप तैयार हैं",
+      "fp32_latency_ms": 52.66,
+      "int8_latency_ms": 315.82,
+      "match": true
+    },
+    {
+      "file": "022.wav",
+      "reference": "पेज नंबर दस निकालिए",
+      "fp32_text": "पेज नंबर दस निकालिए",
+      "int8_text": "पेज नंबर दस निकालिए",
+      "fp32_latency_ms": 70.15,
+      "int8_latency_ms": 356.68,
+      "match": true
+    },
+    {
+      "file": "023.wav",
+      "reference": "गणित का सवाल हल कीजिए",
+      "fp32_text": "गणित का सवाल हल कीजिए",
+      "int8_text": "गणित का सवाल हल कीजिए",
+      "fp32_latency_ms": 77.63,
+      "int8_latency_ms": 405.9,
+      "match": true
+    },
+    {
+      "file": "024.wav",
+      "reference": "हरा पत्ता और पीला फूल",
+      "fp32_text": "हरा पत्ता और पीला फूल",
+      "int8_text": "हरा पत्ता और पीला फूल",
+      "fp32_latency_ms": 76.78,
+      "int8_latency_ms": 412.22,
+      "match": true
+    },
+    {
+      "file": "025.wav",
+      "reference": "पानी की बोतल पास रखिए",
+      "fp32_text": "पानी की बोतल पास रखिए",
+      "int8_text": "पानी की बोतल पास रखिए",
+      "fp32_latency_ms": 78.57,
+      "int8_latency_ms": 416.5,
+      "match": true
+    },
+    {
+      "file": "026.wav",
+      "reference": "अक्षरों को जोड़कर पढ़िए",
+      "fp32_text": "अक्षरों को जोड़कर पढ़िए",
+      "int8_text": "अक्षरों को जोड़कर पढ़िए",
+      "fp32_latency_ms": 66.0,
+      "int8_latency_ms": 380.3,
+      "match": true
+    },
+    {
+      "file": "027.wav",
+      "reference": "तीन और तीन छह होते हैं",
+      "fp32_text": "तीन और तीन छह होते हैं",
+      "int8_text": "तीन और तीन छः होते हैं",
+      "fp32_latency_ms": 81.54,
+      "int8_latency_ms": 395.98,
+      "match": false
+    },
+    {
+      "file": "028.wav",
+      "reference": "शाबाश बच्चों",
+      "fp32_text": "शाबाश बच्चों",
+      "int8_text": "शाबाश बच्चों",
+      "fp32_latency_ms": 53.66,
+      "int8_latency_ms": 296.38,
+      "match": true
+    },
+    {
+      "file": "029.wav",
+      "reference": "होमवर्क पूरा कीजिए",
+      "fp32_text": "होमवर्क पूरा कीजिए",
+      "int8_text": "होमवर्क पूरा कीजिए",
+      "fp32_latency_ms": 56.09,
+      "int8_latency_ms": 328.51,
+      "match": true
+    },
+    {
+      "file": "030.wav",
+      "reference": "जय हिंद जय भारत",
+      "fp32_text": "जय हिन्द जय भारत",
+      "int8_text": "जय हिनद जय भारत",
+      "fp32_latency_ms": 58.94,
+      "int8_latency_ms": 348.54,
+      "match": false
+    }
+  ]
+}

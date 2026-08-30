@@ -8,7 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.alchemists.tribetalk.translation.OfflineFLNTranslationEngine
+import com.alchemists.tribetalk.translation.HybridEdgeAITranslationEngine
+import com.alchemists.tribetalk.translation.OnnxTranslationEngine
 import com.alchemists.tribetalk.translation.TranslationMemory
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
@@ -18,6 +19,9 @@ import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
 import com.alchemists.tribetalk.voice.VoiceTranslationBridge
 import java.io.File
+
+import com.alchemists.tribetalk.voice.NeuralSpeechSynthesizer
+import com.alchemists.tribetalk.voice.NeuralSpeechRecognizer
 
 enum class Screen {
     Dashboard,
@@ -29,27 +33,35 @@ enum class Screen {
 }
 
 class MainActivity : ComponentActivity() {
-    private lateinit var translationEngine: OfflineFLNTranslationEngine
+    private lateinit var translationEngine: HybridEdgeAITranslationEngine
+    private lateinit var onnxEngine: OnnxTranslationEngine
     private lateinit var voiceInputManager: VoiceInputManager
     private lateinit var speechOutputManager: SpeechOutputManager
+    private lateinit var neuralSynthesizer: NeuralSpeechSynthesizer
+    private lateinit var neuralRecognizer: NeuralSpeechRecognizer
     private lateinit var voiceTranslationBridge: VoiceTranslationBridge
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Setup persistent translation memory and FLN engine
+        // Setup persistent translation memory and Hybrid Edge AI translation engine
         val tmFile = File(filesDir, "translation_memory.csv")
         val translationMemory = TranslationMemory(tmFile)
-        translationEngine = OfflineFLNTranslationEngine(translationMemory)
+        onnxEngine = OnnxTranslationEngine(this)
+        translationEngine = HybridEdgeAITranslationEngine(translationMemory, onnxEngine)
 
-        // Initialize voice input and output services
-        voiceInputManager = VoiceInputManager(this)
+        // 8 GB RAM High-Performance Neural Audio Engines
+        neuralSynthesizer = NeuralSpeechSynthesizer(this)
+        neuralRecognizer = NeuralSpeechRecognizer(this)
+
+        // Initialize voice input and output services with offline neural fallback
+        voiceInputManager = VoiceInputManager(this, neuralRecognizer)
         speechOutputManager = SpeechOutputManager(this) { success ->
             // Log or handle init state if needed
         }
         
-        // Setup Voice translation bridge
-        voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager)
+        // Setup Voice translation bridge with Neural TTS fallback
+        voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager, neuralSynthesizer)
 
         setContent {
             TribeTalkTheme {
@@ -108,5 +120,8 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         voiceInputManager.destroy()
         speechOutputManager.destroy()
+        neuralSynthesizer.close()
+        neuralRecognizer.close()
+        onnxEngine.close()
     }
 }

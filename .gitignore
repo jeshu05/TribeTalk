@@ -1,0 +1,25 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+**/build/
+
+# Model binaries & large weights (>100MB GitHub limit)
+*.onnx
+*.onnx_data
+*.onnx.data
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.data
+*.wav
+*.mp3
+**/checkpoints/
+**/models/

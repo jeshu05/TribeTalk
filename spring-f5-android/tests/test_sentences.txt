@@ -1,0 +1,7 @@
+# Santali / Ol Chiki Test Corpus for SPRING_F5 TTS Validation
+1. ᱡᱚᱦᱟᱨ (Johar - Hello)
+2. ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱵᱤᱨᱥᱟ ᱠᱟᱱᱟ (Inyag nyutum do Birsa kana - My name is Birsa)
+3. ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱢᱮ (Puthi jhij me - Open the book)
+4. ᱫᱮᱞᱟ ᱵᱚᱱ ᱯᱟᱲᱦᱟᱣ-ᱟ (Dela bon parhao-a - Come, let us read)
+5. ᱫᱟᱜ ᱧᱩ ᱥᱟᱱᱟᱹᱧ ᱠᱟᱱᱟ (Dag nyu sanany kana - I want to drink water)
+6. ᱢᱟᱪᱮᱛ ᱚᱞ ᱪᱤᱠᱤ ᱮ ᱤᱛᱩᱱ ᱮᱫᱟ (Macet Ol Chiki e itun eda - The teacher is teaching Ol Chiki)

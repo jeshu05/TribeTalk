@@ -1,0 +1,18 @@
+{
+  "dataset_name": "Mozilla Common Voice Hindi v26.0",
+  "evaluation_split": "test.tsv",
+  "model_path": "asr/models/onnx/indicconformer_hi_ctc_fp32.onnx",
+  "model_size_mb": 459.73,
+  "total_samples": 100,
+  "total_reference_words": 840,
+  "substitutions": 87,
+  "deletions": 7,
+  "insertions": 12,
+  "corpus_wer_percentage": 12.62,
+  "corpus_word_accuracy_percentage": 87.38,
+  "average_latency_ms": 149.5,
+  "median_latency_ms": 154.55,
+  "p95_latency_ms": 216.63,
+  "average_rtf": 0.029,
+  "status": "PASS"
+}

@@ -1,0 +1,9 @@
+{
+  "conversion_success": true,
+  "fp32_total_size_mb": 1349.49,
+  "fp16_total_size_mb": 676.32,
+  "fp16_transformer_mb": 646.45,
+  "fp16_decoder_mb": 29.87,
+  "size_reduction_percentage": 49.88,
+  "status": "PASS"
+}

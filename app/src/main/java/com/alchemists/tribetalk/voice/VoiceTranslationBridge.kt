@@ -6,7 +6,8 @@ import com.alchemists.tribetalk.translation.TranslationResult
 
 class VoiceTranslationBridge(
     private val translationEngine: TranslationEngine,
-    private val speechOutputManager: SpeechOutputManager
+    private val speechOutputManager: SpeechOutputManager,
+    private val neuralSynthesizer: NeuralSpeechSynthesizer? = null
 ) {
     enum class State {
         Idle,
@@ -56,13 +57,38 @@ class VoiceTranslationBridge(
                         onDone = {
                             onStateChange(State.TranslationComplete, "Translation Complete")
                         },
-                        onError = { err ->
-                            onStateChange(State.Error, "Audio: $err")
+                        onError = {
+                            // Fallback to neural synthesizer
+                            if (neuralSynthesizer != null) {
+                                neuralSynthesizer.speak(
+                                    text = result.translatedText,
+                                    languageCode = targetLocaleCode,
+                                    onStart = { onStateChange(State.Speaking, "Speaking (Neural TTS)...") },
+                                    onDone = { onStateChange(State.TranslationComplete, "Translation Complete") },
+                                    onError = { onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)") }
+                                )
+                            } else {
+                                onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
+                            }
+                        }
+                    )
+                } else if (neuralSynthesizer != null) {
+                    onStateChange(State.Speaking, "Synthesizing audio (Neural TTS)...")
+                    neuralSynthesizer.speak(
+                        text = result.translatedText,
+                        languageCode = targetLocaleCode,
+                        onStart = {
+                            onStateChange(State.Speaking, "Speaking (Neural TTS)...")
+                        },
+                        onDone = {
+                            onStateChange(State.TranslationComplete, "Translation Complete")
+                        },
+                        onError = {
+                            onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
                         }
                     )
                 } else {
-                    val label = if (targetLanguage == Language.SANTALI) "Santali" else "Hindi"
-                    onStateChange(State.Error, "$label voice unavailable on this device")
+                    onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
                 }
             }
         } catch (e: Exception) {
