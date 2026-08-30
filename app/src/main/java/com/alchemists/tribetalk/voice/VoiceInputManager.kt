@@ -109,6 +109,7 @@ class VoiceInputManager(
     }
 
     fun stopListening() {
+        neuralRecognizer?.stopListening()
         speechRecognizer?.stopListening()
         speechRecognizer?.cancel()
         speechRecognizer?.destroy()
