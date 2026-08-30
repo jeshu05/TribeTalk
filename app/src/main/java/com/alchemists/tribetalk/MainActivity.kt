@@ -11,12 +11,17 @@ import androidx.compose.ui.Modifier
 import com.alchemists.tribetalk.translation.HybridEdgeAITranslationEngine
 import com.alchemists.tribetalk.translation.OnnxTranslationEngine
 import com.alchemists.tribetalk.translation.TranslationMemory
-import com.alchemists.tribetalk.ui.screens.DashboardScreen
-import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.flashcards.FlashcardSet
+import com.alchemists.tribetalk.lessons.Lesson
+import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.FlashcardGeneratorScreen
 import com.alchemists.tribetalk.ui.screens.FlashcardPreviewScreen
+import com.alchemists.tribetalk.ui.screens.LearningInsightsScreen
+import com.alchemists.tribetalk.ui.screens.LessonDetailScreen
+import com.alchemists.tribetalk.ui.screens.LessonLibraryScreen
+import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
+import com.alchemists.tribetalk.ui.screens.SettingsScreen
 import com.alchemists.tribetalk.ui.screens.WorksheetGeneratorScreen
 import com.alchemists.tribetalk.ui.screens.WorksheetPreviewScreen
 import com.alchemists.tribetalk.worksheet.Worksheet
@@ -94,10 +99,26 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         Screen.Lessons -> {
-                            PlaceholderScreen(
-                                title = "Lessons",
-                                onBack = { currentScreen = Screen.Dashboard }
-                            )
+                            var selectedLesson by remember { mutableStateOf<Lesson?>(null) }
+                            if (selectedLesson == null) {
+                                LessonLibraryScreen(
+                                    onSelectLesson = { lesson -> selectedLesson = lesson },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                LessonDetailScreen(
+                                    lesson = selectedLesson!!,
+                                    translationEngine = translationEngine,
+                                    neuralSynthesizer = neuralSynthesizer,
+                                    onCreateFlashcards = { _ ->
+                                        currentScreen = Screen.Flashcards
+                                    },
+                                    onCreateWorksheet = { _ ->
+                                        currentScreen = Screen.Worksheets
+                                    },
+                                    onBack = { selectedLesson = null }
+                                )
+                            }
                         }
                         Screen.Worksheets -> {
                             var generatedWorksheet by remember { mutableStateOf<Worksheet?>(null) }
@@ -136,14 +157,13 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                         Screen.LearningInsights -> {
-                            PlaceholderScreen(
-                                title = "Learning Insights",
+                            LearningInsightsScreen(
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
                         Screen.Settings -> {
-                            PlaceholderScreen(
-                                title = "Settings",
+                            SettingsScreen(
+                                neuralSynthesizer = neuralSynthesizer,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
