@@ -1,6 +1,5 @@
 package com.alchemists.tribetalk.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -8,8 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -24,7 +22,7 @@ import com.alchemists.tribetalk.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TeacherDashboardScreen(
+fun StudentDashboardScreen(
     userName: String,
     onLogout: () -> Unit,
     onNavigate: (Screen) -> Unit,
@@ -33,7 +31,7 @@ fun TeacherDashboardScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Column {
                         Text(
                             "TribeTalk",
@@ -44,7 +42,7 @@ fun TeacherDashboardScreen(
                             )
                         )
                         Text(
-                            "Teacher · Offline Classroom Translation",
+                            "Student · Learn in your language",
                             style = MaterialTheme.typography.labelSmall.copy(
                                 color = MaterialTheme.colorScheme.outline,
                                 fontSize = 12.sp
@@ -78,7 +76,6 @@ fun TeacherDashboardScreen(
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Welcome Section
             Text(
                 text = "Welcome, $userName",
                 style = MaterialTheme.typography.titleLarge.copy(
@@ -88,7 +85,6 @@ fun TeacherDashboardScreen(
                 )
             )
 
-            // Language Configuration Layout (White Card with subtle border)
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -135,7 +131,6 @@ fun TeacherDashboardScreen(
                 }
             }
 
-            // Large Dominant CTA: Live Classroom Button (Min touch target height, large buttons)
             Button(
                 onClick = { onNavigate(Screen.LiveClassroom) },
                 modifier = Modifier
@@ -153,14 +148,14 @@ fun TeacherDashboardScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "Start Live Classroom",
-                        modifier = Modifier.size(32.dp),
+                        imageVector = Icons.Default.Mic,
+                        contentDescription = "Speak and Translate",
+                        modifier = Modifier.size(28.dp),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
-                        text = "LIVE CLASSROOM",
+                        text = "SPEAK & TRANSLATE",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.5.sp,
@@ -171,12 +166,11 @@ fun TeacherDashboardScreen(
             }
 
             Text(
-                text = "Academic Modules",
+                text = "Learning Modules",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.primary
             )
 
-            // Grid of academic section cards (White background, subtle elevation)
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -204,59 +198,7 @@ fun TeacherDashboardScreen(
                         onClick = { onNavigate(Screen.LearningInsights) }
                     )
                 }
-                item {
-                    MenuGridCard(
-                        title = "NIPUN FLN",
-                        icon = Icons.Default.School,
-                        onClick = { onNavigate(Screen.NipunTeacherLogin) }
-                    )
-                }
-                item {
-                    MenuGridCard(
-                        title = "Settings",
-                        icon = Icons.Default.Settings,
-                        onClick = { onNavigate(Screen.Settings) }
-                    )
-                }
             }
-        }
-    }
-}
-
-@Composable
-fun MenuGridCard(
-    title: String,
-    icon: ImageVector,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        shape = MaterialTheme.shapes.medium
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = title,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(28.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-                color = MaterialTheme.colorScheme.onSurface
-            )
         }
     }
 }
