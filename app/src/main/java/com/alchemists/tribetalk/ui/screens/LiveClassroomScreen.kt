@@ -86,6 +86,13 @@ fun LiveClassroomScreen(
     var studentStatusMessage by remember { mutableStateOf("") }
     var studentKeyboardExpanded by remember { mutableStateOf(false) }
 
+    // Phase 12: Production-Style Continuous Live Voice State
+    var isLiveVoiceActive by remember { mutableStateOf(false) }
+    var liveStatusLabel by remember { mutableStateOf("Idle") }
+    var liveHindiUtterance by remember { mutableStateOf("") }
+    var liveSantaliUtterance by remember { mutableStateOf("") }
+    var liveSantaliPhonetic by remember { mutableStateOf("") }
+
     // Track which language side requested recording when permission is prompted
     var pendingLangRequest by remember { mutableStateOf<Language?>(null) }
 
@@ -360,6 +367,211 @@ fun LiveClassroomScreen(
                         style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
                         color = MaterialTheme.colorScheme.outline
                     )
+                }
+            }
+
+            // Phase 12: Production-Style Continuous Live Voice Bridge Hero Card
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isLiveVoiceActive) 
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f) 
+                    else 
+                        MaterialTheme.colorScheme.surface
+                ),
+                border = BorderStroke(
+                    if (isLiveVoiceActive) 2.dp else 1.dp,
+                    if (isLiveVoiceActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
+                ),
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                "LIVE VOICE BRIDGE",
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                "Hindi Teacher  ↓  Santali Student",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                        }
+
+                        // Live Indicator Badge
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Surface(
+                                color = if (isLiveVoiceActive) Color(0xFF2E7D32) else MaterialTheme.colorScheme.outline,
+                                shape = RoundedCornerShape(4.dp),
+                                modifier = Modifier.size(10.dp)
+                            ) {}
+                            Text(
+                                text = if (isLiveVoiceActive) "● $liveStatusLabel" else "● IDLE",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                color = if (isLiveVoiceActive) Color(0xFF2E7D32) else MaterialTheme.colorScheme.outline
+                            )
+                        }
+                    }
+
+                    if (isLiveVoiceActive || liveHindiUtterance.isNotEmpty()) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Column {
+                                    Text(
+                                        "Current Hindi:",
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.outline
+                                    )
+                                    Text(
+                                        text = if (liveHindiUtterance.isNotEmpty()) liveHindiUtterance else "Listening for continuous speech...",
+                                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                                Column {
+                                    Text(
+                                        "Santali (Ol Chiki):",
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                    Text(
+                                        text = if (liveSantaliUtterance.isNotEmpty()) liveSantaliUtterance else "...",
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                    if (liveSantaliPhonetic.isNotEmpty()) {
+                                        Text(
+                                            text = "Phonetic: $liveSantaliPhonetic",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.outline
+                                        )
+                                    }
+                                }
+
+                                voiceTranslationBridge.lastMeasuredLatency?.let { lat ->
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = "⚡ Latency: ${lat.totalE2eLatencyMs}ms (${if (lat.isWithinTarget) "≤3s PASS" else "Processed"})",
+                                            style = MaterialTheme.typography.labelSmall.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                color = if (lat.isWithinTarget) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error
+                                            )
+                                        )
+                                        Text(
+                                            text = "NLP: ${lat.nlpDurationMs}ms | TTS: ${lat.ttsDurationMs}ms",
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                            color = MaterialTheme.colorScheme.outline
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Master Action Button: START LIVE VOICE / STOP LIVE VOICE
+                    Button(
+                        onClick = {
+                            if (isLiveVoiceActive) {
+                                isLiveVoiceActive = false
+                                liveStatusLabel = "Idle"
+                                voiceTranslationBridge.stopLiveVoiceSession()
+                            } else {
+                                if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                                    isLiveVoiceActive = true
+                                    liveStatusLabel = "LIVE LISTENING"
+                                    voiceTranslationBridge.startLiveVoiceSession(
+                                        onStateChange = { state, status ->
+                                            liveStatusLabel = when (state) {
+                                                VoiceTranslationBridge.State.Listening -> "LIVE LISTENING"
+                                                VoiceTranslationBridge.State.Processing -> "Processing..."
+                                                VoiceTranslationBridge.State.Translating -> "Translating..."
+                                                VoiceTranslationBridge.State.GeneratingSantaliSpeech -> "Generating Santali voice..."
+                                                VoiceTranslationBridge.State.Speaking -> "Playing Santali"
+                                                VoiceTranslationBridge.State.Error -> status
+                                                else -> status
+                                            }
+                                        },
+                                        onUtteranceResult = { hindi, transRes ->
+                                            liveHindiUtterance = hindi
+                                            liveSantaliUtterance = transRes.translatedText
+                                            liveSantaliPhonetic = transRes.latinPhonetic
+                                            teacherInput = hindi
+                                            teacherOutput = transRes
+                                        },
+                                        onError = { _ ->
+                                            liveStatusLabel = "Error — Please try again"
+                                        }
+                                    )
+
+                                    voiceInputManager.startContinuousListening(
+                                        languageCode = "hi-IN",
+                                        onPartial = { partial ->
+                                            liveHindiUtterance = partial
+                                            voiceTranslationBridge.handleLivePartial(partial)
+                                        },
+                                        onFinal = { finalHindi ->
+                                            liveHindiUtterance = finalHindi
+                                            voiceTranslationBridge.enqueueLiveUtterance(finalHindi)
+                                        },
+                                        onError = { err ->
+                                            liveStatusLabel = "ASR: $err"
+                                        },
+                                        onStateChange = { stateStr ->
+                                            if (isLiveVoiceActive && (stateStr == "Listening..." || stateStr == "LIVE LISTENING")) {
+                                                liveStatusLabel = "LIVE LISTENING"
+                                            }
+                                        }
+                                    )
+                                } else {
+                                    pendingLangRequest = Language.HINDI
+                                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                                }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isLiveVoiceActive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = if (isLiveVoiceActive) Icons.Default.Clear else Icons.Default.Mic,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (isLiveVoiceActive) "STOP LIVE VOICE" else "START LIVE VOICE",
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
                 }
             }
 

@@ -33,6 +33,7 @@ import java.io.File
 
 import com.alchemists.tribetalk.voice.NeuralSpeechSynthesizer
 import com.alchemists.tribetalk.voice.NeuralSpeechRecognizer
+import com.alchemists.tribetalk.voice.RealSantaliTTSProvider
 
 enum class Screen {
     Dashboard,
@@ -51,6 +52,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var speechOutputManager: SpeechOutputManager
     private lateinit var neuralSynthesizer: NeuralSpeechSynthesizer
     private lateinit var neuralRecognizer: NeuralSpeechRecognizer
+    private lateinit var realSantaliTTSProvider: RealSantaliTTSProvider
     private lateinit var voiceTranslationBridge: VoiceTranslationBridge
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +67,7 @@ class MainActivity : ComponentActivity() {
         // 8 GB RAM High-Performance Neural Audio Engines
         neuralSynthesizer = NeuralSpeechSynthesizer(this)
         neuralRecognizer = NeuralSpeechRecognizer(this)
+        realSantaliTTSProvider = RealSantaliTTSProvider(this)
 
         // Initialize voice input and output services with offline neural fallback
         voiceInputManager = VoiceInputManager(this, neuralRecognizer)
@@ -72,8 +75,14 @@ class MainActivity : ComponentActivity() {
             // Log or handle init state if needed
         }
         
-        // Setup Voice translation bridge with Neural TTS fallback
-        voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager, neuralSynthesizer)
+        // Setup Voice translation bridge with Real Santali TTS & Voice Input Manager
+        voiceTranslationBridge = VoiceTranslationBridge(
+            translationEngine = translationEngine,
+            speechOutputManager = speechOutputManager,
+            neuralSynthesizer = neuralSynthesizer,
+            realSantaliTTSProvider = realSantaliTTSProvider,
+            voiceInputManager = voiceInputManager
+        )
 
         setContent {
             TribeTalkTheme {
