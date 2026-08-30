@@ -35,7 +35,7 @@ class IndicConformerHindiAsr(
 ) : HindiAsrEngine, AutoCloseable {
 
     companion object {
-        private const val TAG = "HindiASR"
+        private const val TAG = "LiveHindiASR"
     }
 
     private var ortEnv: OrtEnvironment? = null

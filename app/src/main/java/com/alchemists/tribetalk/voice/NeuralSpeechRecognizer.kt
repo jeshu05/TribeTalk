@@ -26,7 +26,7 @@ class NeuralSpeechRecognizer(
 ) : AutoCloseable {
 
     companion object {
-        private const val TAG = "HindiASR"
+        private const val TAG = "LiveHindiASR"
         const val SAMPLE_RATE = 16000
         const val CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO
         const val AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT
