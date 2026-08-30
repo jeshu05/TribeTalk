@@ -13,6 +13,9 @@ import com.alchemists.tribetalk.translation.OnnxTranslationEngine
 import com.alchemists.tribetalk.translation.TranslationMemory
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
+import com.alchemists.tribetalk.flashcards.FlashcardSet
+import com.alchemists.tribetalk.ui.screens.FlashcardGeneratorScreen
+import com.alchemists.tribetalk.ui.screens.FlashcardPreviewScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
 import com.alchemists.tribetalk.ui.screens.WorksheetGeneratorScreen
 import com.alchemists.tribetalk.ui.screens.WorksheetPreviewScreen
@@ -31,6 +34,7 @@ enum class Screen {
     LiveClassroom,
     Lessons,
     Worksheets,
+    Flashcards,
     LearningInsights,
     Settings
 }
@@ -110,6 +114,24 @@ class MainActivity : ComponentActivity() {
                                     initialWorksheet = generatedWorksheet!!,
                                     translationEngine = translationEngine,
                                     onBack = { generatedWorksheet = null }
+                                )
+                            }
+                        }
+                        Screen.Flashcards -> {
+                            var generatedFlashcardSet by remember { mutableStateOf<FlashcardSet?>(null) }
+                            if (generatedFlashcardSet == null) {
+                                FlashcardGeneratorScreen(
+                                    translationEngine = translationEngine,
+                                    onFlashcardSetGenerated = { set ->
+                                        generatedFlashcardSet = set
+                                    },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                FlashcardPreviewScreen(
+                                    initialSet = generatedFlashcardSet!!,
+                                    translationEngine = translationEngine,
+                                    onBack = { generatedFlashcardSet = null }
                                 )
                             }
                         }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
@@ -173,9 +174,9 @@ fun DashboardScreen(
             ) {
                 item {
                     MenuGridCard(
-                        title = "Lessons",
-                        icon = Icons.AutoMirrored.Filled.List,
-                        onClick = { onNavigate(Screen.Lessons) }
+                        title = "Flashcards",
+                        icon = Icons.Default.AutoStories,
+                        onClick = { onNavigate(Screen.Flashcards) }
                     )
                 }
                 item {
@@ -183,6 +184,13 @@ fun DashboardScreen(
                         title = "Worksheets",
                         icon = Icons.Default.Create,
                         onClick = { onNavigate(Screen.Worksheets) }
+                    )
+                }
+                item {
+                    MenuGridCard(
+                        title = "Lessons",
+                        icon = Icons.AutoMirrored.Filled.List,
+                        onClick = { onNavigate(Screen.Lessons) }
                     )
                 }
                 item {
