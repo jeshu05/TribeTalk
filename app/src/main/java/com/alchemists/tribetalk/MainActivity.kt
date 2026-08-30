@@ -14,6 +14,9 @@ import com.alchemists.tribetalk.translation.TranslationMemory
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
+import com.alchemists.tribetalk.ui.screens.WorksheetGeneratorScreen
+import com.alchemists.tribetalk.ui.screens.WorksheetPreviewScreen
+import com.alchemists.tribetalk.worksheet.Worksheet
 import com.alchemists.tribetalk.ui.theme.TribeTalkTheme
 import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
@@ -93,10 +96,21 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         Screen.Worksheets -> {
-                            PlaceholderScreen(
-                                title = "Worksheets",
-                                onBack = { currentScreen = Screen.Dashboard }
-                            )
+                            var generatedWorksheet by remember { mutableStateOf<Worksheet?>(null) }
+                            if (generatedWorksheet == null) {
+                                WorksheetGeneratorScreen(
+                                    translationEngine = translationEngine,
+                                    onWorksheetGenerated = { worksheet ->
+                                        generatedWorksheet = worksheet
+                                    },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                WorksheetPreviewScreen(
+                                    initialWorksheet = generatedWorksheet!!,
+                                    onBack = { generatedWorksheet = null }
+                                )
+                            }
                         }
                         Screen.LearningInsights -> {
                             PlaceholderScreen(
