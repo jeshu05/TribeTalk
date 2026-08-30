@@ -106,6 +106,7 @@ class VoiceInputManager(
             // 1. If offline Neural ASR (IndicConformer ONNX) is available, use it
             if (neuralRecognizer != null && neuralRecognizer.isNeuralModelAvailable(activeLanguageCode)) {
                 Log.i(TAG, "ASR MODEL READY: Using offline Neural ASR engine (IndicConformer ONNX)")
+                Log.i("VoiceIntegration", "ASR_LISTENING")
                 Log.i(TAG, "ASR LISTENING (Offline Neural ASR)")
                 onStateChangeCallback?.invoke(if (isContinuousSession) "LIVE LISTENING" else "Listening (Offline Neural ASR)...")
                 
@@ -158,6 +159,7 @@ class VoiceInputManager(
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
                 setRecognitionListener(object : RecognitionListener {
                     override fun onReadyForSpeech(params: Bundle?) {
+                        Log.i("VoiceIntegration", "ASR_LISTENING")
                         Log.i(TAG, "ASR LISTENING")
                         onStateChangeCallback?.invoke(if (isContinuousSession) "LIVE LISTENING" else "Listening...")
                     }

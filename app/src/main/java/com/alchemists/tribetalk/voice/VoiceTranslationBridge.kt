@@ -114,7 +114,7 @@ class VoiceTranslationBridge(
         }
 
         val rawText = queuedItem.hindiText
-        Log.i(TAG, "[LIVE PIPELINE START] Processing: \"$rawText\"")
+        Log.i("VoiceIntegration", "HINDI_RESULT = \"$rawText\"")
 
         // 1. NLP Processing
         onStateChange(State.Processing, "Processing...")
@@ -125,6 +125,7 @@ class VoiceTranslationBridge(
             onStateChange(State.Error, nlpResult.feedbackMessage ?: "कृपया पुनः बोलें")
             if (isLiveSessionActive) {
                 delay(800)
+                Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
                 onStateChange(State.Listening, "LIVE LISTENING")
             }
             return@withContext
@@ -142,16 +143,19 @@ class VoiceTranslationBridge(
             onStateChange(State.Error, "Translation unavailable")
             if (isLiveSessionActive) {
                 delay(800)
+                Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
                 onStateChange(State.Listening, "LIVE LISTENING")
             }
             return@withContext
         }
 
         tracker.markTranslationEnd()
+        Log.i("VoiceIntegration", "TRANSLATION_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
         onUtteranceResult(nlpResult.normalizedText, translationResult)
 
         // 3. TTS Speech Synthesis & Sequential Playback
         tracker.markTtsStart()
+        Log.i("VoiceIntegration", "SANTALI_TTS_REQUEST = \"${translationResult.translatedText}\"")
         onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
 
         // Mute mic during speaker output to prevent acoustic feedback loop
@@ -167,6 +171,8 @@ class VoiceTranslationBridge(
                             tracker.markTtsResponse()
                             tracker.markPlaybackStart()
                             lastMeasuredLatency = tracker.computeMetrics()
+                            Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                            Log.i("VoiceIntegration", "PLAYBACK_STARTED")
                             onStateChange(State.Speaking, "Playing Santali")
                         },
                         onComplete = {
@@ -184,6 +190,8 @@ class VoiceTranslationBridge(
                                     tracker.markTtsResponse()
                                     tracker.markPlaybackStart()
                                     lastMeasuredLatency = tracker.computeMetrics()
+                                    Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                                    Log.i("VoiceIntegration", "PLAYBACK_STARTED")
                                     onStateChange(State.Speaking, "Playing Santali (Neural)")
                                 },
                                 onDone = {
@@ -208,6 +216,8 @@ class VoiceTranslationBridge(
                             tracker.markTtsResponse()
                             tracker.markPlaybackStart()
                             lastMeasuredLatency = tracker.computeMetrics()
+                            Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                            Log.i("VoiceIntegration", "PLAYBACK_STARTED")
                             onStateChange(State.Speaking, "Playing Santali")
                         },
                         onDone = {
@@ -233,6 +243,7 @@ class VoiceTranslationBridge(
         // 4. Return to Live Listening automatically
         if (isLiveSessionActive) {
             delay(150)
+            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
             onStateChange(State.Listening, "LIVE LISTENING")
         }
     }

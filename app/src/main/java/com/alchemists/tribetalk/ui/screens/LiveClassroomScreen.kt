@@ -95,6 +95,7 @@ fun LiveClassroomScreen(
     var isLiveVoiceRequested by remember { mutableStateOf(false) }
 
     fun startLiveVoiceSessionCoordinator() {
+        android.util.Log.i("VoiceIntegration", "ASR_INITIALIZED")
         android.util.Log.i("LiveHindiASR", "ASR INITIALIZATION STARTED")
         isLiveVoiceActive = true
         liveStatusLabel = "LIVE LISTENING"
@@ -155,6 +156,7 @@ fun LiveClassroomScreen(
         onResult = { isGranted ->
             android.util.Log.i("LiveHindiASR", "MICROPHONE PERMISSION RESULT: isGranted=$isGranted")
             if (isGranted) {
+                android.util.Log.i("VoiceIntegration", "MIC_PERMISSION_GRANTED")
                 if (isLiveVoiceRequested) {
                     isLiveVoiceRequested = false
                     startLiveVoiceSessionCoordinator()
@@ -494,6 +496,7 @@ fun LiveClassroomScreen(
                     // Master Action Button: START LIVE VOICE / STOP LIVE VOICE
                     Button(
                         onClick = {
+                            android.util.Log.i("VoiceIntegration", "BUTTON_PRESSED")
                             android.util.Log.i("LiveHindiASR", "LIVE VOICE BUTTON PRESSED")
                             if (isLiveVoiceActive) {
                                 android.util.Log.i("LiveHindiASR", "ASR STOPPED")
