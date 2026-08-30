@@ -75,13 +75,14 @@ class MainActivity : ComponentActivity() {
             // Log or handle init state if needed
         }
         
-        // Setup Voice translation bridge with Real Santali TTS & Voice Input Manager
+        // Setup Voice translation bridge with Real Santali TTS, Voice Input Manager & Audio Queue
         voiceTranslationBridge = VoiceTranslationBridge(
             translationEngine = translationEngine,
             speechOutputManager = speechOutputManager,
             neuralSynthesizer = neuralSynthesizer,
             realSantaliTTSProvider = realSantaliTTSProvider,
-            voiceInputManager = voiceInputManager
+            voiceInputManager = voiceInputManager,
+            context = this
         )
 
         setContent {

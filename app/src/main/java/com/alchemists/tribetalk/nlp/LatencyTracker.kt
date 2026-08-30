@@ -100,4 +100,16 @@ class LatencyTracker {
 
         return metrics
     }
+
+    fun logLiveLatency(utterance: String) {
+        val metrics = computeMetrics()
+        Log.i("LIVE_LATENCY", """
+[ LIVE_LATENCY ]
+utterance = "$utterance"
+asr = ${metrics.nlpDurationMs}ms
+translation = ${metrics.translationDurationMs}ms
+tts = ${metrics.ttsDurationMs}ms
+total = ${metrics.totalE2eLatencyMs}ms
+""".trimIndent())
+    }
 }

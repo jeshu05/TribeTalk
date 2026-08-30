@@ -1,5 +1,6 @@
 package com.alchemists.tribetalk.voice
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -8,6 +9,7 @@ import com.alchemists.tribetalk.nlp.LatencyMetrics
 import com.alchemists.tribetalk.nlp.LatencyTracker
 import com.alchemists.tribetalk.nlp.LiveUtteranceProcessor
 import com.alchemists.tribetalk.nlp.LiveUtteranceQueue
+import com.alchemists.tribetalk.nlp.NlpProcessedUtterance
 import com.alchemists.tribetalk.nlp.QueuedUtterance
 import com.alchemists.tribetalk.translation.Language
 import com.alchemists.tribetalk.translation.TranslationEngine
@@ -21,7 +23,8 @@ class VoiceTranslationBridge(
     private val speechOutputManager: SpeechOutputManager,
     private val neuralSynthesizer: NeuralSpeechSynthesizer? = null,
     var realSantaliTTSProvider: RealSantaliTTSProvider? = null,
-    var voiceInputManager: VoiceInputManager? = null
+    var voiceInputManager: VoiceInputManager? = null,
+    private val context: Context? = null
 ) {
     companion object {
         private const val TAG = "VoiceTranslationBridge"
@@ -43,6 +46,7 @@ class VoiceTranslationBridge(
     private val mainHandler = Handler(Looper.getMainLooper())
     private val liveProcessor = LiveUtteranceProcessor()
     private var liveQueue: LiveUtteranceQueue? = null
+    private var santaliAudioQueue: SantaliAudioQueue? = null
     private var liveScope: CoroutineScope? = null
     private var isLiveSessionActive = false
 
@@ -50,7 +54,7 @@ class VoiceTranslationBridge(
         private set
 
     /**
-     * Starts continuous Live Voice session with sequential utterance queue processing.
+     * Starts continuous Live Voice session with pipelined utterance & audio queue processing.
      */
     fun startLiveVoiceSession(
         onStateChange: (State, String) -> Unit,
@@ -63,6 +67,13 @@ class VoiceTranslationBridge(
 
         val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
         liveScope = scope
+
+        val ctx = context
+        if (ctx != null) {
+            santaliAudioQueue = SantaliAudioQueue(ctx).apply {
+                start(scope)
+            }
+        }
 
         liveQueue = LiveUtteranceQueue { item ->
             processSequentialUtterance(
@@ -100,8 +111,7 @@ class VoiceTranslationBridge(
     }
 
     /**
-     * Process an utterance strictly sequentially (Translate -> Synthesize -> Play audio).
-     * Suspends until the audio has completed playing before accepting the next queued item.
+     * Process an utterance: NLP Normalize -> Translate -> Synthesize TTS -> Enqueue to Audio Queue.
      */
     private suspend fun processSequentialUtterance(
         queuedItem: QueuedUtterance,
@@ -154,101 +164,150 @@ class VoiceTranslationBridge(
         tracker.markTranslationEnd()
         Log.i("VOICE_PIPELINE", "[VOICE_PIPELINE] SANTALI_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
         Log.i("VoiceIntegration", "TRANSLATION_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
-        onUtteranceResult(nlpResult.normalizedText, translationResult)
 
-        // 3. TTS Speech Synthesis & Sequential Playback
+        // 3. TTS Speech Synthesis & Audio Queue Playback
         tracker.markTtsStart()
         Log.i("VoiceIntegration", "SANTALI_TTS_REQUEST = \"${translationResult.translatedText}\"")
         onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
 
-        // Mute mic during speaker output to prevent acoustic feedback loop
-        voiceInputManager?.pauseForPlayback()
+        val realTts = realSantaliTTSProvider
+        val audioQueue = santaliAudioQueue
 
-        try {
-            suspendCoroutine<Unit> { continuation ->
-                val realTts = realSantaliTTSProvider
-                if (realTts != null) {
-                    realTts.synthesizeAndPlay(
-                        text = translationResult.translatedText,
-                        onStart = {
-                            tracker.markTtsResponse()
-                            tracker.markPlaybackStart()
-                            lastMeasuredLatency = tracker.computeMetrics()
-                            Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
-                            Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                            onStateChange(State.Speaking, "Playing Santali")
-                        },
-                        onComplete = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete")
-                            continuation.resume(Unit)
-                        },
-                        onError = { err ->
-                            Log.w(TAG, "[TTS FALLBACK] Real TTS error: $err, falling back to on-device engine")
-                            // Fallback to neural synthesizer
-                            neuralSynthesizer?.speak(
-                                text = translationResult.translatedText,
-                                languageCode = "sat",
-                                onStart = {
-                                    tracker.markTtsResponse()
-                                    tracker.markPlaybackStart()
-                                    lastMeasuredLatency = tracker.computeMetrics()
-                                    Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
-                                    Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                                    onStateChange(State.Speaking, "Playing Santali (Neural)")
-                                },
-                                onDone = {
-                                    voiceInputManager?.resumeAfterPlayback()
-                                    continuation.resume(Unit)
-                                },
-                                onError = {
-                                    voiceInputManager?.resumeAfterPlayback()
-                                    continuation.resume(Unit)
-                                }
-                            ) ?: run {
+        if (realTts != null && audioQueue != null) {
+            try {
+                val wavBytes = withContext(Dispatchers.IO) {
+                    realTts.synthesize(translationResult.translatedText)
+                }
+                tracker.markTtsResponse()
+
+                if (wavBytes.isNotEmpty()) {
+                    Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED (${wavBytes.size} bytes)")
+                    audioQueue.enqueueAudio(
+                        QueuedAudio(
+                            utteranceId = queuedItem.id,
+                            wavBytes = wavBytes,
+                            onStart = {
+                                tracker.markPlaybackStart()
+                                lastMeasuredLatency = tracker.computeMetrics()
+                                tracker.logLiveLatency(nlpResult.normalizedText)
+                                Log.i("VoiceIntegration", "PLAYBACK_STARTED")
+                                voiceInputManager?.pauseForPlayback()
+                                onStateChange(State.Speaking, "Playing Santali")
+                                onUtteranceResult(nlpResult.normalizedText, translationResult)
+                            },
+                            onComplete = {
+                                Log.i("VoiceIntegration", "PLAYBACK_COMPLETED")
                                 voiceInputManager?.resumeAfterPlayback()
-                                continuation.resume(Unit)
+                                onStateChange(State.TranslationComplete, "Translation Complete")
+                                if (isLiveSessionActive) {
+                                    mainHandler.postDelayed({
+                                        if (isLiveSessionActive && !audioQueue.isAudioPlaying) {
+                                            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
+                                            onStateChange(State.Listening, "LIVE LISTENING")
+                                        }
+                                    }, 250)
+                                }
+                            },
+                            onError = { err ->
+                                Log.e(TAG, "[PLAYBACK ERROR] $err")
+                                voiceInputManager?.resumeAfterPlayback()
+                                onStateChange(State.Error, err)
                             }
-                        }
-                    )
-                } else if (neuralSynthesizer != null) {
-                    neuralSynthesizer.speak(
-                        text = translationResult.translatedText,
-                        languageCode = "sat",
-                        onStart = {
-                            tracker.markTtsResponse()
-                            tracker.markPlaybackStart()
-                            lastMeasuredLatency = tracker.computeMetrics()
-                            Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
-                            Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                            onStateChange(State.Speaking, "Playing Santali")
-                        },
-                        onDone = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            continuation.resume(Unit)
-                        },
-                        onError = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            continuation.resume(Unit)
-                        }
+                        )
                     )
                 } else {
-                    voiceInputManager?.resumeAfterPlayback()
-                    tracker.computeMetrics()
-                    continuation.resume(Unit)
+                    onStateChange(State.Error, "Empty TTS audio response")
                 }
+            } catch (e: Exception) {
+                Log.w(TAG, "[TTS ERROR] Real TTS synthesis failed: ${e.localizedMessage}")
+                fallbackDirectPlay(translationResult, nlpResult, tracker, onStateChange, onUtteranceResult)
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "[AUDIO ERROR] Playback failed: ${e.localizedMessage}")
+        } else if (realTts != null) {
+            // Direct playback with suspendCoroutine
+            suspendCoroutine<Unit> { continuation ->
+                realTts.synthesizeAndPlay(
+                    text = translationResult.translatedText,
+                    onStart = {
+                        tracker.markTtsResponse()
+                        tracker.markPlaybackStart()
+                        lastMeasuredLatency = tracker.computeMetrics()
+                        tracker.logLiveLatency(nlpResult.normalizedText)
+                        Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                        Log.i("VoiceIntegration", "PLAYBACK_STARTED")
+                        voiceInputManager?.pauseForPlayback()
+                        onStateChange(State.Speaking, "Playing Santali")
+                        onUtteranceResult(nlpResult.normalizedText, translationResult)
+                    },
+                    onComplete = {
+                        voiceInputManager?.resumeAfterPlayback()
+                        onStateChange(State.TranslationComplete, "Translation Complete")
+                        continuation.resume(Unit)
+                    },
+                    onError = { err ->
+                        voiceInputManager?.resumeAfterPlayback()
+                        continuation.resume(Unit)
+                    }
+                )
+            }
+            if (isLiveSessionActive) {
+                delay(250)
+                Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
+                onStateChange(State.Listening, "LIVE LISTENING")
+            }
+        }
+    }
+
+    private fun fallbackDirectPlay(
+        translationResult: TranslationResult,
+        nlpResult: NlpProcessedUtterance,
+        tracker: LatencyTracker,
+        onStateChange: (State, String) -> Unit,
+        onUtteranceResult: (String, TranslationResult) -> Unit
+    ) {
+        neuralSynthesizer?.speak(
+            text = translationResult.translatedText,
+            languageCode = "sat",
+            onStart = {
+                tracker.markTtsResponse()
+                tracker.markPlaybackStart()
+                lastMeasuredLatency = tracker.computeMetrics()
+                tracker.logLiveLatency(nlpResult.normalizedText)
+                Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                Log.i("VoiceIntegration", "PLAYBACK_STARTED")
+                voiceInputManager?.pauseForPlayback()
+                onStateChange(State.Speaking, "Playing Santali (Neural)")
+                onUtteranceResult(nlpResult.normalizedText, translationResult)
+            },
+            onDone = {
+                voiceInputManager?.resumeAfterPlayback()
+                onStateChange(State.TranslationComplete, "Translation Complete")
+                if (isLiveSessionActive) {
+                    mainHandler.postDelayed({
+                        if (isLiveSessionActive) {
+                            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
+                            onStateChange(State.Listening, "LIVE LISTENING")
+                        }
+                    }, 250)
+                }
+            },
+            onError = {
+                voiceInputManager?.resumeAfterPlayback()
+            }
+        ) ?: run {
             voiceInputManager?.resumeAfterPlayback()
         }
+    }
 
-        // 4. Return to Live Listening automatically
-        if (isLiveSessionActive) {
-            delay(150)
-            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
-            onStateChange(State.Listening, "LIVE LISTENING")
-        }
+    fun stopLiveVoiceSession() {
+        isLiveSessionActive = false
+        liveQueue?.stop()
+        liveQueue = null
+        santaliAudioQueue?.stop()
+        santaliAudioQueue = null
+        liveScope?.cancel()
+        liveScope = null
+        liveProcessor.reset()
+        Log.i(TAG, "[LIVE SESSION] Live Voice Bridge session stopped")
     }
 
     /**
@@ -283,117 +342,117 @@ class VoiceTranslationBridge(
             }
             textToTranslate = nlpResult.normalizedText
         } else {
-            textToTranslate = recognizedText.trim().replace("\\s+".toRegex(), " ")
+            textToTranslate = recognizedText.trim()
             latencyTracker.markNlpReady()
         }
 
-        // 2. Translation Layer
-        latencyTracker.markTranslationStart()
         onStateChange(State.Translating, "Translating...")
+        latencyTracker.markTranslationStart()
 
-        try {
-            val result = translationEngine.translate(textToTranslate, sourceLanguage, targetLanguage)
-            latencyTracker.markTranslationEnd()
-            onResult(result)
-            onStateChange(State.TranslationComplete, "Translation Complete")
-
-            // 3. TTS Layer
-            if (isVoiceBridgeEnabled) {
-                val targetLocaleCode = when (targetLanguage) {
-                    Language.HINDI -> "hi"
-                    Language.SANTALI -> "sat"
-                }
-
-                latencyTracker.markTtsStart()
-                if (targetLanguage == Language.SANTALI && realSantaliTTSProvider != null) {
-                    onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
-                    voiceInputManager?.pauseForPlayback()
-                    realSantaliTTSProvider?.synthesizeAndPlay(
-                        text = result.translatedText,
-                        onStart = {
-                            latencyTracker.markTtsResponse()
-                            latencyTracker.markPlaybackStart()
-                            lastMeasuredLatency = latencyTracker.computeMetrics()
-                            onStateChange(State.Speaking, "Playing Santali")
-                        },
-                        onComplete = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete")
-                        },
-                        onError = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
-                        }
-                    )
-                } else if (speechOutputManager.isLanguageAvailable(targetLocaleCode)) {
-                    voiceInputManager?.pauseForPlayback()
-                    speechOutputManager.speak(
-                        text = result.translatedText,
-                        languageCode = targetLocaleCode,
-                        onStart = {
-                            latencyTracker.markTtsResponse()
-                            latencyTracker.markPlaybackStart()
-                            lastMeasuredLatency = latencyTracker.computeMetrics()
-                            onStateChange(State.Speaking, "Playing audio...")
-                        },
-                        onDone = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete")
-                        },
-                        onError = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
-                        }
-                    )
-                } else if (neuralSynthesizer != null) {
-                    voiceInputManager?.pauseForPlayback()
-                    neuralSynthesizer.speak(
-                        text = result.translatedText,
-                        languageCode = targetLocaleCode,
-                        onStart = {
-                            latencyTracker.markTtsResponse()
-                            latencyTracker.markPlaybackStart()
-                            lastMeasuredLatency = latencyTracker.computeMetrics()
-                            onStateChange(State.Speaking, "Playing Santali (Neural)")
-                        },
-                        onDone = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete")
-                        },
-                        onError = {
-                            voiceInputManager?.resumeAfterPlayback()
-                            onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
-                        }
-                    )
-                } else {
-                    latencyTracker.computeMetrics()
-                    onStateChange(State.TranslationComplete, "Translation Complete (HUD Ready)")
-                }
-            } else {
-                lastMeasuredLatency = latencyTracker.computeMetrics()
-            }
+        val translationResult = try {
+            translationEngine.translate(textToTranslate, sourceLanguage, targetLanguage)
         } catch (e: Exception) {
-            onStateChange(State.Error, "Error: ${e.localizedMessage}")
+            Log.e(TAG, "[TRANSLATION ERROR] Failed: ${e.localizedMessage}")
+            onStateChange(State.Error, "Translation unavailable")
+            return
+        }
+
+        latencyTracker.markTranslationEnd()
+        onResult(translationResult)
+
+        if (!isVoiceBridgeEnabled) {
+            lastMeasuredLatency = latencyTracker.computeMetrics()
+            latencyTracker.logLiveLatency(textToTranslate)
+            onStateChange(State.TranslationComplete, "Translation complete")
+            return
+        }
+
+        // 2. TTS Voice Output
+        latencyTracker.markTtsStart()
+        if (targetLanguage == Language.SANTALI && realSantaliTTSProvider != null) {
+            onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
+            realSantaliTTSProvider?.synthesizeAndPlay(
+                text = translationResult.translatedText,
+                onStart = {
+                    latencyTracker.markTtsResponse()
+                    latencyTracker.markPlaybackStart()
+                    lastMeasuredLatency = latencyTracker.computeMetrics()
+                    latencyTracker.logLiveLatency(textToTranslate)
+                    onStateChange(State.Speaking, "Playing Santali")
+                },
+                onComplete = {
+                    onStateChange(State.TranslationComplete, "Translation complete")
+                },
+                onError = { err ->
+                    Log.w(TAG, "[TTS FALLBACK] Real TTS error: $err, falling back to on-device engine")
+                    speakViaNeuralSynthesizer(translationResult, targetLanguage, latencyTracker, textToTranslate, onStateChange)
+                }
+            )
+        } else {
+            speakViaNeuralSynthesizer(translationResult, targetLanguage, latencyTracker, textToTranslate, onStateChange)
         }
     }
 
-    /**
-     * Cleanly stops live voice session, terminates worker coroutines, and resets audio.
-     */
-    fun stopLiveVoiceSession() {
-        Log.i(TAG, "[LIVE SESSION] Stopping Live Voice Bridge session")
-        isLiveSessionActive = false
-        voiceInputManager?.stopContinuousListening()
-        voiceInputManager?.resumeAfterPlayback()
-        realSantaliTTSProvider?.stop()
-        neuralSynthesizer?.stop()
-        speechOutputManager.stop()
-        liveQueue?.stop()
-        liveQueue = null
-        liveScope?.cancel()
-        liveScope = null
-        liveProcessor.reset()
+    private fun speakViaNeuralSynthesizer(
+        translationResult: TranslationResult,
+        targetLanguage: Language,
+        latencyTracker: LatencyTracker,
+        textToTranslate: String,
+        onStateChange: (State, String) -> Unit
+    ) {
+        val targetCode = if (targetLanguage == Language.HINDI) "hi" else "sat"
+        if (neuralSynthesizer != null) {
+            neuralSynthesizer.speak(
+                text = translationResult.translatedText,
+                languageCode = targetCode,
+                onStart = {
+                    latencyTracker.markTtsResponse()
+                    latencyTracker.markPlaybackStart()
+                    lastMeasuredLatency = latencyTracker.computeMetrics()
+                    latencyTracker.logLiveLatency(textToTranslate)
+                    onStateChange(State.Speaking, "Playing Santali (Neural)")
+                },
+                onDone = {
+                    onStateChange(State.TranslationComplete, "Translation complete")
+                },
+                onError = {
+                    speechOutputManager.speak(
+                        text = translationResult.translatedText,
+                        languageCode = targetCode,
+                        onStart = {
+                            latencyTracker.markTtsResponse()
+                            latencyTracker.markPlaybackStart()
+                            lastMeasuredLatency = latencyTracker.computeMetrics()
+                            latencyTracker.logLiveLatency(textToTranslate)
+                            onStateChange(State.Speaking, "Speaking...")
+                        },
+                        onDone = {
+                            onStateChange(State.TranslationComplete, "Translation complete")
+                        },
+                        onError = {
+                            onStateChange(State.Error, "Speech output failed")
+                        }
+                    )
+                }
+            )
+        } else {
+            speechOutputManager.speak(
+                text = translationResult.translatedText,
+                languageCode = targetCode,
+                onStart = {
+                    latencyTracker.markTtsResponse()
+                    latencyTracker.markPlaybackStart()
+                    lastMeasuredLatency = latencyTracker.computeMetrics()
+                    latencyTracker.logLiveLatency(textToTranslate)
+                    onStateChange(State.Speaking, "Speaking...")
+                },
+                onDone = {
+                    onStateChange(State.TranslationComplete, "Translation complete")
+                },
+                onError = {
+                    onStateChange(State.Error, "Speech output failed")
+                }
+            )
+        }
     }
-
-    fun isLiveActive(): Boolean = isLiveSessionActive
 }
