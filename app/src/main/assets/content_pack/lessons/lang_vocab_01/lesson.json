@@ -1,0 +1,55 @@
+{
+  "lesson_id": "lang_vocab_01",
+  "subject": "Language",
+  "grade": 1,
+  "domain": "LITERACY",
+  "outcome_id": "NIPUN-LIT-L3",
+  "learning_outcome": {
+    "hindi": "छात्र कक्षा के दैनिक उपयोग के शब्दों का संथाली अनुवाद सीखते हैं।",
+    "santali": "छाᱛ्ᱨ ᱠᱠ्षा ᱠे ᱫैᱱिᱠ ᱩᱯᱭोᱜ ᱠे शᱵ्ᱫों ᱠा ᱥंथाᱞी ᱚᱱुᱣाᱫ ᱥीखᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "दैनिक कक्षा शब्द ज्ञान",
+    "santali": "ᱫᱤᱱᱟᱹᱢ ᱦᱤᱞᱳᱜᱟᱜ ᱠᱞᱟᱥ ᱥᱟᱵᱟᱫᱽ"
+  },
+  "teacher_instruction": {
+    "hindi": "पानी को संथाली में ᱫᱟᱜ (दाग) और किताब को ᱯᱩᱛᱷᱤ (पुथि) कहते हैं।",
+    "santali": "ᱯाᱱी ᱠो ᱥंथाᱞी ᱢें ᱫᱟᱜ (ᱫाᱜ) औᱨ ᱠिᱛाᱵ ᱠो ᱯᱩᱛᱷᱤ (ᱯुथि) ᱠᱦᱛे ᱦैं।"
+  },
+  "activity": {
+    "type": "picture_word_match",
+    "instruction_hindi": "चित्र देखकर सही संथाली शब्द चुनिए।",
+    "instruction_santali": "ᱪिᱛ्ᱨ ᱫेखᱠᱨ ᱥᱦी ᱥंथाᱞी शᱵ्ᱫ ᱪुᱱिᱮ।",
+    "interactive_items": [
+      "💧 पानी ➜ ᱫᱟᱜ",
+      "📖 किताब ➜ ᱯᱩᱛᱷᱤ"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "किताब को संथाली में क्या कहते हैं?",
+    "question_santali": "किताब ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱪᱮᱫ ᱠᱚ ᱢᱮᱛᱟᱜᱼᱟ?",
+    "options_hindi": [
+      "पुथि (ᱯᱩᱛᱷᱤ)",
+      "दाग (ᱫᱟᱜ)",
+      "जो (ᱡᱚ)"
+    ],
+    "options_santali": [
+      "ᱯᱩᱛᱷᱤ",
+      "ᱫᱟᱜ",
+      "ᱡᱚ"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "पुथि (ᱯᱩᱛᱷᱤ)",
+    "explanation_hindi": "किताब को संथाली में ᱯᱩᱛᱷᱤ (पुथि) कहते हैं।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "किताब",
+    "icon_emoji": "📖",
+    "count": 1
+  }
+}

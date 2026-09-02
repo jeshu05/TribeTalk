@@ -1,5 +1,6 @@
 package com.alchemists.tribetalk.voice
 
+import android.content.Context
 import com.alchemists.tribetalk.translation.Language
 import com.alchemists.tribetalk.translation.TranslationEngine
 import com.alchemists.tribetalk.translation.TranslationResult
@@ -9,6 +10,13 @@ class VoiceTranslationBridge(
     private val speechOutputManager: SpeechOutputManager,
     private val neuralSynthesizer: NeuralSpeechSynthesizer? = null
 ) {
+    fun createRealtimePipeline(context: Context): RealtimeTranslationPipeline {
+        return RealtimeTranslationPipeline(
+            context = context,
+            translationEngine = translationEngine,
+            neuralSynthesizer = neuralSynthesizer
+        )
+    }
     enum class State {
         Idle,
         Listening,

@@ -187,9 +187,16 @@ fun DashboardScreen(
                 }
                 item {
                     MenuGridCard(
-                        title = "Learning Insights",
+                        title = "Flashcards",
                         icon = Icons.Default.Star,
-                        onClick = { onNavigate(Screen.LearningInsights) }
+                        onClick = { onNavigate(Screen.Flashcards) }
+                    )
+                }
+                item {
+                    MenuGridCard(
+                        title = "Real-Time Analytics",
+                        icon = Icons.Default.Star,
+                        onClick = { onNavigate(Screen.RealtimeAnalytics) }
                     )
                 }
                 item {

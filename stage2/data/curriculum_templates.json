@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "program": "Jharkhand PALASH MTB-MLE",
+  "lessons": [
+    {
+      "lesson_id": "math_counting_01",
+      "subject": "Mathematics",
+      "grade": 1,
+      "domain": "NUMERACY",
+      "outcome_id": "NIPUN-NUM-M1",
+      "learning_outcome_hindi": "छात्र 1 से 10 तक वस्तुओं को सही क्रम में गिन सकते हैं।",
+      "title_hindi": "गिनती 1 से 10 तक",
+      "teacher_instruction_hindi": "बच्चों, आज हम वस्तुओं को गिनना सीखेंगे। चित्र में दिखाई दे रही वस्तुओं को ध्यान से गिनिए।",
+      "activity": {
+        "type": "count_objects",
+        "instruction_hindi": "चित्र में बनी वस्तुओं को एक-एक करके गिनिए और सही संख्या चुनिए।",
+        "interactive_items": ["1", "2", "3", "4", "5"]
+      },
+      "assessment": {
+        "question_hindi": "चित्र में कितनी गेंदें हैं?",
+        "options_hindi": ["5", "3", "4"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "5",
+        "explanation_hindi": "चित्र में 5 गेंदें हैं।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "गेंद",
+        "icon_emoji": "⚽",
+        "count": 5
+      }
+    },
+    {
+      "lesson_id": "math_numbers_01",
+      "subject": "Mathematics",
+      "grade": 1,
+      "domain": "NUMERACY",
+      "outcome_id": "NIPUN-NUM-M2",
+      "learning_outcome_hindi": "छात्र लिखित अंकों (1-10) को देखकर पहचान सकते हैं।",
+      "title_hindi": "संख्या पहचान (1-10)",
+      "teacher_instruction_hindi": "ब्लैकबोर्ड पर लिखी संख्या 5 को ध्यान से देखिए और उसका सही नाम बोलिए।",
+      "activity": {
+        "type": "number_recognition",
+        "instruction_hindi": "दिखाए गए अंक का सही संथाली नाम चुनिए।",
+        "interactive_items": ["3", "5", "7"]
+      },
+      "assessment": {
+        "question_hindi": "अंक 5 का सही नाम क्या है?",
+        "options_hindi": ["पाँच", "चार", "छह"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "पाँच",
+        "explanation_hindi": "अंक 5 को पाँच कहते हैं।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "संख्या 5",
+        "icon_emoji": "🔢",
+        "count": 5
+      }
+    },
+    {
+      "lesson_id": "math_addition_01",
+      "subject": "Mathematics",
+      "grade": 1,
+      "domain": "NUMERACY",
+      "outcome_id": "NIPUN-NUM-M3",
+      "learning_outcome_hindi": "छात्र 1 से 5 तक की वस्तुओं का सरल जोड़ कर सकते हैं।",
+      "title_hindi": "सरल जोड़ (1-5)",
+      "teacher_instruction_hindi": "2 सेब और 1 सेब मिलकर कितने सेब बनते हैं?",
+      "activity": {
+        "type": "addition",
+        "instruction_hindi": "दोनों समूहों की वस्तुओं को मिलाकर कुल संख्या बताइए।",
+        "interactive_items": ["2 + 1 = 3", "3 + 2 = 5"]
+      },
+      "assessment": {
+        "question_hindi": "2 + 1 कितना होता है?",
+        "options_hindi": ["3", "2", "4"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "3",
+        "explanation_hindi": "2 और 1 को जोड़ने पर 3 मिलता है।"
+      },
+      "difficulty": "INTERMEDIATE",
+      "visual_asset": {
+        "object_name_hindi": "सेब",
+        "icon_emoji": "🍎",
+        "count": 3
+      }
+    },
+    {
+      "lesson_id": "math_subtraction_01",
+      "subject": "Mathematics",
+      "grade": 1,
+      "domain": "NUMERACY",
+      "outcome_id": "NIPUN-NUM-M4",
+      "learning_outcome_hindi": "छात्र 1 से 5 तक की वस्तुओं में से सरल घटाव समझ सकते हैं।",
+      "title_hindi": "सरल घटाव (1-5)",
+      "teacher_instruction_hindi": "5 पक्षियों में से 2 पक्षी उड़ गए, तो कितने पक्षी बचे?",
+      "activity": {
+        "type": "subtraction",
+        "instruction_hindi": "कुल वस्तुओं में से कुछ वस्तुएं हटाकर शेष गिनिए।",
+        "interactive_items": ["5 - 2 = 3", "4 - 1 = 3"]
+      },
+      "assessment": {
+        "question_hindi": "5 - 2 का उत्तर क्या है?",
+        "options_hindi": ["3", "2", "4"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "3",
+        "explanation_hindi": "5 में से 2 घटाने पर 3 बचता है।"
+      },
+      "difficulty": "INTERMEDIATE",
+      "visual_asset": {
+        "object_name_hindi": "चिड़िया",
+        "icon_emoji": "🐦",
+        "count": 3
+      }
+    },
+    {
+      "lesson_id": "lang_alphabet_01",
+      "subject": "Language",
+      "grade": 1,
+      "domain": "LITERACY",
+      "outcome_id": "NIPUN-LIT-L2",
+      "learning_outcome_hindi": "छात्र ओल चिकी अक्षरों की आकृति और ध्वनि पहचानते हैं।",
+      "title_hindi": "ओल चिकी अक्षर पहचान",
+      "teacher_instruction_hindi": "यह ओल चिकी लिपि का पहला अक्षर 'ᱚ' है। मेरे साथ इसका उच्चारण कीजिए।",
+      "activity": {
+        "type": "picture_word_match",
+        "instruction_hindi": "अक्षर ᱚ को देखकर सही उच्चारण सुनिए।",
+        "interactive_items": ["ᱚ (LA)", "ᱛ (AT)", "ᱜ (AG)"]
+      },
+      "assessment": {
+        "question_hindi": "संथाली ओल चिकी लिपि का पहला अक्षर कौन सा है?",
+        "options_hindi": ["ᱚ", "ᱛ", "ᱜ"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "ᱚ",
+        "explanation_hindi": "ओल चिकी लिपि का पहला अक्षर ᱚ (LA) है।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "अक्षर ᱚ",
+        "icon_emoji": "𱌀",
+        "count": 1
+      }
+    },
+    {
+      "lesson_id": "lang_vocab_01",
+      "subject": "Language",
+      "grade": 1,
+      "domain": "LITERACY",
+      "outcome_id": "NIPUN-LIT-L3",
+      "learning_outcome_hindi": "छात्र कक्षा के दैनिक उपयोग के शब्दों का संथाली अनुवाद सीखते हैं।",
+      "title_hindi": "दैनिक कक्षा शब्द ज्ञान",
+      "teacher_instruction_hindi": "पानी को संथाली में ᱫᱟᱜ (दाग) और किताब को ᱯᱩᱛᱷᱤ (पुथि) कहते हैं।",
+      "activity": {
+        "type": "picture_word_match",
+        "instruction_hindi": "चित्र देखकर सही संथाली शब्द चुनिए।",
+        "interactive_items": ["💧 पानी ➜ ᱫᱟᱜ", "📖 किताब ➜ ᱯᱩᱛᱷᱤ"]
+      },
+      "assessment": {
+        "question_hindi": "किताब को संथाली में क्या कहते हैं?",
+        "options_hindi": ["पुथि (ᱯᱩᱛᱷᱤ)", "दाग (ᱫᱟᱜ)", "जो (ᱡᱚ)"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "पुथि (ᱯᱩᱛᱷᱤ)",
+        "explanation_hindi": "किताब को संथाली में ᱯᱩᱛᱷᱤ (पुथि) कहते हैं।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "किताब",
+        "icon_emoji": "📖",
+        "count": 1
+      }
+    },
+    {
+      "lesson_id": "concept_shapes_01",
+      "subject": "Mathematics",
+      "grade": 1,
+      "domain": "NUMERACY",
+      "outcome_id": "NIPUN-NUM-M5",
+      "learning_outcome_hindi": "छात्र वृत्त और वर्ग जैसी मूल आकृतियों को पहचानते हैं।",
+      "title_hindi": "मूल आकृतियाँ (वृत्त, वर्ग)",
+      "teacher_instruction_hindi": "गेंद जैसी गोल आकृति को वृत्त कहते हैं।",
+      "activity": {
+        "type": "identify_shape",
+        "instruction_hindi": "दिए गए चित्रों में से वृत्त (गोल) आकृति खोजिए।",
+        "interactive_items": ["वृत्त ⭕", "वर्ग ⏹️"]
+      },
+      "assessment": {
+        "question_hindi": "गेंद की आकृति कैसी होती है?",
+        "options_hindi": ["वृत्त (गोल)", "वर्ग (चौकोर)", "त्रिकोण"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "वृत्त (गोल)",
+        "explanation_hindi": "गेंद की आकृति गोल (वृत्त) होती है।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "वृत्त",
+        "icon_emoji": "⭕",
+        "count": 1
+      }
+    },
+    {
+      "lesson_id": "concept_colours_01",
+      "subject": "Language",
+      "grade": 1,
+      "domain": "LITERACY",
+      "outcome_id": "NIPUN-LIT-L1",
+      "learning_outcome_hindi": "छात्र प्राथमिक रंगों (लाल, हरा, नीला) को पहचानते हैं।",
+      "title_hindi": "रंगों की पहचान",
+      "teacher_instruction_hindi": "सेब का रंग लाल होता है। पत्तियों का रंग हरा होता है।",
+      "activity": {
+        "type": "identify_colour",
+        "instruction_hindi": "दिखाए गए रंग का कार्ड चुनिए।",
+        "interactive_items": ["🔴 लाल", "🟢 हरा", "🔵 नीला"]
+      },
+      "assessment": {
+        "question_hindi": "पत्तियों का रंग कैसा होता है?",
+        "options_hindi": ["हरा", "लाल", "पीला"],
+        "correct_answer_index": 0,
+        "correct_answer_value": "हरा",
+        "explanation_hindi": "पत्तियों का रंग हरा होता है।"
+      },
+      "difficulty": "BEGINNER",
+      "visual_asset": {
+        "object_name_hindi": "हरा",
+        "icon_emoji": "🟢",
+        "count": 1
+      }
+    }
+  ]
+}

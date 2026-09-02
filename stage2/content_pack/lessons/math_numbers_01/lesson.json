@@ -1,0 +1,56 @@
+{
+  "lesson_id": "math_numbers_01",
+  "subject": "Mathematics",
+  "grade": 1,
+  "domain": "NUMERACY",
+  "outcome_id": "NIPUN-NUM-M2",
+  "learning_outcome": {
+    "hindi": "छात्र लिखित अंकों (1-10) को देखकर पहचान सकते हैं।",
+    "santali": "छाᱛ्ᱨ ᱞिखिᱛ ᱚंᱠों (᱑-᱑᱐) ᱠो ᱫेखᱠᱨ ᱯᱦᱪाᱱ ᱥᱠᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "संख्या पहचान (1-10)",
+    "santali": "ᱮᱞ ᱪᱤᱱᱦᱟᱹᱣ (1-10)"
+  },
+  "teacher_instruction": {
+    "hindi": "ब्लैकबोर्ड पर लिखी संख्या 5 को ध्यान से देखिए और उसका सही नाम बोलिए।",
+    "santali": "ᱵ्ᱞैᱠᱵोᱨ्ᱰ ᱯᱨ ᱞिखी ᱥंख्ᱭा ᱕ ᱠो ध्ᱭाᱱ ᱥे ᱫेखिᱮ औᱨ ᱩᱥᱠा ᱥᱦी ᱱाᱢ ᱵोᱞिᱮ।"
+  },
+  "activity": {
+    "type": "number_recognition",
+    "instruction_hindi": "दिखाए गए अंक का सही संथाली नाम चुनिए।",
+    "instruction_santali": "ᱫिखाᱮ ᱜᱮ ᱚंᱠ ᱠा ᱥᱦी ᱥंथाᱞी ᱱाᱢ ᱪुᱱिᱮ।",
+    "interactive_items": [
+      "3",
+      "5",
+      "7"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "अंक 5 का सही नाम क्या है?",
+    "question_santali": "5 ᱮᱞ ᱨᱮᱱᱟᱜ ᱴᱷᱤᱠ ᱧᱩᱛᱩᱢ ᱪᱮᱫ ᱠᱟᱱᱟ?",
+    "options_hindi": [
+      "पाँच",
+      "चार",
+      "छह"
+    ],
+    "options_santali": [
+      "ᱢᱚᱬᱮ",
+      "ᱯᱩᱱ",
+      "ᱛᱩᱨᱩᱭ"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "पाँच",
+    "explanation_hindi": "अंक 5 को पाँच कहते हैं।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "संख्या 5",
+    "icon_emoji": "🔢",
+    "count": 5
+  }
+}

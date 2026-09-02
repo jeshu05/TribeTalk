@@ -1,0 +1,18 @@
+{
+  "pack_version": "1.0",
+  "program": "Jharkhand PALASH MTB-MLE",
+  "language_source": "hin_Deva",
+  "language_target": "sat_Olck",
+  "audio_sample_rate": 24000,
+  "offline": true,
+  "lessons": [
+    "math_counting_01",
+    "math_numbers_01",
+    "math_addition_01",
+    "math_subtraction_01",
+    "lang_alphabet_01",
+    "lang_vocab_01",
+    "concept_shapes_01",
+    "concept_colours_01"
+  ]
+}

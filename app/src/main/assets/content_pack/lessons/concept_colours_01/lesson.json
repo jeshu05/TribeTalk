@@ -1,0 +1,56 @@
+{
+  "lesson_id": "concept_colours_01",
+  "subject": "Language",
+  "grade": 1,
+  "domain": "LITERACY",
+  "outcome_id": "NIPUN-LIT-L1",
+  "learning_outcome": {
+    "hindi": "छात्र प्राथमिक रंगों (लाल, हरा, नीला) को पहचानते हैं।",
+    "santali": "छाᱛ्ᱨ ᱯ्ᱨाथᱢिᱠ ᱨंᱜों (ᱞाᱞ, ᱦᱨा, ᱱीᱞा) ᱠो ᱯᱦᱪाᱱᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "रंगों की पहचान",
+    "santali": "ᱨᱚᱝ ᱪᱤᱱᱦᱟᱹᱣ"
+  },
+  "teacher_instruction": {
+    "hindi": "सेब का रंग लाल होता है। पत्तियों का रंग हरा होता है।",
+    "santali": "ᱥेᱵ ᱠा ᱨंᱜ ᱞाᱞ ᱦोᱛा ᱦै। ᱯᱛ्ᱛिᱭों ᱠा ᱨंᱜ ᱦᱨा ᱦोᱛा ᱦै।"
+  },
+  "activity": {
+    "type": "identify_colour",
+    "instruction_hindi": "दिखाए गए रंग का कार्ड चुनिए।",
+    "instruction_santali": "ᱫिखाᱮ ᱜᱮ ᱨंᱜ ᱠा ᱠाᱨ्ᱰ ᱪुᱱिᱮ।",
+    "interactive_items": [
+      "🔴 लाल",
+      "🟢 हरा",
+      "🔵 नीला"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "पत्तियों का रंग कैसा होता है?",
+    "question_santali": "ᱥᱟᱠᱟᱢ ᱨᱮᱱᱟᱜ ᱨᱚᱝ ᱪᱮᱫ ᱞᱮᱠᱟᱱᱟ?",
+    "options_hindi": [
+      "हरा",
+      "लाल",
+      "पीला"
+    ],
+    "options_santali": [
+      "ᱦᱟᱹᱨᱤᱭᱟᱹᱲ",
+      "ᱟᱨᱟ",
+      "ᱥᱟᱥᱟᱝ"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "हरा",
+    "explanation_hindi": "पत्तियों का रंग हरा होता है।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "हरा",
+    "icon_emoji": "🟢",
+    "count": 1
+  }
+}

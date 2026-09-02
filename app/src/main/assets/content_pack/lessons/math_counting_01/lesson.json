@@ -1,0 +1,58 @@
+{
+  "lesson_id": "math_counting_01",
+  "subject": "Mathematics",
+  "grade": 1,
+  "domain": "NUMERACY",
+  "outcome_id": "NIPUN-NUM-M1",
+  "learning_outcome": {
+    "hindi": "छात्र 1 से 10 तक वस्तुओं को सही क्रम में गिन सकते हैं।",
+    "santali": "छाᱛ्ᱨ ᱑ ᱥे ᱑᱐ ᱛᱠ ᱣᱥ्ᱛुᱚं ᱠो ᱥᱦी ᱠ्ᱨᱢ ᱢें ᱜिᱱ ᱥᱠᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "गिनती 1 से 10 तक",
+    "santali": "1 ᱠᱷᱚᱱ 10 ᱦᱟᱹᱵᱤᱡ ᱞᱮᱠᱷᱟ"
+  },
+  "teacher_instruction": {
+    "hindi": "बच्चों, आज हम वस्तुओं को गिनना सीखेंगे। चित्र में दिखाई दे रही वस्तुओं को ध्यान से गिनिए।",
+    "santali": "ᱵᱪ्ᱪों, ᱟᱡ ᱦᱢ ᱣᱥ्ᱛुᱚं ᱠो ᱜिᱱᱱा ᱥीखेंᱜे। ᱪिᱛ्ᱨ ᱢें ᱫिखाई ᱫे ᱨᱦी ᱣᱥ्ᱛुᱚं ᱠो ध्ᱭाᱱ ᱥे ᱜिᱱिᱮ।"
+  },
+  "activity": {
+    "type": "count_objects",
+    "instruction_hindi": "चित्र में बनी वस्तुओं को एक-एक करके गिनिए और सही संख्या चुनिए।",
+    "instruction_santali": "ᱪिᱛ्ᱨ ᱢें ᱵᱱी ᱣᱥ्ᱛुᱚं ᱠो ᱮᱠ-ᱮᱠ ᱠᱨᱠे ᱜिᱱिᱮ औᱨ ᱥᱦी ᱥंख्ᱭा ᱪुᱱिᱮ।",
+    "interactive_items": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "चित्र में कितनी गेंदें हैं?",
+    "question_santali": "ᱪᱤᱛᱟᱹᱨ ᱨᱮ ᱛᱤᱱᱟᱹᱜ ᱜᱮᱸᱫᱽ ᱢᱮᱱᱟᱜᱼᱟ?",
+    "options_hindi": [
+      "5",
+      "3",
+      "4"
+    ],
+    "options_santali": [
+      "᱕",
+      "᱓",
+      "᱔"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "5",
+    "explanation_hindi": "चित्र में 5 गेंदें हैं।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "गेंद",
+    "icon_emoji": "⚽",
+    "count": 5
+  }
+}

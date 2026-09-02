@@ -1,0 +1,55 @@
+{
+  "lesson_id": "concept_shapes_01",
+  "subject": "Mathematics",
+  "grade": 1,
+  "domain": "NUMERACY",
+  "outcome_id": "NIPUN-NUM-M5",
+  "learning_outcome": {
+    "hindi": "छात्र वृत्त और वर्ग जैसी मूल आकृतियों को पहचानते हैं।",
+    "santali": "छाᱛ्ᱨ ᱣृᱛ्ᱛ औᱨ ᱣᱨ्ᱜ ᱡैᱥी ᱢूᱞ ᱟᱠृᱛिᱭों ᱠो ᱯᱦᱪाᱱᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "मूल आकृतियाँ (वृत्त, वर्ग)",
+    "santali": "ᱢᱩᱞ ᱨᱩᱯ (ᱜᱳᱞ, ᱪᱚᱠᱟ)"
+  },
+  "teacher_instruction": {
+    "hindi": "गेंद जैसी गोल आकृति को वृत्त कहते हैं।",
+    "santali": "ᱜेंᱫ ᱡैᱥी ᱜोᱞ ᱟᱠृᱛि ᱠो ᱣृᱛ्ᱛ ᱠᱦᱛे ᱦैं।"
+  },
+  "activity": {
+    "type": "identify_shape",
+    "instruction_hindi": "दिए गए चित्रों में से वृत्त (गोल) आकृति खोजिए।",
+    "instruction_santali": "ᱫिᱮ ᱜᱮ ᱪिᱛ्ᱨों ᱢें ᱥे ᱣृᱛ्ᱛ (ᱜोᱞ) ᱟᱠृᱛि खोᱡिᱮ।",
+    "interactive_items": [
+      "वृत्त ⭕",
+      "वर्ग ⏹️"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "गेंद की आकृति कैसी होती है?",
+    "question_santali": "ᱜᱮᱸᱫᱽ ᱨᱮᱱᱟᱜ ᱨᱩᱯ ᱪᱮᱫ ᱞᱮᱠᱟᱱᱟ?",
+    "options_hindi": [
+      "वृत्त (गोल)",
+      "वर्ग (चौकोर)",
+      "त्रिकोण"
+    ],
+    "options_santali": [
+      "ᱜᱳᱞ",
+      "ᱪᱚᱠᱟ",
+      "ᱛᱮᱠᱳᱬ"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "वृत्त (गोल)",
+    "explanation_hindi": "गेंद की आकृति गोल (वृत्त) होती है।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "वृत्त",
+    "icon_emoji": "⭕",
+    "count": 1
+  }
+}

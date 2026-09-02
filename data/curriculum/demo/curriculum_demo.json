@@ -1,0 +1,90 @@
+{
+  "datasetInfo": {
+    "version": "1.0.0",
+    "isOfficial": false,
+    "label": "DEMO — NOT OFFICIAL CURRICULUM",
+    "sourceDocument": "NIPUN Bharat Guidelines Demo Pack",
+    "description": "Structured demo curriculum dataset for offline FLN primary education in Jharkhand"
+  },
+  "classrooms": [
+    { "classId": "class_1", "grade": "Class 1", "name": "Class 1 (Grade 1)" },
+    { "classId": "class_2", "grade": "Class 2", "name": "Class 2 (Grade 2)" },
+    { "classId": "class_3", "grade": "Class 3", "name": "Class 3 (Grade 3)" }
+  ],
+  "domains": [
+    { "domainId": "dom_lit", "name": "Literacy & Language", "type": "LITERACY" },
+    { "domainId": "dom_num", "name": "Foundational Numeracy", "type": "NUMERACY" }
+  ],
+  "competencies": [
+    {
+      "competencyId": "comp_lit_01",
+      "domainId": "dom_lit",
+      "code": "NIPUN-LIT-C1",
+      "descriptionHindi": "मौखिक भाषा का विकास और चित्र पठन",
+      "descriptionSantali": "ᱚᱞ-ᱯᱟᱲᱦᱟᱣ ᱟᱨ ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ"
+    },
+    {
+      "competencyId": "comp_num_01",
+      "domainId": "dom_num",
+      "code": "NIPUN-NUM-C1",
+      "descriptionHindi": "संख्या पूर्व अवधारणाएँ और गिनती 1-10",
+      "descriptionSantali": "1 ᱠᱷᱚᱱ 10 ᱦᱟᱹᱵᱤᱡ ᱞᱮᱠᱷᱟ"
+    }
+  ],
+  "learningOutcomes": [
+    {
+      "outcomeId": "lo_num_01",
+      "competencyId": "comp_num_01",
+      "nipunCode": "NIPUN-NUM-M1",
+      "grade": "Class 1",
+      "domain": "NUMERACY",
+      "topic": "Counting 1-10",
+      "descriptionHindi": "छात्र 1 से 10 तक वस्तुओं को सही क्रम में गिन सकते हैं।",
+      "descriptionSantali": "ᱯᱟᱹᱴᱷᱩᱣᱟᱹ ᱠᱚ 1 ᱠᱷᱚᱱ 10 ᱦᱟᱹᱵᱤᱡ ᱡᱤᱱᱤᱥ ᱴᱷᱤᱠ ᱞᱮᱠᱟᱛᱮ ᱠᱚ ᱞᱮᱠᱷᱟ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ᱾",
+      "isOfficial": false
+    },
+    {
+      "outcomeId": "lo_lit_01",
+      "competencyId": "comp_lit_01",
+      "nipunCode": "NIPUN-LIT-M1",
+      "grade": "Class 1",
+      "domain": "LITERACY",
+      "topic": "Letter & Object Recognition",
+      "descriptionHindi": "छात्र चित्र देखकर सही वर्ण और नाम पहचानते हैं।",
+      "descriptionSantali": "ᱯᱟᱹᱴᱷᱩᱣᱟᱹ ᱠᱚ ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ ᱠᱟᱛᱮ ᱧᱩᱛᱩᱢ ᱠᱚ ᱪᱤᱱᱦᱟᱹᱣᱟ᱾",
+      "isOfficial": false
+    }
+  ],
+  "lessons": [
+    {
+      "lessonId": "fln_num_01",
+      "outcomeId": "lo_num_01",
+      "grade": "Class 1",
+      "domain": "NUMERACY",
+      "topic": "Counting 1-10",
+      "titleHindi": "1 से 10 तक गिनती सीखें",
+      "titleSantali": "1 ᱠᱷᱚᱱ 10 ᱦᱟᱹᱵᱤᱡ ᱞᱮᱠᱷᱟ",
+      "instructionsJson": "[{\"step\":1,\"promptHindi\":\"बच्चों आज हम गिनती सीखेंगे\",\"promptSantali\":\"ᱵᱟᱹᱵᱩ ᱛᱮᱦᱮᱧ ᱟᱵᱚ ᱞᱮᱠᱷᱟ ᱵᱚᱱ ᱪᱮᱫᱟ\"}]",
+      "activitiesJson": "[{\"id\":\"act_01\",\"titleHindi\":\"कंकड़ गिनती खेल\",\"titleSantali\":\"ढुंढा ᱞᱮᱠᱷᱟ ᱮᱱᱮᱡ\"}]"
+    }
+  ],
+  "flashcards": [
+    {
+      "flashcardId": "fc_01",
+      "outcomeId": "lo_num_01",
+      "titleHindi": "सेब गिनती (1 से 5)",
+      "titleSantali": "ᱥᱮᱣ ᱞᱮᱠᱷᱟ (1 ᱠᱷᱚᱱ 5)",
+      "iconEmoji": "🍎",
+      "imagePath": "assets/flashcards/apples.png"
+    }
+  ],
+  "worksheets": [
+    {
+      "worksheetId": "ws_01",
+      "outcomeId": "lo_num_01",
+      "titleHindi": "गिनती का अभ्यास पत्र (1-10)",
+      "titleSantali": "ᱞᱮᱠᱷᱟ ᱚᱞ-ᱯᱟᱲᱦᱟᱣ ᱥᱟᱠᱟᱢ",
+      "questionsJson": "[{\"q\":\"Count the apples 🍎🍎🍎\",\"ans\":\"3\"}]"
+    }
+  ]
+}

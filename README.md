@@ -4,6 +4,9 @@
 
 The platform enables primary school teachers to speak in Hindi and automatically transcribes, translates, and synthesizes speech into **Santali (Ol Chiki script)** — operating **100% offline without internet access** on low-cost Android 9.0+ (API 28+) devices with **~2 GB RAM**.
 
+### 🌟 Key Stage 3 Module: Interactive Student Assessment
+Includes a child-friendly, visual, interactive student assessment subsystem tied directly to NIPUN Bharat learning outcomes. Features 4 data-driven question types (`VISUAL_MULTIPLE_CHOICE`, `IMAGE_MATCHING`, `IDENTIFY_SELECT`, `ORDERING`), offline SPRING_F5 Santali audio triggers, immediate positive feedback, local persistence, and concept-level mastery analytics.
+
 ---
 
 ## 🔄 End-to-End Offline Speech-to-Speech Architecture
@@ -58,6 +61,12 @@ The platform enables primary school teachers to speak in Hindi and automatically
 ### 4. FLN Curriculum Database & Rule-Based Fallback
 * **Ol Chiki Transliterator**: [`OlChikiTransliterator.kt`](file:///c:/Users/jesva/Documents/Documents/rec/notes/sem5/Projects/TribeTalk/app/src/main/java/com/alchemists/tribetalk/translation/OlChikiTransliterator.kt) rule-based fallback mapping Devanagari phonemes to Ol Chiki characters (`ᱚ, ᱛ, ᱜ, ᱝ, ᱞ, ᱟ, ᱠ, ᱡ, ᱢ, ᱣ...`).
 * **Curriculum Database**: [`FLNCurriculumDatabase.kt`](file:///c:/Users/jesva/Documents/Documents/rec/notes/sem5/Projects/TribeTalk/app/src/main/java/com/alchemists/tribetalk/translation/FLNCurriculumDatabase.kt) pre-verified Foundational Literacy & Numeracy (FLN) dictionary covering math vocabulary, numbers (1..100), classroom commands, and stories.
+
+### 5. STAGE 1: FLN Curriculum & Bilingual Lesson Engine (`curriculum/`)
+* **NIPUN Bharat Alignment**: Prototype FLN curriculum aligned with NIPUN Bharat learning outcomes (Counting 1–10, Number Recognition, Addition, Subtraction, Shapes, Colours, Letter Recognition, Vocabulary).
+* **Structured Data Models**: [`FLNModels.kt`](file:///c:/Users/jesva/Documents/Documents/rec/notes/sem5/Projects/TribeTalk/app/src/main/java/com/alchemists/tribetalk/curriculum/models/FLNModels.kt) (`Lesson`, `LearningOutcome`, `LessonInstruction`, `Activity`, `AssessmentQuestion`).
+* **Curriculum Store**: [`FLNCurriculumRepository.kt`](file:///c:/Users/jesva/Documents/Documents/rec/notes/sem5/Projects/TribeTalk/app/src/main/java/com/alchemists/tribetalk/curriculum/repository/FLNCurriculumRepository.kt) structured lesson definitions.
+* **Interactive Compose UI**: [`FLNLessonsScreen.kt`](file:///c:/Users/jesva/Documents/Documents/rec/notes/sem5/Projects/TribeTalk/app/src/main/java/com/alchemists/tribetalk/ui/screens/FLNLessonsScreen.kt) bilingual instruction stepper, Teacher Assist Devanagari Phonetic HUD, offline 24 kHz Santali audio playback trigger, interactive activity cards, and instant-feedback quiz assessment.
 
 ---
 

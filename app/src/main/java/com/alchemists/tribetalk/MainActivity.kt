@@ -25,10 +25,14 @@ import com.alchemists.tribetalk.voice.NeuralSpeechRecognizer
 
 enum class Screen {
     Dashboard,
+    RealtimeAnalytics,
     LiveClassroom,
     Lessons,
     Worksheets,
-    LearningInsights,
+    Flashcards,
+    ClassroomAssessment,
+    AssessmentResults,
+    TeacherProgress,
     Settings
 }
 
@@ -63,6 +67,8 @@ class MainActivity : ComponentActivity() {
         // Setup Voice translation bridge with Neural TTS fallback
         voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager, neuralSynthesizer)
 
+        val flnViewModel = com.alchemists.tribetalk.ui.viewmodel.FLNViewModel()
+
         setContent {
             TribeTalkTheme {
                 Surface(
@@ -70,11 +76,32 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     var currentScreen by remember { mutableStateOf(Screen.Dashboard) }
+                    var activeLessonId by remember { mutableStateOf<String?>(null) }
+                    val flnViewModel = remember { com.alchemists.tribetalk.ui.viewmodel.FLNViewModel() }
+                    val assessmentViewModel = remember { com.alchemists.tribetalk.ui.viewmodel.AssessmentViewModel() }
+                    val adaptiveViewModel = remember { com.alchemists.tribetalk.ui.viewmodel.AdaptiveLearningViewModel() }
+                    val analyticsViewModel = remember { com.alchemists.tribetalk.ui.viewmodel.TeacherAnalyticsViewModel() }
 
                     when (currentScreen) {
                         Screen.Dashboard -> {
                             DashboardScreen(
-                                onNavigate = { screen -> currentScreen = screen }
+                                onNavigate = { screen -> 
+                                    if (screen == Screen.Lessons) {
+                                        activeLessonId = null
+                                    }
+                                    currentScreen = screen 
+                                }
+                            )
+                        }
+                        Screen.RealtimeAnalytics -> {
+                            com.alchemists.tribetalk.ui.screens.RealtimeTeacherDashboardScreen(
+                                viewModel = analyticsViewModel,
+                                onStartRecommendedActivity = { lessonId ->
+                                    flnViewModel.loadLesson(lessonId)
+                                    activeLessonId = lessonId
+                                    currentScreen = Screen.Lessons
+                                },
+                                onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
                         Screen.LiveClassroom -> {
@@ -87,23 +114,59 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         Screen.Lessons -> {
-                            PlaceholderScreen(
-                                title = "Lessons",
+                            val currentLessonId = activeLessonId
+                            if (currentLessonId == null) {
+                                com.alchemists.tribetalk.ui.screens.LessonSelectionScreen(
+                                    viewModel = flnViewModel,
+                                    onSelectLesson = { id -> activeLessonId = id },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                com.alchemists.tribetalk.ui.screens.LessonDetailScreen(
+                                    lessonId = currentLessonId,
+                                    viewModel = flnViewModel,
+                                    voiceTranslationBridge = voiceTranslationBridge,
+                                    onStartAssessment = { id ->
+                                        assessmentViewModel.startAssessmentForLessonId(id)
+                                        currentScreen = Screen.ClassroomAssessment
+                                    },
+                                    onBack = { activeLessonId = null }
+                                )
+                            }
+                        }
+                        Screen.ClassroomAssessment -> {
+                            com.alchemists.tribetalk.ui.screens.ClassroomAssessmentScreen(
+                                viewModel = assessmentViewModel,
+                                voiceTranslationBridge = voiceTranslationBridge,
+                                onFinishedAssessment = { currentScreen = Screen.RealtimeAnalytics },
+                                onBack = { currentScreen = Screen.Lessons }
+                            )
+                        }
+                        Screen.AssessmentResults -> {
+                            com.alchemists.tribetalk.ui.screens.AssessmentResultsScreen(
+                                viewModel = assessmentViewModel,
+                                onNavigateProgress = { currentScreen = Screen.TeacherProgress },
+                                onBack = { currentScreen = Screen.Lessons }
+                            )
+                        }
+                        Screen.TeacherProgress -> {
+                            com.alchemists.tribetalk.ui.screens.TeacherProgressScreen(
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
                         Screen.Worksheets -> {
-                            PlaceholderScreen(
-                                title = "Worksheets",
+                            com.alchemists.tribetalk.ui.screens.WorksheetScreen(
+                                voiceTranslationBridge = voiceTranslationBridge,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
-                        Screen.LearningInsights -> {
-                            PlaceholderScreen(
-                                title = "Learning Insights",
+                        Screen.Flashcards -> {
+                            com.alchemists.tribetalk.ui.screens.FlashcardsScreen(
+                                voiceTranslationBridge = voiceTranslationBridge,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
+
                         Screen.Settings -> {
                             PlaceholderScreen(
                                 title = "Settings",

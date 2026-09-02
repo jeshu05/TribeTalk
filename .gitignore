@@ -23,3 +23,6 @@ local.properties
 *.mp3
 **/checkpoints/
 **/models/
+.kotlin/
+__pycache__/
+*.pyc

@@ -1,0 +1,56 @@
+{
+  "lesson_id": "lang_alphabet_01",
+  "subject": "Language",
+  "grade": 1,
+  "domain": "LITERACY",
+  "outcome_id": "NIPUN-LIT-L2",
+  "learning_outcome": {
+    "hindi": "छात्र ओल चिकी अक्षरों की आकृति और ध्वनि पहचानते हैं।",
+    "santali": "छाᱛ्ᱨ ᱚᱞ ᱪिᱠी ᱚᱠ्षᱨों ᱠी ᱟᱠृᱛि औᱨ ध्ᱣᱱि ᱯᱦᱪाᱱᱛे ᱦैं।"
+  },
+  "title": {
+    "hindi": "ओल चिकी अक्षर पहचान",
+    "santali": "ᱚᱞ ᱪᱤᱠᱤ ᱟᱠᱷᱚᱨ ᱪᱤᱱᱦᱟᱹᱣ"
+  },
+  "teacher_instruction": {
+    "hindi": "यह ओल चिकी लिपि का पहला अक्षर 'ᱚ' है। मेरे साथ इसका उच्चारण कीजिए।",
+    "santali": "ᱭᱦ ᱚᱞ ᱪिᱠी ᱞिᱯि ᱠा ᱯᱦᱞा ᱚᱠ्षᱨ 'ᱚ' ᱦै। ᱢेᱨे ᱥाथ ᱤᱥᱠा ᱩᱪ्ᱪाᱨᱬ ᱠीᱡिᱮ।"
+  },
+  "activity": {
+    "type": "picture_word_match",
+    "instruction_hindi": "अक्षर ᱚ को देखकर सही उच्चारण सुनिए।",
+    "instruction_santali": "ᱚᱠ्षᱨ ᱚ ᱠो ᱫेखᱠᱨ ᱥᱦी ᱩᱪ्ᱪाᱨᱬ ᱥुᱱिᱮ।",
+    "interactive_items": [
+      "ᱚ (LA)",
+      "ᱛ (AT)",
+      "ᱜ (AG)"
+    ]
+  },
+  "assessment": {
+    "question_hindi": "संथाली ओल चिकी लिपि का पहला अक्षर कौन सा है?",
+    "question_santali": "ᱥᱟᱱᱛᱟᱲᱤ ᱚᱞ ᱪᱤᱠᱤ ᱨᱮᱱᱟᱜ ᱯᱩᱭᱞᱩ ᱟᱠᱷᱚᱨ ᱚᱠᱟ ᱠᱟᱱᱟ?",
+    "options_hindi": [
+      "ᱚ",
+      "ᱛ",
+      "ᱜ"
+    ],
+    "options_santali": [
+      "ᱚ",
+      "ᱛ",
+      "ᱜ"
+    ],
+    "correct_answer_index": 0,
+    "correct_answer_value": "ᱚ",
+    "explanation_hindi": "ओल चिकी लिपि का पहला अक्षर ᱚ (LA) है।"
+  },
+  "audio": {
+    "introduction": "audio/introduction.wav",
+    "instruction": "audio/instruction.wav",
+    "question": "audio/question.wav"
+  },
+  "visual_asset": {
+    "object_name_hindi": "अक्षर ᱚ",
+    "icon_emoji": "𱌀",
+    "count": 1
+  }
+}
