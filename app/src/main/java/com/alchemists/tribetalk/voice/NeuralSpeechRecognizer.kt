@@ -26,7 +26,7 @@ class NeuralSpeechRecognizer(
 ) : AutoCloseable {
 
     companion object {
-        private const val TAG = "NeuralSpeechRecognizer"
+        private const val TAG = "LiveHindiASR"
         const val SAMPLE_RATE = 16000
         const val CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO
         const val AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT
@@ -39,6 +39,7 @@ class NeuralSpeechRecognizer(
     private val pcmAccumulator = Collections.synchronizedList(mutableListOf<Short>())
     private val indicConformerAsr by lazy { IndicConformerHindiAsr(context) }
     private val scope = CoroutineScope(Dispatchers.IO)
+    private val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
 
     private var activeOnResultCallback: ((String) -> Unit)? = null
     private var recordStartTimeMs = 0L
@@ -61,7 +62,7 @@ class NeuralSpeechRecognizer(
         return null
     }
 
-    fun isNeuralModelAvailable(languageCode: String): Boolean = true
+    fun isNeuralModelAvailable(languageCode: String): Boolean = indicConformerAsr.isAvailable()
 
     @SuppressLint("MissingPermission")
     fun startListening(
@@ -70,31 +71,56 @@ class NeuralSpeechRecognizer(
         onResult: (String) -> Unit,
         onError: (String) -> Unit
     ) {
+        Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_INITIALIZING")
+        Log.i(TAG, "[HindiASR] ASR START: Requested language=$languageCode")
         stopListening(onResult = null)
 
         val minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)
         if (minBufferSize == AudioRecord.ERROR || minBufferSize == AudioRecord.ERROR_BAD_VALUE) {
             val err = "Invalid audio buffer size on this device"
-            Log.e(TAG, "[ASR ERROR] $err")
-            onError(err)
+            Log.e(TAG, "[HindiASR] ASR ERROR: $err")
+            mainHandler.post { onError(err) }
             return
         }
 
         val bufferSize = (minBufferSize * 2).coerceAtLeast(3200)
 
         try {
-            audioRecord = AudioRecord(
+            var initializedRecord: AudioRecord? = null
+            val audioSources = listOf(
                 MediaRecorder.AudioSource.VOICE_RECOGNITION,
-                SAMPLE_RATE,
-                CHANNEL_CONFIG,
-                AUDIO_FORMAT,
-                bufferSize
+                MediaRecorder.AudioSource.MIC,
+                MediaRecorder.AudioSource.DEFAULT
             )
 
-            if (audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
-                val err = "AudioRecord initialization failed"
-                Log.e(TAG, "[ASR ERROR] $err")
-                onError(err)
+            for (src in audioSources) {
+                try {
+                    val candidate = AudioRecord(
+                        src,
+                        SAMPLE_RATE,
+                        CHANNEL_CONFIG,
+                        AUDIO_FORMAT,
+                        bufferSize
+                    )
+                    if (candidate.state == AudioRecord.STATE_INITIALIZED) {
+                        initializedRecord = candidate
+                        Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_STARTED (source=$src, 16kHz Mono 16-bit PCM)")
+                        Log.i("VOICE", "[VOICE] ASR_LISTENING")
+                        break
+                    } else {
+                        candidate.release()
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "AudioSource $src failed: ${e.message}")
+                }
+            }
+
+            audioRecord = initializedRecord
+
+            if (audioRecord == null || audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
+                val err = "AudioRecord initialization failed across all audio sources"
+                Log.e(TAG, "[HindiASR] ASR ERROR: $err")
+                mainHandler.post { onError(err) }
                 return
             }
 
@@ -104,27 +130,64 @@ class NeuralSpeechRecognizer(
 
             audioRecord?.startRecording()
             isRecording = true
-            Log.i(TAG, "[ASR] T0: Microphone recording started (16kHz Mono 16-bit PCM)")
+            Log.i(TAG, "[HindiASR] MICROPHONE STARTED: 16kHz Mono 16-bit PCM AudioRecord active")
 
             val vadProcessor = AudioVADProcessor(sampleRate = SAMPLE_RATE)
 
             recordingThread = Thread {
                 val audioBuffer = ShortArray(vadProcessor.frameSizeSamples) // 30ms frame (480 samples)
                 var speechDetected = false
+                var lastSpeechTimestamp = 0L
+                var frameCount = 0
+                var lastLogTime = 0L
 
                 while (isRecording) {
                     val readSamples = audioRecord?.read(audioBuffer, 0, audioBuffer.size) ?: 0
                     if (readSamples > 0) {
+                        frameCount++
+                        var sumSq = 0.0
+                        var maxAmp = 0
+                        var nonZeroCount = 0
                         for (i in 0 until readSamples) {
+                            val s = audioBuffer[i].toInt()
                             pcmAccumulator.add(audioBuffer[i])
+                            if (s != 0) nonZeroCount++
+                            val absS = abs(s)
+                            if (absS > maxAmp) maxAmp = absS
+                            sumSq += absS.toDouble() * absS.toDouble()
+                        }
+                        val rms = sqrt(sumSq / readSamples)
+
+                        val now = System.currentTimeMillis()
+                        if (now - lastLogTime >= 500L) {
+                            lastLogTime = now
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] frames=$frameCount rms=${String.format("%.1f", rms)} maxAmplitude=$maxAmp nonZeroSamples=$nonZeroCount")
+                        }
+
+                        if (rms >= 40.0 && !speechDetected) {
+                            speechDetected = true
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] AUDIO_FRAME_RECEIVED (RMS=${String.format("%.1f", rms)})")
+                            mainHandler.post { onSpeechDetected() }
                         }
 
                         vadProcessor.processSamples(audioBuffer) { _ ->
                             if (!speechDetected) {
                                 speechDetected = true
-                                Log.i(TAG, "[ASR] Speech activity detected by VAD")
-                                onSpeechDetected()
+                                Log.i("ASR_DEBUG", "[ASR_DEBUG] Speech activity detected by VAD")
+                                mainHandler.post { onSpeechDetected() }
                             }
+                            lastSpeechTimestamp = System.currentTimeMillis()
+                        }
+
+                        // Auto-endpoint: if speech was detected and 1.2s silence elapsed, or 6s total max
+                        if (speechDetected && lastSpeechTimestamp > 0 && (now - lastSpeechTimestamp > 1200L)) {
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_STARTED (Endpoint reached)")
+                            stopListening()
+                            break
+                        } else if (now - recordStartTimeMs > 6000L) {
+                            Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_STARTED (Max duration reached)")
+                            stopListening()
+                            break
                         }
                     }
                 }
@@ -132,8 +195,8 @@ class NeuralSpeechRecognizer(
 
         } catch (e: Exception) {
             val err = "Neural ASR error: ${e.localizedMessage}"
-            Log.e(TAG, "[ASR ERROR] $err", e)
-            onError(err)
+            Log.e(TAG, "[HindiASR] ASR ERROR: $err", e)
+            mainHandler.post { onError(err) }
         }
     }
 
@@ -152,6 +215,7 @@ class NeuralSpeechRecognizer(
         } catch (_: Exception) {}
 
         audioRecord = null
+        Log.i(TAG, "[HindiASR] ASR STOPPED: Recording duration=${recordingDurationMs}ms")
 
         val pcmArray = synchronized(pcmAccumulator) {
             val copy = pcmAccumulator.toShortArray()
@@ -166,11 +230,17 @@ class NeuralSpeechRecognizer(
             if (resultCallback != null) {
                 scope.launch {
                     val transcribedText = indicConformerAsr.transcribe(pcmArray)
-                    resultCallback.invoke(transcribedText)
+                    Log.i("ASR_DEBUG", "[ASR_DEBUG] INFERENCE_COMPLETED")
+                    Log.i("ASR_DEBUG", "[ASR_DEBUG] FINAL_RESULT = \"$transcribedText\"")
+                    Log.i("VOICE", "[VOICE] HINDI_FINAL = $transcribedText")
+                    Log.i(TAG, "[HindiASR] FINAL RESULT: \"$transcribedText\"")
+                    mainHandler.post {
+                        resultCallback.invoke(transcribedText)
+                    }
                 }
             }
         } else {
-            Log.w(TAG, "[ASR WARN] Zero PCM audio samples recorded!")
+            Log.w(TAG, "[HindiASR] ASR WARN: Zero PCM audio samples recorded")
         }
     }
 

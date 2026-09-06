@@ -86,84 +86,101 @@ fun LiveClassroomScreen(
     var studentStatusMessage by remember { mutableStateOf("") }
     var studentKeyboardExpanded by remember { mutableStateOf(false) }
 
+    // Phase 12: Production-Style Continuous Live Voice State
+    var isLiveVoiceActive by remember { mutableStateOf(false) }
+    var liveStatusLabel by remember { mutableStateOf("Idle") }
+    var liveHindiUtterance by remember { mutableStateOf("") }
+    var liveSantaliUtterance by remember { mutableStateOf("") }
+    var liveSantaliPhonetic by remember { mutableStateOf("") }
+    var isLiveVoiceRequested by remember { mutableStateOf(false) }
+
+    fun startLiveVoiceSessionCoordinator() {
+        android.util.Log.i("VOICE", "[VOICE] AUDIO_CAPTURE_INITIALIZING")
+        android.util.Log.i("VoiceIntegration", "ASR_INITIALIZED")
+        android.util.Log.i("LiveHindiASR", "ASR INITIALIZATION STARTED")
+        isLiveVoiceActive = true
+        liveStatusLabel = "LIVE LISTENING"
+
+        voiceTranslationBridge.startLiveVoiceSession(
+            onStateChange = { state, status ->
+                liveStatusLabel = when (state) {
+                    VoiceTranslationBridge.State.Listening -> "LIVE LISTENING"
+                    VoiceTranslationBridge.State.Processing -> "Processing..."
+                    VoiceTranslationBridge.State.Translating -> "Translating..."
+                    VoiceTranslationBridge.State.GeneratingSantaliSpeech -> "Generating Santali voice..."
+                    VoiceTranslationBridge.State.Speaking -> "Playing Santali"
+                    VoiceTranslationBridge.State.Error -> status
+                    else -> status
+                }
+            },
+            onUtteranceResult = { hindi, transRes ->
+                android.util.Log.i("VOICE", "[VOICE] SANTALI_TEXT = \"${transRes.translatedText}\" (${transRes.latinPhonetic})")
+                liveHindiUtterance = hindi
+                liveSantaliUtterance = transRes.translatedText
+                liveSantaliPhonetic = transRes.latinPhonetic
+                teacherInput = hindi
+                teacherOutput = transRes
+            },
+            onError = { _ ->
+                liveStatusLabel = "Error — Please try again"
+            }
+        )
+
+        android.util.Log.i("LiveHindiASR", "ASR START REQUESTED")
+        liveStatusLabel = "MIC STARTING"
+        voiceInputManager.startContinuousListening(
+            languageCode = "hi-IN",
+            onPartial = { partial ->
+                android.util.Log.i("VOICE", "[VOICE] HINDI_PARTIAL = $partial")
+                liveStatusLabel = "ASR PARTIAL: $partial"
+                liveHindiUtterance = partial
+                voiceTranslationBridge.handleLivePartial(partial)
+            },
+            onFinal = { finalHindi ->
+                android.util.Log.i("VOICE", "[VOICE] HINDI_FINAL = $finalHindi")
+                liveStatusLabel = "ASR FINAL: $finalHindi"
+                liveHindiUtterance = finalHindi
+                teacherInput = finalHindi
+                voiceTranslationBridge.enqueueLiveUtterance(finalHindi)
+            },
+            onError = { err ->
+                android.util.Log.e("LiveHindiASR", "ASR ERROR: $err")
+                liveStatusLabel = "ASR ERROR: $err"
+            },
+            onStateChange = { stateStr ->
+                if (isLiveVoiceActive) {
+                    liveStatusLabel = when {
+                        stateStr.contains("Recording") || stateStr.contains("RECEIVING") -> "ASR RECEIVING AUDIO"
+                        stateStr == "Listening..." || stateStr == "LIVE LISTENING" -> "MIC ACTIVE (Listening...)"
+                        else -> stateStr
+                    }
+                }
+            }
+        )
+    }
+
     // Track which language side requested recording when permission is prompted
     var pendingLangRequest by remember { mutableStateOf<Language?>(null) }
+    var handleMicClick: (Language) -> Unit by remember { mutableStateOf({}) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
+            android.util.Log.i("VOICE", "[VOICE] RECORD_AUDIO_PERMISSION = ${if (isGranted) "GRANTED" else "DENIED"}")
+            android.util.Log.i("LiveHindiASR", "MICROPHONE PERMISSION RESULT: isGranted=$isGranted")
             if (isGranted) {
-                pendingLangRequest?.let { lang ->
-                    if (lang == Language.HINDI) {
-                        teacherVoiceState = VoiceTranslationBridge.State.Listening
-                        teacherSpeechState = "Listening..."
-                        voiceInputManager.startListening(
-                            languageCode = "hi-IN",
-                            onResult = { text ->
-                                teacherInput = text
-                                teacherVoiceState = VoiceTranslationBridge.State.Recognized
-                                voiceTranslationBridge.translateAndSpeak(
-                                    recognizedText = text,
-                                    sourceLanguage = Language.HINDI,
-                                    targetLanguage = Language.SANTALI,
-                                    isVoiceBridgeEnabled = isVoiceBridgeEnabled,
-                                    onStateChange = { state, status ->
-                                        teacherVoiceState = state
-                                        teacherSpeechState = status
-                                    },
-                                    onResult = { result ->
-                                        teacherOutput = result
-                                    }
-                                )
-                            },
-                            onError = { err ->
-                                teacherVoiceState = VoiceTranslationBridge.State.Error
-                                teacherSpeechState = "Error: $err"
-                            },
-                            onStateChange = { state ->
-                                if (state == "Listening..." || state == "Recording...") {
-                                    teacherVoiceState = VoiceTranslationBridge.State.Listening
-                                }
-                                teacherSpeechState = state
-                            }
-                        )
-                    } else {
-                        studentVoiceState = VoiceTranslationBridge.State.Listening
-                        studentSpeechState = "Listening..."
-                        voiceInputManager.startListening(
-                            languageCode = "sat-IN",
-                            onResult = { text ->
-                                studentInput = text
-                                studentVoiceState = VoiceTranslationBridge.State.Recognized
-                                voiceTranslationBridge.translateAndSpeak(
-                                    recognizedText = text,
-                                    sourceLanguage = Language.SANTALI,
-                                    targetLanguage = Language.HINDI,
-                                    isVoiceBridgeEnabled = isVoiceBridgeEnabled,
-                                    onStateChange = { state, status ->
-                                        studentVoiceState = state
-                                        studentSpeechState = status
-                                    },
-                                    onResult = { result ->
-                                        studentOutput = result
-                                    }
-                                )
-                            },
-                            onError = { err ->
-                                studentVoiceState = VoiceTranslationBridge.State.Error
-                                studentSpeechState = "Error: $err"
-                            },
-                            onStateChange = { state ->
-                                if (state == "Listening..." || state == "Recording...") {
-                                    studentVoiceState = VoiceTranslationBridge.State.Listening
-                                }
-                                studentSpeechState = state
-                            }
-                        )
+                android.util.Log.i("VoiceIntegration", "MIC_PERMISSION_GRANTED")
+                if (isLiveVoiceRequested) {
+                    isLiveVoiceRequested = false
+                    startLiveVoiceSessionCoordinator()
+                } else {
+                    pendingLangRequest?.let { lang ->
+                        handleMicClick(lang)
                     }
                 }
             } else {
-                Toast.makeText(context, "Microphone permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Microphone permission required", Toast.LENGTH_LONG).show()
+                liveStatusLabel = "Microphone permission required"
                 if (pendingLangRequest == Language.HINDI) {
                     teacherVoiceState = VoiceTranslationBridge.State.Error
                     teacherSpeechState = "Permission Denied"
@@ -173,10 +190,11 @@ fun LiveClassroomScreen(
                 }
             }
             pendingLangRequest = null
+            isLiveVoiceRequested = false
         }
     )
 
-    fun handleMicClick(lang: Language) {
+    handleMicClick = { lang ->
         val checkPermission = ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.RECORD_AUDIO
@@ -188,79 +206,79 @@ fun LiveClassroomScreen(
                     voiceInputManager.stopListening()
                     teacherVoiceState = VoiceTranslationBridge.State.Idle
                     teacherSpeechState = "Idle"
-                    return
-                }
-                teacherVoiceState = VoiceTranslationBridge.State.Listening
-                teacherSpeechState = "Listening..."
-                voiceInputManager.startListening(
-                    languageCode = "hi-IN",
-                    onResult = { text ->
-                        teacherInput = text
-                        teacherVoiceState = VoiceTranslationBridge.State.Recognized
-                        voiceTranslationBridge.translateAndSpeak(
-                            recognizedText = text,
-                            sourceLanguage = Language.HINDI,
-                            targetLanguage = Language.SANTALI,
-                            isVoiceBridgeEnabled = isVoiceBridgeEnabled,
-                            onStateChange = { state, status ->
-                                teacherVoiceState = state
-                                teacherSpeechState = status
-                            },
-                            onResult = { result ->
-                                teacherOutput = result
+                } else {
+                    teacherVoiceState = VoiceTranslationBridge.State.Listening
+                    teacherSpeechState = "Listening..."
+                    voiceInputManager.startListening(
+                        languageCode = "hi-IN",
+                        onResult = { text ->
+                            teacherInput = text
+                            teacherVoiceState = VoiceTranslationBridge.State.Recognized
+                            voiceTranslationBridge.translateAndSpeak(
+                                recognizedText = text,
+                                sourceLanguage = Language.HINDI,
+                                targetLanguage = Language.SANTALI,
+                                isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                onStateChange = { state, status ->
+                                    teacherVoiceState = state
+                                    teacherSpeechState = status
+                                },
+                                onResult = { result ->
+                                    teacherOutput = result
+                                }
+                            )
+                        },
+                        onError = { err ->
+                            teacherVoiceState = VoiceTranslationBridge.State.Error
+                            teacherSpeechState = "Error: $err"
+                        },
+                        onStateChange = { state ->
+                            if (state == "Listening..." || state == "Recording...") {
+                                teacherVoiceState = VoiceTranslationBridge.State.Listening
                             }
-                        )
-                    },
-                    onError = { err ->
-                        teacherVoiceState = VoiceTranslationBridge.State.Error
-                        teacherSpeechState = "Error: $err"
-                    },
-                    onStateChange = { state ->
-                        if (state == "Listening..." || state == "Recording...") {
-                            teacherVoiceState = VoiceTranslationBridge.State.Listening
+                            teacherSpeechState = state
                         }
-                        teacherSpeechState = state
-                    }
-                )
+                    )
+                }
             } else {
                 if (studentVoiceState == VoiceTranslationBridge.State.Listening) {
                     voiceInputManager.stopListening()
                     studentVoiceState = VoiceTranslationBridge.State.Idle
                     studentSpeechState = "Idle"
-                    return
-                }
-                studentVoiceState = VoiceTranslationBridge.State.Listening
-                studentSpeechState = "Listening..."
-                voiceInputManager.startListening(
-                    languageCode = "sat-IN",
-                    onResult = { text ->
-                        studentInput = text
-                        studentVoiceState = VoiceTranslationBridge.State.Recognized
-                        voiceTranslationBridge.translateAndSpeak(
-                            recognizedText = text,
-                            sourceLanguage = Language.SANTALI,
-                            targetLanguage = Language.HINDI,
-                            isVoiceBridgeEnabled = isVoiceBridgeEnabled,
-                            onStateChange = { state, status ->
-                                studentVoiceState = state
-                                studentSpeechState = status
-                            },
-                            onResult = { result ->
-                                studentOutput = result
+                } else {
+                    studentVoiceState = VoiceTranslationBridge.State.Listening
+                    studentSpeechState = "Listening..."
+                    voiceInputManager.startListening(
+                        languageCode = "sat-IN",
+                        onResult = { text ->
+                            studentInput = text
+                            studentVoiceState = VoiceTranslationBridge.State.Recognized
+                            voiceTranslationBridge.translateAndSpeak(
+                                recognizedText = text,
+                                sourceLanguage = Language.SANTALI,
+                                targetLanguage = Language.HINDI,
+                                isVoiceBridgeEnabled = isVoiceBridgeEnabled,
+                                onStateChange = { state, status ->
+                                    studentVoiceState = state
+                                    studentSpeechState = status
+                                },
+                                onResult = { result ->
+                                    studentOutput = result
+                                }
+                            )
+                        },
+                        onError = { err ->
+                            studentVoiceState = VoiceTranslationBridge.State.Error
+                            studentSpeechState = "Error: $err"
+                        },
+                        onStateChange = { state ->
+                            if (state == "Listening..." || state == "Recording...") {
+                                studentVoiceState = VoiceTranslationBridge.State.Listening
                             }
-                        )
-                    },
-                    onError = { err ->
-                        studentVoiceState = VoiceTranslationBridge.State.Error
-                        studentSpeechState = "Error: $err"
-                    },
-                    onStateChange = { state ->
-                        if (state == "Listening..." || state == "Recording...") {
-                            studentVoiceState = VoiceTranslationBridge.State.Listening
+                            studentSpeechState = state
                         }
-                        studentSpeechState = state
-                    }
-                )
+                    )
+                }
             }
         } else {
             pendingLangRequest = lang
@@ -360,6 +378,179 @@ fun LiveClassroomScreen(
                         style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
                         color = MaterialTheme.colorScheme.outline
                     )
+                }
+            }
+
+            // Phase 12: Production-Style Continuous Live Voice Bridge Hero Card
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isLiveVoiceActive) 
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f) 
+                    else 
+                        MaterialTheme.colorScheme.surface
+                ),
+                border = BorderStroke(
+                    if (isLiveVoiceActive) 2.dp else 1.dp,
+                    if (isLiveVoiceActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
+                ),
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column {
+                            Text(
+                                "LIVE VOICE BRIDGE",
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                "Hindi Teacher  ↓  Santali Student",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.outline
+                            )
+                        }
+
+                        // Live Indicator Badge
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Surface(
+                                color = if (isLiveVoiceActive) Color(0xFF2E7D32) else MaterialTheme.colorScheme.outline,
+                                shape = RoundedCornerShape(4.dp),
+                                modifier = Modifier.size(10.dp)
+                            ) {}
+                            Text(
+                                text = if (isLiveVoiceActive) "● $liveStatusLabel" else "● IDLE",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                color = if (isLiveVoiceActive) Color(0xFF2E7D32) else MaterialTheme.colorScheme.outline
+                            )
+                        }
+                    }
+
+                    if (isLiveVoiceActive || liveHindiUtterance.isNotEmpty()) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Column {
+                                    Text(
+                                        "Current Hindi:",
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.outline
+                                    )
+                                    Text(
+                                        text = if (liveHindiUtterance.isNotEmpty()) liveHindiUtterance else "Listening for continuous speech...",
+                                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                                Column {
+                                    Text(
+                                        "Santali (Ol Chiki):",
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                    Text(
+                                        text = if (liveSantaliUtterance.isNotEmpty()) liveSantaliUtterance else "...",
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                    if (liveSantaliPhonetic.isNotEmpty()) {
+                                        Text(
+                                            text = "Phonetic: $liveSantaliPhonetic",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.outline
+                                        )
+                                    }
+                                }
+
+                                voiceTranslationBridge.lastMeasuredLatency?.let { lat ->
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = "⚡ Latency: ${lat.totalE2eLatencyMs}ms (${if (lat.isWithinTarget) "≤3s PASS" else "Processed"})",
+                                            style = MaterialTheme.typography.labelSmall.copy(
+                                                fontWeight = FontWeight.Bold,
+                                                color = if (lat.isWithinTarget) Color(0xFF2E7D32) else MaterialTheme.colorScheme.error
+                                            )
+                                        )
+                                        Text(
+                                            text = "NLP: ${lat.nlpDurationMs}ms | TTS: ${lat.ttsDurationMs}ms",
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                            color = MaterialTheme.colorScheme.outline
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Master Action Button: START LIVE VOICE / STOP LIVE VOICE
+                    Button(
+                        onClick = {
+                            android.util.Log.i("VOICE", "[VOICE] BUTTON_PRESSED")
+                            android.util.Log.i("VoiceIntegration", "BUTTON_PRESSED")
+                            android.util.Log.i("LiveHindiASR", "LIVE VOICE BUTTON PRESSED")
+                            if (isLiveVoiceActive) {
+                                android.util.Log.i("LiveHindiASR", "ASR STOPPED")
+                                isLiveVoiceActive = false
+                                liveStatusLabel = "Idle"
+                                voiceTranslationBridge.stopLiveVoiceSession()
+                            } else {
+                                val hasPermission = ContextCompat.checkSelfPermission(
+                                    context,
+                                    Manifest.permission.RECORD_AUDIO
+                                ) == PackageManager.PERMISSION_GRANTED
+                                android.util.Log.i("VOICE", "[VOICE] RECORD_AUDIO_PERMISSION = ${if (hasPermission) "GRANTED" else "DENIED"}")
+                                android.util.Log.i("LiveHindiASR", "MICROPHONE PERMISSION CHECK: granted=$hasPermission")
+
+                                if (hasPermission) {
+                                    startLiveVoiceSessionCoordinator()
+                                } else {
+                                    isLiveVoiceRequested = true
+                                    pendingLangRequest = Language.HINDI
+                                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                                }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isLiveVoiceActive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = if (isLiveVoiceActive) Icons.Default.Clear else Icons.Default.Mic,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (isLiveVoiceActive) "STOP LIVE VOICE" else "START LIVE VOICE",
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
                 }
             }
 

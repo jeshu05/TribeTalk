@@ -35,12 +35,14 @@ class IndicConformerHindiAsr(
 ) : HindiAsrEngine, AutoCloseable {
 
     companion object {
-        private const val TAG = "IndicConformerHindiAsr"
+        private const val TAG = "LiveHindiASR"
     }
 
     private var ortEnv: OrtEnvironment? = null
     private var session: OrtSession? = null
     private var isInitialized = false
+
+    fun isAvailable(): Boolean = isInitialized && session != null
 
     private val vocabList = mutableListOf<String>()
     private var blankTokenId = 256
@@ -69,18 +71,18 @@ class IndicConformerHindiAsr(
             val modelFile = getAssetModelFile("models/int8/indicconformer_hi_ctc_int8.onnx", "indicconformer_hi_ctc_int8.onnx")
                 ?: getAssetModelFile("models/indicconformer_hi_ctc_int8.onnx", "indicconformer_hi_ctc_int8.onnx")
 
-            if (modelFile != null && modelFile.exists()) {
+            if (modelFile != null && modelFile.exists() && modelFile.length() > 0) {
                 session = ortEnv?.createSession(modelFile.absolutePath, opts)
                 isInitialized = true
-                Log.i(TAG, "[ASR] Offline IndicConformer ONNX Session initialized successfully")
+                Log.i(TAG, "[HindiASR] ASR MODEL READY: Offline IndicConformer ONNX Session initialized successfully")
                 Log.i(TAG, "  Model path: ${modelFile.absolutePath} (${modelFile.length() / (1024 * 1024)} MB)")
                 Log.i(TAG, "  Vocab size: ${vocabList.size}, Blank token ID: $blankTokenId")
             } else {
-                Log.e(TAG, "[ASR ERROR] Failed to locate or load model asset: indicconformer_hi_ctc_int8.onnx")
+                Log.d(TAG, "[HindiASR] IndicConformer model asset not present (using system speech recognizer engine)")
                 isInitialized = false
             }
         } catch (e: Throwable) {
-            Log.e(TAG, "[ASR ERROR] Exception during ONNX session initialization", e)
+            Log.e(TAG, "[HindiASR] ASR ERROR: Exception during ONNX session initialization", e)
             isInitialized = false
         }
     }

@@ -11,9 +11,20 @@ import androidx.compose.ui.Modifier
 import com.alchemists.tribetalk.translation.HybridEdgeAITranslationEngine
 import com.alchemists.tribetalk.translation.OnnxTranslationEngine
 import com.alchemists.tribetalk.translation.TranslationMemory
+import com.alchemists.tribetalk.flashcards.FlashcardSet
+import com.alchemists.tribetalk.lessons.Lesson
 import com.alchemists.tribetalk.ui.screens.DashboardScreen
+import com.alchemists.tribetalk.ui.screens.FlashcardGeneratorScreen
+import com.alchemists.tribetalk.ui.screens.FlashcardPreviewScreen
+import com.alchemists.tribetalk.ui.screens.LearningInsightsScreen
+import com.alchemists.tribetalk.ui.screens.LessonDetailScreen
+import com.alchemists.tribetalk.ui.screens.LessonLibraryScreen
 import com.alchemists.tribetalk.ui.screens.LiveClassroomScreen
 import com.alchemists.tribetalk.ui.screens.PlaceholderScreen
+import com.alchemists.tribetalk.ui.screens.SettingsScreen
+import com.alchemists.tribetalk.ui.screens.WorksheetGeneratorScreen
+import com.alchemists.tribetalk.ui.screens.WorksheetPreviewScreen
+import com.alchemists.tribetalk.worksheet.Worksheet
 import com.alchemists.tribetalk.ui.theme.TribeTalkTheme
 import com.alchemists.tribetalk.voice.SpeechOutputManager
 import com.alchemists.tribetalk.voice.VoiceInputManager
@@ -22,12 +33,14 @@ import java.io.File
 
 import com.alchemists.tribetalk.voice.NeuralSpeechSynthesizer
 import com.alchemists.tribetalk.voice.NeuralSpeechRecognizer
+import com.alchemists.tribetalk.voice.RealSantaliTTSProvider
 
 enum class Screen {
     Dashboard,
     LiveClassroom,
     Lessons,
     Worksheets,
+    Flashcards,
     LearningInsights,
     Settings
 }
@@ -39,6 +52,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var speechOutputManager: SpeechOutputManager
     private lateinit var neuralSynthesizer: NeuralSpeechSynthesizer
     private lateinit var neuralRecognizer: NeuralSpeechRecognizer
+    private lateinit var realSantaliTTSProvider: RealSantaliTTSProvider
     private lateinit var voiceTranslationBridge: VoiceTranslationBridge
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +67,7 @@ class MainActivity : ComponentActivity() {
         // 8 GB RAM High-Performance Neural Audio Engines
         neuralSynthesizer = NeuralSpeechSynthesizer(this)
         neuralRecognizer = NeuralSpeechRecognizer(this)
+        realSantaliTTSProvider = RealSantaliTTSProvider(this)
 
         // Initialize voice input and output services with offline neural fallback
         voiceInputManager = VoiceInputManager(this, neuralRecognizer)
@@ -60,8 +75,15 @@ class MainActivity : ComponentActivity() {
             // Log or handle init state if needed
         }
         
-        // Setup Voice translation bridge with Neural TTS fallback
-        voiceTranslationBridge = VoiceTranslationBridge(translationEngine, speechOutputManager, neuralSynthesizer)
+        // Setup Voice translation bridge with Real Santali TTS, Voice Input Manager & Audio Queue
+        voiceTranslationBridge = VoiceTranslationBridge(
+            translationEngine = translationEngine,
+            speechOutputManager = speechOutputManager,
+            neuralSynthesizer = neuralSynthesizer,
+            realSantaliTTSProvider = realSantaliTTSProvider,
+            voiceInputManager = voiceInputManager,
+            context = this
+        )
 
         setContent {
             TribeTalkTheme {
@@ -87,26 +109,71 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         Screen.Lessons -> {
-                            PlaceholderScreen(
-                                title = "Lessons",
-                                onBack = { currentScreen = Screen.Dashboard }
-                            )
+                            var selectedLesson by remember { mutableStateOf<Lesson?>(null) }
+                            if (selectedLesson == null) {
+                                LessonLibraryScreen(
+                                    onSelectLesson = { lesson -> selectedLesson = lesson },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                LessonDetailScreen(
+                                    lesson = selectedLesson!!,
+                                    translationEngine = translationEngine,
+                                    neuralSynthesizer = neuralSynthesizer,
+                                    onCreateFlashcards = { _ ->
+                                        currentScreen = Screen.Flashcards
+                                    },
+                                    onCreateWorksheet = { _ ->
+                                        currentScreen = Screen.Worksheets
+                                    },
+                                    onBack = { selectedLesson = null }
+                                )
+                            }
                         }
                         Screen.Worksheets -> {
-                            PlaceholderScreen(
-                                title = "Worksheets",
-                                onBack = { currentScreen = Screen.Dashboard }
-                            )
+                            var generatedWorksheet by remember { mutableStateOf<Worksheet?>(null) }
+                            if (generatedWorksheet == null) {
+                                WorksheetGeneratorScreen(
+                                    translationEngine = translationEngine,
+                                    onWorksheetGenerated = { worksheet ->
+                                        generatedWorksheet = worksheet
+                                    },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                WorksheetPreviewScreen(
+                                    initialWorksheet = generatedWorksheet!!,
+                                    translationEngine = translationEngine,
+                                    onBack = { generatedWorksheet = null }
+                                )
+                            }
+                        }
+                        Screen.Flashcards -> {
+                            var generatedFlashcardSet by remember { mutableStateOf<FlashcardSet?>(null) }
+                            if (generatedFlashcardSet == null) {
+                                FlashcardGeneratorScreen(
+                                    translationEngine = translationEngine,
+                                    onFlashcardSetGenerated = { set ->
+                                        generatedFlashcardSet = set
+                                    },
+                                    onBack = { currentScreen = Screen.Dashboard }
+                                )
+                            } else {
+                                FlashcardPreviewScreen(
+                                    initialSet = generatedFlashcardSet!!,
+                                    translationEngine = translationEngine,
+                                    onBack = { generatedFlashcardSet = null }
+                                )
+                            }
                         }
                         Screen.LearningInsights -> {
-                            PlaceholderScreen(
-                                title = "Learning Insights",
+                            LearningInsightsScreen(
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }
                         Screen.Settings -> {
-                            PlaceholderScreen(
-                                title = "Settings",
+                            SettingsScreen(
+                                neuralSynthesizer = neuralSynthesizer,
                                 onBack = { currentScreen = Screen.Dashboard }
                             )
                         }

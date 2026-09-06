@@ -1,0 +1,280 @@
+{
+  "audit_timestamp": "2026-09-03",
+  "protected_benchmarks": [
+    "AI4Bharat IN22-Conv (1,503 sentences)"
+  ],
+  "total_benchmark_sentences_checked": 1503,
+  "contaminated_records_quarantined": 45,
+  "quarantined_details": [
+    {
+      "record_id": "TT-V2-COMB-00006",
+      "src": "धन्यवाद",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00007",
+      "src": "बहुत बहुत धन्यवाद",
+      "tgt": "ᱟᱹᱰᱤ ᱟᱹᱰᱤ ᱥᱟᱨᱦᱟᱣ",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00113",
+      "src": "हाँ।",
+      "tgt": "ᱦᱚᱭ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00176",
+      "src": "बोलो।",
+      "tgt": "ᱞᱟᱹᱭ ᱢᱮ ᱾",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00182",
+      "src": "आपका क्या नाम है ?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ ?",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00217",
+      "src": "विदाई!",
+      "tgt": "ᱵᱤᱫᱟᱹᱭ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00231",
+      "src": "हाँ!",
+      "tgt": "ᱦᱚᱭ !",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00281",
+      "src": "सच में?",
+      "tgt": "ᱥᱟᱹᱨᱤᱛᱮ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00309",
+      "src": "आपका स्वागत है।",
+      "tgt": "ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ ᱾",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00322",
+      "src": "बधाई हो!",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ ᱜᱮ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00323",
+      "src": "मुबारक हो!",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ ᱜᱮ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00326",
+      "src": "बढ़िया।",
+      "tgt": "ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00360",
+      "src": "बोलो!",
+      "tgt": "ᱨᱚᱲ!",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00396",
+      "src": "धन्यवाद।",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ ᱜᱮ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00564",
+      "src": "ज़ाहिर है.",
+      "tgt": "ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00623",
+      "src": "आपका स्वागत हैं।",
+      "tgt": "ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ!",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00666",
+      "src": "क्या आपका नाम टॉम है?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱪᱮ?",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00668",
+      "src": "क्या आपका नाम टॉम है?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱪᱮ?",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00670",
+      "src": "क्या आपका नाम टॉम है?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱥᱮ?",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00710",
+      "src": "सच में?",
+      "tgt": "ᱥᱟᱹᱨᱤ ᱜᱮ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00712",
+      "src": "सच में?",
+      "tgt": "ᱥᱟᱹᱨᱤ ᱪᱮ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00714",
+      "src": "सच में?",
+      "tgt": "ᱦᱮᱸ ᱥᱟᱹᱨᱤ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00716",
+      "src": "सच में?",
+      "tgt": "ᱦᱮᱸᱪᱚ ᱥᱟᱹᱨᱤ ᱜᱮ ᱯᱟᱞᱮ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00717",
+      "src": "कैसे हो?",
+      "tgt": "ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00728",
+      "src": "धन्यवाद!",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ ᱜᱮ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00729",
+      "src": "शुक्रिया!",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ ᱜᱮ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00750",
+      "src": "बढ़िया!",
+      "tgt": "ᱱᱟᱯᱟᱭ!",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00764",
+      "src": "आपका नाम क्या है?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00788",
+      "src": "बिल्कुल।",
+      "tgt": "ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00789",
+      "src": "ज़रूर।",
+      "tgt": "ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00813",
+      "src": "बढ़िया!",
+      "tgt": "ᱦᱮᱲᱮᱢ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00833",
+      "src": "धन्यवाद!",
+      "tgt": "ᱥᱟᱨᱦᱟᱣ!",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00834",
+      "src": "बिल्कुल!",
+      "tgt": "ᱴᱷᱟᱹᱣᱠᱟᱹ!",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00835",
+      "src": "बिल्कुल!",
+      "tgt": "ᱯᱩᱨᱟᱹ ᱯᱩᱨᱤ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00856",
+      "src": "हाँ।",
+      "tgt": "ᱦᱮᱸ",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00857",
+      "src": "हाँ।",
+      "tgt": "ᱦᱮᱸ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00884",
+      "src": "बढ़िया!",
+      "tgt": "ᱵᱟᱱᱴᱷᱤᱠ!",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00885",
+      "src": "बढ़िया!",
+      "tgt": "ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00909",
+      "src": "ये किताबें मेरीं हैं।",
+      "tgt": "ᱱᱚᱶᱟ ᱯᱚᱛᱚᱵ ᱫᱚ ᱤᱧᱟᱜ ᱠᱟᱱᱟ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00923",
+      "src": "हे.",
+      "tgt": "ᱡᱚᱦᱟᱨ ᱾",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00930",
+      "src": "सही में...",
+      "tgt": "ᱥᱟᱹᱨᱤ ᱛᱮ ...",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    },
+    {
+      "record_id": "TT-V2-COMB-00962",
+      "src": "बाय!",
+      "tgt": "ᱵᱟᱭ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00963",
+      "src": "बाय!",
+      "tgt": "ᱡᱚᱦᱟᱨ !",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-00997",
+      "src": "आपका नाम क्या है?",
+      "tgt": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ?",
+      "type": "EXACT_BENCHMARK_HASH_MATCH"
+    },
+    {
+      "record_id": "TT-V2-COMB-01039",
+      "src": "ज़रूर!",
+      "tgt": "ᱱᱤᱦᱟᱹᱛᱤ!",
+      "type": "FUZZY_BENCHMARK_WORD_SIMILARITY_OVER_85"
+    }
+  ]
+}

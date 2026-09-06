@@ -3,6 +3,7 @@
 /local.properties
 /.idea
 .DS_Store
+.kotlin/
 /build
 /captures
 .externalNativeBuild
@@ -23,3 +24,8 @@ local.properties
 *.mp3
 **/checkpoints/
 **/models/
+tts-server/
+venv/
+.venv/
+__pycache__/
+*.pyc
