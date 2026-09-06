@@ -1,0 +1,75 @@
+[
+  {
+    "book_id": "SW-SAT-001",
+    "title_santali": "ᱯᱮᱭᱟ ᱜᱟᱛᱮ",
+    "title_hindi": "तीन दोस्त",
+    "english_title": "Three Friends",
+    "reading_level": 1,
+    "publisher": "Pratham Books",
+    "partner": "Suchana Community",
+    "license": "CC-BY-4.0",
+    "source_url": "https://storyweaver.org.in/stories?language=Santali",
+    "santali_text_segments": [
+      "ᱢᱤᱫ ᱴᱟᱝ ᱵᱤᱨ ᱨᱮ ᱯᱮᱭᱟ ᱜᱟᱛᱮ ᱠᱚ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾",
+      "ᱢᱤᱫᱴᱟᱹᱝ ᱛᱟᱹᱨᱩᱵ, ᱢᱤᱫᱴᱟᱹᱝ ᱦᱟᱹᱛᱤ ᱟᱨ ᱢᱤᱫᱴᱟᱹᱝ ᱠᱩᱞᱟᱹᱭ ᱾",
+      "ᱩᱱᱠᱩ ᱡᱚᱛᱚ ᱫᱤᱱ ᱢᱤᱫ ᱛᱮᱠᱚ ᱮᱱᱮᱡ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱫ ᱾",
+      "ᱢᱤᱫ ᱫᱤᱱ ᱩᱱᱠᱩ ᱫᱟᱜ ᱧᱩ ᱜᱟᱰᱟ ᱛᱮᱠᱚ ᱪᱟᱞᱟᱣ ᱮᱱᱟ ᱾",
+      "ᱜᱟᱰᱟ ᱨᱮ ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱫᱟᱜ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾"
+    ],
+    "hindi_text_segments": [
+      "एक जंगल में तीन दोस्त रहते थे।",
+      "एक बाघ, एक हाथी और एक खरगोश।",
+      "वे सब हर दिन साथ खेलते थे।",
+      "एक दिन वे पानी पीने नदी गए।",
+      "नदी में बहुत साफ पानी था।"
+    ],
+    "alignment_status": "MANUAL_SENTENCE_ALIGNMENT_REQUIRED",
+    "note": "Paragraph/page segments recorded from leveled reader; 1-to-1 bitext alignment requires human native speaker validation before moving to intermediate."
+  },
+  {
+    "book_id": "SW-SAT-002",
+    "title_santali": "ᱩᱞ ᱫᱟᱨᱮ",
+    "title_hindi": "आम का पेड़",
+    "english_title": "The Mango Tree",
+    "reading_level": 1,
+    "publisher": "Pratham Books",
+    "license": "CC-BY-4.0",
+    "source_url": "https://storyweaver.org.in/stories?language=Santali",
+    "santali_text_segments": [
+      "ᱱᱚᱣᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱩᱞ ᱫᱟᱨᱮ ᱠᱟᱱᱟ ᱾",
+      "ᱩᱞ ᱫᱟᱨᱮ ᱨᱮ ᱟᱹᱰᱤ ᱢᱟᱨᱟᱝ ᱩᱞ ᱵᱤᱞᱤ ᱟᱠᱟᱱᱟ ᱾",
+      "ᱪᱮᱬᱮ ᱠᱚ ᱩᱞ ᱡᱚᱢ ᱠᱚ ᱦᱤᱡᱩᱜ ᱠᱟᱱᱟ ᱾",
+      "ᱜᱤᱫᱽᱨᱟᱹ ᱠᱚ ᱩᱢᱩᱞ ᱨᱮᱠᱚ ᱫᱩᱲᱩᱵ ᱟᱠᱟᱱᱟ ᱾"
+    ],
+    "hindi_text_segments": [
+      "यह एक आम का पेड़ है।",
+      "पेड़ पर बड़े-बड़े आम पके हैं।",
+      "पक्षी आम खाने आते हैं।",
+      "बच्चे छाँव में बैठे हैं।"
+    ],
+    "alignment_status": "MANUAL_SENTENCE_ALIGNMENT_REQUIRED",
+    "note": "Page-level translation from level 1 reader; requires professional alignment review."
+  },
+  {
+    "book_id": "SW-SAT-003",
+    "title_santali": "ᱟᱞᱮᱭᱟᱜ ᱯᱚᱛᱚᱵ ᱢᱩᱨᱟᱹᱭ",
+    "title_hindi": "हमारा पुस्तकालय",
+    "english_title": "Our Library",
+    "reading_level": 2,
+    "publisher": "Pratham Books / Suchana",
+    "license": "CC-BY-4.0",
+    "source_url": "https://storyweaver.org.in/stories?language=Santali",
+    "santali_text_segments": [
+      "ᱟᱞᱮᱭᱟᱜ ᱤᱛᱩᱱ ᱚᱲᱟᱜ ᱨᱮ ᱢᱤᱫᱴᱟᱹᱝ ᱯᱚᱛᱚᱵ ᱢᱩᱨᱟᱹᱭ ᱢᱮᱱᱟᱜᱼᱟ ᱾",
+      "ᱚᱸᱰᱮ ᱟᱹᱰᱤ ᱞᱮᱠᱟᱱ ᱯᱩᱛᱷᱤ ᱢᱮᱱᱟᱜᱼᱟ ᱾",
+      "ᱟᱞᱮ ᱪᱤᱛᱟᱹᱨ ᱯᱩᱛᱷᱤ ᱯᱟᱲᱦᱟᱣ ᱟᱹᱰᱤ ᱞᱮ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾"
+    ],
+    "hindi_text_segments": [
+      "हमारे स्कूल में एक पुस्तकालय है।",
+      "वहाँ कई प्रकार की किताबें हैं।",
+      "हम चित्र वाली किताबें पढ़ना बहुत पसंद करते हैं।"
+    ],
+    "alignment_status": "MANUAL_SENTENCE_ALIGNMENT_REQUIRED",
+    "note": "Level 2 school environment text."
+  }
+]

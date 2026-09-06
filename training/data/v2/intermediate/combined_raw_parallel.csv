@@ -1,0 +1,1076 @@
+id,source,source_subset,src_lang,tgt_lang,src_text,tgt_text,source_id,license
+TT-V2-COMB-00001,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,नमस्ते,ᱡᱚᱦᱟᱨ,legacy_seed_row_1,APACHE-2.0
+TT-V2-COMB-00002,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,आप कैसे हैं?,ᱪᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ?,legacy_seed_row_2,APACHE-2.0
+TT-V2-COMB-00003,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मैं ठीक हूँ,ᱤᱧ ᱫᱚ ᱵᱮᱥ ᱜᱮ ᱢᱮᱱᱟᱹᱧᱟ,legacy_seed_row_3,APACHE-2.0
+TT-V2-COMB-00004,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,आप का क्या नाम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ?,legacy_seed_row_4,APACHE-2.0
+TT-V2-COMB-00005,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मेरा नाम बिरसा है,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱵᱤᱨᱥᱟ ᱠᱟᱱᱟ,legacy_seed_row_5,APACHE-2.0
+TT-V2-COMB-00006,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,धन्यवाद,ᱥᱟᱨᱦᱟᱣ,legacy_seed_row_6,APACHE-2.0
+TT-V2-COMB-00007,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,बहुत बहुत धन्यवाद,ᱟᱹᱰᱤ ᱟᱹᱰᱤ ᱥᱟᱨᱦᱟᱣ,legacy_seed_row_7,APACHE-2.0
+TT-V2-COMB-00008,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,अलविदा,ᱡᱚᱦᱟᱨ ᱜᱮ,legacy_seed_row_8,APACHE-2.0
+TT-V2-COMB-00009,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,चलो पढ़ते हैं,ᱫᱮᱞᱟ ᱵᱚᱱ ᱯᱟᱲᱦᱟᱣ-ᱟ,legacy_seed_row_9,APACHE-2.0
+TT-V2-COMB-00010,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,किताब खोलो,ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱢᱮ,legacy_seed_row_10,APACHE-2.0
+TT-V2-COMB-00011,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,किताब बंद करो,ᱯᱩᱛᱷᱤ ᱵᱚᱸᱫᱽ ᱢᱮ,legacy_seed_row_11,APACHE-2.0
+TT-V2-COMB-00012,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,लिखना शुरू करो,ᱚᱞ ᱮᱦᱚᱵ ᱢᱮ,legacy_seed_row_12,APACHE-2.0
+TT-V2-COMB-00013,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,शांत रहो,ᱛᱷᱤᱨ ᱛᱟᱦᱮᱸᱱ ᱯᱮ,legacy_seed_row_13,APACHE-2.0
+TT-V2-COMB-00014,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,बैठ जाओ,ᱫᱩᱲᱩᱵ ᱯᱮ,legacy_seed_row_14,APACHE-2.0
+TT-V2-COMB-00015,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,खड़े हो जाओ,ᱛᱤᱸᱜᱩᱱ ᱯᱮ,legacy_seed_row_15,APACHE-2.0
+TT-V2-COMB-00016,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यहाँ आओ,ᱱᱚᱰᱮ ᱦᱤᱡᱩᱜ ᱢᱮ,legacy_seed_row_16,APACHE-2.0
+TT-V2-COMB-00017,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,वहाँ जाओ,ᱦᱟᱸᱰᱮ ᱪᱟᱞᱟᱜ ᱢᱮ,legacy_seed_row_17,APACHE-2.0
+TT-V2-COMB-00018,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,ब्लैकबोर्ड देखो,ᱵᱚᱨᱰ ᱧᱮᱞ ᱢᱮ,legacy_seed_row_18,APACHE-2.0
+TT-V2-COMB-00019,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,ध्यान से सुनो,ᱫᱷᱮᱭᱟᱱ ᱛᱮ ᱟᱧᱡᱚᱢ ᱢᱮ,legacy_seed_row_19,APACHE-2.0
+TT-V2-COMB-00020,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,बहुत अच्छा काम,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱠᱟᱹᱢᱤ,legacy_seed_row_20,APACHE-2.0
+TT-V2-COMB-00021,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,शाबाश बच्चों,ᱥᱟᱵᱟᱥ ᱜᱤᱫᱽᱨᱟᱹ,legacy_seed_row_21,APACHE-2.0
+TT-V2-COMB-00022,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मुझे समझ नहीं आया,ᱵᱟᱹᱧ ᱵᱩᱡᱷᱟᱹᱣ ᱫᱟᱲᱮᱭᱟᱫᱟ,legacy_seed_row_22,APACHE-2.0
+TT-V2-COMB-00023,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,क्या आप मदद कर सकते हैं?,ᱪᱮᱫ ᱟᱢ ᱜᱚᱲᱚ ᱫᱟᱲᱮᱭᱟᱜ-ᱟ?,legacy_seed_row_23,APACHE-2.0
+TT-V2-COMB-00024,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,पानी पीना है,ᱫᱟᱜ ᱧᱩ ᱥᱟᱱᱟᱹᱧ ᱠᱟᱱᱟ,legacy_seed_row_24,APACHE-2.0
+TT-V2-COMB-00025,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मुझे भूख लगी है,ᱤᱧ ᱨᱮᱸᱜᱮᱡ ᱠᱟᱱᱟ,legacy_seed_row_25,APACHE-2.0
+TT-V2-COMB-00026,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मुझे घर जाना है,ᱤᱧ ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ ᱥᱟᱱᱟᱹᱧ ᱠᱟᱱᱟ,legacy_seed_row_26,APACHE-2.0
+TT-V2-COMB-00027,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,फिर से समझाइए,ᱟᱨᱦᱚᱸ ᱢᱤᱫ ᱫᱷᱟᱣ ᱞᱟᱹᱭ ᱢᱮ,legacy_seed_row_27,APACHE-2.0
+TT-V2-COMB-00028,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,मेरा काम पूरा हो गया,ᱤᱧᱟᱜ ᱠᱟᱹᱢᱤ ᱯᱩᱨᱟᱹᱣ ᱮᱱᱟ,legacy_seed_row_28,APACHE-2.0
+TT-V2-COMB-00029,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,एक दो तीन चार,ᱢᱤᱫ ᱵᱟᱨ ᱯᱮ ᱯᱩᱱ,legacy_seed_row_29,APACHE-2.0
+TT-V2-COMB-00030,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,पांच छह सात आठ नौ दस,ᱢᱚᱬᱮ ᱛᱩᱨᱩᱭ ᱮᱭᱟᱭ ᱤᱨᱟᱹᱞ ᱟᱨᱮ ᱜᱮᱞ,legacy_seed_row_30,APACHE-2.0
+TT-V2-COMB-00031,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,गिनती करो,ᱞᱮᱠᱷᱟᱭ ᱢᱮ,legacy_seed_row_31,APACHE-2.0
+TT-V2-COMB-00032,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,जोड़ो,ᱢᱮᱥᱟᱭ ᱢᱮ,legacy_seed_row_32,APACHE-2.0
+TT-V2-COMB-00033,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,घटाओ,ᱚᱪᱚᱜ ᱢᱮ,legacy_seed_row_33,APACHE-2.0
+TT-V2-COMB-00034,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,कितने सेब हैं?,ᱛᱤᱱᱟᱹᱜ ᱥᱮᱣ ᱢᱮᱱᱟᱜ-ᱟ?,legacy_seed_row_34,APACHE-2.0
+TT-V2-COMB-00035,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,पाँच और तीन आठ होते हैं,ᱢᱚᱬᱮ ᱟᱨ ᱯᱮ ᱤᱨᱟᱹᱞ ᱦᱩᱭᱩᱜ-ᱟ,legacy_seed_row_35,APACHE-2.0
+TT-V2-COMB-00036,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,दो में दो जोड़ने पर चार होता है,ᱵᱟᱨ ᱨᱮ ᱵᱟᱨ ᱢᱮᱥᱟ ᱞᱮᱠᱷᱟᱱ ᱯᱩᱱ ᱦᱩᱭᱩᱜ-ᱟ,legacy_seed_row_36,APACHE-2.0
+TT-V2-COMB-00037,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,कल बारिश होगी,ᱜᱟᱯᱟ ᱫᱟᱜ ᱡᱟᱹᱲᱤ ᱦᱩᱭᱩᱜ-ᱟ,legacy_seed_row_37,APACHE-2.0
+TT-V2-COMB-00038,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,आज बहुत गर्मी है,ᱛᱮᱦᱮᱧ ᱟᱹᱰᱤ ᱞᱚᱞᱚ ᱜᱮᱭᱟ,legacy_seed_row_38,APACHE-2.0
+TT-V2-COMB-00039,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,आज बहुत ठंड है,ᱛᱮᱦᱮᱧ ᱟᱹᱰᱤ ᱨᱮᱭᱟᱲ ᱜᱮᱭᱟ,legacy_seed_row_39,APACHE-2.0
+TT-V2-COMB-00040,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,आज मौसम बहुत सुहावना है,ᱛᱮᱦᱮᱧ ᱦᱚᱭ-ᱦᱤᱥᱤᱫ ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱜᱮᱭᱟ,legacy_seed_row_40,APACHE-2.0
+TT-V2-COMB-00041,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,सूरज पूरब में उगता है,ᱪᱟᱸᱫᱚ ᱥᱟᱢᱟᱝ ᱨᱮ ᱨᱟᱠᱟᱵ-ᱟ,legacy_seed_row_41,APACHE-2.0
+TT-V2-COMB-00042,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,पेड़ हमें छाया देते हैं,ᱫᱟᱨᱮ ᱟᱵᱚ ᱩᱢᱩᱞ ᱮᱢᱟᱵᱚᱱᱟ,legacy_seed_row_42,APACHE-2.0
+TT-V2-COMB-00043,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,नदी में पानी बह रहा है,ᱜᱟᱰᱟ ᱨᱮ ᱫᱟᱜ ᱞᱤᱸᱜᱤᱱ ᱠᱟᱱᱟ,legacy_seed_row_43,APACHE-2.0
+TT-V2-COMB-00044,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,पक्षी आकाश में उड़ रहे हैं,ᱪᱮᱬᱮ ᱥᱮᱨᱢᱟ ᱨᱮᱠᱚ ᱩᱰᱟᱹᱣᱜ ᱠᱟᱱᱟ,legacy_seed_row_44,APACHE-2.0
+TT-V2-COMB-00045,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,फूल बहुत सुंदर हैं,ᱵᱟᱦᱟ ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ ᱜᱮᱭᱟ,legacy_seed_row_45,APACHE-2.0
+TT-V2-COMB-00046,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यह मेरा परिवार है,ᱱᱚᱣᱟ ᱤᱧᱟᱜ ᱜᱷᱟᱨᱚᱸᱡᱽ ᱠᱟᱱᱟ,legacy_seed_row_46,APACHE-2.0
+TT-V2-COMB-00047,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यह मेरी माँ है,ᱱᱩᱭ ᱤᱧ ᱟᱭᱳ ᱠᱟᱱᱟᱭ,legacy_seed_row_47,APACHE-2.0
+TT-V2-COMB-00048,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यह मेरे पिता हैं,ᱱᱩᱭ ᱤᱧ ᱵᱟᱵᱟ ᱠᱟᱱᱟᱭ,legacy_seed_row_48,APACHE-2.0
+TT-V2-COMB-00049,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यह मेरा भाई है,ᱱᱩᱭ ᱤᱧ ᱵᱚᱭᱦᱟ ᱠᱟᱱᱟᱭ,legacy_seed_row_49,APACHE-2.0
+TT-V2-COMB-00050,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,यह मेरी बहन है,ᱱᱩᱭ ᱤᱧ ᱢᱤᱥᱤ ᱠᱟᱱᱟᱭ,legacy_seed_row_50,APACHE-2.0
+TT-V2-COMB-00051,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,वह मेरा दोस्त है,ᱩᱱᱤ ᱤᱧᱤᱡ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ,legacy_seed_row_51,APACHE-2.0
+TT-V2-COMB-00052,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,हम सब साथ खेलते हैं,ᱟᱵᱚ ᱡᱚᱛᱚ ᱢᱤᱫ ᱛᱮᱵᱚᱱ ᱮᱱᱮᱡ-ᱟ,legacy_seed_row_52,APACHE-2.0
+TT-V2-COMB-00053,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,स्कूल बहुत सुंदर है,ᱤᱛᱩᱱ ᱚᱲᱟᱜ ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ ᱜᱮᱭᱟ,legacy_seed_row_53,APACHE-2.0
+TT-V2-COMB-00054,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,गुरुजी आ रहे हैं,ᱢᱟᱪᱮᱛ ᱦᱤᱡᱩᱜ ᱠᱟᱱᱟᱭ,legacy_seed_row_54,APACHE-2.0
+TT-V2-COMB-00055,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,हम पाठ पढ़ रहे हैं,ᱟᱵᱚ ᱯᱟᱴᱷ ᱵᱚᱱ ᱯᱟᱲᱦᱟᱣ ᱠᱟᱱᱟ,legacy_seed_row_55,APACHE-2.0
+TT-V2-COMB-00056,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,रोटी खाओ,ᱨᱩᱴᱤ ᱡᱚᱢ ᱢᱮ,legacy_seed_row_56,APACHE-2.0
+TT-V2-COMB-00057,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,दूध पियो,ᱛᱳᱣᱟ ᱧᱩᱭ ᱢᱮ,legacy_seed_row_57,APACHE-2.0
+TT-V2-COMB-00058,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,समय पर स्कूल आओ,ᱚᱠᱛᱚ ᱨᱮ ᱤᱛᱩᱱ ᱚᱲᱟᱜ ᱦᱤᱡᱩᱜ ᱢᱮ,legacy_seed_row_58,APACHE-2.0
+TT-V2-COMB-00059,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,सच बोलो,ᱥᱟᱹᱨᱤ ᱠᱟᱛᱷᱟ ᱨᱚᱲ ᱢᱮ,legacy_seed_row_59,APACHE-2.0
+TT-V2-COMB-00060,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,झूठ मत बोलो,ᱮᱲᱮ ᱟᱞᱚᱢ ᱨᱚᱲ-ᱟ,legacy_seed_row_60,APACHE-2.0
+TT-V2-COMB-00061,TRIBETALK_SEED,classroom_curriculum_base,hin_Deva,sat_Olck,सफाई रखो,ᱥᱟᱯᱷᱟ ᱫᱚᱦᱚᱭ ᱯᱮ,legacy_seed_row_61,APACHE-2.0
+TT-V2-COMB-00062,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम्हारा नाम क्या है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ?,hin:2060318|sat:10290319,CC-BY-2.0-FR
+TT-V2-COMB-00063,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तेल और हल्दी लाओ तो।,ᱥᱩᱱᱩᱢ ᱟᱨ ᱥᱟᱥᱟᱝ ᱟᱹᱜᱩᱭ ᱢᱮ ᱥᱮ᱾,hin:10290332|sat:10290317,CC-BY-2.0-FR
+TT-V2-COMB-00064,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम्हारा घर बहुत ही सुंदर है।,ᱟᱢᱟᱜ ᱟᱲᱟᱜ ᱟᱹᱰᱤ ᱢᱚᱡᱽ ᱜᱮᱭᱟ᱾,hin:10290354|sat:10290346,CC-BY-2.0-FR
+TT-V2-COMB-00065,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,यह किसी दूसरे का हैं।,ᱱᱚᱣᱟ ᱫᱚ ᱮᱴᱟᱜ ᱦᱚᱲ ᱠᱚᱣᱟᱜ ᱠᱟᱱᱟ᱾,hin:10290372|sat:10290360,CC-BY-2.0-FR
+TT-V2-COMB-00066,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हम लोग अगले दिन जाएंगे।,ᱜᱟᱯᱟ ᱵᱩᱱ ᱪᱟᱞᱟᱜ ᱼᱟ᱾,hin:10290379|sat:10290376,CC-BY-2.0-FR
+TT-V2-COMB-00067,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम कहां जा रहे हो?,ᱚᱠᱟ ᱛᱮᱢ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ?,hin:10290388|sat:10290386,CC-BY-2.0-FR
+TT-V2-COMB-00068,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम कौन हो?,ᱟᱢ ᱫᱚ ᱚᱠᱚᱭ ᱠᱟᱱᱟᱢ?,hin:10290394|sat:10290392,CC-BY-2.0-FR
+TT-V2-COMB-00069,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"भाईसाहब, आप क्या बना रहे हो?","ᱜᱚᱢᱠᱮ, ᱟᱢ ᱫᱚ ᱪᱮᱫ ᱮᱢ ᱵᱮᱱᱟᱣ ᱫᱟ?",hin:10290398|sat:10290396,CC-BY-2.0-FR
+TT-V2-COMB-00070,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,जाओ और नहां कर आओ।,ᱪᱟᱞᱟᱜ ᱢᱮ ᱟᱨ ᱯᱟᱭᱨᱟᱜ ᱦᱤᱡᱩ ᱢᱮ᱾,hin:10290402|sat:10290401,CC-BY-2.0-FR
+TT-V2-COMB-00071,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हम लोग पैदल जांऐगे।,ᱛᱟᱲᱟᱢ ᱛᱮ ᱵᱩᱱ ᱪᱟᱞᱟᱜᱼᱟ᱾,hin:10290405|sat:10290403,CC-BY-2.0-FR
+TT-V2-COMB-00072,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हम लोग अपने गाड़ी से जांऐगे।,ᱟᱹᱵᱩᱼᱟ ᱜᱟᱹᱰᱤ ᱛᱮ ᱵᱩᱱ ᱪᱟᱞᱟᱜᱼᱟ᱾,hin:10290409|sat:10290406,CC-BY-2.0-FR
+TT-V2-COMB-00073,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपा कर के मेरी एक फोटो खींच दिजिए ना।,ᱫᱟᱭᱟ ᱠᱟᱛᱮ ᱤᱧᱭᱟᱹ ᱯᱦᱚᱴᱚ ᱠᱷᱤᱪᱟᱹᱣ ᱛᱤᱝ ᱢᱮ ᱥᱮ᱾,hin:10290413|sat:10290410,CC-BY-2.0-FR
+TT-V2-COMB-00074,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं घर पर नहीं हूं।,ᱤᱧ ᱚᱲᱟᱜ ᱨᱮ ᱵᱟᱹᱱᱩᱭᱼᱟ᱾,hin:10290416|sat:10290414,CC-BY-2.0-FR
+TT-V2-COMB-00075,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,भाईसाहब नमस्ते।,ᱡᱚᱦᱟᱨ ᱜᱮ ᱜᱚᱢᱠᱮ᱾,hin:10290419|sat:10290418,CC-BY-2.0-FR
+TT-V2-COMB-00076,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बैंक में खाता कैसे खोला जाता है?,ᱵᱮᱱᱠ ᱨᱮ ᱠᱷᱟᱛᱟ ᱪᱮᱫ ᱞᱮᱠᱟ ᱠᱚ ᱠᱷᱩᱠᱟᱹᱣ ᱛᱟᱦᱮᱱ ᱼᱟ?,hin:10290423|sat:10290420,CC-BY-2.0-FR
+TT-V2-COMB-00077,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,रोजगार पाने के लिए मैं क्या करूं।,ᱠᱟ.ᱢᱤ ᱧᱟᱢ ᱞᱟᱹᱜᱤᱫ ᱛᱮ ᱤᱧ ᱪᱮᱫ ᱪᱮᱫᱟ ᱦᱩᱭᱩᱜ ᱛᱤᱭᱟᱹ?,hin:10290426|sat:10290425,CC-BY-2.0-FR
+TT-V2-COMB-00078,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,क्या तुम इस जगह पर गये हों कि नहीं?,ᱱᱚᱣᱟ ᱡᱟᱭᱜᱟ ᱨᱮ ᱟᱢ ᱪᱟᱞᱟᱣ ᱠᱟᱱᱟᱢ ᱥᱮ ᱵᱟᱝ?,hin:10290430|sat:10290428,CC-BY-2.0-FR
+TT-V2-COMB-00079,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मेरे पैर दर्द कर रहें हैं।,ᱤᱧᱭᱟᱹ ᱡᱟᱸᱜᱟ ᱠᱚ ᱦᱟᱥᱩ ᱠᱟᱱᱟ᱾,hin:10290434|sat:10290431,CC-BY-2.0-FR
+TT-V2-COMB-00080,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मेरे पैरों में दर्द हैं।,ᱤᱧᱭᱟᱹ ᱡᱟᱸᱜᱟ ᱨᱮ ᱦᱟᱥᱩ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:10290439|sat:10290436,CC-BY-2.0-FR
+TT-V2-COMB-00081,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,यें फुल बहुत ही सुंदर हैं।,ᱱᱚᱣᱟ ᱵᱟᱦᱟ ᱠᱚ ᱟᱹᱰᱤ ᱢᱚᱡᱽ ᱜᱮᱭᱟ᱾,hin:10290441|sat:10290437,CC-BY-2.0-FR
+TT-V2-COMB-00082,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम कैसे हो?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475785|sat:10290445,CC-BY-2.0-FR
+TT-V2-COMB-00083,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आज अवकाश है।,ᱛᱤᱦᱤᱱ ᱫᱚ ᱛᱷᱩᱴᱴᱤ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:10290452|sat:10290449,CC-BY-2.0-FR
+TT-V2-COMB-00084,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,इस गाड़ी का दाम हैं दस लाख रुपए।,ᱱᱚᱣᱟ ᱜᱟᱹᱰᱤ ᱨᱮᱭᱟᱜ ᱫᱟᱢ ᱢᱮᱱᱟᱜᱼᱟ ᱜᱮᱞ ᱞᱟᱠᱷ ᱴᱟᱠᱟ᱾,hin:10290475|sat:10290474,CC-BY-2.0-FR
+TT-V2-COMB-00085,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आप सभी की ज़रूरत है।,ᱟᱯᱮ ᱠᱚᱣᱟᱜ ᱫᱚᱨᱠᱟᱨ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:10290500|sat:10290498,CC-BY-2.0-FR
+TT-V2-COMB-00086,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,पुरा किजिए,ᱯᱩᱨᱟᱹᱣ ᱢᱮ,hin:10290508|sat:10290503,CC-BY-2.0-FR
+TT-V2-COMB-00087,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,पानी का तलाब से पानी ले कर आओ।,ᱫᱟ ᱰᱟᱹᱰᱤ ᱠᱷᱟᱱ ᱫᱟ ᱟᱹᱜᱩᱭ ᱢᱮ᱾,hin:10290516|sat:10290512,CC-BY-2.0-FR
+TT-V2-COMB-00088,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपया करके आप सभी बाये की और जाए।,ᱫᱟᱭᱟ ᱠᱟᱛᱮ ᱟᱯᱮ ᱥᱟᱱᱟᱢ ᱠᱚ ᱞᱮᱸᱜᱟ ᱥᱮᱛ ᱪᱟᱞᱟᱜ ᱯᱮ᱾,hin:10290534|sat:10290529,CC-BY-2.0-FR
+TT-V2-COMB-00089,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,सोहराय पुजा इस महीने में हैं।,ᱥᱚᱦᱨᱟᱭ ᱵᱚᱝᱜᱟ ᱫᱚ ᱱᱚᱣᱟ ᱪᱟᱸᱫᱚ ᱨᱮ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:10290568|sat:10290554,CC-BY-2.0-FR
+TT-V2-COMB-00090,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"वहां देखो, तुम्हारा दोस्त तुम्हारे लिए इंतजार कर रहा हैं।","ᱦᱟᱱᱰᱮ ᱧᱮᱞ ᱢᱮ, ᱟᱢᱨᱮᱱ ᱜᱟᱹᱛᱮ ᱟᱢ ᱞᱟᱹᱜᱤᱫ ᱛᱟᱺᱜᱤ ᱫᱟᱭ᱾",hin:10290581|sat:10290579,CC-BY-2.0-FR
+TT-V2-COMB-00091,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं रांची जाऊंगा।,ᱤᱧ ᱫᱚ ᱨᱟᱺᱪᱤ ᱪᱟᱞᱟᱜ ᱟᱹᱭ᱾,hin:10290591|sat:10290585,CC-BY-2.0-FR
+TT-V2-COMB-00092,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आज ठंड लग रही है।,ᱛᱤᱦᱤᱧ ᱫᱚ ᱨᱟᱵᱟᱝ ᱠᱟᱱᱟ᱾,hin:10290608|sat:10290601,CC-BY-2.0-FR
+TT-V2-COMB-00093,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,तुम कहां गए थे?,ᱟᱢ ᱚᱠᱟᱛᱮ ᱪᱟᱞᱟᱣ ᱞᱮᱱᱟᱢ?,hin:10290629|sat:10290627,CC-BY-2.0-FR
+TT-V2-COMB-00094,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,क्या आप सभी ने खाना खाया कि नहीं?,ᱫᱟᱠᱟ ᱠᱚ ᱡᱚᱢ ᱠᱮᱫᱟ ᱯᱮ ᱥᱮ ᱵᱟᱝ?,hin:10290640|sat:10290632,CC-BY-2.0-FR
+TT-V2-COMB-00095,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हिन्दी फ़िल्म है।,ᱦᱤᱱᱫᱤ ᱯᱷᱤᱞᱢ ᱠᱟᱱᱟ ᱾,hin:3620515|sat:10292849,CC-BY-2.0-FR
+TT-V2-COMB-00096,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं संताली भाषा में बात करना चाहता हूं।,ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱠᱟᱛᱷᱟᱜ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:10293033|sat:10289273,CC-BY-2.0-FR
+TT-V2-COMB-00097,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"ठीक है, मैं संताली भाषा में बात करूंगा।",ᱴᱷᱤᱠ ᱜᱮᱭᱟ ᱤᱧ ᱫᱚ ᱤᱝᱨᱟᱡᱤ ᱛᱮ ᱠᱟᱛᱷᱟᱜᱼᱟᱹᱧ ᱾,hin:10293035|sat:10289272,CC-BY-2.0-FR
+TT-V2-COMB-00098,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,यह हिंदी फिल्म है।,ᱦᱤᱱᱫᱤ ᱯᱷᱤᱞᱢ ᱠᱟᱱᱟ ᱾,hin:10293501|sat:10292849,CC-BY-2.0-FR
+TT-V2-COMB-00099,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बांग्ला में संताली को संथाली बोलते हैं।,ᱥᱟᱱᱛᱟᱲᱤ ᱫᱚ ᱵᱟᱝᱞᱟ ᱛᱮ ᱥᱟᱱᱛᱷᱟᱞᱤ ᱠᱚ ᱢᱮᱛᱟᱜᱼᱟ ᱾,hin:10293522|sat:10292542,CC-BY-2.0-FR
+TT-V2-COMB-00100,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं यहां पर नया हूं।,ᱤᱧ ᱫᱚ ᱱᱟᱸᱰᱮᱧ ᱱᱟᱣᱟ ᱜᱮᱭᱟ ᱾,hin:10293536|sat:10292541,CC-BY-2.0-FR
+TT-V2-COMB-00101,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,सबका स्वागत है!,ᱥᱟᱱᱟᱢ ᱠᱚᱜᱮ ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ !,hin:10293540|sat:10292539,CC-BY-2.0-FR
+TT-V2-COMB-00102,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,सुन लिया है मैंने।,ᱟᱸᱡᱚᱢ ᱟᱠᱟᱫ ᱜᱮᱭᱟᱹᱧ ᱾,hin:10293553|sat:10291164,CC-BY-2.0-FR
+TT-V2-COMB-00103,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,संताली भाषा में लिखना और बोलना सीखें।,ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱚᱞ ᱟᱨ ᱯᱟᱲᱦᱟᱣ ᱪᱮᱫᱚᱜ ᱢᱮ ᱾,hin:10341275|sat:10297716,CC-BY-2.0-FR
+TT-V2-COMB-00104,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,क्या आप संताली भाषा जानते हैं?,ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ ᱵᱟᱲᱟᱭᱟᱢ ᱥᱮ ?,hin:10348329|sat:10297720,CC-BY-2.0-FR
+TT-V2-COMB-00105,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,संताली एक भाषा है।,ᱥᱟᱱᱛᱟᱲᱤ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱯᱟᱹᱨᱥᱤ ᱠᱟᱱᱟ ᱾,hin:10348383|sat:10297697,CC-BY-2.0-FR
+TT-V2-COMB-00106,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,क्या आप संताली में बोल सकते हैं?,ᱥᱟᱱᱛᱟᱲᱤ ᱛᱮ ᱨᱮᱲ ᱟᱢ ᱥᱮ?,hin:10348390|sat:10297698,CC-BY-2.0-FR
+TT-V2-COMB-00107,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,विकिपीडिया संताली भाषा में उपलब्ध है।,ᱣᱤᱠᱤᱯᱤᱰᱤᱭᱟ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱦᱚᱸ ᱢᱮᱱᱟᱜᱼᱟ ᱾,hin:10348404|sat:10264373,CC-BY-2.0-FR
+TT-V2-COMB-00108,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मोदी संताली भाषा बोलना जानते हैं।,ᱢᱚᱫᱤ ᱫᱚ ᱥᱟᱱᱛᱟᱲᱤ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱨᱚᱲ ᱵᱟᱲᱟᱭᱟᱭ ᱾,hin:10348409|sat:10276608,CC-BY-2.0-FR
+TT-V2-COMB-00109,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,संताली विकिपीडिया में लेख लिखने के लिए ओल चिकी लिपि का प्रयोग किया जाता है।,ᱥᱟᱱᱛᱟᱲᱤ ᱣᱤᱠᱤᱯᱤᱰᱤᱭᱟ ᱨᱮ ᱚᱱᱚᱞ ᱠᱚ ᱫᱚ ᱚᱞ ᱪᱤᱠᱤ ᱞᱤᱯᱤ ᱛᱮ ᱚᱞᱚᱜ ᱠᱟᱱᱟ ᱾,hin:10348416|sat:10289244,CC-BY-2.0-FR
+TT-V2-COMB-00110,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं संताली स्कूल में पढ़ता हूँ।,ᱥᱟᱱᱛᱟᱲᱤ ᱵᱤᱨᱫᱟᱹᱜᱟᱲ ᱨᱮ ᱤᱧᱤᱧ ᱯᱟᱲᱦᱟᱣᱜ ᱠᱟᱱᱟ ᱾,hin:10348424|sat:10297727,CC-BY-2.0-FR
+TT-V2-COMB-00111,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,रबी भूसे के घर में रह रहा है।,ᱨᱚᱵᱤ ᱫᱚ ᱵᱩᱥᱩᱵ ᱚᱲᱟᱜ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱠᱟᱱᱟᱭ ᱾,hin:10538870|sat:10538865,CC-BY-2.0-FR
+TT-V2-COMB-00112,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,टॉम को गणित पसंद है।,ᱴᱚᱢ ᱮᱞᱠᱷᱟ ᱫᱩᱞᱟᱹᱲᱟᱜᱼᱟᱭ ᱾,hin:11141901|sat:11141899,CC-BY-2.0-FR
+TT-V2-COMB-00113,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हाँ।,ᱦᱚᱭ ᱾,hin:477093|sat:11141924,CC-BY-2.0-FR
+TT-V2-COMB-00114,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बचाओ!,ᱵᱟᱧᱪᱟᱣ ᱟᱹᱧ ᱢᱮ!,hin:459377|sat:11141926,CC-BY-2.0-FR
+TT-V2-COMB-00115,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,नमस्ते।,ᱡᱚᱦᱟᱨ!,hin:480306|sat:11141927,CC-BY-2.0-FR
+TT-V2-COMB-00116,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,नमस्कार।,ᱡᱚᱦᱟᱨ!,hin:480307|sat:11141927,CC-BY-2.0-FR
+TT-V2-COMB-00117,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपया।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱾,hin:484076|sat:11141928,CC-BY-2.0-FR
+TT-V2-COMB-00118,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,स्वागतम्।,ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ ᱾,hin:488705|sat:11141930,CC-BY-2.0-FR
+TT-V2-COMB-00119,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कितने दूर?,ᱛᱤᱱᱟᱹᱜ ᱡᱷᱟᱹᱞ ?,hin:3216572|sat:11178852,CC-BY-2.0-FR
+TT-V2-COMB-00120,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आप क्या कहेंगे ?,ᱟᱢ ᱪᱮᱫ ᱮᱢ ᱢᱮᱱᱟ ?,hin:11154246|sat:11188007,CC-BY-2.0-FR
+TT-V2-COMB-00121,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं एक नई कार ख़रीदने वाला हूँ।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱱᱟᱶᱟ ᱠᱟᱨ ᱤᱧ ᱠᱤᱨᱤᱧ ᱞᱟᱹᱜᱤᱫ ᱾,hin:11153466|sat:11188008,CC-BY-2.0-FR
+TT-V2-COMB-00122,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,थके हुए हो तो ध्यान देना मुश्किल होता है।,ᱞᱟᱝᱜᱟ ᱛᱟᱦᱮᱸ ᱞᱮᱠᱷᱟᱱ ᱫᱷᱭᱟᱱ ᱮᱢᱚᱜ ᱨᱮ ᱢᱩᱥᱠᱤᱞ ᱜᱮ ᱵᱩᱡᱷᱟᱹᱣᱜᱼᱟ ᱾,hin:11135053|sat:11188015,CC-BY-2.0-FR
+TT-V2-COMB-00123,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपया आवश्यक मरम्मत ही करें।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱫᱚᱨᱠᱟᱨ ᱥᱟᱡᱟᱣ ᱠᱚ ᱜᱮ ᱠᱚᱨᱮᱣ ᱢᱟᱸ ᱾,hin:11127554|sat:11188016,CC-BY-2.0-FR
+TT-V2-COMB-00124,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,जलेगा।,ᱡᱩᱞᱩᱜᱼᱟ ᱾,hin:3625173|sat:11195204,CC-BY-2.0-FR
+TT-V2-COMB-00125,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बेचारा।,ᱵᱮᱪᱨᱟ ᱾,hin:3873902|sat:11195206,CC-BY-2.0-FR
+TT-V2-COMB-00126,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,जादू।,ᱡᱟᱹᱫᱩ ᱾,hin:4023563|sat:11195207,CC-BY-2.0-FR
+TT-V2-COMB-00127,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,खींचिए!,ᱚᱨ ᱢᱮ !,hin:4078429|sat:11195210,CC-BY-2.0-FR
+TT-V2-COMB-00128,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,खींच!,ᱚᱨ ᱢᱮ !,hin:4078430|sat:11195210,CC-BY-2.0-FR
+TT-V2-COMB-00129,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,गिरोगे!,ᱧᱩᱨᱩᱜ ᱟᱢ !,hin:4101367|sat:11195213,CC-BY-2.0-FR
+TT-V2-COMB-00130,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,गिरोगी!,ᱧᱩᱨᱩᱜ ᱟᱢ !,hin:4101368|sat:11195213,CC-BY-2.0-FR
+TT-V2-COMB-00131,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं पटाखा फोड़ता हूं ।,ᱤᱧ ᱯᱷᱚᱴᱠᱟ ᱠᱚᱧ ᱟᱛᱟᱨᱟ ᱾,hin:11205530|sat:11207178,CC-BY-2.0-FR
+TT-V2-COMB-00132,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैंने दिवाली में दिये जलाएं ।,ᱤᱧ ᱫᱤᱣᱟᱞᱤ ᱨᱮ ᱫᱤᱭᱟ ᱡᱩᱞ ᱠᱮᱜᱟᱹᱧ ᱾,hin:11205178|sat:11207179,CC-BY-2.0-FR
+TT-V2-COMB-00133,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,घर में मेहमान आए हुए थे।,ᱚᱲᱟᱜ ᱨᱮ ᱯᱮᱲᱟ ᱠᱚ ᱦᱮᱡ ᱞᱮᱱᱟ ᱾,hin:11293500|sat:11293493,CC-BY-2.0-FR
+TT-V2-COMB-00134,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मुझे आराम चाहिए।,ᱡᱤᱨᱟᱹᱣ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:12625874|sat:12625873,CC-BY-2.0-FR
+TT-V2-COMB-00135,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं यहाँ आ रहा हूँ।,ᱤᱧ ᱱᱚᱰᱮ ᱦᱟᱹᱡᱩᱜ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:12625877|sat:12625876,CC-BY-2.0-FR
+TT-V2-COMB-00136,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,वह स्कूल जा रहा है।,ᱩᱱᱤ ᱥᱠᱩᱞ ᱛᱮ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟᱭ ᱾,hin:12625881|sat:12625880,CC-BY-2.0-FR
+TT-V2-COMB-00137,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,वह स्कूल जा रहा है।,ᱩᱱᱤ ᱥᱠᱩᱞ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟᱭ ᱾,hin:12625881|sat:12625882,CC-BY-2.0-FR
+TT-V2-COMB-00138,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,घर वापस आओ।,ᱚᱲᱟᱜ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:12625885|sat:12625884,CC-BY-2.0-FR
+TT-V2-COMB-00139,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,वह पढ़ाई कर रहा है।,ᱩᱱᱤ ᱯᱟᱲᱦᱟᱣᱜ ᱠᱟᱱᱟᱭ ᱾,hin:12625888|sat:12625887,CC-BY-2.0-FR
+TT-V2-COMB-00140,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,खाना खा लो।,ᱡᱚᱢᱟᱜ ᱡᱚᱢ ᱢᱮ ᱾,hin:12625891|sat:12625889,CC-BY-2.0-FR
+TT-V2-COMB-00141,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,पानी पीकर आओ।,ᱫᱟᱜ ᱧᱩ ᱠᱟᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:12625895|sat:12625892,CC-BY-2.0-FR
+TT-V2-COMB-00142,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,पानी लेकर आओ।,ᱫᱟᱜ ᱟᱹᱜᱩ ᱠᱟᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:12625905|sat:12625904,CC-BY-2.0-FR
+TT-V2-COMB-00143,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं बाहर जा रहा हूँ।,ᱤᱧ ᱵᱟᱦᱨᱮ ᱛᱤᱧ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ ᱾,hin:12625909|sat:12625907,CC-BY-2.0-FR
+TT-V2-COMB-00144,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,दरवाजा बंद करो।,ᱫᱩᱣᱟᱹᱨ ᱵᱚᱸᱫᱚᱭ ᱢᱮ ᱾,hin:12625912|sat:12625910,CC-BY-2.0-FR
+TT-V2-COMB-00145,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बच्चा रो रहा है ।,ᱜᱤᱫᱽᱨᱟᱹ ᱨᱟᱜ ᱮᱫᱟᱭ ᱾,hin:12625914|sat:12625913,CC-BY-2.0-FR
+TT-V2-COMB-00146,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैंने उसपर मुक्का मारा।,ᱤᱧ ᱫᱚ ᱩᱱᱤ ᱠᱩᱦᱟᱹᱶ ᱠᱮᱫᱮᱭᱟᱹᱧ ᱾,hin:12455608|sat:12625915,CC-BY-2.0-FR
+TT-V2-COMB-00147,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,क्रिस ने वैम्पायर नाइट को हरा दिया!,ᱠᱨᱤᱥ ᱫᱚ ᱣᱮᱢᱯᱟᱭᱟᱨ ᱱᱟᱭᱤᱴ ᱦᱟᱨᱟᱣ ᱠᱮᱫᱮᱭᱟ!,hin:12418451|sat:12625933,CC-BY-2.0-FR
+TT-V2-COMB-00148,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,वह प्रत्येक सप्ताह गाड़ी को धोता है।,ᱡᱷᱚᱛᱚ ᱦᱟᱴ ᱜᱟᱹᱰᱤ ᱥᱟᱯᱷᱟᱭᱮᱫ ᱛᱟᱭᱟ ᱾,hin:12418450|sat:12625935,CC-BY-2.0-FR
+TT-V2-COMB-00149,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,उस समय क्या कर रहे थे?,ᱩᱱ ᱡᱷᱚᱜ ᱪᱮᱫ ᱪᱤᱠᱟᱹᱭᱮᱫ ᱛᱟᱦᱮᱸᱡ ?,hin:12418447|sat:12625937,CC-BY-2.0-FR
+TT-V2-COMB-00150,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कोला की तीन बोतलें खरीद लाओ।,ᱠᱚᱞᱟ ᱦᱟᱜ ᱯᱮᱭᱟ ᱵᱩᱛᱩᱞ ᱠᱤᱨᱤᱧ ᱟᱹᱜᱩᱭ ᱢᱮ ᱾,hin:12418446|sat:12625939,CC-BY-2.0-FR
+TT-V2-COMB-00151,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"पिछले सप्ताह, मुझे फ़्रेंच में चिट्ठी मिली।","ᱢᱟᱲᱟᱝ ᱦᱟᱴ, ᱤᱧ ᱯᱷᱨᱮᱧᱪ ᱨᱮ ᱪᱤᱴᱷᱤ ᱧᱟᱢ ᱞᱮᱫᱟᱹᱧ ᱾",hin:12418449|sat:12625953,CC-BY-2.0-FR
+TT-V2-COMB-00152,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,ऐसा लगता है कि हमारे सर्वर में कुछ समस्याएँ हैं! कुछ मिनट बाद रिफ्रेश करने का प्रयास करें। आप अभी भी स्क्रैच डाउनलोड कर सकते हैं और प्रोजेक्ट बना सकते हैं।,ᱱᱚᱠᱟ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱥᱚᱨᱵᱷᱚᱨ ᱨᱮ ᱦᱩᱰᱟᱹᱜ ᱢᱮᱱᱟᱜ ᱠᱟᱫᱟ! ᱛᱤᱱᱟᱹᱜ ᱚᱠᱛᱚ ᱛᱚᱭᱚᱢ ᱫᱩᱦᱲᱟᱹ ᱪᱮᱥᱴᱟᱭ ᱢᱮ ᱾ ᱟᱢ ᱱᱤᱛ ᱦᱚᱸ ᱥᱠᱨᱮᱪ ᱰᱟᱣᱱᱞᱚᱰ ᱫᱟᱲᱮᱭᱟᱜᱼᱟᱢ ᱟᱨ ᱯᱨᱚᱡᱮᱠᱴ ᱛᱮᱭᱟᱨ ᱫᱟᱲᱮᱭᱟᱜᱼᱟᱢ ᱾,hin:12477986|sat:12627007,CC-BY-2.0-FR
+TT-V2-COMB-00153,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,पिछले सप्ताह मुझे फ़्रांसीसी भाषा में पत्र प्राप्त हुआ।,ᱢᱟᱲᱟᱝ ᱦᱟᱴ ᱤᱧ ᱯᱷᱨᱮᱧᱪ ᱯᱟᱹᱨᱥᱤ ᱛᱮ ᱪᱤᱴᱷᱤ ᱧᱟᱢ ᱠᱮᱫᱟᱹᱧ ᱾,hin:12418448|sat:12627009,CC-BY-2.0-FR
+TT-V2-COMB-00154,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"टॉम के पास जाता है, पर मेरी के पास नहीं है।","ᱴᱚᱢ ᱴᱷᱮᱱ ᱮ ᱪᱟᱞᱟᱜᱼᱟ, ᱢᱮᱱᱠᱷᱟᱱ ᱤᱧ ᱴᱷᱮᱱ ᱫᱚ ᱵᱟᱭ ᱦᱟᱹᱡᱩᱜᱼᱟᱭ ᱾",hin:12418444|sat:12627016,CC-BY-2.0-FR
+TT-V2-COMB-00155,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,"मैं अपने मित्र के साथ उद्यान में टहल रहा था, तभी वर्षा पड़ने लगी।","ᱤᱧ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱥᱟᱞᱟᱜ ᱛᱮ ᱵᱟᱜᱟᱱ ᱨᱮ ᱫᱟᱲᱟᱱ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱡ, ᱩᱱ ᱚᱠᱛᱚ ᱨᱮ ᱫᱟᱜ ᱮᱦᱚᱵ ᱠᱮᱜᱼᱟᱭ ᱾",hin:12418441|sat:12627017,CC-BY-2.0-FR
+TT-V2-COMB-00156,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,थालियाँ मैली हैं।,ᱛᱦᱟᱹᱞᱤ ᱡᱚᱱᱫᱽᱨᱟ ᱜᱮᱭᱟ ᱾,hin:12418439|sat:12627018,CC-BY-2.0-FR
+TT-V2-COMB-00157,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,उसने दो बिल्लियाँ रखी हुईं हैं।,ᱩᱱᱤ ᱵᱟᱨᱭᱟ ᱯᱩᱥᱤ ᱫᱚᱦᱚ ᱠᱟᱫᱟᱭ ᱾,hin:12418436|sat:12627019,CC-BY-2.0-FR
+TT-V2-COMB-00158,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं स्वाधीन होना चाहता हूँ।,ᱤᱧ ᱥᱟᱹᱫᱤᱱ ᱥᱟᱹᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:12418435|sat:12627020,CC-BY-2.0-FR
+TT-V2-COMB-00159,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कल रात मैं अच्छे से सोई।,ᱦᱚᱞᱟ ᱧᱤᱱᱫᱟᱹ ᱤᱧ ᱵᱮᱥ ᱪᱚᱨᱚᱠ ᱡᱟᱹᱯᱤᱫ ᱠᱟᱹᱫᱟᱹᱧ ᱾,hin:12418424|sat:12627021,CC-BY-2.0-FR
+TT-V2-COMB-00160,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कल रात मैं अच्छे से सोया।,ᱦᱚᱞᱟ ᱧᱤᱱᱫᱟᱹ ᱤᱧ ᱵᱮᱥ ᱪᱚᱨᱚᱠ ᱡᱟᱹᱯᱤᱫ ᱠᱮᱫᱟ ᱾,hin:12418422|sat:12627022,CC-BY-2.0-FR
+TT-V2-COMB-00161,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं अंग्रेज़ी बोल सकता हूँ।,ᱤᱧ ᱤᱝᱜᱽᱨᱟᱡᱤ ᱨᱚᱲ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱤᱧ ᱾,hin:12418402|sat:12627024,CC-BY-2.0-FR
+TT-V2-COMB-00162,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,वह बालक शीघ्र ही सो गया।,ᱩᱱᱤ ᱠᱚᱲᱟ ᱞᱚᱜᱚᱱ ᱜᱮ ᱡᱟᱹᱯᱤᱫ ᱠᱮᱫᱟᱭ ᱾,hin:12418396|sat:12627026,CC-BY-2.0-FR
+TT-V2-COMB-00163,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपया मेरी मदद करें।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱤᱧ ᱜᱚᱲᱚ ᱤᱧ ᱢᱮ ᱾,hin:12642434|sat:11427921,CC-BY-2.0-FR
+TT-V2-COMB-00164,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आप हमारी मदद करें।,ᱟᱢ ᱜᱚᱲᱚ ᱞᱮᱭᱟᱢ ᱾,hin:12642435|sat:11428034,CC-BY-2.0-FR
+TT-V2-COMB-00165,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैंने टॉम की मदद की।,ᱤᱧ ᱴᱚᱢ ᱤᱧ ᱜᱚᱲᱚᱣᱟ ᱫᱮᱭᱟ ᱾,hin:12642436|sat:11427919,CC-BY-2.0-FR
+TT-V2-COMB-00166,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,जिरी मदद करें ।,ᱡᱤᱨᱤ ᱜᱚᱲᱚ ᱮᱢᱚᱜ ᱢᱮ ᱾,hin:12642438|sat:11427708,CC-BY-2.0-FR
+TT-V2-COMB-00167,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कृपया मदद करे।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱜᱚᱲᱚ ᱮᱢᱚᱜ ᱢᱮ ᱾,hin:12642439|sat:11427707,CC-BY-2.0-FR
+TT-V2-COMB-00168,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,उनकी मदद करें।,ᱩᱱᱠᱩ ᱜᱚᱲᱚ ᱮᱢᱟ ᱠᱚᱢ !,hin:12642441|sat:11427706,CC-BY-2.0-FR
+TT-V2-COMB-00169,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैं स्वतन्त्र होना चाहती हूँ।,ᱤᱧ ᱟᱡᱟᱫ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:12418434|sat:12643262,CC-BY-2.0-FR
+TT-V2-COMB-00170,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,कल रात मुझे अच्छी नींद आई।,ᱦᱚᱞᱟ ᱧᱤᱱᱫᱟ ᱤᱧ ᱵᱮᱥ ᱡᱟᱹᱯᱤᱫ ᱠᱮᱫᱟᱹᱧ ᱾,hin:12418421|sat:12643292,CC-BY-2.0-FR
+TT-V2-COMB-00171,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,मैंने कल रात अच्छी नींद ली।,ᱤᱧ ᱫᱚ ᱦᱚᱞᱟ ᱧᱤᱱᱫᱟᱹ ᱵᱷᱟᱹᱜᱤ ᱡᱟᱹᱯᱤᱫ ᱠᱮᱫᱟ ᱾,hin:12418420|sat:12643293,CC-BY-2.0-FR
+TT-V2-COMB-00172,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,हर बार मुझे ही क्यों सहना पड़ता है?,ᱪᱮᱫᱟᱜ ᱡᱷᱚᱛᱚ ᱚᱠᱛᱚ ᱤᱧ ᱜᱮ ᱥᱟᱦᱟᱣ ᱛᱮ ᱦᱩᱭ ᱤᱧᱟ ?,hin:12418412|sat:12643294,CC-BY-2.0-FR
+TT-V2-COMB-00173,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,इस नदी में बहुतेरी मछलियाँ हैं।,ᱱᱚᱶᱟ ᱜᱟᱰᱟ ᱨᱮ ᱟᱹᱰᱤᱜᱟᱱ ᱦᱟᱹᱠᱩ ᱢᱮᱱᱟᱜ ᱠᱚᱣᱟ ᱾,hin:12418408|sat:12643295,CC-BY-2.0-FR
+TT-V2-COMB-00174,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आज खाने में क्या बन रहा है? रसोईघर से सुगंध तो बड़ी अच्छी आ रही है!,ᱛᱮᱦᱮᱧ ᱡᱚᱢᱟᱜ ᱨᱮ ᱪᱮᱫ ᱛᱮᱭᱟᱨᱚᱜ ᱠᱟᱫᱟ ? ᱫᱟᱠᱟᱚᱲᱟᱜ ᱠᱷᱚᱱ ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ ᱥᱚ ᱦᱟᱹᱡᱩᱜ ᱠᱟᱱᱟ !,hin:12411164|sat:12643296,CC-BY-2.0-FR
+TT-V2-COMB-00175,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,श्रीमान आपका शुक्रिया।,ᱟᱹᱰᱤ ᱥᱟᱨᱦᱟᱣ ᱜᱮ ᱜᱚᱢᱠᱮ ᱾,hin:12643298|sat:12643297,CC-BY-2.0-FR
+TT-V2-COMB-00176,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बोलो।,ᱞᱟᱹᱭ ᱢᱮ ᱾,hin:6543494|sat:12643299,CC-BY-2.0-FR
+TT-V2-COMB-00177,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,रखो।,ᱫᱚᱦᱚᱭ ᱢᱮ ᱾,hin:6543497|sat:11175607,CC-BY-2.0-FR
+TT-V2-COMB-00178,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,नहीं!,ᱵᱟᱝᱟ!,hin:6543500|sat:11164013,CC-BY-2.0-FR
+TT-V2-COMB-00179,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,चाहिए?,ᱫᱚᱨᱠᱟᱨᱟᱜᱼᱟ?,hin:6543508|sat:12643300,CC-BY-2.0-FR
+TT-V2-COMB-00180,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,बोलिये।,ᱞᱟᱹᱭ ᱢᱮ ᱾,hin:6543495|sat:12643299,CC-BY-2.0-FR
+TT-V2-COMB-00181,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,यह बहुत अच्छा गाना है।,ᱱᱚᱶᱟ ᱫᱚ ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱥᱮᱨᱮᱧ ᱠᱟᱱᱟ ᱾,hin:12643303|sat:12643301,CC-BY-2.0-FR
+TT-V2-COMB-00182,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आपका क्या नाम है ?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ ?,hin:12643306|sat:10297686,CC-BY-2.0-FR
+TT-V2-COMB-00183,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,सुपर से भी ऊपर।,ᱥᱩᱯᱚᱨ ᱠᱷᱚᱱ ᱦᱚᱸ ᱪᱮᱛᱟᱱ ᱾,hin:12643318|sat:12643319,CC-BY-2.0-FR
+TT-V2-COMB-00184,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,आप लोगों ने मेरा दिल खुश कर दिया।,ᱟᱯᱮᱠᱚᱫᱚ ᱤᱧᱟᱜ ᱢᱚᱱ ᱯᱮ ᱨᱟᱹᱥᱠᱟᱹ ᱚᱪᱚᱠᱤᱫᱤᱧᱟ ᱾,hin:12643320|sat:12643321,CC-BY-2.0-FR
+TT-V2-COMB-00185,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,इतना लाजवाब गाना औऱ अदाकारी के लिए आप सबों को तहे दिल से बहुत बहुत बधाई हो।,ᱱᱚᱠᱟᱱ ᱵᱮᱥ ᱥᱮᱨᱮᱧ ᱟᱨ ᱮᱠᱴᱤᱝ ᱞᱟᱹᱜᱤᱫ ᱟᱯᱮ ᱥᱟᱱᱟᱢ ᱠᱚ ᱟᱹᱰᱤ ᱟᱹᱰᱤ ᱥᱟᱨᱦᱟᱣ ᱾,hin:12643322|sat:12643323,CC-BY-2.0-FR
+TT-V2-COMB-00186,TATOEBA,tatoeba_direct_links,hin_Deva,sat_Olck,गुरुजी के बारे में सच्ची बात बताने के लिए बहुत बहुत धन्यवाद᱾,ᱜᱩᱨᱩᱡᱤ ᱵᱟᱵᱚᱛ ᱥᱟᱹᱨᱤ ᱠᱟᱛᱷᱟ ᱞᱟᱹᱭ ᱞᱟᱹᱜᱤᱫ ᱛᱮ ᱟᱹᱰᱤ ᱟᱹᱰᱤ ᱥᱟᱨᱦᱟᱣ᱾,hin:13396596|sat:13396599,CC-BY-2.0-FR
+TT-V2-COMB-00187,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दूध सफ़ेद क्यों होता है?,ᱛᱚᱣᱟ ᱫᱚ ᱪᱮᱫᱟᱜ ᱯᱩᱱᱰ ᱜᱮᱭᱟ ?,hin:13689219|sat:11207274|via_eng:10043515,CC-BY-2.0-FR
+TT-V2-COMB-00188,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह फूल सफ़ेद है।,ᱚᱱᱟ ᱵᱟᱦᱟ ᱫᱚ ᱯᱩᱱᱰ ᱜᱮᱭᱟ ᱾,hin:10049555|sat:11207275|via_eng:10048556,CC-BY-2.0-FR
+TT-V2-COMB-00189,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अजीब बात है।,ᱟᱹᱰᱤ ᱚᱡᱚᱵᱽ ᱠᱟᱛᱷᱟ ᱾,hin:4078415|sat:11193320|via_eng:1010322,CC-BY-2.0-FR
+TT-V2-COMB-00190,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अजीब बात है।,ᱚᱡᱚᱵᱽ ᱠᱟᱛᱷᱟ ᱠᱟᱱᱟ ᱾,hin:4078415|sat:11193321|via_eng:1010322,CC-BY-2.0-FR
+TT-V2-COMB-00191,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अजीब बात है।,ᱢᱩᱥᱠᱤᱞ ᱮᱱᱟ ᱾,hin:4078415|sat:11193322|via_eng:1010322,CC-BY-2.0-FR
+TT-V2-COMB-00192,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तो?,ᱢᱮᱱᱠᱷᱟᱱ ?,hin:4078417|sat:11165077|via_eng:1014545,CC-BY-2.0-FR
+TT-V2-COMB-00193,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम 97 वर्ष तक जीवित रहे।,ᱴᱚᱢ 97 ᱥᱮᱨᱡᱟ ᱫᱷᱟᱹᱵᱤᱡ ᱡᱤᱣᱤᱫ ᱛᱟᱦᱮᱸᱱ ᱢᱟᱸᱭ᱾,hin:10519309|sat:10519310|via_eng:1024554,CC-BY-2.0-FR
+TT-V2-COMB-00194,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱟᱫᱮᱨ !,hin:4078409|sat:11165078|via_eng:1037170,CC-BY-2.0-FR
+TT-V2-COMB-00195,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱵᱚᱞᱚ !,hin:4078409|sat:11193323|via_eng:1037170,CC-BY-2.0-FR
+TT-V2-COMB-00196,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱵᱟᱞᱚ ᱩᱛᱟᱹᱨ!,hin:4078409|sat:11193324|via_eng:1037170,CC-BY-2.0-FR
+TT-V2-COMB-00197,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभाल के!,ᱦᱩᱥᱤᱭᱟᱹᱨ!,hin:4078418|sat:11165080|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00198,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभाल!,ᱦᱩᱥᱤᱭᱟᱹᱨ!,hin:4078419|sat:11165080|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00199,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभालिए!,ᱦᱩᱥᱤᱭᱟᱹᱨ!,hin:4078420|sat:11165080|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00200,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभाल के!,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ !,hin:4078418|sat:11193325|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00201,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभाल!,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ !,hin:4078419|sat:11193325|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00202,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संभालिए!,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ !,hin:4078420|sat:11193325|via_eng:1053192,CC-BY-2.0-FR
+TT-V2-COMB-00203,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जंगली!,ᱡᱚᱝᱜᱽᱞᱤ !,hin:6179148|sat:11165083|via_eng:1058180,CC-BY-2.0-FR
+TT-V2-COMB-00204,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुभ रात्री!,ᱥᱟᱹᱜᱩᱱ ᱧᱤᱱᱫᱟᱹ!,hin:6179149|sat:11193326|via_eng:1068125,CC-BY-2.0-FR
+TT-V2-COMB-00205,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इसकी तो.,ᱦᱮᱴ ᱾,hin:6179150|sat:11165084|via_eng:1078143,CC-BY-2.0-FR
+TT-V2-COMB-00206,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इसकी तो.,ᱵᱟᱱᱴᱷᱤᱠ ᱾,hin:6179150|sat:11165087|via_eng:1078143,CC-BY-2.0-FR
+TT-V2-COMB-00207,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम जॉन है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱡᱚᱱ ᱠᱟᱱᱟ ᱾,hin:4083857|sat:10303033|via_eng:1098122,CC-BY-2.0-FR
+TT-V2-COMB-00208,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,माफ़ करें!,ᱤᱠᱟᱹ !,hin:6179151|sat:11165088|via_eng:1105399,CC-BY-2.0-FR
+TT-V2-COMB-00209,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अफ़सोस!,ᱤᱠᱟᱹ !,hin:6179152|sat:11165088|via_eng:1105399,CC-BY-2.0-FR
+TT-V2-COMB-00210,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बुद्धू!,ᱵᱚᱠᱟ !,hin:6179153|sat:11164002|via_eng:1109942,CC-BY-2.0-FR
+TT-V2-COMB-00211,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गलियारा!,ᱜᱚᱞᱤ !,hin:6179154|sat:11193328|via_eng:1112428,CC-BY-2.0-FR
+TT-V2-COMB-00212,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धत!,ᱦᱮᱴ !,hin:6179156|sat:11184316|via_eng:1115430,CC-BY-2.0-FR
+TT-V2-COMB-00213,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं सफेद शराब लेता हूं।,ᱤᱧ ᱫᱚ ᱯᱩᱱᱰ ᱯᱟᱹᱶᱨᱟᱹ ᱤᱧ ᱧᱩᱸ ᱭᱟ ᱾,hin:11165018|sat:11165019|via_eng:11164994,CC-BY-2.0-FR
+TT-V2-COMB-00214,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ऐसा लगता है।,ᱚᱝᱠᱟ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱾,hin:11165007|sat:11165010|via_eng:11164996,CC-BY-2.0-FR
+TT-V2-COMB-00215,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आप किसी ऐसे व्यक्ति को जानते हैं जो टॉम की मदद कर सकता है?,ᱟᱢ ᱡᱟᱦᱟᱸᱭ ᱵᱟᱰᱟᱭ ᱠᱟᱹᱫ ᱠᱚᱣᱟᱢ ᱥᱮ ᱡᱟᱦᱟᱸᱭ ᱫᱚ ᱴᱚᱢ ᱮ ᱜᱚᱲᱚ ᱫᱟᱲᱮ ᱟᱭᱟ?,hin:11380915|sat:11330491|via_eng:11232570,CC-BY-2.0-FR
+TT-V2-COMB-00216,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कितनी बजे सोते हो?,ᱟᱢ ᱚᱠᱟ ᱚᱠᱛᱚ ᱨᱮ ᱡᱟᱹᱯᱤᱫ ᱮᱢ ᱥᱮᱱᱚᱜᱼᱟ?,hin:11371322|sat:11330474|via_eng:11286385,CC-BY-2.0-FR
+TT-V2-COMB-00217,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,विदाई!,ᱵᱤᱫᱟᱹᱭ !,hin:6179163|sat:12578920|via_eng:1130100,CC-BY-2.0-FR
+TT-V2-COMB-00218,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुभकामानाएँ!,ᱡᱚᱦᱟᱨ !,hin:6179164|sat:11165053|via_eng:1130106,CC-BY-2.0-FR
+TT-V2-COMB-00219,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुछ अपराधों की कोई सीमा नहीं होती है।,ᱛᱤᱱᱟᱹᱜ ᱜᱟᱱ ᱚᱯᱨᱟᱫᱷ ᱞᱟᱹᱜᱤᱫ ᱚᱝᱠᱟ ᱥᱤᱢᱟ ᱵᱟᱹᱱᱩᱜᱼᱟ ᱾,hin:11380912|sat:11330443|via_eng:11325322,CC-BY-2.0-FR
+TT-V2-COMB-00220,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैंने पिछले सोमवार से तीन किताबें पढ़ी हैं।,ᱯᱟᱨᱚᱢᱮᱱ ᱚᱛᱮ ᱢᱟᱦᱟᱸ ᱠᱷᱚᱱ ᱯᱮᱭᱟ ᱯᱚᱛᱚᱵ ᱤᱧ ᱯᱟᱲᱦᱟᱣ ᱟᱠᱟᱫᱼᱟ ᱾,hin:11380913|sat:11330462|via_eng:11325360,CC-BY-2.0-FR
+TT-V2-COMB-00221,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे टॉम से बात करनी चाहिए।,ᱴᱚᱢ ᱥᱟᱶ ᱤᱧᱟᱜ ᱨᱚᱲ ᱦᱩᱭᱩᱜᱼᱟ ᱾,hin:11371317|sat:11330401|via_eng:11325374,CC-BY-2.0-FR
+TT-V2-COMB-00222,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे टॉम से बात करनी चाहिए।,ᱤᱧ ᱫᱚ ᱴᱚᱢ ᱥᱟᱞᱟᱜ ᱨᱚᱯᱚᱲ ᱠᱟᱛᱷᱟ ᱾,hin:11371317|sat:11330408|via_eng:11325374,CC-BY-2.0-FR
+TT-V2-COMB-00223,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आज बारिश नहीं हुई।,ᱛᱤᱦᱤᱧ ᱫᱤᱱ ᱫᱚ ᱵᱟᱭ ᱫᱟᱜᱽ ᱞᱮᱫᱟ ᱾,hin:11371316|sat:11330395|via_eng:11325383,CC-BY-2.0-FR
+TT-V2-COMB-00224,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कहाँ गए थे?,ᱟᱢ ᱚᱠᱟ ᱥᱮᱫ ᱮᱢ ᱪᱟᱞᱟᱣ ᱮᱱᱟ ?,hin:3539293|sat:11388769|via_eng:1140034,CC-BY-2.0-FR
+TT-V2-COMB-00225,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अच्छा.,ᱵᱮᱥ ᱾,hin:6179165|sat:11165091|via_eng:1148281,CC-BY-2.0-FR
+TT-V2-COMB-00226,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भला.,ᱵᱮᱥ ᱾,hin:6179167|sat:11165091|via_eng:1148281,CC-BY-2.0-FR
+TT-V2-COMB-00227,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जा!,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:4057589|sat:11163955|via_eng:1148335,CC-BY-2.0-FR
+TT-V2-COMB-00228,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाओ!,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:4057590|sat:11163955|via_eng:1148335,CC-BY-2.0-FR
+TT-V2-COMB-00229,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाइए!,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:4057591|sat:11163955|via_eng:1148335,CC-BY-2.0-FR
+TT-V2-COMB-00230,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जी!,ᱦᱚᱭ !,hin:3621550|sat:11193330|via_eng:1148358,CC-BY-2.0-FR
+TT-V2-COMB-00231,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हाँ!,ᱦᱚᱭ !,hin:3621551|sat:11193330|via_eng:1148358,CC-BY-2.0-FR
+TT-V2-COMB-00232,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जी हाँ!,ᱦᱚᱭ !,hin:3621552|sat:11193330|via_eng:1148358,CC-BY-2.0-FR
+TT-V2-COMB-00233,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पढ़ो!,ᱯᱟᱲᱦᱟᱣ !,hin:6179044|sat:11165093|via_eng:1157647,CC-BY-2.0-FR
+TT-V2-COMB-00234,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पढ़ो!,ᱯᱟᱲᱦᱟᱣ ᱢᱮ !,hin:6179044|sat:11193331|via_eng:1157647,CC-BY-2.0-FR
+TT-V2-COMB-00235,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम कभी भी लाल कपड़े नहीं पहनता।,ᱴᱚᱢ ᱛᱤᱥᱚᱜ ᱟᱨᱟᱜ ᱵᱟᱭ ᱦᱚᱨᱚᱜᱽᱟᱭ ᱾,hin:3670997|sat:11194656|via_eng:1164356,CC-BY-2.0-FR
+TT-V2-COMB-00236,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ठीक!,ᱴᱷᱤᱠ !,hin:6179118|sat:11165095|via_eng:1165055,CC-BY-2.0-FR
+TT-V2-COMB-00237,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ठीक!,ᱴᱷᱤᱠ ᱜᱮ !,hin:6179118|sat:11193332|via_eng:1165055,CC-BY-2.0-FR
+TT-V2-COMB-00238,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संदेश पुष्टि!,ᱠᱷᱚᱵᱚᱨ ᱯᱩᱥᱴᱟᱹᱣ ᱮᱱᱟ !,hin:6179175|sat:11193333|via_eng:1165072,CC-BY-2.0-FR
+TT-V2-COMB-00239,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संदेश मिल गया!,ᱠᱷᱚᱵᱚᱨ ᱯᱩᱥᱴᱟᱹᱣ ᱮᱱᱟ !,hin:6179176|sat:11193333|via_eng:1165072,CC-BY-2.0-FR
+TT-V2-COMB-00240,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पासवर्ड?,ᱫᱟᱱᱟᱝ ᱥᱟᱵᱟᱫ ?,hin:6179177|sat:11165103|via_eng:1172670,CC-BY-2.0-FR
+TT-V2-COMB-00241,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पासवर्ड ?,ᱫᱟᱱᱟᱝ ᱥᱟᱵᱟᱫ ?,hin:8876320|sat:11165103|via_eng:1172670,CC-BY-2.0-FR
+TT-V2-COMB-00242,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जल्दी करो!,ᱞᱚᱜᱚᱱ !,hin:2060328|sat:11165104|via_eng:1182334,CC-BY-2.0-FR
+TT-V2-COMB-00243,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जल्दी करो!,ᱞᱚᱜᱚᱱᱚᱜ ᱢᱮ !,hin:2060328|sat:11193334|via_eng:1182334,CC-BY-2.0-FR
+TT-V2-COMB-00244,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हिस्सा लो!,ᱵᱷᱟᱜᱽ ᱤᱫᱤ ᱢᱮ !,hin:4767717|sat:11165106|via_eng:1228891,CC-BY-2.0-FR
+TT-V2-COMB-00245,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हिस्सा लीजिए!,ᱵᱷᱟᱜᱽ ᱤᱫᱤ ᱢᱮ !,hin:4767718|sat:11165106|via_eng:1228891,CC-BY-2.0-FR
+TT-V2-COMB-00246,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सही!,ᱴᱷᱤᱠ !,hin:6179052|sat:11165095|via_eng:1257062,CC-BY-2.0-FR
+TT-V2-COMB-00247,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सही!,ᱴᱷᱤᱠ ᱜᱭᱟ !,hin:6179052|sat:11193335|via_eng:1257062,CC-BY-2.0-FR
+TT-V2-COMB-00248,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाओ!,ᱟᱲᱟᱜᱽ ᱢᱮ !,hin:4057590|sat:11165108|via_eng:1270554,CC-BY-2.0-FR
+TT-V2-COMB-00249,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छोड़ो!,ᱟᱲᱟᱜᱽ ᱢᱮ !,hin:6179178|sat:11165108|via_eng:1270554,CC-BY-2.0-FR
+TT-V2-COMB-00250,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाओ!,ᱪᱷᱟᱰᱟᱜ ᱢᱮ !,hin:4057590|sat:11193336|via_eng:1270554,CC-BY-2.0-FR
+TT-V2-COMB-00251,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छोड़ो!,ᱪᱷᱟᱰᱟᱜ ᱢᱮ !,hin:6179178|sat:11193336|via_eng:1270554,CC-BY-2.0-FR
+TT-V2-COMB-00252,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत में हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱢᱮᱱᱟᱹᱧᱟ ᱾,hin:3704927|sat:10775939|via_eng:1272953,CC-BY-2.0-FR
+TT-V2-COMB-00253,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत में हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:3704927|sat:10775940|via_eng:1272954,CC-BY-2.0-FR
+TT-V2-COMB-00254,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे सोना है।,ᱤᱧ ᱫᱚ ᱜᱤᱛᱤᱡ ᱞᱟᱹᱜᱤᱫ ᱛᱮ ᱪᱟᱞᱟᱣ ᱦᱩᱭᱤᱧᱟ ᱾,hin:3792910|sat:11236060|via_eng:1277,CC-BY-2.0-FR
+TT-V2-COMB-00255,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं जल्द लौटूंगी।,ᱤᱧ ᱫᱚ ᱞᱚᱜᱚᱱ ᱜᱮ ᱨᱩᱣᱟᱹᱲ ᱤᱧ ᱾,hin:3793971|sat:11236061|via_eng:1284,CC-BY-2.0-FR
+TT-V2-COMB-00256,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं तो लाजवाब हो गयी हूँ।,ᱤᱧ ᱴᱷᱮᱱ ᱢᱮᱱ ᱞᱟᱹᱜᱤᱫ ᱟᱨ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜᱼᱟ ᱾,hin:3793980|sat:11236062|via_eng:1286,CC-BY-2.0-FR
+TT-V2-COMB-00257,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह तो कभी खत्म न होगा।,ᱱᱚᱶᱟ ᱫᱚ ᱛᱤᱥ ᱦᱚᱸ ᱵᱟᱝ ᱪᱟᱵᱟᱜ ᱞᱟᱹᱜᱤᱫ ᱾,hin:3793998|sat:11236063|via_eng:1287,CC-BY-2.0-FR
+TT-V2-COMB-00258,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे नहीं पता मैं क्या कहूँ।,ᱤᱧ ᱠᱷᱟᱹᱞᱤ ᱵᱟᱹᱧ ᱵᱟᱰᱟᱭᱟ ᱪᱮᱫ ᱠᱚ ᱢᱮᱱ ᱨᱮᱭᱟᱜ ᱢᱮᱱᱟᱜᱼᱟ ᱾,hin:3794043|sat:11236064|via_eng:1288,CC-BY-2.0-FR
+TT-V2-COMB-00259,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ये अभी की तस्वीर है क्या?,ᱱᱚᱶᱟ ᱫᱚ ᱱᱮᱛᱟᱨᱟᱜ ᱪᱤᱛᱟᱹᱨ ᱠᱟᱱᱟ ᱥᱮ?,hin:11371142|sat:11236066|via_eng:1291,CC-BY-2.0-FR
+TT-V2-COMB-00260,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तू मेरे रास्ते में आ रहा है।,ᱟᱢ ᱫᱚ ᱤᱧᱟᱜ ᱡᱟᱭᱜᱟ ᱨᱮ ᱢᱮᱱᱟᱢᱟᱸ ᱾,hin:11371146|sat:11747363|via_eng:1296,CC-BY-2.0-FR
+TT-V2-COMB-00261,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं दिन के €100 कमाता हूं।,ᱤᱧ ᱫᱚ ᱢᱤᱫ ᱫᱤᱱ ᱨᱮ €100 ᱤᱧ ᱠᱚᱢᱟᱣ ᱟ ᱾,hin:11371151|sat:11747366|via_eng:1299,CC-BY-2.0-FR
+TT-V2-COMB-00262,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वैसा नहीं होगा।,ᱱᱚᱶᱟ ᱫᱚ ᱵᱟᱝ ᱦᱩᱭᱩᱜᱼᱟ ᱾,hin:2060320|sat:11747367|via_eng:1302,CC-BY-2.0-FR
+TT-V2-COMB-00263,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझें तुम्हारी याद आ रही है।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱩᱭᱦᱟᱹᱨᱮᱫ ᱢᱮᱭᱟ ᱾,hin:2060321|sat:11747372|via_eng:1308,CC-BY-2.0-FR
+TT-V2-COMB-00264,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझें आपकी याद आ रही है।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱩᱭᱦᱟᱹᱨᱮᱫ ᱢᱮᱭᱟ ᱾,hin:2060322|sat:11747372|via_eng:1308,CC-BY-2.0-FR
+TT-V2-COMB-00265,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम्हें सोना चाहिए।,ᱟᱢ ᱫᱚ ᱡᱟᱹᱯᱤᱫ ᱠᱟᱛᱷᱟ ᱾,hin:2060324|sat:11747375|via_eng:1311,CC-BY-2.0-FR
+TT-V2-COMB-00266,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपको सोना चाहिए।,ᱟᱢ ᱫᱚ ᱡᱟᱹᱯᱤᱫ ᱠᱟᱛᱷᱟ ᱾,hin:2060325|sat:11747375|via_eng:1311,CC-BY-2.0-FR
+TT-V2-COMB-00267,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं जाने वाला हूं।,ᱤᱧ ᱫᱚ ᱪᱟᱞᱟᱜ ᱞᱟᱹᱜᱤᱫᱤᱧ ᱾,hin:11371171|sat:11747376|via_eng:1312,CC-BY-2.0-FR
+TT-V2-COMB-00268,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैंने उनको बोला दूसरी टिकट भेजने के लिए।,ᱤᱧ ᱫᱚ ᱩᱱᱠᱩ ᱮᱴᱟᱜ ᱴᱤᱠᱚᱴ ᱵᱷᱮᱡᱟ ᱞᱟᱹᱜᱤᱫ ᱢᱮᱛᱟᱫ ᱠᱚᱣᱟᱹᱧ ᱾,hin:11371175|sat:11747378|via_eng:1313,CC-BY-2.0-FR
+TT-V2-COMB-00269,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं ऐसी जिंदगी नहीं जी सकता।,ᱤᱧ ᱱᱚᱝᱠᱟᱱ ᱡᱤᱭᱚᱱ ᱫᱚ ᱵᱟᱹᱧ ᱛᱟᱦᱮᱸ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱾,hin:11371181|sat:11747383|via_eng:1315,CC-BY-2.0-FR
+TT-V2-COMB-00270,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे जीव विज्ञान कभी भी पसंद नहीं था।,ᱤᱧ ᱫᱚ ᱛᱤᱥ ᱦᱚᱸ ᱡᱤᱣ ᱵᱤᱜᱭᱟᱱ ᱵᱟᱹᱧ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾,hin:485982|sat:11747385|via_eng:1317,CC-BY-2.0-FR
+TT-V2-COMB-00271,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुन!,ᱟᱧᱡᱚᱢ ᱢᱮ !,hin:4078422|sat:11165109|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00272,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो!,ᱟᱧᱡᱚᱢ ᱢᱮ !,hin:4078424|sat:11165109|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00273,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनिए!,ᱟᱧᱡᱚᱢ ᱢᱮ !,hin:4078425|sat:11165109|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00274,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुन!,ᱟᱧᱡᱚᱢ ᱢᱮ ᱥᱮ !,hin:4078422|sat:11193337|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00275,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो!,ᱟᱧᱡᱚᱢ ᱢᱮ ᱥᱮ !,hin:4078424|sat:11193337|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00276,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनिए!,ᱟᱧᱡᱚᱢ ᱢᱮ ᱥᱮ !,hin:4078425|sat:11193337|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00277,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुन!,ᱚᱛᱮ !,hin:4078422|sat:12600596|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00278,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो!,ᱚᱛᱮ !,hin:4078424|sat:12600596|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00279,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनिए!,ᱚᱛᱮ !,hin:4078425|sat:12600596|via_eng:1319588,CC-BY-2.0-FR
+TT-V2-COMB-00280,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पक्का?,ᱟᱢ ᱜᱚᱴᱟ ᱛᱮ ᱢᱮᱱᱟᱢᱟ?,hin:2060327|sat:12527852|via_eng:1326,CC-BY-2.0-FR
+TT-V2-COMB-00281,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच में?,ᱥᱟᱹᱨᱤᱛᱮ ?,hin:4078392|sat:11193338|via_eng:1327057,CC-BY-2.0-FR
+TT-V2-COMB-00282,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जल्दी करो!,ᱞᱚᱜᱚᱱᱚᱜ ᱢᱮ ᱾,hin:2060328|sat:12527853|via_eng:1329,CC-BY-2.0-FR
+TT-V2-COMB-00283,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इससे मुझें आश्चर्य नहीं होता।,ᱤᱧ ᱫᱚ ᱵᱟᱹᱧ ᱦᱟᱦᱟᱲᱟᱤᱧᱟᱭ ᱾,hin:2060329|sat:12527854|via_eng:1330,CC-BY-2.0-FR
+TT-V2-COMB-00284,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इससे मुझें ताज्जुब नहीं होता।,ᱤᱧ ᱫᱚ ᱵᱟᱹᱧ ᱦᱟᱦᱟᱲᱟᱤᱧᱟᱭ ᱾,hin:2060330|sat:12527854|via_eng:1330,CC-BY-2.0-FR
+TT-V2-COMB-00285,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,संदर्भ पर निर्भर करता है।,ᱱᱚᱶᱟ ᱫᱚ ᱠᱚᱱᱴᱮᱠᱥᱴ ᱪᱮᱛᱟᱱ ᱨᱮ ᱱᱤᱨᱵᱷᱚᱨᱟᱭ ᱾,hin:11371203|sat:12527855|via_eng:1333,CC-BY-2.0-FR
+TT-V2-COMB-00286,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं कितना मोटा हूं।,ᱤᱧ ᱫᱚ ᱟᱹᱰᱤ ᱢᱚᱴᱟ ᱜᱮᱭᱟᱹᱧ ᱾,hin:2060331|sat:12527858|via_eng:1339,CC-BY-2.0-FR
+TT-V2-COMB-00287,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं कितनी मोटी हूं।,ᱤᱧ ᱫᱚ ᱟᱹᱰᱤ ᱢᱚᱴᱟ ᱜᱮᱭᱟᱹᱧ ᱾,hin:2060332|sat:12527858|via_eng:1339,CC-BY-2.0-FR
+TT-V2-COMB-00288,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,घिनौना!,ᱪᱷᱤ ᱪᱷᱤ !,hin:6179190|sat:11193339|via_eng:1342184,CC-BY-2.0-FR
+TT-V2-COMB-00289,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छी!,ᱪᱷᱤ ᱪᱷᱤ !,hin:6179191|sat:11193339|via_eng:1342184,CC-BY-2.0-FR
+TT-V2-COMB-00290,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,घिनौना!,ᱵᱟᱱᱴᱷᱤᱠ !,hin:6179190|sat:11193340|via_eng:1342184,CC-BY-2.0-FR
+TT-V2-COMB-00291,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छी!,ᱵᱟᱱᱴᱷᱤᱠ !,hin:6179191|sat:11193340|via_eng:1342184,CC-BY-2.0-FR
+TT-V2-COMB-00292,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सब कुछ समझाने के लिए मुझे अरसा लग जाएगा।,ᱤᱧ ᱫᱚ ᱡᱷᱚᱛᱚ ᱵᱟᱛᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱡᱤᱵᱚᱱ ᱥᱟᱨᱟ ᱚᱠᱛᱚ ᱞᱟᱜᱟᱣ ᱤᱧᱟ ᱾,hin:11371242|sat:12527861|via_eng:1347,CC-BY-2.0-FR
+TT-V2-COMB-00293,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इसलिए क्योंकि तुम लड़की हो।,ᱚᱱᱟᱠᱷᱟᱹᱛᱤᱨ ᱪᱮᱫᱟᱜ ᱥᱮ ᱟᱢ ᱫᱚ ᱠᱩᱲᱤ ᱠᱟᱱᱟᱢ ᱾,hin:505436|sat:12527862|via_eng:1348,CC-BY-2.0-FR
+TT-V2-COMB-00294,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ठहरना!,ᱛᱟᱦᱮᱱ ᱢᱮ !,hin:6179194|sat:11165111|via_eng:1349052,CC-BY-2.0-FR
+TT-V2-COMB-00295,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रहना!,ᱛᱟᱦᱮᱱ ᱢᱮ !,hin:6179195|sat:11165111|via_eng:1349052,CC-BY-2.0-FR
+TT-V2-COMB-00296,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खींचो!,ᱚᱨ ᱟᱬᱜᱚ !,hin:4078428|sat:11165112|via_eng:1349095,CC-BY-2.0-FR
+TT-V2-COMB-00297,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खींचिए!,ᱚᱨ ᱟᱬᱜᱚ !,hin:4078429|sat:11165112|via_eng:1349095,CC-BY-2.0-FR
+TT-V2-COMB-00298,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खींच!,ᱚᱨ ᱟᱬᱜᱚ !,hin:4078430|sat:11165112|via_eng:1349095,CC-BY-2.0-FR
+TT-V2-COMB-00299,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दक्षिण की तरफ़।,ᱯᱟᱪᱮ ᱥᱮᱫ ᱾,hin:4078432|sat:11165115|via_eng:1349139,CC-BY-2.0-FR
+TT-V2-COMB-00300,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और तेज़!,ᱞᱚᱜᱚᱱ !,hin:6179198|sat:11165104|via_eng:1349257,CC-BY-2.0-FR
+TT-V2-COMB-00301,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,डरपोक!,ᱥᱤᱢ !,hin:6179197|sat:11165117|via_eng:1349848,CC-BY-2.0-FR
+TT-V2-COMB-00302,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हो गया।,ᱦᱩᱭᱮᱱᱟ ᱾,hin:4078433|sat:11165113|via_eng:1357603,CC-BY-2.0-FR
+TT-V2-COMB-00303,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसकी आँखें लाल हैं।,ᱩᱱᱤᱭᱟᱜ ᱢᱮᱫ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮᱭᱟ ᱾,hin:3670998|sat:11194646|via_eng:1360055,CC-BY-2.0-FR
+TT-V2-COMB-00304,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पूछ क्यों रहे हो?,ᱟᱢ ᱪᱮᱫ ᱮᱢ ᱠᱩᱠᱞᱤ ᱠᱟᱱᱟ ?,hin:11371260|sat:12527896|via_eng:1368,CC-BY-2.0-FR
+TT-V2-COMB-00305,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कह रहे हो तुम जानबूझकर अपनी सुन्दरता छुपाते हो?,ᱟᱢᱟᱜ ᱢᱮᱱᱮᱛ ᱫᱚ ᱟᱢ ᱵᱟᱲᱟᱭᱠᱟᱛᱮ ᱜᱮ ᱟᱢᱟᱜ ᱪᱚᱨᱚᱠ ᱧᱮᱞ ᱩᱠᱩ ᱮᱫᱟᱢ ?,hin:11371276|sat:12527910|via_eng:1380,CC-BY-2.0-FR
+TT-V2-COMB-00306,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे अच्छा नहीं लगा।,ᱤᱧ ᱫᱚ ᱱᱚᱶᱟ ᱵᱟᱹᱧ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾,hin:2060335|sat:12527912|via_eng:1386,CC-BY-2.0-FR
+TT-V2-COMB-00307,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे पसंद नहीं आया।,ᱤᱧ ᱫᱚ ᱱᱚᱶᱟ ᱵᱟᱹᱧ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾,hin:2060336|sat:12527912|via_eng:1386,CC-BY-2.0-FR
+TT-V2-COMB-00308,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गोल!,ᱜᱚᱞ !,hin:4078434|sat:11193341|via_eng:1387090,CC-BY-2.0-FR
+TT-V2-COMB-00309,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपका स्वागत है।,ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ ᱾,hin:488703|sat:11141930|via_eng:138919,CC-BY-2.0-FR
+TT-V2-COMB-00310,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ठीक है।,ᱴᱷᱤᱠ ᱾,hin:4078435|sat:11165119|via_eng:1391646,CC-BY-2.0-FR
+TT-V2-COMB-00311,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ठीक है।,ᱴᱷᱤᱠ ᱜᱭᱟ ᱾,hin:4078435|sat:11184345|via_eng:1391646,CC-BY-2.0-FR
+TT-V2-COMB-00312,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लाल बेहतर है।,ᱟᱨᱟᱜ ᱴᱷᱤᱠ ᱜᱭᱟ ᱾,hin:3670985|sat:11141944|via_eng:1416534,CC-BY-2.0-FR
+TT-V2-COMB-00313,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे पीले हैं।,ᱩᱱᱠᱩ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047696|sat:12645763|via_eng:1426697,CC-BY-2.0-FR
+TT-V2-COMB-00314,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे पीली हैं।,ᱩᱱᱠᱩ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047697|sat:12645763|via_eng:1426697,CC-BY-2.0-FR
+TT-V2-COMB-00315,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे तुमसे प्यार है।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱫᱩᱞᱟᱹᱲᱟᱢ ᱠᱟᱱᱟ ᱾,hin:3223740|sat:11120767|via_eng:1434,CC-BY-2.0-FR
+TT-V2-COMB-00316,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं तुमसे प्यार करती हूँ।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱫᱩᱞᱟᱹᱲᱟᱢ ᱠᱟᱱᱟ ᱾,hin:475911|sat:11120767|via_eng:1434,CC-BY-2.0-FR
+TT-V2-COMB-00317,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं तुमसे प्यार करता हूँ।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱫᱩᱞᱟᱹᱲᱟᱢ ᱠᱟᱱᱟ ᱾,hin:475912|sat:11120767|via_eng:1434,CC-BY-2.0-FR
+TT-V2-COMB-00318,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं आपसे प्यार करता हूँ।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱫᱩᱞᱟᱹᱲᱟᱢ ᱠᱟᱱᱟ ᱾,hin:475913|sat:11120767|via_eng:1434,CC-BY-2.0-FR
+TT-V2-COMB-00319,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं आपसे प्यार करती हूँ।,ᱤᱧ ᱫᱚ ᱟᱢᱤᱧ ᱫᱩᱞᱟᱹᱲᱟᱢ ᱠᱟᱱᱟ ᱾,hin:475914|sat:11120767|via_eng:1434,CC-BY-2.0-FR
+TT-V2-COMB-00320,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बधाई हो!,ᱥᱟᱨᱦᱟᱣ!,hin:6178943|sat:10531693|via_eng:1437,CC-BY-2.0-FR
+TT-V2-COMB-00321,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुबारक हो!,ᱥᱟᱨᱦᱟᱣ!,hin:6178945|sat:10531693|via_eng:1437,CC-BY-2.0-FR
+TT-V2-COMB-00322,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बधाई हो!,ᱥᱟᱨᱦᱟᱣ ᱜᱮ !,hin:6178943|sat:11120790|via_eng:1437,CC-BY-2.0-FR
+TT-V2-COMB-00323,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुबारक हो!,ᱥᱟᱨᱦᱟᱣ ᱜᱮ !,hin:6178945|sat:11120790|via_eng:1437,CC-BY-2.0-FR
+TT-V2-COMB-00324,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं नहीं चाहता था कि ऐसा हो।,ᱤᱧ ᱱᱚᱣᱟ ᱦᱩᱭᱩᱜ ᱵᱟᱹᱧ ᱠᱷᱚᱡᱚᱜ ᱠᱟᱱᱟ ᱾,hin:561263|sat:13281887|via_eng:1446,CC-BY-2.0-FR
+TT-V2-COMB-00325,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आज बुधवार है।,ᱛᱮᱦᱮᱸᱧ ᱫᱚ ᱥᱟᱹᱜᱩᱱ ᱢᱟᱦᱟᱸ ᱠᱟᱱᱟ ᱾,hin:3624098|sat:11273151|via_eng:1458036,CC-BY-2.0-FR
+TT-V2-COMB-00326,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बढ़िया।,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ ᱾,hin:9663335|sat:11193342|via_eng:1514615,CC-BY-2.0-FR
+TT-V2-COMB-00327,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आज ११ अक्टूबर है।,ᱛᱮᱦᱮᱸᱧ ᱫᱚ ᱑᱑ ᱟᱱᱟᱜ ᱥᱚᱦᱨᱟᱭ ᱵᱚᱝᱜᱟ ᱠᱟᱱᱟ ᱾,hin:10050592|sat:11200684|via_eng:1528613,CC-BY-2.0-FR
+TT-V2-COMB-00328,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,झूठे!,ᱮᱲᱮᱤᱭᱟᱹ !,hin:4078446|sat:11184333|via_eng:1532901,CC-BY-2.0-FR
+TT-V2-COMB-00329,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,झूठे कहीं के!,ᱮᱲᱮᱤᱭᱟᱹ !,hin:4078447|sat:11184333|via_eng:1532901,CC-BY-2.0-FR
+TT-V2-COMB-00330,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,झूठी!,ᱮᱲᱮᱤᱭᱟᱹ !,hin:4078448|sat:11184333|via_eng:1532901,CC-BY-2.0-FR
+TT-V2-COMB-00331,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,झूठी कहीं की!,ᱮᱲᱮᱤᱭᱟᱹ !,hin:4078449|sat:11184333|via_eng:1532901,CC-BY-2.0-FR
+TT-V2-COMB-00332,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अपना नाम बताओ।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱞᱟᱹᱭ ᱟᱹᱧ ᱢᱮ ᱾,hin:2045707|sat:10303035|via_eng:1553391,CC-BY-2.0-FR
+TT-V2-COMB-00333,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अपना नाम बताएं।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱞᱟᱹᱭ ᱟᱹᱧ ᱢᱮ ᱾,hin:2045710|sat:10303035|via_eng:1553391,CC-BY-2.0-FR
+TT-V2-COMB-00334,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शांत!,ᱥᱟᱱᱛ !,hin:4078451|sat:11163979|via_eng:1588724,CC-BY-2.0-FR
+TT-V2-COMB-00335,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शांत!,ᱪᱩᱯ ᱛᱟᱦᱮᱱ ᱢᱮ !,hin:4078451|sat:11193344|via_eng:1588724,CC-BY-2.0-FR
+TT-V2-COMB-00336,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर?,ᱫᱩᱦᱲᱟᱹ?,hin:4078452|sat:11165123|via_eng:1598991,CC-BY-2.0-FR
+TT-V2-COMB-00337,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर से?,ᱫᱩᱦᱲᱟᱹ?,hin:4078453|sat:11165123|via_eng:1598991,CC-BY-2.0-FR
+TT-V2-COMB-00338,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर?,ᱟᱨᱦᱚᱸ ?,hin:4078452|sat:11193345|via_eng:1598991,CC-BY-2.0-FR
+TT-V2-COMB-00339,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर से?,ᱟᱨᱦᱚᱸ ?,hin:4078453|sat:11193345|via_eng:1598991,CC-BY-2.0-FR
+TT-V2-COMB-00340,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अति उत्कृष्ट!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ !,hin:8876363|sat:11184310|via_eng:1613750,CC-BY-2.0-FR
+TT-V2-COMB-00341,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अति उत्कृष्ट!,ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ !,hin:8876363|sat:11184311|via_eng:1613750,CC-BY-2.0-FR
+TT-V2-COMB-00342,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धकेलो!,ᱴᱷᱮᱞᱟᱣ !,hin:4078456|sat:11165124|via_eng:1635992,CC-BY-2.0-FR
+TT-V2-COMB-00343,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धकेलिए!,ᱴᱷᱮᱞᱟᱣ !,hin:4078458|sat:11165124|via_eng:1635992,CC-BY-2.0-FR
+TT-V2-COMB-00344,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धकेलो!,ᱰᱷᱟᱠᱟ !,hin:4078456|sat:11193346|via_eng:1635992,CC-BY-2.0-FR
+TT-V2-COMB-00345,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धकेलिए!,ᱰᱷᱟᱠᱟ !,hin:4078458|sat:11193346|via_eng:1635992,CC-BY-2.0-FR
+TT-V2-COMB-00346,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम जैक है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱡᱟᱠ ᱠᱟᱱᱟ ᱾,hin:516787|sat:10302999|via_eng:1646,CC-BY-2.0-FR
+TT-V2-COMB-00347,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सेब लाल है।,ᱱᱚᱶᱟ ᱥᱮᱣ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮᱭᱟ᱾,hin:3670982|sat:10546780|via_eng:1660412,CC-BY-2.0-FR
+TT-V2-COMB-00348,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अपना मूँह खोलो!,ᱟᱢᱟᱜ ᱢᱚᱪᱟ ᱠᱷᱩᱞᱟᱹᱭ ᱢᱮ!,hin:516668|sat:12642203|via_eng:1664,CC-BY-2.0-FR
+TT-V2-COMB-00349,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपका जन्मदिन कब है?,ᱟᱢᱟᱜ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ ᱛᱤᱥᱚᱜ ᱢᱮᱱᱟᱜᱼᱟ?,hin:3796191|sat:11187874|via_eng:16997,CC-BY-2.0-FR
+TT-V2-COMB-00350,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम्हारे मकान को मरम्मत की ज़रूरत है।,ᱟᱢᱟᱜ ᱚᱲᱟᱜ ᱡᱚᱛᱨᱟᱣ ᱫᱚᱨᱠᱟᱨ ᱠᱟᱱᱟ᱾,hin:498184|sat:10568954|via_eng:17287,CC-BY-2.0-FR
+TT-V2-COMB-00351,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चूतिये!,ᱵᱚᱠᱟ !,hin:3667811|sat:11164002|via_eng:1743245,CC-BY-2.0-FR
+TT-V2-COMB-00352,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुको!,ᱛᱟᱹᱝᱜᱤ ᱢᱮ !,hin:3315731|sat:11170038|via_eng:1744314,CC-BY-2.0-FR
+TT-V2-COMB-00353,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक!,ᱛᱟᱹᱝᱜᱤ ᱢᱮ !,hin:3315732|sat:11170038|via_eng:1744314,CC-BY-2.0-FR
+TT-V2-COMB-00354,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुकिए!,ᱛᱟᱹᱝᱜᱤ ᱢᱮ !,hin:3315739|sat:11170038|via_eng:1744314,CC-BY-2.0-FR
+TT-V2-COMB-00355,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाओ!,ᱛᱟᱹᱝᱜᱤ ᱢᱮ !,hin:3315741|sat:11170038|via_eng:1744314,CC-BY-2.0-FR
+TT-V2-COMB-00356,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाइए!,ᱛᱟᱹᱝᱜᱤ ᱢᱮ !,hin:4078463|sat:11170038|via_eng:1744314,CC-BY-2.0-FR
+TT-V2-COMB-00357,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं शादीशुदा हूँ और मेरे दो बच्चे हैं।,ᱤᱧ ᱫᱚ ᱵᱟᱯᱞᱟ ᱠᱟᱹᱱᱟᱹᱧ ᱟᱨ ᱤᱧ ᱨᱤᱱ ᱵᱟᱨᱭᱟ ᱜᱤᱫᱽᱨᱟᱹ ᱢᱮᱱᱟᱜ ᱠᱚ ᱛᱤᱧᱟ ᱾,hin:486353|sat:11185045|via_eng:1758,CC-BY-2.0-FR
+TT-V2-COMB-00358,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुरू करो!,ᱮᱛᱦᱚᱵ!,hin:4078475|sat:11170040|via_eng:1768349,CC-BY-2.0-FR
+TT-V2-COMB-00359,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुरू कीजिए!,ᱮᱛᱦᱚᱵ!,hin:4078476|sat:11170040|via_eng:1768349,CC-BY-2.0-FR
+TT-V2-COMB-00360,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बोलो!,ᱨᱚᱲ!,hin:7559093|sat:11170041|via_eng:1802121,CC-BY-2.0-FR
+TT-V2-COMB-00361,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गाँव में बिजली नहीं है।,ᱟᱹᱛᱩ ᱨᱮ ᱠᱟᱨᱮᱱᱴ ᱵᱟᱹᱱᱩᱜᱼᱟ ᱾,hin:3870370|sat:11209455|via_eng:1804113,CC-BY-2.0-FR
+TT-V2-COMB-00362,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देख!,ᱧᱮᱞ!,hin:4078479|sat:11170042|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00363,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देखिए!,ᱧᱮᱞ!,hin:4078482|sat:11170042|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00364,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देखो!,ᱧᱮᱞ!,hin:4078483|sat:11170042|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00365,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देख!,ᱧᱮᱞ ᱢᱮ !,hin:4078479|sat:11193353|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00366,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देखिए!,ᱧᱮᱞ ᱢᱮ !,hin:4078482|sat:11193353|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00367,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,देखो!,ᱧᱮᱞ ᱢᱮ !,hin:4078483|sat:11193353|via_eng:1804273,CC-BY-2.0-FR
+TT-V2-COMB-00368,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जल्दी!,ᱞᱚᱜᱚᱱ!,hin:4078486|sat:11170043|via_eng:1806425,CC-BY-2.0-FR
+TT-V2-COMB-00369,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"इंडिया को हिन्दी में ""भारत"" कहते है।","ᱵᱷᱟᱨᱚᱛ ᱫᱚ ᱦᱤᱱᱫᱤ ᱨᱮ ""ᱵᱷᱟᱨᱚᱛ"" ᱠᱚ ᱢᱮᱛᱟᱜᱼᱟ ᱾",hin:3620514|sat:10775983|via_eng:1814634,CC-BY-2.0-FR
+TT-V2-COMB-00370,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत में कितने राज्य हैं?,ᱵᱷᱟᱨᱚᱛ ᱴᱷᱮᱱ ᱛᱤᱱᱟᱹᱜ ᱯᱚᱱᱚᱛ ᱢᱮᱱᱟᱜᱼᱟ ?,hin:3704933|sat:10775995|via_eng:1820601,CC-BY-2.0-FR
+TT-V2-COMB-00371,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पेड़ हरे हैं।,ᱫᱟᱨᱮ ᱫᱚ ᱦᱟᱹᱨᱤᱭᱟᱹᱲ ᱜᱮᱭᱟ ᱾,hin:482426|sat:11761148|via_eng:182196,CC-BY-2.0-FR
+TT-V2-COMB-00372,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आग!,ᱥᱮᱝᱜᱮᱞ!,hin:4064417|sat:11170044|via_eng:1829639,CC-BY-2.0-FR
+TT-V2-COMB-00373,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम समझते हैं।,ᱟᱞᱮ ᱵᱩᱡᱷᱟᱹᱣᱮᱫᱟ ᱞᱮ ᱾,hin:3679263|sat:11175603|via_eng:1893706,CC-BY-2.0-FR
+TT-V2-COMB-00374,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो।,ᱟᱧᱡᱚᱢ ᱢᱮ ᱾,hin:2666574|sat:11193354|via_eng:1913088,CC-BY-2.0-FR
+TT-V2-COMB-00375,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुन।,ᱟᱧᱡᱚᱢ ᱢᱮ ᱾,hin:4078499|sat:11193354|via_eng:1913088,CC-BY-2.0-FR
+TT-V2-COMB-00376,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनिए।,ᱟᱧᱡᱚᱢ ᱢᱮ ᱾,hin:4078501|sat:11193354|via_eng:1913088,CC-BY-2.0-FR
+TT-V2-COMB-00377,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"मछली, कृप्या।",ᱦᱟᱹᱠᱩ ᱫᱟᱭᱟᱠᱟᱛᱮ ᱾,hin:6829737|sat:11174826|via_eng:19342,CC-BY-2.0-FR
+TT-V2-COMB-00378,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छोड़।,ᱟᱲᱟᱜ ᱠᱟᱜ ᱢᱮ ᱾,hin:4081368|sat:11175613|via_eng:1954272,CC-BY-2.0-FR
+TT-V2-COMB-00379,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छोड़िए।,ᱟᱲᱟᱜ ᱠᱟᱜ ᱢᱮ ᱾,hin:4081369|sat:11175613|via_eng:1954272,CC-BY-2.0-FR
+TT-V2-COMB-00380,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं बस पानी पीता हूँ।,ᱤᱧ ᱠᱷᱟᱹᱞᱤ ᱫᱟᱜ ᱤᱧ ᱧᱩᱭᱟ ᱾,hin:4064485|sat:11226478|via_eng:1956033,CC-BY-2.0-FR
+TT-V2-COMB-00381,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं बस पानी पीती हूँ।,ᱤᱧ ᱠᱷᱟᱹᱞᱤ ᱫᱟᱜ ᱤᱧ ᱧᱩᱭᱟ ᱾,hin:4064487|sat:11226478|via_eng:1956033,CC-BY-2.0-FR
+TT-V2-COMB-00382,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आक्रमण!,ᱡᱷᱟᱯᱴᱟᱣ !,hin:4078503|sat:11184346|via_eng:1972610,CC-BY-2.0-FR
+TT-V2-COMB-00383,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हल्ला बोल!,ᱡᱷᱟᱯᱴᱟᱣ !,hin:4078506|sat:11184346|via_eng:1972610,CC-BY-2.0-FR
+TT-V2-COMB-00384,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम मुस्कुराया।,ᱴᱚᱢ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟᱭ ᱾,hin:8876386|sat:11175638|via_eng:2005184,CC-BY-2.0-FR
+TT-V2-COMB-00385,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम मर गया।,ᱴᱚᱢ ᱜᱚᱡ ᱮᱱᱟᱭ ᱾,hin:4145130|sat:11175641|via_eng:2005188,CC-BY-2.0-FR
+TT-V2-COMB-00386,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौन जीता?,ᱚᱠᱚᱭ ᱡᱤᱛᱟᱹᱣ ᱮᱱᱟᱭ ?,hin:4145129|sat:11175644|via_eng:2005190,CC-BY-2.0-FR
+TT-V2-COMB-00387,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम जीत गया।,ᱴᱚᱢ ᱡᱤᱛᱟᱹᱣ ᱮᱱᱟᱭ ᱾,hin:4145128|sat:10308279|via_eng:2005191,CC-BY-2.0-FR
+TT-V2-COMB-00388,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं जीत गया!,ᱤᱧ ᱡᱤᱛᱟᱹᱣ ᱮᱱᱟᱹᱧ !,hin:4145126|sat:11175645|via_eng:2005192,CC-BY-2.0-FR
+TT-V2-COMB-00389,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं जीत गयी!,ᱤᱧ ᱡᱤᱛᱟᱹᱣ ᱮᱱᱟᱹᱧ !,hin:4145127|sat:11175645|via_eng:2005192,CC-BY-2.0-FR
+TT-V2-COMB-00390,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम को एक नौकरी चाहिए थी।,ᱴᱚᱢ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱪᱟᱹᱠᱨᱤ ᱛᱟᱭ ᱫᱚᱨᱠᱟᱨ ᱾,hin:3617202|sat:11232624|via_eng:2011346,CC-BY-2.0-FR
+TT-V2-COMB-00391,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुमने कोशिश की।,ᱟᱢ ᱪᱷᱩᱴᱟᱹᱣ ᱞᱮᱱᱟᱢ ᱾,hin:6829739|sat:11217626|via_eng:20119,CC-BY-2.0-FR
+TT-V2-COMB-00392,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तूने कोशिश की।,ᱟᱢ ᱪᱷᱩᱴᱟᱹᱣ ᱞᱮᱱᱟᱢ ᱾,hin:6829741|sat:11217626|via_eng:20119,CC-BY-2.0-FR
+TT-V2-COMB-00393,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपने कोशिश की।,ᱟᱢ ᱪᱷᱩᱴᱟᱹᱣ ᱞᱮᱱᱟᱢ ᱾,hin:6829742|sat:11217626|via_eng:20119,CC-BY-2.0-FR
+TT-V2-COMB-00394,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं बेहोश हो गया।,ᱤᱧ ᱚᱪᱮᱛ ᱮᱱᱟᱹᱧ ᱾,hin:516705|sat:11236870|via_eng:20364,CC-BY-2.0-FR
+TT-V2-COMB-00395,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ध्यान से चुने।,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ ᱵᱟᱪᱷᱟᱣ ᱢᱮ ᱾,hin:8876383|sat:11175647|via_eng:2047589,CC-BY-2.0-FR
+TT-V2-COMB-00396,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धन्यवाद।,ᱥᱟᱨᱦᱟᱣ ᱜᱮ ᱾,hin:6543509|sat:11193355|via_eng:2057650,CC-BY-2.0-FR
+TT-V2-COMB-00397,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुक्रिया।,ᱥᱟᱨᱦᱟᱣ ᱜᱮ ᱾,hin:6830462|sat:11193355|via_eng:2057650,CC-BY-2.0-FR
+TT-V2-COMB-00398,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं कोशिश करता हूँ।,ᱤᱧ ᱠᱚᱨᱟᱣ ᱵᱤᱲᱟᱹᱣ ᱟᱹᱧ ᱾,hin:6829744|sat:11174828|via_eng:20776,CC-BY-2.0-FR
+TT-V2-COMB-00399,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मंगल के दो चांद हैं।,ᱢᱟᱨᱥ ᱴᱷᱮᱱ ᱵᱟᱨᱭᱟ ᱪᱟᱱᱫᱚ ᱢᱮᱱᱟᱜᱼᱟ ᱾,hin:3621345|sat:10776016|via_eng:2079905,CC-BY-2.0-FR
+TT-V2-COMB-00400,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौन?,ᱚᱠᱚᱭ ?,hin:3138226|sat:11163954|via_eng:2083030,CC-BY-2.0-FR
+TT-V2-COMB-00401,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हमला!,ᱪᱟᱨᱚᱡᱽ!,hin:11370979|sat:11170046|via_eng:2093431,CC-BY-2.0-FR
+TT-V2-COMB-00402,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आक्रमण!,ᱪᱟᱨᱚᱡᱽ!,hin:4078503|sat:11170046|via_eng:2093431,CC-BY-2.0-FR
+TT-V2-COMB-00403,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम सौंदरराजन है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱥᱚᱩᱱᱫᱟᱹᱨᱟᱨᱟᱡᱟᱱ ᱠᱟᱱᱟ ᱾,hin:4083836|sat:10303037|via_eng:2093601,CC-BY-2.0-FR
+TT-V2-COMB-00404,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सब मुस्कुराए।,ᱡᱷᱚᱛᱚ ᱦᱚᱲ ᱠᱚ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟ ᱾,hin:8876376|sat:11175652|via_eng:2094844,CC-BY-2.0-FR
+TT-V2-COMB-00405,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम ज़िंदा है।,ᱴᱚᱢ ᱡᱤᱣᱤᱫ ᱜᱮᱭᱟᱭ ᱾,hin:3315711|sat:11704169|via_eng:2107445,CC-BY-2.0-FR
+TT-V2-COMB-00406,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ध्यान से देखें।,ᱫᱷᱭᱟᱱ ᱨᱮ ᱧᱮᱞ ᱢᱮ ᱾,hin:8876366|sat:11236902|via_eng:2107662,CC-BY-2.0-FR
+TT-V2-COMB-00407,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम हार गए।,ᱟᱞᱮ ᱟᱫᱚ ᱮᱱᱟ ᱞᱮ ᱾,hin:8876367|sat:11175653|via_eng:2107666,CC-BY-2.0-FR
+TT-V2-COMB-00408,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम जीते।,ᱟᱞᱮ ᱡᱤᱛᱟᱹᱣ ᱮᱱᱟ ᱞᱮ ᱾,hin:8876364|sat:11175656|via_eng:2107675,CC-BY-2.0-FR
+TT-V2-COMB-00409,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"चेक, कृप्या।","ᱫᱟᱭᱟᱠᱟᱛᱮ, ᱧᱮᱞ ᱵᱤᱲᱟᱹᱣ ᱢᱮ ᱾",hin:6829745|sat:11174831|via_eng:21098,CC-BY-2.0-FR
+TT-V2-COMB-00410,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम ने मदद की।,ᱴᱚᱢ ᱜᱚᱲᱚ ᱮᱢ ᱠᱮᱜᱼᱟᱭ ᱾,hin:4004657|sat:11175662|via_eng:2111166,CC-BY-2.0-FR
+TT-V2-COMB-00411,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम ने ताली बजाई।,ᱴᱚᱢ ᱛᱷᱟᱭᱚ ᱠᱮᱜᱼᱟᱭ ᱾,hin:4023570|sat:11175669|via_eng:2111193,CC-BY-2.0-FR
+TT-V2-COMB-00412,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे हँसें।,ᱩᱱᱠᱩ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟ ᱠᱚ ᱾,hin:3784239|sat:11175680|via_eng:2111369,CC-BY-2.0-FR
+TT-V2-COMB-00413,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उन्होंने बुलाया।,ᱩᱱᱠᱩ ᱦᱚᱦᱚ ᱠᱮᱜᱼᱟ ᱠᱚ ᱾,hin:3315686|sat:11175686|via_eng:2111379,CC-BY-2.0-FR
+TT-V2-COMB-00414,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पास रहना।,ᱥᱩᱨ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:3616912|sat:11177475|via_eng:2111515,CC-BY-2.0-FR
+TT-V2-COMB-00415,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पास रहिए।,ᱥᱩᱨ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:3616914|sat:11177475|via_eng:2111515,CC-BY-2.0-FR
+TT-V2-COMB-00416,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किसी ने जवाब दिया।,ᱚᱠᱚᱭ ᱪᱷᱚᱸ ᱛᱮᱞ ᱮᱢ ᱠᱮᱜᱼᱟ ᱠᱚ ᱾,hin:3617245|sat:11177669|via_eng:2111549,CC-BY-2.0-FR
+TT-V2-COMB-00417,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सब कुछ छोड़ दो।,ᱡᱷᱚᱛᱚ ᱡᱤᱱᱤᱥ ᱟᱲᱟᱜᱽ ᱢᱮ ᱾,hin:3617208|sat:11177736|via_eng:2111627,CC-BY-2.0-FR
+TT-V2-COMB-00418,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सब कुछ छोड़ दीजिए।,ᱡᱷᱚᱛᱚ ᱡᱤᱱᱤᱥ ᱟᱲᱟᱜᱽ ᱢᱮ ᱾,hin:3617209|sat:11177736|via_eng:2111627,CC-BY-2.0-FR
+TT-V2-COMB-00419,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखते रहिये।,ᱚᱞ ᱨᱮᱜᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:10049731|sat:11177737|via_eng:2111628,CC-BY-2.0-FR
+TT-V2-COMB-00420,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखते रहो।,ᱚᱞ ᱨᱮᱜᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:6543704|sat:11177737|via_eng:2111628,CC-BY-2.0-FR
+TT-V2-COMB-00421,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलते रहो।,ᱛᱟᱲᱟᱢ ᱨᱮᱜᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:3319588|sat:11177739|via_eng:2111631,CC-BY-2.0-FR
+TT-V2-COMB-00422,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलते रहिए।,ᱛᱟᱲᱟᱢ ᱨᱮᱜᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:3319589|sat:11177739|via_eng:2111631,CC-BY-2.0-FR
+TT-V2-COMB-00423,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह रखो।,ᱱᱚᱶᱟ ᱫᱚᱦᱚᱭ ᱢᱮ ᱾,hin:3616899|sat:11177740|via_eng:2111632,CC-BY-2.0-FR
+TT-V2-COMB-00424,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह रख।,ᱱᱚᱶᱟ ᱫᱚᱦᱚᱭ ᱢᱮ ᱾,hin:3616900|sat:11177740|via_eng:2111632,CC-BY-2.0-FR
+TT-V2-COMB-00425,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह रखें।,ᱱᱚᱶᱟ ᱫᱚᱦᱚᱭ ᱢᱮ ᱾,hin:3616901|sat:11177740|via_eng:2111632,CC-BY-2.0-FR
+TT-V2-COMB-00426,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह रखिए।,ᱱᱚᱶᱟ ᱫᱚᱦᱚᱭ ᱢᱮ ᱾,hin:3616903|sat:11177740|via_eng:2111632,CC-BY-2.0-FR
+TT-V2-COMB-00427,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सभी तालीयाँ बजाते हैं।,ᱡᱷᱚᱛᱚᱦᱚᱲ ᱛᱷᱟᱭᱚᱭᱟ ᱠᱚ ᱾,hin:4023572|sat:11179725|via_eng:2111890,CC-BY-2.0-FR
+TT-V2-COMB-00428,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अंदर आइए।,ᱵᱷᱤᱛᱤᱨ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:6544673|sat:11175564|via_eng:2111930,CC-BY-2.0-FR
+TT-V2-COMB-00429,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आगे आओ।,ᱢᱟᱲᱟᱝ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:4383896|sat:11179766|via_eng:2111931,CC-BY-2.0-FR
+TT-V2-COMB-00430,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आगे आ जाओ।,ᱢᱟᱲᱟᱝ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:4383897|sat:11179766|via_eng:2111931,CC-BY-2.0-FR
+TT-V2-COMB-00431,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आगे आइए।,ᱢᱟᱲᱟᱝ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:4383899|sat:11179766|via_eng:2111931,CC-BY-2.0-FR
+TT-V2-COMB-00432,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आगे आ जाइए।,ᱢᱟᱲᱟᱝ ᱛᱮ ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱾,hin:4383900|sat:11179766|via_eng:2111931,CC-BY-2.0-FR
+TT-V2-COMB-00433,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मज़े करो।,ᱢᱚᱡᱽ ᱢᱮ ᱾,hin:3539272|sat:11217630|via_eng:21267,CC-BY-2.0-FR
+TT-V2-COMB-00434,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मज़े करना।,ᱢᱚᱡᱽ ᱢᱮ ᱾,hin:588490|sat:11217630|via_eng:21267,CC-BY-2.0-FR
+TT-V2-COMB-00435,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मौज करना।,ᱢᱚᱡᱽ ᱢᱮ ᱾,hin:588491|sat:11217630|via_eng:21267,CC-BY-2.0-FR
+TT-V2-COMB-00436,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मज़े करो।,ᱢᱚᱡᱽ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:3539272|sat:11293712|via_eng:21269,CC-BY-2.0-FR
+TT-V2-COMB-00437,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छोड़ो।,ᱡᱟᱦᱟᱸ ᱞᱮᱠᱷᱟ ᱾,hin:11370987|sat:11184339|via_eng:2170677,CC-BY-2.0-FR
+TT-V2-COMB-00438,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,म्याऊ,ᱢᱮᱭᱟᱣ ᱾,hin:8879538|sat:11193918|via_eng:2176411,CC-BY-2.0-FR
+TT-V2-COMB-00439,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बुधवार है।,ᱱᱚᱶᱟ ᱫᱚ ᱥᱟᱹᱜᱩᱱ ᱢᱟᱦᱟᱸ ᱠᱟᱱᱟ ᱾,hin:3624097|sat:11273152|via_eng:2187246,CC-BY-2.0-FR
+TT-V2-COMB-00440,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पृथ्वी से प्यार करो।,ᱤᱧ ᱫᱚ ᱫᱷᱟᱹᱨᱛᱤ ᱠᱩᱥᱤᱭᱟᱜ ᱟᱹᱧ ᱾,hin:3216487|sat:10775911|via_eng:2195638,CC-BY-2.0-FR
+TT-V2-COMB-00441,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम भागा।,ᱴᱚᱴ ᱫᱟᱹᱲ ᱠᱮᱜᱼᱟᱭ ᱾,hin:3796636|sat:11180877|via_eng:2203766,CC-BY-2.0-FR
+TT-V2-COMB-00442,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किसने बात की?,ᱚᱠᱚᱭ ᱨᱚᱲ ᱠᱮᱜᱼᱟᱭ?,hin:13688103|sat:11180880|via_eng:2203807,CC-BY-2.0-FR
+TT-V2-COMB-00443,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौन बोला?,ᱚᱠᱚᱭ ᱨᱚᱲ ᱠᱮᱜᱼᱟᱭ?,hin:6544602|sat:11180880|via_eng:2203807,CC-BY-2.0-FR
+TT-V2-COMB-00444,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सभी हँसे।,ᱡᱷᱚᱛᱚᱦᱚᱲ ᱠᱚ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟ ᱾,hin:2079412|sat:11174839|via_eng:22132,CC-BY-2.0-FR
+TT-V2-COMB-00445,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कितने हॉट हो।,ᱟᱢ ᱫᱚ ᱟᱹᱰᱤ ᱞᱚᱞᱚ ᱜᱮᱭᱟᱢ ᱾,hin:3616968|sat:11217440|via_eng:2218379,CC-BY-2.0-FR
+TT-V2-COMB-00446,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप कितने हॉट हैं।,ᱟᱢ ᱫᱚ ᱟᱹᱰᱤ ᱞᱚᱞᱚ ᱜᱮᱭᱟᱢ ᱾,hin:3616969|sat:11217440|via_eng:2218379,CC-BY-2.0-FR
+TT-V2-COMB-00447,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम को पानी की ज़रूरत थी।,ᱴᱚᱢ ᱫᱟᱜ ᱛᱟᱭ ᱫᱚᱨᱠᱟᱨ ᱾,hin:4064451|sat:11226494|via_eng:2237415,CC-BY-2.0-FR
+TT-V2-COMB-00448,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम को पानी की ज़रूरत है।,ᱴᱚᱢ ᱫᱟᱜ ᱛᱟᱭ ᱫᱚᱨᱠᱟᱨ ᱾,hin:4064453|sat:11226494|via_eng:2237432,CC-BY-2.0-FR
+TT-V2-COMB-00449,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम लाल हो गया।,ᱴᱚᱢ ᱨᱟᱹᱜᱤ ᱮᱱᱟᱭ ᱾,hin:4509572|sat:11141945|via_eng:2238843,CC-BY-2.0-FR
+TT-V2-COMB-00450,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम चल रहा था।,ᱴᱚᱢ ᱛᱟᱲᱟᱢ ᱮᱫ ᱛᱟᱦᱮᱸᱡ ᱾,hin:4066438|sat:11214828|via_eng:2239872,CC-BY-2.0-FR
+TT-V2-COMB-00451,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हमें पानी की ज़रूरत है।,ᱟᱞᱮ ᱫᱟᱜ ᱛᱟᱞᱮ ᱫᱚᱨᱠᱟᱨ ᱾,hin:4064454|sat:11226405|via_eng:2241426,CC-BY-2.0-FR
+TT-V2-COMB-00452,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे एक-साथ चले।,ᱩᱱᱠᱩ ᱥᱟᱶᱛᱮ ᱠᱚ ᱛᱟᱲᱟᱢ ᱠᱮᱜᱼᱟ ᱾,hin:4070616|sat:11214847|via_eng:2243354,CC-BY-2.0-FR
+TT-V2-COMB-00453,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे पानी की ज़रूरत है।,ᱤᱧ ᱫᱟᱜ ᱛᱤᱧ ᱫᱚᱨᱠᱟᱨ ᱾,hin:4064456|sat:11226960|via_eng:2246022,CC-BY-2.0-FR
+TT-V2-COMB-00454,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सोमवार ठीक है?,ᱪᱮᱫ ᱚᱛᱮ ᱢᱟᱦᱟᱸ ᱴᱷᱤᱠ ᱜᱮᱭᱟ?,hin:3616937|sat:10550537|via_eng:2248475,CC-BY-2.0-FR
+TT-V2-COMB-00455,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा जन्मदिन है।,ᱱᱚᱶᱟ ᱫᱚ ᱤᱧᱟᱜ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ ᱠᱟᱱᱟ ᱾,hin:3704876|sat:11191145|via_eng:2249098,CC-BY-2.0-FR
+TT-V2-COMB-00456,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अब घर जाओ।,ᱱᱤᱛᱚᱜ ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:3620737|sat:11388327|via_eng:2249679,CC-BY-2.0-FR
+TT-V2-COMB-00457,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अब घर जाइए।,ᱱᱤᱛᱚᱜ ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:3620738|sat:11388327|via_eng:2249679,CC-BY-2.0-FR
+TT-V2-COMB-00458,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अब छोड़ो।,ᱱᱤᱛᱚᱜ ᱪᱟᱞᱟᱣ ᱪᱷᱚᱣᱟᱜ ᱢᱮ ᱾,hin:13688151|sat:11388591|via_eng:2249700,CC-BY-2.0-FR
+TT-V2-COMB-00459,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अब छोड़िए।,ᱱᱤᱛᱚᱜ ᱪᱟᱞᱟᱣ ᱪᱷᱚᱣᱟᱜ ᱢᱮ ᱾,hin:13688153|sat:11388591|via_eng:2249700,CC-BY-2.0-FR
+TT-V2-COMB-00460,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जवाब दो!,ᱛᱮᱞᱟ!,hin:4078517|sat:11170047|via_eng:2275597,CC-BY-2.0-FR
+TT-V2-COMB-00461,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जवाब दीजिए!,ᱛᱮᱞᱟ!,hin:4078520|sat:11170047|via_eng:2275597,CC-BY-2.0-FR
+TT-V2-COMB-00462,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम हॉपकिंस है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱦᱚᱯᱠᱤᱱᱥ ᱠᱟᱱᱟ ᱾,hin:4907734|sat:10303000|via_eng:23532,CC-BY-2.0-FR
+TT-V2-COMB-00463,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फूल खिलते हैं।,ᱵᱟᱦᱟ ᱫᱚ ᱯᱷᱩᱴᱟᱹᱣᱜ ᱜᱮᱭᱟ ᱾,hin:505112|sat:11174841|via_eng:23749,CC-BY-2.0-FR
+TT-V2-COMB-00464,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे मेरी नौकरी पसंद है।,ᱤᱧ ᱫᱚ ᱤᱧᱟᱜ ᱠᱟᱹᱢᱤ ᱠᱩᱥᱤᱭᱟᱜ ᱤᱧ ᱾,hin:13688839|sat:11232653|via_eng:2377458,CC-BY-2.0-FR
+TT-V2-COMB-00465,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम मंगलवार को खाली हो क्या?,ᱟᱢ ᱵᱟᱞᱮ ᱢᱟᱦᱟᱸ ᱦᱤᱞᱚᱜ ᱠᱷᱟᱹᱞᱤ ᱜᱮᱭᱟᱢ ᱢᱮ ?,hin:452520|sat:11237756|via_eng:23779,CC-BY-2.0-FR
+TT-V2-COMB-00466,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आग जलाती है।,ᱥᱮᱝᱜᱮᱞ ᱡᱩᱞᱩᱜᱼᱟ ᱾,hin:457112|sat:11215362|via_eng:23865,CC-BY-2.0-FR
+TT-V2-COMB-00467,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,विवाह के रीति-रिवाज देश के अनुसार भिन्न होते हैं।,ᱵᱟᱯᱞᱟ ᱨᱮᱭᱟᱜ ᱱᱤᱛᱤ ᱱᱤᱭᱚᱢ ᱠᱚᱫᱚ ᱫᱤᱥᱚᱢ ᱦᱤᱥᱟᱹᱵ ᱛᱮ ᱵᱚᱫᱚᱞᱚᱜᱼᱟ ᱾,hin:11264989|sat:11264827|via_eng:238711,CC-BY-2.0-FR
+TT-V2-COMB-00468,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुत्ते तैर सकते हैं।,ᱥᱮᱛᱟ ᱫᱚ ᱯᱟᱭᱨᱟ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱠᱚ ᱾,hin:4023602|sat:11141459|via_eng:239185,CC-BY-2.0-FR
+TT-V2-COMB-00469,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुत्तों को तैरना आता है।,ᱥᱮᱛᱟ ᱫᱚ ᱯᱟᱭᱨᱟ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱠᱚ ᱾,hin:4023604|sat:11141459|via_eng:239185,CC-BY-2.0-FR
+TT-V2-COMB-00470,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलो चलें!,ᱫᱮᱞᱟ ᱵᱚᱱ ᱪᱟᱞᱟᱣ ᱞᱮᱱ ᱜᱮ!,hin:588570|sat:11388304|via_eng:241077,CC-BY-2.0-FR
+TT-V2-COMB-00471,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे लड़े।,ᱩᱱᱠᱩ ᱛᱟᱯᱟᱢ ᱞᱮᱱᱟ ᱠᱚ ᱾,hin:6829736|sat:11174817|via_eng:2412,CC-BY-2.0-FR
+TT-V2-COMB-00472,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह अब चल रहा है।,ᱩᱱᱤ ᱱᱤᱛᱚᱜ ᱛᱟᱲᱟᱢ ᱮᱫᱟᱭ ᱾,hin:484071|sat:11215219|via_eng:241676,CC-BY-2.0-FR
+TT-V2-COMB-00473,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आज मौसम बहुत गरम है।,ᱛᱮᱦᱮᱸᱧ ᱞᱚᱞᱚ ᱜᱮ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱾,hin:450939|sat:11217411|via_eng:242881,CC-BY-2.0-FR
+TT-V2-COMB-00474,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कल मेरा जन्मदिन था।,ᱦᱚᱞᱟ ᱤᱧᱟᱜ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾,hin:446474|sat:11187876|via_eng:244539,CC-BY-2.0-FR
+TT-V2-COMB-00475,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बच्चे पतंग उड़ा रहे थे।,ᱜᱤᱫᱽᱨᱟᱹ ᱫᱚ ᱠᱩᱲᱤᱫ ᱠᱚ ᱩᱰᱟᱹᱣ ᱮᱫ ᱛᱟᱦᱮᱸᱡ ᱾,hin:477692|sat:11203351|via_eng:246074,CC-BY-2.0-FR
+TT-V2-COMB-00476,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुछ नहीं हुआ।,ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱝ ᱦᱩᱭᱞᱮᱱᱟ ᱾,hin:6829746|sat:11174843|via_eng:24616,CC-BY-2.0-FR
+TT-V2-COMB-00477,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मर चुका है?,ᱜᱚᱡ ᱮᱱᱟᱭ ?,hin:498104|sat:11164000|via_eng:246359,CC-BY-2.0-FR
+TT-V2-COMB-00478,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मरा हुआ?,ᱜᱚᱡ ᱮᱱᱟᱭ ?,hin:6179030|sat:11164000|via_eng:246359,CC-BY-2.0-FR
+TT-V2-COMB-00479,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱫᱮᱞᱟ !,hin:4078409|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00480,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आइए!,ᱫᱮᱞᱟ !,hin:4078410|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00481,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाओ!,ᱫᱮᱞᱟ !,hin:4078411|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00482,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाइए!,ᱫᱮᱞᱟ !,hin:4078412|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00483,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ!,ᱫᱮᱞᱟ !,hin:6829747|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00484,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जा!,ᱫᱮᱞᱟ !,hin:6829748|sat:11174846|via_eng:24697,CC-BY-2.0-FR
+TT-V2-COMB-00485,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किस वजह से?,ᱪᱮᱫ ᱞᱟᱹᱜᱤᱫ ᱛᱮ ?,hin:6830466|sat:11174847|via_eng:24867,CC-BY-2.0-FR
+TT-V2-COMB-00486,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बोलना.,ᱨᱚᱲ ᱾,hin:6179031|sat:11163978|via_eng:249554,CC-BY-2.0-FR
+TT-V2-COMB-00487,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बोलने वाला.,ᱨᱚᱲ ᱾,hin:6179033|sat:11163978|via_eng:249554,CC-BY-2.0-FR
+TT-V2-COMB-00488,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बोलना.,ᱨᱚᱲ ᱮᱫᱟᱭ ᱾,hin:6179031|sat:11193255|via_eng:249554,CC-BY-2.0-FR
+TT-V2-COMB-00489,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बोलने वाला.,ᱨᱚᱲ ᱮᱫᱟᱭ ᱾,hin:6179033|sat:11193255|via_eng:249554,CC-BY-2.0-FR
+TT-V2-COMB-00490,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम लौरी है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱞᱟᱹᱣᱨᱤ ᱠᱟᱱᱟ ᱾,hin:4083844|sat:10303039|via_eng:2500297,CC-BY-2.0-FR
+TT-V2-COMB-00491,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे एक गिलास पानी देदीजिए।,ᱫᱟᱭᱟ ᱠᱟᱛᱮ ᱤᱧ ᱢᱤᱫ ᱜᱤᱞᱟᱹᱥ ᱫᱟ ᱮᱢᱟᱹᱭ ᱢᱮ ᱥᱮ᱾,hin:581871|sat:10290382|via_eng:250147,CC-BY-2.0-FR
+TT-V2-COMB-00492,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम ज़िंदा है!,ᱴᱚᱢ ᱡᱤᱣᱤᱫ ᱜᱮᱭᱟᱭ !,hin:4115943|sat:11704177|via_eng:2510767,CC-BY-2.0-FR
+TT-V2-COMB-00493,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरी किताब कहाँ है?,ᱤᱧᱟᱜ ᱯᱚᱛᱚᱵ ᱫᱚ ᱚᱠᱟ ᱮᱱᱟ?,hin:498561|sat:10552823|via_eng:251884,CC-BY-2.0-FR
+TT-V2-COMB-00494,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम यामादा है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱭᱟᱢᱟᱰᱟ ᱠᱟᱱᱟ ᱾,hin:4083868|sat:10303004|via_eng:251979,CC-BY-2.0-FR
+TT-V2-COMB-00495,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे कुत्ते अच्छे लगते हैं।,ᱤᱧ ᱫᱚ ᱥᱮᱛᱟ ᱠᱩᱥᱤᱭᱟ ᱠᱚᱣᱟᱹᱧ ᱾,hin:476336|sat:11141460|via_eng:252245,CC-BY-2.0-FR
+TT-V2-COMB-00496,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम हिसाशी है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱦᱤᱥᱟᱥᱤ ᱠᱟᱱᱟ ᱾,hin:4083871|sat:10303006|via_eng:252393,CC-BY-2.0-FR
+TT-V2-COMB-00497,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैंने उस घोड़े पर दस डॉलर लगाए थे।,ᱚᱱᱟ ᱥᱟᱫᱚᱢ ᱨᱮ ᱤᱧ ᱫᱚ ᱜᱮᱞ ᱰᱚᱞᱟᱨ ᱤᱧ ᱥᱚᱴᱟᱭᱟ ᱾,hin:506511|sat:11164071|via_eng:252961,CC-BY-2.0-FR
+TT-V2-COMB-00498,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैंने दो कप कॉफ़ी पी।,ᱤᱧ ᱴᱷᱮᱱ ᱵᱟᱨ ᱠᱚᱯ ᱠᱚᱯᱷᱤ ᱢᱮᱱᱟᱜᱼᱟ ᱾,hin:3213693|sat:11307723|via_eng:253446,CC-BY-2.0-FR
+TT-V2-COMB-00499,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉमने बकरियों को खाना खिलाया।,ᱴᱚᱢ ᱢᱮᱨᱚᱢ ᱡᱚᱢᱟᱜ ᱮᱢᱟᱫ ᱠᱚᱣᱟᱭ ᱾,hin:10633845|sat:11286147|via_eng:2549009,CC-BY-2.0-FR
+TT-V2-COMB-00500,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम फिसला।,ᱴᱚᱢ ᱪᱤᱠᱤᱡ ᱮᱱᱟᱭ ᱾,hin:4115693|sat:11182810|via_eng:2549806,CC-BY-2.0-FR
+TT-V2-COMB-00501,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम फिसल गया।,ᱴᱚᱢ ᱪᱤᱠᱤᱡ ᱮᱱᱟᱭ ᱾,hin:4115694|sat:11182810|via_eng:2549806,CC-BY-2.0-FR
+TT-V2-COMB-00502,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे लाल हैं।,ᱩᱱᱠᱩ ᱨᱟᱹᱜᱤ ᱮᱱᱟ ᱠᱚ ᱾,hin:3670986|sat:11141946|via_eng:2549808,CC-BY-2.0-FR
+TT-V2-COMB-00503,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह देख।,ᱱᱚᱶᱟ ᱧᱮᱞ ᱢᱮ ᱾,hin:3616918|sat:11182853|via_eng:2549825,CC-BY-2.0-FR
+TT-V2-COMB-00504,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह देखो।,ᱱᱚᱶᱟ ᱧᱮᱞ ᱢᱮ ᱾,hin:3616920|sat:11182853|via_eng:2549825,CC-BY-2.0-FR
+TT-V2-COMB-00505,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह देखिए।,ᱱᱚᱶᱟ ᱧᱮᱞ ᱢᱮ ᱾,hin:3616921|sat:11182853|via_eng:2549825,CC-BY-2.0-FR
+TT-V2-COMB-00506,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं अंग्रेज़ी पढ़ा सकता हूँ।,ᱤᱧ ᱤᱝᱜᱽᱨᱟᱡᱤ ᱯᱟᱲᱦᱟᱣ ᱫᱟᱲᱮ ᱠᱚᱣᱟᱹᱧ ᱾,hin:498190|sat:11391079|via_eng:256232,CC-BY-2.0-FR
+TT-V2-COMB-00507,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम एमिली है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱮᱢᱤᱞᱭ ᱠᱟᱱᱟ ᱾,hin:4907718|sat:10303040|via_eng:2566189,CC-BY-2.0-FR
+TT-V2-COMB-00508,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,विवाह स्वर्ग में किए जाते हैं।,ᱵᱟᱯᱞᱟ ᱫᱚ ᱥᱚᱨᱚᱜᱽ ᱨᱮ ᱦᱩᱭᱩᱜᱼᱟ ᱾,hin:11264988|sat:11264821|via_eng:25864,CC-BY-2.0-FR
+TT-V2-COMB-00509,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं हँसा।,ᱤᱧ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱟᱹᱧ ᱾,hin:588494|sat:11175491|via_eng:258713,CC-BY-2.0-FR
+TT-V2-COMB-00510,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं ज़्यादा सो गया।,ᱤᱧ ᱫᱚ ᱡᱟᱹᱥᱛᱤ ᱡᱟᱹᱯᱤᱫ ᱠᱮᱜᱟᱹᱧ ᱾,hin:6829777|sat:11175492|via_eng:258769,CC-BY-2.0-FR
+TT-V2-COMB-00511,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे लाल गुलाब पसंद हैं।,ᱤᱧ ᱫᱚ ᱟᱨᱟᱜ ᱜᱩᱞᱟᱹᱯ ᱠᱩᱥᱤᱭᱟᱜ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:3670987|sat:11194340|via_eng:259015,CC-BY-2.0-FR
+TT-V2-COMB-00512,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे जूते चाहिए थे।,ᱤᱧ ᱫᱚ ᱟᱨᱟᱜ ᱡᱩᱛᱟᱹ ᱫᱚᱨᱠᱟᱨᱟᱜ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:3670988|sat:11194343|via_eng:259018,CC-BY-2.0-FR
+TT-V2-COMB-00513,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं उसकी मदद करता हूँ।,ᱤᱧ ᱩᱱᱤ ᱜᱚᱲᱚᱣᱟ ᱫᱮᱭᱟ ᱾,hin:3623936|sat:11427920|via_eng:260935,CC-BY-2.0-FR
+TT-V2-COMB-00514,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हमने उसका जन्मदिन मनाया।,ᱟᱞᱮ ᱟᱡᱟᱜ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ ᱞᱮ ᱢᱟᱱᱟᱣ ᱠᱮᱜᱼᱟ ᱾,hin:505385|sat:11188028|via_eng:263218,CC-BY-2.0-FR
+TT-V2-COMB-00515,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम रिकार्डो है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱨᱤᱠᱟᱨᱰᱚ ᱠᱟᱱᱟ ᱾,hin:4083847|sat:10303041|via_eng:2635206,CC-BY-2.0-FR
+TT-V2-COMB-00516,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वक़्त उड़ता है।,ᱚᱠᱛᱚ ᱫᱚ ᱟᱹᱰᱤ ᱞᱚᱜᱚᱱ ᱫᱟᱹᱲᱟᱭ ᱾,hin:6829778|sat:11175493|via_eng:263886,CC-BY-2.0-FR
+TT-V2-COMB-00517,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉमने अपने होंठ चाँटे।,ᱴᱚᱢ ᱟᱡᱟᱜ ᱞᱩᱴᱤ ᱡᱟᱞ ᱠᱮᱜᱼᱟᱭ ᱾,hin:10633852|sat:11763654|via_eng:2647474,CC-BY-2.0-FR
+TT-V2-COMB-00518,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह हमारा काम था।,ᱚᱱᱟ ᱫᱚ ᱟᱵᱚᱣᱟᱜ ᱠᱟᱹᱢᱤ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾,hin:4107467|sat:11233467|via_eng:2648748,CC-BY-2.0-FR
+TT-V2-COMB-00519,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह हमारा काम था।,ᱚᱱᱟ ᱫᱚ ᱟᱵᱚᱣᱟᱜ ᱪᱟᱹᱠᱨᱤ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾,hin:4107467|sat:11233468|via_eng:2648748,CC-BY-2.0-FR
+TT-V2-COMB-00520,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हे भगवान!,ᱡᱤᱥᱩ !,hin:6544016|sat:11193919|via_eng:2650847,CC-BY-2.0-FR
+TT-V2-COMB-00521,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ध्यान से गाड़ी चला।,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ ᱪᱟᱹᱞᱩᱭ ᱢᱮ ᱾,hin:6829779|sat:11175494|via_eng:265500,CC-BY-2.0-FR
+TT-V2-COMB-00522,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ध्यान से गाड़ी चलाओ।,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ ᱪᱟᱹᱞᱩᱭ ᱢᱮ ᱾,hin:6829780|sat:11175494|via_eng:265500,CC-BY-2.0-FR
+TT-V2-COMB-00523,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ध्यान से गाड़ी चलाइए।,ᱥᱟᱵᱫᱷᱟᱱ ᱛᱮ ᱪᱟᱹᱞᱩᱭ ᱢᱮ ᱾,hin:6829781|sat:11175494|via_eng:265500,CC-BY-2.0-FR
+TT-V2-COMB-00524,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"एक तालाब में एक बगुला, एक केकड़ा, बहुत से मछली और दूसरे जीव-जंतु रहते थे।","ᱢᱤᱫ ᱯᱩᱠᱷᱨᱤ ᱨᱮ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱟᱹᱜᱩᱞᱟ, ᱢᱤᱫᱴᱟᱹᱝ ᱠᱟᱴᱠᱚᱢ, ᱰᱷᱮᱨ ᱦᱟᱹᱠᱩ ᱟᱨ ᱵᱷᱮᱜᱟᱨ ᱡᱤᱣ ᱡᱤᱱᱛᱩ ᱠᱚ ᱛᱟᱦᱮᱹᱱ ᱠᱟᱱᱟ ᱾",hin:2657097|sat:10324377|via_eng:2657098,CC-BY-2.0-FR
+TT-V2-COMB-00525,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बाहर निकल जाओ!,ᱵᱟᱦᱨᱮ ᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ !,hin:588488|sat:11175495|via_eng:266790,CC-BY-2.0-FR
+TT-V2-COMB-00526,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अविश्वसनीय!,ᱵᱟᱝ ᱯᱟᱹᱛᱤᱭᱟᱹᱣᱜ !,hin:6179034|sat:11163974|via_eng:268828,CC-BY-2.0-FR
+TT-V2-COMB-00527,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अविश्वसनीय!,ᱵᱟᱝᱯᱟᱹᱛᱤᱭᱟᱹᱣᱜ !,hin:6179034|sat:11175643|via_eng:268828,CC-BY-2.0-FR
+TT-V2-COMB-00528,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सीधे जाओ।,ᱥᱤᱫᱷᱟᱹ ᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:13294797|sat:11388308|via_eng:269559,CC-BY-2.0-FR
+TT-V2-COMB-00529,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भगवान जाने।,ᱠᱷᱟᱹᱞᱤ ᱵᱚᱝᱜᱟ ᱜᱮ ᱵᱟᱰᱟᱭᱟᱭ ᱾,hin:485923|sat:11194002|via_eng:269633,CC-BY-2.0-FR
+TT-V2-COMB-00530,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दोबारा !,ᱫᱩᱦᱲᱟᱹ ᱞᱟᱹᱭ !,hin:8876322|sat:11184340|via_eng:2701630,CC-BY-2.0-FR
+TT-V2-COMB-00531,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम फ़्रांचेस्को है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱯᱷᱨᱟᱱᱥᱤᱥᱠᱚ ᱠᱟᱱᱟ ᱾,hin:4083852|sat:10303042|via_eng:2704001,CC-BY-2.0-FR
+TT-V2-COMB-00532,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम रोबेर्टो है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱨᱚᱵᱟᱹᱨᱴᱚ ᱠᱟᱱᱟ ᱾,hin:4083854|sat:10303043|via_eng:2706881,CC-BY-2.0-FR
+TT-V2-COMB-00533,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत लौट रहा हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱥᱮᱫ ᱤᱧ ᱨᱩᱣᱟᱹᱲ ᱠᱟᱱᱟ ᱾,hin:3704936|sat:11185053|via_eng:2712346,CC-BY-2.0-FR
+TT-V2-COMB-00534,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तारे ऊपर चमक रहें हैं।,ᱪᱮᱛᱟᱱ ᱤᱧᱯᱤᱞ ᱠᱚ ᱴᱤᱢ ᱴᱤᱢᱚᱜ ᱠᱟᱱᱟ ᱾,hin:475868|sat:11215407|via_eng:271519,CC-BY-2.0-FR
+TT-V2-COMB-00535,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छुप रह।,ᱪᱩᱯ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:6829785|sat:11175497|via_eng:272043,CC-BY-2.0-FR
+TT-V2-COMB-00536,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छुप रहो।,ᱪᱩᱯ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:6829786|sat:11175497|via_eng:272043,CC-BY-2.0-FR
+TT-V2-COMB-00537,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छुप रहिए।,ᱪᱩᱯ ᱛᱟᱦᱮᱸᱱ ᱢᱮ ᱾,hin:6829787|sat:11175497|via_eng:272043,CC-BY-2.0-FR
+TT-V2-COMB-00538,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"टिकट, कृप्या।","ᱫᱟᱭᱟᱠᱟᱛᱮ, ᱴᱤᱠᱚᱴ ᱾",hin:6830393|sat:11175499|via_eng:272486,CC-BY-2.0-FR
+TT-V2-COMB-00539,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,निश्चित।,ᱱᱤᱦᱟᱹᱛᱤ ᱾,hin:6179035|sat:11164003|via_eng:273666,CC-BY-2.0-FR
+TT-V2-COMB-00540,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिख!,ᱚᱞ!,hin:4078532|sat:11170049|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00541,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखिए!,ᱚᱞ!,hin:4078536|sat:11170049|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00542,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखो!,ᱚᱞ!,hin:4078539|sat:11170049|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00543,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिख!,ᱚᱞ ᱢᱮ !,hin:4078532|sat:11193926|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00544,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखिए!,ᱚᱞ ᱢᱮ !,hin:4078536|sat:11193926|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00545,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लिखो!,ᱚᱞ ᱢᱮ !,hin:4078539|sat:11193926|via_eng:2739031,CC-BY-2.0-FR
+TT-V2-COMB-00546,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नमस्ते!,ᱡᱚᱦᱟᱨ !,hin:8879539|sat:11165053|via_eng:2742244,CC-BY-2.0-FR
+TT-V2-COMB-00547,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत गरम था।,ᱟᱹᱰᱤ ᱞᱚᱞᱚ ᱜᱮ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱡ ᱾,hin:3667924|sat:11217419|via_eng:275958,CC-BY-2.0-FR
+TT-V2-COMB-00548,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत गरमी थी।,ᱟᱹᱰᱤ ᱞᱚᱞᱚ ᱜᱮ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱ ᱛᱟᱦᱮᱸᱡ ᱾,hin:3667925|sat:11217419|via_eng:275958,CC-BY-2.0-FR
+TT-V2-COMB-00549,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलो पतंग उड़ाएँ!,ᱫᱮᱞᱟ ᱠᱩᱲᱤᱫ ᱵᱚᱱ ᱩᱰᱟᱹᱣᱟ ᱾,hin:477693|sat:11203339|via_eng:276074,CC-BY-2.0-FR
+TT-V2-COMB-00550,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सेब किसने चुराया?,ᱥᱮᱣ ᱫᱚ ᱚᱠᱚᱭ ᱠᱩᱢᱵᱽᱲᱩ ᱠᱮᱜᱼᱟᱭ?,hin:10051968|sat:10546770|via_eng:276279,CC-BY-2.0-FR
+TT-V2-COMB-00551,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौन जाने?,ᱚᱠᱚᱭ ᱵᱟᱲᱟᱭᱟᱭ?,hin:505387|sat:11175500|via_eng:276369,CC-BY-2.0-FR
+TT-V2-COMB-00552,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किसको पता है?,ᱚᱠᱚᱭ ᱵᱟᱲᱟᱭᱟᱭ?,hin:505388|sat:11175500|via_eng:276369,CC-BY-2.0-FR
+TT-V2-COMB-00553,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किसे पता है?,ᱚᱠᱚᱭ ᱵᱟᱲᱟᱭᱟᱭ?,hin:505389|sat:11175500|via_eng:276369,CC-BY-2.0-FR
+TT-V2-COMB-00554,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किसे मालूम है?,ᱚᱠᱚᱭ ᱵᱟᱲᱟᱭᱟᱭ?,hin:505390|sat:11175500|via_eng:276369,CC-BY-2.0-FR
+TT-V2-COMB-00555,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुसकुराओ।,ᱞᱟᱱᱫᱟ ᱾,hin:3315745|sat:11163956|via_eng:2764108,CC-BY-2.0-FR
+TT-V2-COMB-00556,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुसकुराइए।,ᱞᱟᱱᱫᱟ ᱾,hin:3315747|sat:11163956|via_eng:2764108,CC-BY-2.0-FR
+TT-V2-COMB-00557,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह गाना सभी को पता था।,ᱡᱷᱚᱛᱚᱦᱚᱲ ᱥᱮᱨᱮᱧ ᱠᱚ ᱵᱟᱰᱟᱭ ᱠᱟᱜᱼᱟ ᱾,hin:505103|sat:11234313|via_eng:276529,CC-BY-2.0-FR
+TT-V2-COMB-00558,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पृथ्वी घूमती है।,ᱫᱷᱟᱹᱨᱛᱤ ᱟᱹᱪᱩᱨᱚᱜ ᱠᱟᱱᱟ ᱾,hin:516620|sat:10775910|via_eng:277131,CC-BY-2.0-FR
+TT-V2-COMB-00559,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पंछी गाते हैं।,ᱪᱮᱬᱮ ᱠᱚ ᱥᱮᱨᱮᱧᱮᱫ ᱛᱟᱦᱮᱸᱡ ᱾,hin:588482|sat:11175502|via_eng:278174,CC-BY-2.0-FR
+TT-V2-COMB-00560,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पक्षी घोसले बनातें हैं।,ᱪᱮᱬᱮ ᱛᱩᱠᱟᱹ ᱠᱚ ᱛᱮᱭᱟᱨ ᱠᱮᱜᱼᱟ ᱾,hin:486242|sat:11545560|via_eng:278206,CC-BY-2.0-FR
+TT-V2-COMB-00561,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चिड़ियाँ घोसले बनातीं हैं।,ᱪᱮᱬᱮ ᱛᱩᱠᱟᱹ ᱠᱚ ᱛᱮᱭᱟᱨ ᱠᱮᱜᱼᱟ ᱾,hin:486243|sat:11545560|via_eng:278206,CC-BY-2.0-FR
+TT-V2-COMB-00562,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पंछी उड़ते हैं।,ᱪᱮᱬᱮ ᱠᱚ ᱩᱰᱟᱹᱣᱜᱼᱟ ᱾,hin:588481|sat:11175503|via_eng:278213,CC-BY-2.0-FR
+TT-V2-COMB-00563,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,स्पष्ट रूप से.,ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾,hin:6179037|sat:10273122|via_eng:279879,CC-BY-2.0-FR
+TT-V2-COMB-00564,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ज़ाहिर है.,ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾,hin:6179039|sat:10273122|via_eng:279879,CC-BY-2.0-FR
+TT-V2-COMB-00565,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,झुको!,ᱜᱮᱰᱮ !,hin:6179041|sat:11163996|via_eng:280158,CC-BY-2.0-FR
+TT-V2-COMB-00566,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बतख़!,ᱜᱮᱰᱮ !,hin:6179042|sat:11163996|via_eng:280158,CC-BY-2.0-FR
+TT-V2-COMB-00567,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गलत।,ᱵᱷᱩᱞ ᱾,hin:4078386|sat:11141878|via_eng:28129,CC-BY-2.0-FR
+TT-V2-COMB-00568,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,साल बीते।,ᱥᱮᱨᱢᱟ ᱠᱚ ᱯᱟᱨᱚᱢ ᱮᱱᱟ ᱾,hin:6830397|sat:11175506|via_eng:282197,CC-BY-2.0-FR
+TT-V2-COMB-00569,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,साल बीत गए।,ᱥᱮᱨᱢᱟ ᱠᱚ ᱯᱟᱨᱚᱢ ᱮᱱᱟ ᱾,hin:6830398|sat:11175506|via_eng:282197,CC-BY-2.0-FR
+TT-V2-COMB-00570,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"धन्यवाद, यीशु।","ᱥᱟᱨᱦᱟᱣ ᱜᱮ, ᱡᱤᱥᱩ ᱾",hin:3621324|sat:11163793|via_eng:2822474,CC-BY-2.0-FR
+TT-V2-COMB-00571,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बकवास!,ᱵᱟᱱᱴᱷᱤᱠ!,hin:4078390|sat:11163984|via_eng:282398,CC-BY-2.0-FR
+TT-V2-COMB-00572,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शांत रहो और आराम करो।,ᱛᱷᱤᱨ ᱠᱚᱜ ᱢᱮ ᱟᱨ ᱡᱤᱨᱟᱹᱣᱜ ᱢᱮ ᱾,hin:2072094|sat:12299222|via_eng:28488,CC-BY-2.0-FR
+TT-V2-COMB-00573,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शांत रहें और आराम करें।,ᱛᱷᱤᱨ ᱠᱚᱜ ᱢᱮ ᱟᱨ ᱡᱤᱨᱟᱹᱣᱜ ᱢᱮ ᱾,hin:2072095|sat:12299222|via_eng:28488,CC-BY-2.0-FR
+TT-V2-COMB-00574,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं खीरा खाता हूँ।,ᱤᱧ ᱛᱟᱦᱮᱨ ᱤᱧ ᱡᱚᱢᱟᱸ ᱾,hin:3937196|sat:11114195|via_eng:2863789,CC-BY-2.0-FR
+TT-V2-COMB-00575,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं खीरा खाती हूँ।,ᱤᱧ ᱛᱟᱦᱮᱨ ᱤᱧ ᱡᱚᱢᱟᱸ ᱾,hin:3937198|sat:11114195|via_eng:2863789,CC-BY-2.0-FR
+TT-V2-COMB-00576,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं उसका नाम भूलता हूं।,ᱤᱧ ᱫᱚ ᱩᱱᱤᱭᱟᱜ ᱧᱩᱛᱩᱢ ᱤᱧ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟ ᱾,hin:2079430|sat:10303009|via_eng:287663,CC-BY-2.0-FR
+TT-V2-COMB-00577,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं उसका नाम भूलती हूं।,ᱤᱧ ᱫᱚ ᱩᱱᱤᱭᱟᱜ ᱧᱩᱛᱩᱢ ᱤᱧ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟ ᱾,hin:2079431|sat:10303009|via_eng:287663,CC-BY-2.0-FR
+TT-V2-COMB-00578,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं उनका नाम भूलता हूं।,ᱤᱧ ᱫᱚ ᱩᱱᱤᱭᱟᱜ ᱧᱩᱛᱩᱢ ᱤᱧ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟ ᱾,hin:2079432|sat:10303009|via_eng:287663,CC-BY-2.0-FR
+TT-V2-COMB-00579,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं उनका नाम भूलती हूं।,ᱤᱧ ᱫᱚ ᱩᱱᱤᱭᱟᱜ ᱧᱩᱛᱩᱢ ᱤᱧ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟ ᱾,hin:2079433|sat:10303009|via_eng:287663,CC-BY-2.0-FR
+TT-V2-COMB-00580,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाओ।,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:3138227|sat:11163955|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00581,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जा।,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:4078545|sat:11163955|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00582,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाइए।,ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:4078547|sat:11163955|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00583,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाओ।,ᱪᱟᱞᱟᱜ ᱾,hin:3138227|sat:11193943|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00584,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जा।,ᱪᱟᱞᱟᱜ ᱾,hin:4078545|sat:11193943|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00585,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जाइए।,ᱪᱟᱞᱟᱜ ᱾,hin:4078547|sat:11193943|via_eng:2877272,CC-BY-2.0-FR
+TT-V2-COMB-00586,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हमारे नाम सब जानते हैं।,ᱡᱷᱚᱛᱚ ᱦᱚᱲ ᱟᱵᱚᱣᱟᱜ ᱧᱩᱛᱩᱢ ᱠᱚ ᱵᱟᱲᱟᱭᱟ ᱾,hin:3621616|sat:10303045|via_eng:2891177,CC-BY-2.0-FR
+TT-V2-COMB-00587,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सभी को हमारे नाम पता हैं।,ᱡᱷᱚᱛᱚ ᱦᱚᱲ ᱟᱵᱚᱣᱟᱜ ᱧᱩᱛᱩᱢ ᱠᱚ ᱵᱟᱲᱟᱭᱟ ᱾,hin:3621619|sat:10303045|via_eng:2891177,CC-BY-2.0-FR
+TT-V2-COMB-00588,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह भारत गया हुआ है।,ᱩᱱᱤ ᱵᱷᱟᱨᱚᱛ ᱛᱮ ᱪᱟᱞᱟᱣᱟᱭ ᱾,hin:487659|sat:10775946|via_eng:29031,CC-BY-2.0-FR
+TT-V2-COMB-00589,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह वहाँ गया क्या?,ᱩᱱᱤ ᱫᱚ ᱪᱮᱫ ᱚᱱᱰᱮ ᱪᱟᱞᱟᱣ ᱟᱭ ᱥᱮ ?,hin:484138|sat:11388701|via_eng:290445,CC-BY-2.0-FR
+TT-V2-COMB-00590,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम भारत से चाय का आयात करते हैं।,ᱟᱞᱮ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱠᱷᱚᱱ ᱪᱟ ᱞᱮ ᱟᱹᱜᱩᱭᱟ ᱾,hin:487662|sat:10775947|via_eng:29179,CC-BY-2.0-FR
+TT-V2-COMB-00591,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसने कुत्ते को एक हड्डी दी।,ᱩᱱᱤ ᱫᱚ ᱥᱮᱛᱟ ᱢᱤᱫᱴᱟᱹᱝ ᱡᱟᱝ ᱮ ᱮᱢᱟ ᱫᱮᱭᱟᱭ ᱾,hin:10047846|sat:11748227|via_eng:295969,CC-BY-2.0-FR
+TT-V2-COMB-00592,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उन्होंने कुत्ते को एक हड्डी दी।,ᱩᱱᱤ ᱫᱚ ᱥᱮᱛᱟ ᱢᱤᱫᱴᱟᱹᱝ ᱡᱟᱝ ᱮ ᱮᱢᱟ ᱫᱮᱭᱟᱭ ᱾,hin:10978444|sat:11748227|via_eng:295969,CC-BY-2.0-FR
+TT-V2-COMB-00593,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं सेव खा रहा हूँ ।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱥᱮ ᱤᱧ ᱡᱚᱢ ᱮᱫᱟ ᱾,hin:2078024|sat:11185751|via_eng:29612,CC-BY-2.0-FR
+TT-V2-COMB-00594,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं सेव खा रही हूँ ।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱥᱮ ᱤᱧ ᱡᱚᱢ ᱮᱫᱟ ᱾,hin:2078025|sat:11185751|via_eng:29612,CC-BY-2.0-FR
+TT-V2-COMB-00595,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कृप्या आराम कीजिए।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱡᱤᱨᱟᱹᱣᱜ ᱢᱮ ᱾,hin:6829750|sat:11236871|via_eng:29664,CC-BY-2.0-FR
+TT-V2-COMB-00596,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"धन्यवाद, आइंस्टीन.","ᱥᱟᱨᱦᱟᱣ ᱜᱮ,‌ ᱟᱭᱤᱱᱥᱴᱟᱭᱤᱱ ᱾",hin:3712823|sat:11163817|via_eng:2978054,CC-BY-2.0-FR
+TT-V2-COMB-00597,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"शुक्रिया, आइंस्टीन.","ᱥᱟᱨᱦᱟᱣ ᱜᱮ,‌ ᱟᱭᱤᱱᱥᱴᱟᱭᱤᱱ ᱾",hin:3712824|sat:11163817|via_eng:2978054,CC-BY-2.0-FR
+TT-V2-COMB-00598,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह मेरे कमरे में आया।,ᱩᱱᱤ ᱫᱚ ᱵᱟᱹᱠᱷᱩᱞ ᱵᱷᱤᱛᱨᱤ ᱨᱮ ᱵᱚᱞᱚ ᱮᱱᱟᱭ ᱾,hin:2080384|sat:11145491|via_eng:297985,CC-BY-2.0-FR
+TT-V2-COMB-00599,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वे मेरे कमरे में आए।,ᱩᱱᱤ ᱫᱚ ᱵᱟᱹᱠᱷᱩᱞ ᱵᱷᱤᱛᱨᱤ ᱨᱮ ᱵᱚᱞᱚ ᱮᱱᱟᱭ ᱾,hin:2080387|sat:11145491|via_eng:297985,CC-BY-2.0-FR
+TT-V2-COMB-00600,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसने मेरे कमरे में प्रवेश किया।,ᱩᱱᱤ ᱫᱚ ᱵᱟᱹᱠᱷᱩᱞ ᱵᱷᱤᱛᱨᱤ ᱨᱮ ᱵᱚᱞᱚ ᱮᱱᱟᱭ ᱾,hin:2080388|sat:11145491|via_eng:297985,CC-BY-2.0-FR
+TT-V2-COMB-00601,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उन्होंने मेरे कमरे में प्रवेश किया।,ᱩᱱᱤ ᱫᱚ ᱵᱟᱹᱠᱷᱩᱞ ᱵᱷᱤᱛᱨᱤ ᱨᱮ ᱵᱚᱞᱚ ᱮᱱᱟᱭ ᱾,hin:2080390|sat:11145491|via_eng:297985,CC-BY-2.0-FR
+TT-V2-COMB-00602,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह मेरा दोस्त है।,ᱩᱱᱤ ᱫᱚ ᱤᱧᱤᱡ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070553|sat:10531717|via_eng:298009,CC-BY-2.0-FR
+TT-V2-COMB-00603,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह मेरा मित्र है।,ᱩᱱᱤ ᱫᱚ ᱤᱧᱤᱡ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070554|sat:10531717|via_eng:298009,CC-BY-2.0-FR
+TT-V2-COMB-00604,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसने अपना नाम दोबारा धीरे से बोला।,ᱩᱱᱤ ᱟᱡᱟᱜ ᱧᱩᱛᱩᱢ ᱵᱟᱹᱭ ᱛᱮ ᱫᱚᱦᱨᱟᱣ ᱠᱮᱜᱼᱟᱭ ᱾,hin:476297|sat:10303060|via_eng:298854,CC-BY-2.0-FR
+TT-V2-COMB-00605,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसने अपने बेटे का नाम जेम्स रखा।,ᱩᱱᱤ ᱟᱡ ᱨᱤᱱ ᱜᱤᱫᱽᱨᱟᱹᱟᱜ ᱧᱩᱛᱩᱢ ᱡᱮᱢᱥ ᱮ ᱫᱚᱦᱚ ᱠᱮᱜᱼᱟᱭ ᱾,hin:491742|sat:10303061|via_eng:300979,CC-BY-2.0-FR
+TT-V2-COMB-00606,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे चल।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱟᱲᱟᱢ ᱢᱮ ᱾,hin:6829751|sat:11124310|via_eng:30117,CC-BY-2.0-FR
+TT-V2-COMB-00607,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे चलो।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱟᱲᱟᱢ ᱢᱮ ᱾,hin:6829752|sat:11124310|via_eng:30117,CC-BY-2.0-FR
+TT-V2-COMB-00608,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे चलिए।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱟᱲᱟᱢ ᱢᱮ ᱾,hin:6829753|sat:11124310|via_eng:30117,CC-BY-2.0-FR
+TT-V2-COMB-00609,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे काम कर।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱠᱟᱹᱢᱤ ᱢᱮ ᱾,hin:6829755|sat:11174855|via_eng:30124,CC-BY-2.0-FR
+TT-V2-COMB-00610,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे काम करो।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱠᱟᱹᱢᱤ ᱢᱮ ᱾,hin:6829756|sat:11174855|via_eng:30124,CC-BY-2.0-FR
+TT-V2-COMB-00611,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे काम कीजिए।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱠᱟᱹᱢᱤ ᱢᱮ ᱾,hin:6829757|sat:11174855|via_eng:30124,CC-BY-2.0-FR
+TT-V2-COMB-00612,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गाड़ी धीरे चला।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱪᱟᱹᱞᱩᱭᱟ ᱢᱮ ᱾,hin:6829758|sat:11174856|via_eng:30126,CC-BY-2.0-FR
+TT-V2-COMB-00613,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गाड़ी धीरे चलाओ।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱪᱟᱹᱞᱩᱭᱟ ᱢᱮ ᱾,hin:6829759|sat:11174856|via_eng:30126,CC-BY-2.0-FR
+TT-V2-COMB-00614,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गाड़ी धीरे चलाइए।,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ ᱛᱮ ᱪᱟᱹᱞᱩᱭᱟ ᱢᱮ ᱾,hin:6829760|sat:11174856|via_eng:30126,CC-BY-2.0-FR
+TT-V2-COMB-00615,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और जोर से।,ᱡᱟᱹᱥᱛᱤ ᱥᱟᱰᱮ ᱾,hin:4407724|sat:11165047|via_eng:30397,CC-BY-2.0-FR
+TT-V2-COMB-00616,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"ज़रा और ज़ोर से, कृप्या।","ᱫᱟᱭᱟᱠᱟᱛᱮ, ᱡᱟᱹᱥᱛᱤ ᱥᱟᱰᱮ ᱪᱷᱚᱭ ᱢᱮ ᱾",hin:6829761|sat:11174858|via_eng:30399,CC-BY-2.0-FR
+TT-V2-COMB-00617,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और धीमे!,ᱥᱟᱸᱱᱛᱤ!,hin:6178934|sat:10547697|via_eng:30433,CC-BY-2.0-FR
+TT-V2-COMB-00618,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और धीमे!,ᱥᱟᱱᱛ !,hin:6178934|sat:11163979|via_eng:30433,CC-BY-2.0-FR
+TT-V2-COMB-00619,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गाड़ी पीली है।,ᱠᱟᱨ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047693|sat:12645770|via_eng:3050133,CC-BY-2.0-FR
+TT-V2-COMB-00620,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,निश्चित ही,ᱱᱤᱦᱟᱹᱛᱤ!,hin:6178948|sat:11163999|via_eng:30542,CC-BY-2.0-FR
+TT-V2-COMB-00621,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रजनीकान्त भारत में सुपरस्टार है।,ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱨᱚᱡᱱᱤᱠᱟᱱᱛᱷ ᱫᱚ ᱢᱤᱫ ᱱᱟᱭᱚᱠ ᱠᱟᱱᱟᱭ ᱾,hin:3704937|sat:10775999|via_eng:3074671,CC-BY-2.0-FR
+TT-V2-COMB-00622,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसको अंदर ले आओ।,ᱩᱱᱤ ᱵᱷᱤᱛᱤᱨ ᱛᱮ ᱟᱹᱜᱩᱭᱮᱢ ᱾,hin:475932|sat:11245713|via_eng:307895,CC-BY-2.0-FR
+TT-V2-COMB-00623,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपका स्वागत हैं।,ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ!,hin:3120148|sat:11163810|via_eng:3120149,CC-BY-2.0-FR
+TT-V2-COMB-00624,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम चावल खाते हैं।,ᱟᱞᱮ ᱫᱟᱠᱟ ᱞᱮ ᱡᱚᱢᱟ᱾,hin:3937207|sat:10549496|via_eng:3127597,CC-BY-2.0-FR
+TT-V2-COMB-00625,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उससे उसका बस्ता छीन लिया गया।,ᱩᱱᱤᱭᱟᱜ ᱵᱮᱜᱽ ᱠᱚ ᱨᱮᱡ ᱠᱮᱜᱼᱟ᱾,hin:516789|sat:10531363|via_eng:313038,CC-BY-2.0-FR
+TT-V2-COMB-00626,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,समझ आया?,ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟᱢ ?,hin:8879540|sat:11170108|via_eng:3133955,CC-BY-2.0-FR
+TT-V2-COMB-00627,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसने मेरी कमीज़ खींची।,ᱩᱱᱤ ᱫᱚᱛᱚ ᱚᱨ ᱠᱮᱫ ᱛᱤᱧᱟᱭ ᱾,hin:516768|sat:12531018|via_eng:314283,CC-BY-2.0-FR
+TT-V2-COMB-00628,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे और एक कप चाय दे दो।,ᱟᱨ ᱢᱤᱫᱴᱟᱹᱝ ᱮᱴᱟᱜ ᱪᱟ ᱠᱚᱯ ᱮᱢᱟᱹᱧ ᱢᱮ ᱾,hin:4061163|sat:11296238|via_eng:31449,CC-BY-2.0-FR
+TT-V2-COMB-00629,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे और एक कप चाय दीजिए।,ᱟᱨ ᱢᱤᱫᱴᱟᱹᱝ ᱮᱴᱟᱜ ᱪᱟ ᱠᱚᱯ ᱮᱢᱟᱹᱧ ᱢᱮ ᱾,hin:4061165|sat:11296238|via_eng:31449,CC-BY-2.0-FR
+TT-V2-COMB-00630,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे नौकरी दो।,ᱢᱤᱫᱴᱟᱹᱝ ᱪᱟᱹᱠᱨᱤ ᱮᱢᱟᱹᱧ ᱢᱮ ᱾,hin:3616986|sat:11233481|via_eng:3151542,CC-BY-2.0-FR
+TT-V2-COMB-00631,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे नौकरी दीजिए।,ᱢᱤᱫᱴᱟᱹᱝ ᱪᱟᱹᱠᱨᱤ ᱮᱢᱟᱹᱧ ᱢᱮ ᱾,hin:3616991|sat:11233481|via_eng:3151542,CC-BY-2.0-FR
+TT-V2-COMB-00632,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लगभग.,ᱯᱟᱠᱷᱟ ᱯᱟᱹᱠᱷᱤ ᱾,hin:6178949|sat:11184300|via_eng:31567,CC-BY-2.0-FR
+TT-V2-COMB-00633,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम ने चावल बनाया।,ᱴᱚᱢ ᱫᱟᱠᱟ ᱛᱮᱭᱟᱨ ᱠᱮᱜᱼᱟᱭ᱾,hin:3617020|sat:10549497|via_eng:3171237,CC-BY-2.0-FR
+TT-V2-COMB-00634,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर कोशिश कर।,ᱫᱩᱦᱲᱟᱹ ᱪᱮᱥᱴᱟᱭ ᱢᱮ ᱾,hin:6829762|sat:11174866|via_eng:31723,CC-BY-2.0-FR
+TT-V2-COMB-00635,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर कोशिश करो।,ᱫᱩᱦᱲᱟᱹ ᱪᱮᱥᱴᱟᱭ ᱢᱮ ᱾,hin:6829763|sat:11174866|via_eng:31723,CC-BY-2.0-FR
+TT-V2-COMB-00636,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर कोशिश कीजिए।,ᱫᱩᱦᱲᱟᱹ ᱪᱮᱥᱴᱟᱭ ᱢᱮ ᱾,hin:6829764|sat:11174866|via_eng:31723,CC-BY-2.0-FR
+TT-V2-COMB-00637,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुछ मछलियाँ उड़ सकतीं हैं।,ᱛᱤᱱᱟᱹᱜ ᱜᱟᱱ ᱦᱟᱹᱠᱩ ᱠᱚ ᱩᱰᱟᱹᱣᱜᱼᱟ ᱾,hin:498173|sat:11243264|via_eng:317963,CC-BY-2.0-FR
+TT-V2-COMB-00638,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अंदर रहना।,ᱵᱷᱤᱛᱤᱨ ᱨᱮ ᱛᱟᱦᱮᱱ ᱢᱮ ᱾,hin:3616925|sat:11182931|via_eng:3184869,CC-BY-2.0-FR
+TT-V2-COMB-00639,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अंदर रहिए।,ᱵᱷᱤᱛᱤᱨ ᱨᱮ ᱛᱟᱦᱮᱱ ᱢᱮ ᱾,hin:3616926|sat:11182931|via_eng:3184869,CC-BY-2.0-FR
+TT-V2-COMB-00640,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे उसका नाम बताओ।,ᱩᱱᱤᱩᱟᱜ ᱧᱩᱛᱩᱢ ᱵᱟᱛᱟᱣ ᱟᱹᱧ ᱢᱮ ᱾,hin:3617235|sat:10303046|via_eng:3199827,CC-BY-2.0-FR
+TT-V2-COMB-00641,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे उसका नाम बताइये।,ᱩᱱᱤᱩᱟᱜ ᱧᱩᱛᱩᱢ ᱵᱟᱛᱟᱣ ᱟᱹᱧ ᱢᱮ ᱾,hin:3617236|sat:10303046|via_eng:3199827,CC-BY-2.0-FR
+TT-V2-COMB-00642,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पता है।,ᱤᱧ ᱵᱟᱲᱟᱭ ᱠᱟᱹᱫᱮᱭᱟᱹᱧ ᱾,hin:4638776|sat:11175511|via_eng:319990,CC-BY-2.0-FR
+TT-V2-COMB-00643,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे पता है।,ᱤᱧ ᱵᱟᱲᱟᱭ ᱠᱟᱹᱫᱮᱭᱟᱹᱧ ᱾,hin:4638777|sat:11175511|via_eng:319990,CC-BY-2.0-FR
+TT-V2-COMB-00644,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पढ़ो!,ᱯᱟᱲᱦᱟᱣ!,hin:6179044|sat:11163976|via_eng:320395,CC-BY-2.0-FR
+TT-V2-COMB-00645,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत जाना चाहता हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱪᱟᱞᱟᱣ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:3704938|sat:11185054|via_eng:3213304,CC-BY-2.0-FR
+TT-V2-COMB-00646,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत जाना चाहती हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱪᱟᱞᱟᱣ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:3704939|sat:11185054|via_eng:3213304,CC-BY-2.0-FR
+TT-V2-COMB-00647,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं हर साल जाता हूँ।,ᱤᱧ ᱡᱷᱚᱛᱚ ᱥᱮᱨᱢᱟᱸ ᱪᱟᱞᱟᱜ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:475852|sat:11388724|via_eng:322472,CC-BY-2.0-FR
+TT-V2-COMB-00648,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खड़ा हो!,ᱪᱮᱛᱟᱱ ᱵᱮᱨᱮᱫ ᱢᱮ !,hin:6830399|sat:11175517|via_eng:325429,CC-BY-2.0-FR
+TT-V2-COMB-00649,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खड़ा होइए!,ᱪᱮᱛᱟᱱ ᱵᱮᱨᱮᱫ ᱢᱮ !,hin:6830400|sat:11175517|via_eng:325429,CC-BY-2.0-FR
+TT-V2-COMB-00650,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं अच्छा रसोइया हूँ।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱮᱥ ᱨᱟᱹᱱᱫᱷᱩᱬᱤ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:487507|sat:10324381|via_eng:325794,CC-BY-2.0-FR
+TT-V2-COMB-00651,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं अच्छा बावर्ची हूँ।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱮᱥ ᱨᱟᱹᱱᱫᱷᱩᱬᱤ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:487508|sat:10324381|via_eng:325794,CC-BY-2.0-FR
+TT-V2-COMB-00652,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैंने एक सेब खाया।,ᱤᱧ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱥᱮᱣ ᱡᱚᱢ ᱠᱮᱜᱼᱟᱹᱧ ᱾,hin:7946406|sat:10649384|via_eng:3294474,CC-BY-2.0-FR
+TT-V2-COMB-00653,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुप्रभात!,ᱥᱟᱹᱜᱩᱱ ᱥᱮᱛᱟᱜ!,hin:3120146|sat:11120777|via_eng:329713,CC-BY-2.0-FR
+TT-V2-COMB-00654,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं दूध पीता हूँ।,ᱤᱧ ᱛᱳᱣᱟ ᱤᱧ ᱧᱩᱭᱟ᱾,hin:7959199|sat:10531520|via_eng:3304449,CC-BY-2.0-FR
+TT-V2-COMB-00655,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं दूध पीती हूँ।,ᱤᱧ ᱛᱳᱣᱟ ᱤᱧ ᱧᱩᱭᱟ᱾,hin:7959201|sat:10531520|via_eng:3304449,CC-BY-2.0-FR
+TT-V2-COMB-00656,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बॉब ने मेरी मदद की।,ᱵᱚᱵ ᱜᱚᱲᱚ ᱟ ᱫᱤᱧᱟᱭ ᱾,hin:3930186|sat:11427711|via_eng:33256,CC-BY-2.0-FR
+TT-V2-COMB-00657,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गेंद फेंकिए।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱵᱚᱞ ᱛᱷᱤᱭᱟᱹᱭ ᱢᱮ ᱾,hin:459402|sat:11381110|via_eng:33628,CC-BY-2.0-FR
+TT-V2-COMB-00658,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अभी भी बहुत गरम है।,ᱱᱚᱶᱟ ᱱᱤᱛ ᱦᱚᱸ ᱞᱚᱞᱚ ᱜᱮᱭᱟ ᱾,hin:3639020|sat:11217470|via_eng:3363727,CC-BY-2.0-FR
+TT-V2-COMB-00659,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शाबाश!,ᱴᱤ ᱴᱚᱲᱚᱜ !,hin:6179203|sat:11184319|via_eng:3368502,CC-BY-2.0-FR
+TT-V2-COMB-00660,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बच्चों को लाओ।,ᱜᱤᱫᱽᱨᱟᱹ ᱟᱹᱜᱩ ᱠᱚᱢ ᱾,hin:3638949|sat:11247587|via_eng:3374175,CC-BY-2.0-FR
+TT-V2-COMB-00661,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बच्चों को लाइए।,ᱜᱤᱫᱽᱨᱟᱹ ᱟᱹᱜᱩ ᱠᱚᱢ ᱾,hin:3638950|sat:11247587|via_eng:3374175,CC-BY-2.0-FR
+TT-V2-COMB-00662,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह किताब छिपाओ।,ᱚᱱᱟ ᱯᱚᱛᱚᱵ ᱯᱟᱲᱦᱟᱣ ‌ᱢᱮ᱾,hin:3638943|sat:10552659|via_eng:3374198,CC-BY-2.0-FR
+TT-V2-COMB-00663,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह किताब छिपाइए।,ᱚᱱᱟ ᱯᱚᱛᱚᱵ ᱯᱟᱲᱦᱟᱣ ‌ᱢᱮ᱾,hin:3638944|sat:10552659|via_eng:3374198,CC-BY-2.0-FR
+TT-V2-COMB-00664,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत एशिया में है।,ᱵᱷᱟᱨᱚᱛ ᱫᱚ ᱮᱥᱤᱭᱟ ᱨᱮ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:3704929|sat:10550489|via_eng:3378180,CC-BY-2.0-FR
+TT-V2-COMB-00665,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत एशिया में है।,ᱥᱤᱧᱚᱛ ᱫᱚ ᱮᱥᱤᱭᱟ ᱨᱮ ᱢᱮᱱᱟᱜᱼᱟ᱾,hin:3704929|sat:10550491|via_eng:3378180,CC-BY-2.0-FR
+TT-V2-COMB-00666,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आपका नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱪᱮ?,hin:3638909|sat:10303047|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00667,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या तुम्हारा नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱪᱮ?,hin:3638910|sat:10303047|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00668,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आपका नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱪᱮ?,hin:3638909|sat:10303048|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00669,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या तुम्हारा नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱪᱮ?,hin:3638910|sat:10303048|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00670,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आपका नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱥᱮ?,hin:3638909|sat:10303049|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00671,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या तुम्हारा नाम टॉम है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱴᱚᱢ ᱠᱟᱱᱟ ᱥᱮ?,hin:3638910|sat:10303049|via_eng:3405320,CC-BY-2.0-FR
+TT-V2-COMB-00672,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरी शादी हो चुकी है।,ᱤᱧᱟᱜ ᱵᱟᱯᱞᱟ ᱫᱚ ᱪᱟᱵᱟ ᱮᱱᱟ ᱾,hin:2325190|sat:11264818|via_eng:3412989,CC-BY-2.0-FR
+TT-V2-COMB-00673,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम मेरे ऊपर रहता है।,ᱴᱚᱢ ᱤᱧ ᱪᱮᱛᱟᱱ ᱨᱮ ᱛᱟᱦᱮᱱ ᱠᱟᱱᱟᱭ ᱾,hin:3638792|sat:11215356|via_eng:3415297,CC-BY-2.0-FR
+TT-V2-COMB-00674,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,गलत!,ᱵᱷᱩᱞ !,hin:4078555|sat:11184350|via_eng:3423179,CC-BY-2.0-FR
+TT-V2-COMB-00675,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बाघ ने उसे चाटा।,ᱛᱟᱹᱨᱩᱵ ᱡᱟᱞ ᱠᱮᱫᱮᱭᱟᱭ ᱾,hin:3534968|sat:11763655|via_eng:3534969,CC-BY-2.0-FR
+TT-V2-COMB-00676,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बिल्ली चूहें मारती हैं।,ᱯᱩᱥᱤ ᱫᱚ ᱜᱩᱰᱩ ᱠᱚ ᱜᱚᱡ ᱠᱚᱣᱟ ᱠᱚ ᱾,hin:3535947|sat:10729823|via_eng:3535945,CC-BY-2.0-FR
+TT-V2-COMB-00677,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे बिल्लियाँ पसंद हैं।,ᱤᱧ ᱫᱚ ᱯᱩᱥᱤ ᱠᱚ ᱠᱩᱥᱤᱭᱟ ᱠᱚᱣᱟᱹᱧ ᱾,hin:10068397|sat:10723062|via_eng:354379,CC-BY-2.0-FR
+TT-V2-COMB-00678,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे बिल्ले पसंद हैं।,ᱤᱧ ᱫᱚ ᱯᱩᱥᱤ ᱠᱚ ᱠᱩᱥᱤᱭᱟ ᱠᱚᱣᱟᱹᱧ ᱾,hin:10068398|sat:10723062|via_eng:354379,CC-BY-2.0-FR
+TT-V2-COMB-00679,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे एक तोता चाहिए।,ᱤᱧ ᱢᱤᱫᱴᱟᱹᱝ ᱢᱤᱨᱩ ᱛᱤᱧ ᱫᱚᱨᱠᱟᱨ ᱾,hin:3638750|sat:11195242|via_eng:3584868,CC-BY-2.0-FR
+TT-V2-COMB-00680,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या?,ᱪᱮᱫ ?,hin:2666296|sat:11164044|via_eng:36088,CC-BY-2.0-FR
+TT-V2-COMB-00681,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चुम्मा !,ᱪᱚᱜ ᱠᱚ !,hin:8876321|sat:11170057|via_eng:3609942,CC-BY-2.0-FR
+TT-V2-COMB-00682,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हैलो?,ᱡᱚᱦᱟᱨ ?,hin:4078559|sat:11170059|via_eng:3613319,CC-BY-2.0-FR
+TT-V2-COMB-00683,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आकछू!,ᱟᱠᱪᱷᱩ !,hin:6179046|sat:11193260|via_eng:361576,CC-BY-2.0-FR
+TT-V2-COMB-00684,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाओ!,ᱡᱚᱢ !,hin:3937131|sat:11170060|via_eng:3628784,CC-BY-2.0-FR
+TT-V2-COMB-00685,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाइए!,ᱡᱚᱢ !,hin:3937132|sat:11170060|via_eng:3628784,CC-BY-2.0-FR
+TT-V2-COMB-00686,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाओ!,ᱡᱟᱢ ᱢᱮ !,hin:3937131|sat:11193966|via_eng:3628784,CC-BY-2.0-FR
+TT-V2-COMB-00687,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाइए!,ᱡᱟᱢ ᱢᱮ !,hin:3937132|sat:11193966|via_eng:3628784,CC-BY-2.0-FR
+TT-V2-COMB-00688,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाना!,ᱡᱟᱢ !,hin:8879541|sat:11170061|via_eng:3628785,CC-BY-2.0-FR
+TT-V2-COMB-00689,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाना!,ᱡᱚᱢᱟᱜ !,hin:8879541|sat:11193968|via_eng:3628785,CC-BY-2.0-FR
+TT-V2-COMB-00690,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरे दिली दोस्त!,ᱤᱧ ᱫᱩᱞᱟᱹᱲᱮᱭᱟᱹ ᱜᱟᱛᱮ!,hin:4166758|sat:10531701|via_eng:3631514,CC-BY-2.0-FR
+TT-V2-COMB-00691,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्यों?,ᱪᱮᱫᱟᱜ ?,hin:4078387|sat:11141879|via_eng:36419,CC-BY-2.0-FR
+TT-V2-COMB-00692,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अभी अभी।,ᱱᱮᱛᱟᱨ!,hin:11371023|sat:11170063|via_eng:3642339,CC-BY-2.0-FR
+TT-V2-COMB-00693,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बकवास!,ᱡᱚᱵᱽᱨᱟ !,hin:4078390|sat:11170066|via_eng:3642919,CC-BY-2.0-FR
+TT-V2-COMB-00694,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम जेम्स है।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱡᱮᱢᱥ ᱠᱟᱱᱟ?,hin:3647858|sat:10303050|via_eng:3647235,CC-BY-2.0-FR
+TT-V2-COMB-00695,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मरो!,ᱜᱚᱡ !,hin:6179047|sat:11163997|via_eng:364954,CC-BY-2.0-FR
+TT-V2-COMB-00696,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मरो!,ᱜᱩᱨ !,hin:6179047|sat:11163998|via_eng:364954,CC-BY-2.0-FR
+TT-V2-COMB-00697,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मरो!,ᱜᱩᱡᱩᱜ ᱢᱮ !,hin:6179047|sat:11193261|via_eng:364954,CC-BY-2.0-FR
+TT-V2-COMB-00698,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत !,ᱡᱟᱹᱥᱛᱤ !,hin:8879542|sat:11170067|via_eng:3652097,CC-BY-2.0-FR
+TT-V2-COMB-00699,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत !,ᱟᱹᱰᱤ !,hin:8879542|sat:11193970|via_eng:3652097,CC-BY-2.0-FR
+TT-V2-COMB-00700,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दुनिया एक छोटा सा गाँव है।,ᱡᱮᱜᱮᱛ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱦᱩᱰᱤᱧ ᱟᱹᱛᱩ ᱠᱟᱱᱟ ᱾,hin:491571|sat:11209497|via_eng:370550,CC-BY-2.0-FR
+TT-V2-COMB-00701,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम मेरा दोस्त हो।,ᱟᱢ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱢ᱾,hin:3087300|sat:10531744|via_eng:370562,CC-BY-2.0-FR
+TT-V2-COMB-00702,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत से नहीं हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱠᱷᱚᱱ ᱵᱟᱹᱱᱩᱜ ᱤᱧᱟ ᱾,hin:487758|sat:10775949|via_eng:370942,CC-BY-2.0-FR
+TT-V2-COMB-00703,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लगता है आप भारत से हैं।,ᱧᱮᱞ ᱛᱮ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱟᱢ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱠᱷᱚᱱ ᱢᱮᱱᱟᱢᱟᱸ ᱾,hin:3704940|sat:10776025|via_eng:370950,CC-BY-2.0-FR
+TT-V2-COMB-00704,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लगता है कि तुम भारत के हो।,ᱧᱮᱞ ᱛᱮ ᱵᱩᱡᱷᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱟᱢ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱠᱷᱚᱱ ᱢᱮᱱᱟᱢᱟᱸ ᱾,hin:487760|sat:10776025|via_eng:370950,CC-BY-2.0-FR
+TT-V2-COMB-00705,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ये चिड़ियाँ हैं।,ᱱᱩᱠᱩ ᱫᱚ ᱪᱮᱬᱮ ᱠᱟᱱᱟ ᱠᱚ ᱾,hin:457096|sat:11545561|via_eng:371010,CC-BY-2.0-FR
+TT-V2-COMB-00706,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत में रहता हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:3888430|sat:10775940|via_eng:3712939,CC-BY-2.0-FR
+TT-V2-COMB-00707,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत में रहती हूँ।,ᱤᱧ ᱫᱚ ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱛᱟᱦᱮᱸᱱ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:3888432|sat:10775940|via_eng:3712939,CC-BY-2.0-FR
+TT-V2-COMB-00708,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम भी मुस्कुराया।,ᱴᱚᱢ ᱦᱚᱸ ᱢᱩᱞᱩᱡ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟᱭ ᱾,hin:4011007|sat:11299643|via_eng:3721549,CC-BY-2.0-FR
+TT-V2-COMB-00709,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच?,ᱥᱟᱹᱨᱤ ᱜᱮ ?,hin:4078391|sat:11164020|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00710,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच में?,ᱥᱟᱹᱨᱤ ᱜᱮ ?,hin:4078392|sat:11164020|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00711,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच?,ᱥᱟᱹᱨᱤ ᱪᱮ ?,hin:4078391|sat:11193262|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00712,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच में?,ᱥᱟᱹᱨᱤ ᱪᱮ ?,hin:4078392|sat:11193262|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00713,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच?,ᱦᱮᱸ ᱥᱟᱹᱨᱤ ?,hin:4078391|sat:11193263|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00714,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच में?,ᱦᱮᱸ ᱥᱟᱹᱨᱤ ?,hin:4078392|sat:11193263|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00715,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच?,ᱦᱮᱸᱪᱚ ᱥᱟᱹᱨᱤ ᱜᱮ ᱯᱟᱞᱮ ?,hin:4078391|sat:11193264|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00716,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सच में?,ᱦᱮᱸᱪᱚ ᱥᱟᱹᱨᱤ ᱜᱮ ᱯᱟᱞᱮ ?,hin:4078392|sat:11193264|via_eng:373216,CC-BY-2.0-FR
+TT-V2-COMB-00717,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कैसे हो?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:10979871|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00718,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप कैसे हैं?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475784|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00719,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कैसी हो?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475786|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00720,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तू कैसा है?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475787|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00721,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तू कैसी है?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475789|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00722,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप कैसी हैं?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:475791|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00723,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप कैसे हो?,ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱼᱟ?,hin:476250|sat:10290445|via_eng:373320,CC-BY-2.0-FR
+TT-V2-COMB-00724,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हैलो।,ᱡᱚᱦᱟᱨ!,hin:509802|sat:11141927|via_eng:373330,CC-BY-2.0-FR
+TT-V2-COMB-00725,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उत्तम!,ᱴᱷᱤᱠ !,hin:6179051|sat:11165095|via_eng:374568,CC-BY-2.0-FR
+TT-V2-COMB-00726,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उत्तम!,ᱟᱹᱰᱤ ᱴᱷᱤᱠ !,hin:6179051|sat:11184304|via_eng:374568,CC-BY-2.0-FR
+TT-V2-COMB-00727,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सही!,ᱟᱹᱰᱤ ᱴᱷᱤᱠ !,hin:6179052|sat:11184304|via_eng:374568,CC-BY-2.0-FR
+TT-V2-COMB-00728,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धन्यवाद!,ᱥᱟᱨᱦᱟᱣ ᱜᱮ !,hin:509386|sat:11120790|via_eng:374827,CC-BY-2.0-FR
+TT-V2-COMB-00729,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शुक्रिया!,ᱥᱟᱨᱦᱟᱣ ᱜᱮ !,hin:509387|sat:11120790|via_eng:374827,CC-BY-2.0-FR
+TT-V2-COMB-00730,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम वांग है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱣᱟᱝ ᱠᱟᱱᱟ ᱾,hin:4083872|sat:10303012|via_eng:374852,CC-BY-2.0-FR
+TT-V2-COMB-00731,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम्हारा कुत्ता कौनसा है?,ᱟᱢᱤᱡ ᱥᱮᱛᱟ ᱫᱚ ᱚᱠᱚᱭ ?,hin:486005|sat:11204991|via_eng:37522,CC-BY-2.0-FR
+TT-V2-COMB-00732,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाओ और पियो।,ᱡᱚᱢ ᱟᱨ ᱧᱩᱸ ᱾,hin:3937148|sat:11200711|via_eng:37659,CC-BY-2.0-FR
+TT-V2-COMB-00733,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,खाइए और पीजिए।,ᱡᱚᱢ ᱟᱨ ᱧᱩᱸ ᱾,hin:3937149|sat:11200711|via_eng:37659,CC-BY-2.0-FR
+TT-V2-COMB-00734,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत मरा देश है।,ᱵᱷᱟᱨᱚᱛ ᱫᱚ ᱤᱧᱟᱜ ᱫᱤᱥᱚᱢ ᱠᱟᱱᱟ ᱾,hin:3888433|sat:10775942|via_eng:3773901,CC-BY-2.0-FR
+TT-V2-COMB-00735,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कमरे को साफ़ करो।,ᱠᱩᱴᱷᱨᱤ ᱥᱟᱯᱷᱟᱭ ᱢᱮ ᱾,hin:487418|sat:11145474|via_eng:378284,CC-BY-2.0-FR
+TT-V2-COMB-00736,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कमरे को साफ़ करो।,ᱵᱟᱹᱠᱷᱩᱞ ᱡᱚᱜᱽ ᱢᱮ ᱾,hin:487418|sat:11789961|via_eng:378284,CC-BY-2.0-FR
+TT-V2-COMB-00737,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरे पास एक कुत्ता है।,ᱤᱧ ᱴᱷᱮᱱ ᱢᱤᱫᱴᱟᱹᱝ ᱥᱮᱛᱟ ᱢᱮᱱᱟᱭᱟ ᱾,hin:443037|sat:11758896|via_eng:378502,CC-BY-2.0-FR
+TT-V2-COMB-00738,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम एंड्रिया है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱮᱱᱰᱨᱤᱭᱟ ᱠᱟᱱᱟ ᱾,hin:4907733|sat:10303015|via_eng:378663,CC-BY-2.0-FR
+TT-V2-COMB-00739,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम्हारी किताब कौनसी है?,ᱟᱢᱟᱜ ᱯᱚᱛᱚᱵ ᱫᱚ ᱚᱠᱟ ᱠᱟᱱᱟ?,hin:476362|sat:10552676|via_eng:37928,CC-BY-2.0-FR
+TT-V2-COMB-00740,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आज आप क्या पका रहे हैं?,ᱟᱢ ᱫᱚ ᱛᱮᱦᱮᱸᱧ ᱪᱮᱫ ᱮᱢ ᱪᱚᱱᱫᱟᱭᱼᱟ ?,hin:3802015|sat:10324383|via_eng:3800741,CC-BY-2.0-FR
+TT-V2-COMB-00741,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लाल है।,ᱱᱚᱶᱟ ᱫᱚ ᱟᱨᱟᱜ ᱠᱟᱱᱟ ᱾,hin:4509573|sat:11194335|via_eng:3821226,CC-BY-2.0-FR
+TT-V2-COMB-00742,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह नारियल है।,ᱱᱚᱶᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱱᱩᱲᱤᱭᱟᱹ ᱠᱟᱱᱟ ᱾,hin:4051842|sat:12631916|via_eng:3825685,CC-BY-2.0-FR
+TT-V2-COMB-00743,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह एक नारियल है।,ᱱᱚᱶᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱱᱩᱲᱤᱭᱟᱹ ᱠᱟᱱᱟ ᱾,hin:4051844|sat:12631916|via_eng:3825685,CC-BY-2.0-FR
+TT-V2-COMB-00744,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कैसा चल रहा है?,ᱪᱮᱫ ᱞᱮᱠᱷᱟ ᱪᱟᱹᱞᱩᱜ ᱠᱟᱱᱟ ?,hin:475857|sat:11388670|via_eng:38308,CC-BY-2.0-FR
+TT-V2-COMB-00745,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम राहुल है।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱨᱟᱦᱩᱞ ᱠᱟᱱᱟ?,hin:3936562|sat:10303052|via_eng:3850035,CC-BY-2.0-FR
+TT-V2-COMB-00746,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मज़े करो।,ᱢᱚᱡᱽ ᱾,hin:3539272|sat:11170072|via_eng:3897153,CC-BY-2.0-FR
+TT-V2-COMB-00747,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आखिरकार!,ᱟᱹᱰᱤ ᱢᱩᱪᱟᱹᱫ ᱨᱮ !,hin:4407728|sat:11184309|via_eng:392296,CC-BY-2.0-FR
+TT-V2-COMB-00748,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे दूध चाहिए।,ᱤᱧ ᱛᱳᱣᱟ ᱛᱤᱧ ᱫᱚᱨᱠᱟᱨ᱾,hin:1841359|sat:10531522|via_eng:3941705,CC-BY-2.0-FR
+TT-V2-COMB-00749,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे दूध चाहिए।,ᱤᱧ ᱛᱳᱣᱟ ᱫᱚᱨᱠᱟᱨᱟᱜ ᱠᱟᱹᱱᱟᱹᱧ᱾,hin:1841359|sat:10531523|via_eng:3941705,CC-BY-2.0-FR
+TT-V2-COMB-00750,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बढ़िया!,ᱱᱟᱯᱟᱭ!,hin:4407729|sat:11193265|via_eng:395934,CC-BY-2.0-FR
+TT-V2-COMB-00751,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं हमेशा चलता हूँ।,ᱤᱧ ᱡᱟᱹᱣ ᱜᱮ ᱛᱟᱲᱟᱢ ᱟᱹᱧ ᱾,hin:3621482|sat:11213876|via_eng:398889,CC-BY-2.0-FR
+TT-V2-COMB-00752,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं हमेशा चलती हूँ।,ᱤᱧ ᱡᱟᱹᱣ ᱜᱮ ᱛᱟᱲᱟᱢ ᱟᱹᱧ ᱾,hin:3621483|sat:11213876|via_eng:398889,CC-BY-2.0-FR
+TT-V2-COMB-00753,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,माफ़ कीजिये,ᱤᱠᱟᱹ ᱹᱹᱹ,hin:6178952|sat:11141880|via_eng:39996,CC-BY-2.0-FR
+TT-V2-COMB-00754,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हटो।,ᱯᱟᱹᱪᱷᱞᱟᱹᱜ ᱢᱮ ᱾,hin:11252768|sat:11236872|via_eng:40051,CC-BY-2.0-FR
+TT-V2-COMB-00755,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम जिम है।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱡᱤᱢ ᱠᱟᱱᱟ?,hin:4083816|sat:10303054|via_eng:4010269,CC-BY-2.0-FR
+TT-V2-COMB-00756,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धूम्रपान करना बंद कर।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829766|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00757,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धूम्रपान करना बंद करो।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829767|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00758,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धूम्रपान करना बंद कीजिए।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829768|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00759,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सिगरेट पीना बंद कर।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829769|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00760,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सिगरेट पीना बंद करो।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829770|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00761,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सिगरेट पीना बंद कीजिए।,ᱯᱩᱝᱜᱤ ᱧᱩᱸ ᱵᱚᱱᱫᱚᱜ ᱢᱮ ᱾,hin:6829771|sat:11236873|via_eng:40632,CC-BY-2.0-FR
+TT-V2-COMB-00762,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टॉम मेरा दोस्त है।,ᱴᱚᱢ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:588553|sat:10531747|via_eng:406604,CC-BY-2.0-FR
+TT-V2-COMB-00763,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम्हारा नाम क्या है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ ?,hin:2060318|sat:10297686|via_eng:408293,CC-BY-2.0-FR
+TT-V2-COMB-00764,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपका नाम क्या है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ ᱠᱟᱱᱟ ?,hin:443217|sat:10297686|via_eng:408293,CC-BY-2.0-FR
+TT-V2-COMB-00765,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पतंग पेड़ में जाकर अटक गई।,ᱠᱩᱲᱤᱫ ᱫᱚ ᱫᱟᱨᱮ ᱨᱮ ᱪᱚᱜᱟ ᱮᱱᱟ ᱾,hin:477690|sat:11243256|via_eng:40916,CC-BY-2.0-FR
+TT-V2-COMB-00766,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ज़्यादातर लोगों को टीवी देखना अच्छा लगता है।,ᱡᱟᱹᱥᱛᱤ ᱦᱚᱲ ᱴᱤᱵᱷᱤ ᱧᱮᱞᱟ ᱠᱚ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾,hin:516709|sat:11237829|via_eng:41181,CC-BY-2.0-FR
+TT-V2-COMB-00767,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दक्ष!,ᱯᱟᱹᱨᱩᱠᱷᱤᱭᱟᱹ !,hin:6178966|sat:11184301|via_eng:41227,CC-BY-2.0-FR
+TT-V2-COMB-00768,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,निपुण!,ᱯᱟᱹᱨᱩᱠᱷᱤᱭᱟᱹ !,hin:6178967|sat:11184301|via_eng:41227,CC-BY-2.0-FR
+TT-V2-COMB-00769,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,माहिर!,ᱯᱟᱹᱨᱩᱠᱷᱤᱭᱟᱹ !,hin:6178970|sat:11184301|via_eng:41227,CC-BY-2.0-FR
+TT-V2-COMB-00770,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,निष्णात!,ᱯᱟᱹᱨᱩᱠᱷᱤᱭᱟᱹ !,hin:6178973|sat:11184301|via_eng:41227,CC-BY-2.0-FR
+TT-V2-COMB-00771,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आप शादीशुदा हैं?,ᱟᱢᱮᱢ ᱵᱟᱯᱞᱟ ᱟᱠᱟᱱᱟ ᱪᱮ ?,hin:13114033|sat:12643309|via_eng:413058,CC-BY-2.0-FR
+TT-V2-COMB-00772,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या आप शादीशुदा हैं?,ᱟᱢᱮᱢ ᱵᱟᱯᱞᱟ ᱟᱠᱟᱱᱟ ᱥᱮ ?,hin:13114033|sat:12643310|via_eng:413058,CC-BY-2.0-FR
+TT-V2-COMB-00773,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं भारत में रहना चाहता हूँ।,ᱤᱧ ᱵᱷᱟᱨᱟᱛ ᱨᱮ ᱛᱟᱦᱮᱸ ᱥᱮᱱᱟᱹᱧ ᱠᱟᱱᱟ ᱾,hin:4156750|sat:11185056|via_eng:4156752,CC-BY-2.0-FR
+TT-V2-COMB-00774,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ऐसा कहना बंद करो!,ᱚᱝᱠᱟ ᱢᱮᱱ ᱵᱚᱸᱫᱚᱜ ᱢᱮ!,hin:10519313|sat:10519314|via_eng:41575,CC-BY-2.0-FR
+TT-V2-COMB-00775,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कहाँ जा रहे हो?,ᱚᱠᱟ ᱛᱮᱢ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ?,hin:588621|sat:10290386|via_eng:416367,CC-BY-2.0-FR
+TT-V2-COMB-00776,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप कहाँ जा रहे हैं?,ᱚᱠᱟ ᱛᱮᱢ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ?,hin:588622|sat:10290386|via_eng:416367,CC-BY-2.0-FR
+TT-V2-COMB-00777,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह किताब है।,ᱱᱚᱶᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱯᱚᱛᱚᱵ ᱠᱟᱱᱟ᱾,hin:443050|sat:10552681|via_eng:42097,CC-BY-2.0-FR
+TT-V2-COMB-00778,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,इसका रंग लाल है|,ᱱᱚᱶᱟ ᱨᱚᱝ ᱫᱚ ᱟᱠᱟᱜ ᱠᱟᱱᱟ ᱾,hin:2161128|sat:12638966|via_eng:42863,CC-BY-2.0-FR
+TT-V2-COMB-00779,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तैयार!,ᱥᱚᱡᱽ !,hin:11371030|sat:11170073|via_eng:4298425,CC-BY-2.0-FR
+TT-V2-COMB-00780,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हर एक सेब लाल है।,ᱡᱷᱚᱛᱚ ᱥᱮᱣ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮ ᱛᱟᱦᱮᱸᱱᱟ᱾,hin:3670990|sat:10546771|via_eng:430054,CC-BY-2.0-FR
+TT-V2-COMB-00781,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हर एक सेब लाल होता है।,ᱡᱷᱚᱛᱚ ᱥᱮᱣ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮ ᱛᱟᱦᱮᱸᱱᱟ᱾,hin:4509581|sat:10546771|via_eng:430054,CC-BY-2.0-FR
+TT-V2-COMB-00782,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सेब लाल होते हैं।,ᱥᱮᱣ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮ ᱛᱟᱦᱮᱸᱱᱟ ᱾,hin:3670984|sat:11112593|via_eng:430055,CC-BY-2.0-FR
+TT-V2-COMB-00783,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम हाशिमोतो है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱦᱟᱥᱤᱢᱚᱛᱚ ᱠᱟᱱᱟ ᱾,hin:4083675|sat:10303019|via_eng:430219,CC-BY-2.0-FR
+TT-V2-COMB-00784,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आलूओं को काटो।,ᱟᱹᱲᱩᱠᱚ ᱜᱮᱫ ᱢᱮ ᱾,hin:483895|sat:11117894|via_eng:431100,CC-BY-2.0-FR
+TT-V2-COMB-00785,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शानदार!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ !,hin:11371032|sat:11184310|via_eng:4311305,CC-BY-2.0-FR
+TT-V2-COMB-00786,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अगले दिन मैंने एक कटहल खरीद लिया।,"ᱤᱱᱟᱹ ᱛᱟᱭᱚᱢ ᱫᱤᱱ, ᱤᱧ ᱢᱤᱫᱴᱟᱹᱝ ᱠᱟᱱᱴᱷᱟᱲ ᱠᱤᱨᱤᱧ ᱠᱮᱫᱟᱹᱧ ᱾",hin:4319700|sat:12505326|via_eng:4319732,CC-BY-2.0-FR
+TT-V2-COMB-00787,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं समझता हूँ।,ᱤᱧ ᱵᱩᱡᱷᱟᱹᱣᱮᱫ ᱜᱮᱭᱟᱹᱧ ᱾,hin:588495|sat:11175519|via_eng:433468,CC-BY-2.0-FR
+TT-V2-COMB-00788,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बिल्कुल।,ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾,hin:6830402|sat:10273122|via_eng:433492,CC-BY-2.0-FR
+TT-V2-COMB-00789,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ज़रूर।,ᱪᱮᱫᱟᱜ ᱵᱟᱝᱟ ᱾,hin:6830403|sat:10273122|via_eng:433492,CC-BY-2.0-FR
+TT-V2-COMB-00790,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्षमा कीजिए ।,ᱤᱠᱟᱹ ᱧᱚᱜ ᱤᱧ ᱢᱮ ᱾,hin:3120166|sat:11141885|via_eng:433504,CC-BY-2.0-FR
+TT-V2-COMB-00791,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,माफ़ कीजिए।,ᱤᱠᱟᱹ ᱧᱚᱜ ᱤᱧ ᱢᱮ ᱾,hin:588486|sat:11141885|via_eng:433504,CC-BY-2.0-FR
+TT-V2-COMB-00792,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अद्भुत,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ !,hin:6179053|sat:11184310|via_eng:433510,CC-BY-2.0-FR
+TT-V2-COMB-00793,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अद्भुत,ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ !,hin:6179053|sat:11184311|via_eng:433510,CC-BY-2.0-FR
+TT-V2-COMB-00794,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत ख़ूब!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179060|sat:11193250|via_eng:433511,CC-BY-2.0-FR
+TT-V2-COMB-00795,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बहुत बढ़िया!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179061|sat:11193250|via_eng:433512,CC-BY-2.0-FR
+TT-V2-COMB-00796,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या बात है!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:7193931|sat:11193250|via_eng:433512,CC-BY-2.0-FR
+TT-V2-COMB-00797,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चले जाओ!,ᱪᱟᱞᱟᱜ ᱢᱮ!,hin:588489|sat:11141886|via_eng:433518,CC-BY-2.0-FR
+TT-V2-COMB-00798,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मोटे मत हो जाना।,ᱟᱞᱚᱢ ᱵᱷᱚᱴᱮᱞᱚᱜᱼᱟ ᱾,hin:588581|sat:12631978|via_eng:433667,CC-BY-2.0-FR
+TT-V2-COMB-00799,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और एक बार।,ᱟᱨ ᱢᱤᱫ ᱡᱮᱠᱷᱟ ᱾,hin:485518|sat:11141887|via_eng:433729,CC-BY-2.0-FR
+TT-V2-COMB-00800,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उसका पीछा करो।,ᱟᱡ ᱯᱟᱧᱡᱟᱭ ᱮᱢ ᱾,hin:588487|sat:11141888|via_eng:433754,CC-BY-2.0-FR
+TT-V2-COMB-00801,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हरामज़ादे!,ᱦᱟᱴ !,hin:3791630|sat:11184314|via_eng:434306,CC-BY-2.0-FR
+TT-V2-COMB-00802,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हरामज़ादी!,ᱦᱟᱴ !,hin:3791631|sat:11184314|via_eng:434306,CC-BY-2.0-FR
+TT-V2-COMB-00803,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हरामज़ादे!,ᱦᱮᱴ !,hin:3791630|sat:11184316|via_eng:434306,CC-BY-2.0-FR
+TT-V2-COMB-00804,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हरामज़ादी!,ᱦᱮᱴ !,hin:3791631|sat:11184316|via_eng:434306,CC-BY-2.0-FR
+TT-V2-COMB-00805,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस हुआ!,ᱤᱱᱟᱹᱜ ᱜᱮ !,hin:6179062|sat:11163993|via_eng:434680,CC-BY-2.0-FR
+TT-V2-COMB-00806,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बचाइए!,ᱜᱚᱲᱚ !,hin:4078395|sat:11164015|via_eng:435084,CC-BY-2.0-FR
+TT-V2-COMB-00807,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बचाओ!,ᱜᱚᱲᱚ !,hin:459377|sat:11164015|via_eng:435084,CC-BY-2.0-FR
+TT-V2-COMB-00808,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बचाइए!,ᱜᱚᱲᱚ ᱮᱢᱚᱜ ᱢᱮ !,hin:4078395|sat:11193267|via_eng:435084,CC-BY-2.0-FR
+TT-V2-COMB-00809,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बचाओ!,ᱜᱚᱲᱚ ᱮᱢᱚᱜ ᱢᱮ !,hin:459377|sat:11193267|via_eng:435084,CC-BY-2.0-FR
+TT-V2-COMB-00810,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मौत तो सभी की होती है।,ᱡᱷᱚᱛᱚ ᱦᱚᱲ ᱜᱩᱡᱩᱜ ᱜᱮᱭᱟ ᱠᱚ ᱾,hin:588485|sat:11175523|via_eng:435769,CC-BY-2.0-FR
+TT-V2-COMB-00811,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह किताब कहाँ है?,ᱯᱚᱛᱚᱵ ᱫᱚ ᱚᱠᱟᱨᱮ ᱢᱮᱱᱟᱜᱼᱟ?,hin:4907692|sat:10552688|via_eng:43928,CC-BY-2.0-FR
+TT-V2-COMB-00812,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नहीं पता।,ᱵᱟᱹᱧ ᱵᱟᱰᱟᱭᱟ ᱾,hin:8879544|sat:11184354|via_eng:4422211,CC-BY-2.0-FR
+TT-V2-COMB-00813,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बढ़िया!,ᱦᱮᱲᱮᱢ !,hin:4407729|sat:11170074|via_eng:4450928,CC-BY-2.0-FR
+TT-V2-COMB-00814,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलिए!,ᱛᱟᱲᱟᱢ !,hin:8879545|sat:11170075|via_eng:4454073,CC-BY-2.0-FR
+TT-V2-COMB-00815,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुको!,ᱛᱷᱩᱢ !,hin:3315731|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00816,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक!,ᱛᱷᱩᱢ !,hin:3315732|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00817,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस करो!,ᱛᱷᱩᱢ !,hin:3315733|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00818,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस कर!,ᱛᱷᱩᱢ !,hin:3315734|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00819,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस कीजिए!,ᱛᱷᱩᱢ !,hin:3315736|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00820,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुकिए!,ᱛᱷᱩᱢ !,hin:3315739|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00821,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाओ!,ᱛᱷᱩᱢ !,hin:3315741|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00822,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाइए!,ᱛᱷᱩᱢ !,hin:4078463|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00823,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जा!,ᱛᱷᱩᱢ !,hin:4407732|sat:11164022|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00824,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुको!,ᱛᱷᱩᱢ!,hin:3315731|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00825,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक!,ᱛᱷᱩᱢ!,hin:3315732|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00826,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस करो!,ᱛᱷᱩᱢ!,hin:3315733|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00827,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस कर!,ᱛᱷᱩᱢ!,hin:3315734|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00828,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बस कीजिए!,ᱛᱷᱩᱢ!,hin:3315736|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00829,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुकिए!,ᱛᱷᱩᱢ!,hin:3315739|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00830,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाओ!,ᱛᱷᱩᱢ!,hin:3315741|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00831,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जाइए!,ᱛᱷᱩᱢ!,hin:4078463|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00832,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रुक जा!,ᱛᱷᱩᱢ!,hin:4407732|sat:11193275|via_eng:448320,CC-BY-2.0-FR
+TT-V2-COMB-00833,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धन्यवाद!,ᱥᱟᱨᱦᱟᱣ!,hin:509386|sat:10531693|via_eng:448645,CC-BY-2.0-FR
+TT-V2-COMB-00834,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बिल्कुल!,ᱴᱷᱟᱹᱣᱠᱟᱹ!,hin:11371035|sat:11184361|via_eng:4490618,CC-BY-2.0-FR
+TT-V2-COMB-00835,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बिल्कुल!,ᱯᱩᱨᱟᱹ ᱯᱩᱨᱤ !,hin:11371035|sat:11184363|via_eng:4490618,CC-BY-2.0-FR
+TT-V2-COMB-00836,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जन्मदिन मुबारक हो!,ᱥᱟᱹᱜᱩᱱ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ!,hin:476471|sat:11215377|via_eng:453219,CC-BY-2.0-FR
+TT-V2-COMB-00837,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम हेनरी है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱦᱮᱱᱨᱭ ᱠᱟᱱᱟ ᱾,hin:4907726|sat:10303022|via_eng:456449,CC-BY-2.0-FR
+TT-V2-COMB-00838,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भूख लगी?,ᱨᱮᱝᱜᱮᱡ ᱠᱟᱱᱟ ?,hin:6179096|sat:11164017|via_eng:457629,CC-BY-2.0-FR
+TT-V2-COMB-00839,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पागल!,ᱵᱚᱠᱟ !,hin:6179099|sat:11164002|via_eng:460198,CC-BY-2.0-FR
+TT-V2-COMB-00840,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पागल!,ᱯᱟᱜᱽᱞᱟ!,hin:6179099|sat:11193296|via_eng:460198,CC-BY-2.0-FR
+TT-V2-COMB-00841,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह तुम्हारा कुत्ता है।,ᱱᱩᱭ ᱫᱚ ᱟᱢ ᱥᱮᱛᱟ ᱜᱮ ᱾,hin:476330|sat:11748172|via_eng:461910,CC-BY-2.0-FR
+TT-V2-COMB-00842,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धत् तेरे की.,ᱦᱮᱴ ᱾,hin:6179107|sat:11165084|via_eng:462424,CC-BY-2.0-FR
+TT-V2-COMB-00843,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,विष्ठा.,ᱦᱮᱴ ᱾,hin:6179108|sat:11165084|via_eng:462424,CC-BY-2.0-FR
+TT-V2-COMB-00844,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कैसे?,ᱪᱮᱞᱮᱠᱟ ?,hin:4657605|sat:11170084|via_eng:4625687,CC-BY-2.0-FR
+TT-V2-COMB-00845,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कैसे?,ᱪᱮᱞᱠᱟ ?,hin:4657605|sat:11170085|via_eng:4625687,CC-BY-2.0-FR
+TT-V2-COMB-00846,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कब ?,ᱛᱤᱧ ᱡᱷᱚᱜ ?,hin:8876324|sat:11170086|via_eng:4625694,CC-BY-2.0-FR
+TT-V2-COMB-00847,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुत्ते गीले हैं।,ᱥᱮᱛᱟ ᱫᱚ ᱚᱫᱟ ᱜᱮᱭᱟ ᱠᱚ ᱾,hin:10047885|sat:11748174|via_eng:462680,CC-BY-2.0-FR
+TT-V2-COMB-00848,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौनसा फल लाल है?,ᱚᱠᱟ ᱡᱚ ᱫᱚ ᱟᱨᱟᱜ ᱜᱟᱭᱟ ?,hin:3670992|sat:12638968|via_eng:464572,CC-BY-2.0-FR
+TT-V2-COMB-00849,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौनसा फल लाल होता है?,ᱚᱠᱟ ᱡᱚ ᱫᱚ ᱟᱨᱟᱜ ᱜᱟᱭᱟ ?,hin:4509586|sat:12638968|via_eng:464572,CC-BY-2.0-FR
+TT-V2-COMB-00850,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे पीला अच्छा लगता है।,ᱤᱧ ᱥᱟᱥᱟᱝ ᱠᱩᱥᱤᱭᱟᱜ ᱠᱟᱱᱟ ᱾,hin:10047713|sat:12645764|via_eng:4650860,CC-BY-2.0-FR
+TT-V2-COMB-00851,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे पीला पसंद है।,ᱤᱧ ᱥᱟᱥᱟᱝ ᱠᱩᱥᱤᱭᱟᱜ ᱠᱟᱱᱟ ᱾,hin:10047714|sat:12645764|via_eng:4650860,CC-BY-2.0-FR
+TT-V2-COMB-00852,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,रविवार को मैं आराम करता हूँ।,ᱤᱧ ᱥᱤᱸᱜᱮ ᱢᱟᱦᱟᱸ ᱨᱮ ᱡᱤᱨᱟᱣᱜ ᱠᱟᱹᱱᱟᱹᱧ᱾,hin:4635979|sat:10550524|via_eng:4754195,CC-BY-2.0-FR
+TT-V2-COMB-00853,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नहीं।,ᱵᱟᱝ,hin:4078396|sat:10291162|via_eng:477061,CC-BY-2.0-FR
+TT-V2-COMB-00854,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नहीं।,ᱵᱟᱝᱟ ᱾,hin:4078396|sat:10307927|via_eng:477061,CC-BY-2.0-FR
+TT-V2-COMB-00855,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नहीं।,ᱵᱟᱝ ᱜᱮ ᱾,hin:4078396|sat:11193297|via_eng:477061,CC-BY-2.0-FR
+TT-V2-COMB-00856,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हाँ।,ᱦᱮᱸ,hin:477093|sat:10291161|via_eng:477086,CC-BY-2.0-FR
+TT-V2-COMB-00857,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हाँ।,ᱦᱮᱸ ᱾,hin:477093|sat:11193276|via_eng:477086,CC-BY-2.0-FR
+TT-V2-COMB-00858,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सूरज लाल है।,ᱥᱤᱧ ᱪᱟᱱᱫᱚ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮᱭᱟᱭ ᱾,hin:3670993|sat:11147296|via_eng:477369,CC-BY-2.0-FR
+TT-V2-COMB-00859,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बैठिए।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱫᱩᱲᱩᱵ ᱢᱮ᱾,hin:478184|sat:10606264|via_eng:478180,CC-BY-2.0-FR
+TT-V2-COMB-00860,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे यह कुत्ता अच्छा लगता है।,ᱤᱧ ᱥᱮᱛᱟ ᱠᱩᱥᱤᱭᱟ ᱠᱚᱣᱟᱹᱧ ᱾,hin:491913|sat:11205018|via_eng:48293,CC-BY-2.0-FR
+TT-V2-COMB-00861,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वही तो!,ᱥᱚᱴᱷᱤᱠ!,hin:491741|sat:11193298|via_eng:483280,CC-BY-2.0-FR
+TT-V2-COMB-00862,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बिलकुल!,ᱥᱚᱴᱷᱤᱠ!,hin:6179112|sat:11193298|via_eng:483280,CC-BY-2.0-FR
+TT-V2-COMB-00863,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हैना?,ᱴᱷᱤᱠ ?,hin:11371038|sat:11170087|via_eng:4838261,CC-BY-2.0-FR
+TT-V2-COMB-00864,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत की राजधानी नई दिल्ली है।,ᱵᱷᱟᱨᱚᱛ ᱨᱮᱭᱟᱜ ᱨᱟᱡᱜᱟᱲ ᱫᱚ ᱱᱟᱶᱟ ᱫᱮᱞᱤ ᱠᱟᱱᱟ ᱾,hin:487565|sat:10776026|via_eng:487564,CC-BY-2.0-FR
+TT-V2-COMB-00865,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जो भी हो!,ᱡᱟᱦᱱᱟᱜ ᱜᱮ !,hin:4078398|sat:11163967|via_eng:491243,CC-BY-2.0-FR
+TT-V2-COMB-00866,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जो भी!,ᱡᱟᱦᱱᱟᱜ ᱜᱮ !,hin:4078399|sat:11163967|via_eng:491243,CC-BY-2.0-FR
+TT-V2-COMB-00867,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुत्ता मेरा है।,ᱥᱮᱛᱟ ᱫᱚ ᱤᱧᱤᱧᱡ ᱠᱟᱱᱟᱭ ᱾,hin:506567|sat:11748176|via_eng:493294,CC-BY-2.0-FR
+TT-V2-COMB-00868,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,घर आग में लिपटा हुआ था।,ᱚᱲᱟᱜ ᱫᱚ ᱡᱩᱞᱩᱜ ᱠᱟᱱᱟ᱾,hin:483884|sat:10568957|via_eng:49333,CC-BY-2.0-FR
+TT-V2-COMB-00869,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरी तीसरी शादी है।,ᱱᱚᱶᱟ ᱫᱚ ᱤᱧᱟᱜ ᱛᱮᱥᱟᱨ ᱵᱟᱯᱞᱟ ᱠᱟᱱᱟ ᱾,hin:11265459|sat:11264822|via_eng:4984299,CC-BY-2.0-FR
+TT-V2-COMB-00870,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपसे मिलकर खुशी हुई।,ᱟᱢ ᱥᱟᱶ ᱧᱟᱯᱟᱢ ᱠᱮᱛᱮ ᱵᱮᱥ ᱤᱧ ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟ ᱾,hin:506552|sat:11163715|via_eng:499617,CC-BY-2.0-FR
+TT-V2-COMB-00871,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम शादी से संबंधित हैं।,ᱟᱞᱟᱝ ᱫᱚ ᱵᱟᱯᱞᱟ ᱞᱮᱠᱷᱟ ᱛᱮ ᱡᱩᱲᱟᱹᱣ ᱢᱮᱱᱟᱜ ᱞᱟᱝᱟ ᱾,hin:11265460|sat:11264823|via_eng:5006744,CC-BY-2.0-FR
+TT-V2-COMB-00872,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बंदर पेड़ पर चढ़ा।,ᱦᱟᱹᱬᱩ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱫᱚᱨᱮ ᱫᱮᱡ ᱮᱱᱟᱭ ᱾,hin:485520|sat:11307539|via_eng:50347,CC-BY-2.0-FR
+TT-V2-COMB-00873,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सावधान।,ᱦᱩᱥᱤᱭᱟᱹᱨ ᱾,hin:11371039|sat:11170107|via_eng:5101021,CC-BY-2.0-FR
+TT-V2-COMB-00874,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,शाबाश!,ᱩᱱᱤ ᱫᱚ ᱠᱚᱲᱟ ᱠᱟᱱᱟᱭ!,hin:6179203|sat:10536929|via_eng:51144,CC-BY-2.0-FR
+TT-V2-COMB-00875,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सावधान!,ᱦᱩᱥᱤᱭᱟᱹᱨ!,hin:2288533|sat:11165080|via_eng:513069,CC-BY-2.0-FR
+TT-V2-COMB-00876,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,समझा?,ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟᱢ ?,hin:11371040|sat:11170108|via_eng:5135297,CC-BY-2.0-FR
+TT-V2-COMB-00877,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,समझे?,ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟᱢ ?,hin:11371041|sat:11170108|via_eng:5135297,CC-BY-2.0-FR
+TT-V2-COMB-00878,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कृपया जाईये।,ᱫᱟᱭᱟᱠᱟᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:588577|sat:11175524|via_eng:516403,CC-BY-2.0-FR
+TT-V2-COMB-00879,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अलविदा!,ᱥᱟᱹᱜᱩᱱ ᱡᱚᱦᱟᱨ !,hin:4078400|sat:11164010|via_eng:516745,CC-BY-2.0-FR
+TT-V2-COMB-00880,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ख़ुदा हाफ़िज़।,ᱥᱟᱹᱜᱩᱱ ᱡᱚᱦᱟᱨ !,hin:516744|sat:11164010|via_eng:516745,CC-BY-2.0-FR
+TT-V2-COMB-00881,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अलविदा!,ᱡᱚᱦᱟᱨ !,hin:4078400|sat:11165053|via_eng:516745,CC-BY-2.0-FR
+TT-V2-COMB-00882,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ख़ुदा हाफ़िज़।,ᱡᱚᱦᱟᱨ !,hin:516744|sat:11165053|via_eng:516745,CC-BY-2.0-FR
+TT-V2-COMB-00883,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चाहो तो तुम जा सकती हो।,ᱟᱢ ᱪᱟᱞᱟᱣ ᱫᱟᱲᱮᱭᱟᱜᱼᱟᱢ ᱾,hin:2083523|sat:11388313|via_eng:518553,CC-BY-2.0-FR
+TT-V2-COMB-00884,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बढ़िया!,ᱵᱟᱱᱴᱷᱤᱠ!,hin:4407729|sat:11163984|via_eng:52022,CC-BY-2.0-FR
+TT-V2-COMB-00885,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बढ़िया!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ !,hin:4407729|sat:11184310|via_eng:52022,CC-BY-2.0-FR
+TT-V2-COMB-00886,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चतुर!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179026|sat:11193250|via_eng:52023,CC-BY-2.0-FR
+TT-V2-COMB-00887,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चमकदार!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179027|sat:11193250|via_eng:52023,CC-BY-2.0-FR
+TT-V2-COMB-00888,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेधावी!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179029|sat:11193250|via_eng:52023,CC-BY-2.0-FR
+TT-V2-COMB-00889,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वाह!,ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ!,hin:6179147|sat:11193250|via_eng:52027,CC-BY-2.0-FR
+TT-V2-COMB-00890,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किताब पीली है।,ᱯᱟᱛᱚᱵ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047704|sat:12645776|via_eng:5256981,CC-BY-2.0-FR
+TT-V2-COMB-00891,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह उसका दोस्त है।,ᱩᱱᱤ ᱫᱚ ᱟᱡ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:482473|sat:10531751|via_eng:528006,CC-BY-2.0-FR
+TT-V2-COMB-00892,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उड़!,ᱩᱰᱟᱹᱣ !,hin:11371042|sat:11184374|via_eng:5289484,CC-BY-2.0-FR
+TT-V2-COMB-00893,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उड़ो!,ᱩᱰᱟᱹᱣ !,hin:11371043|sat:11184374|via_eng:5289484,CC-BY-2.0-FR
+TT-V2-COMB-00894,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अगला!,ᱤᱱᱟᱹ ᱛᱟᱭᱚᱢ !,hin:11371044|sat:11184375|via_eng:5294542,CC-BY-2.0-FR
+TT-V2-COMB-00895,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अगला!,ᱫᱚᱥᱟᱨ !,hin:11371044|sat:11184378|via_eng:5294542,CC-BY-2.0-FR
+TT-V2-COMB-00896,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुन...,ᱟᱧᱡᱚᱢ ᱢᱮ ᱹᱹᱹ,hin:11371045|sat:11184377|via_eng:5331118,CC-BY-2.0-FR
+TT-V2-COMB-00897,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो...,ᱟᱧᱡᱚᱢ ᱢᱮ ᱹᱹᱹ,hin:11371046|sat:11184377|via_eng:5331118,CC-BY-2.0-FR
+TT-V2-COMB-00898,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनिए...,ᱟᱧᱡᱚᱢ ᱢᱮ ᱹᱹᱹ,hin:11371047|sat:11184377|via_eng:5331118,CC-BY-2.0-FR
+TT-V2-COMB-00899,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चलो।,ᱛᱟᱲᱟᱢ ᱾,hin:11371049|sat:11184384|via_eng:5340459,CC-BY-2.0-FR
+TT-V2-COMB-00900,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर से!,ᱫᱩᱦᱲᱟᱹ!,hin:4640314|sat:11184385|via_eng:5355039,CC-BY-2.0-FR
+TT-V2-COMB-00901,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,और एक बार!,ᱫᱩᱦᱲᱟᱹ!,hin:4640315|sat:11184385|via_eng:5355039,CC-BY-2.0-FR
+TT-V2-COMB-00902,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर!,ᱫᱩᱦᱲᱟᱹ!,hin:4640316|sat:11184385|via_eng:5355039,CC-BY-2.0-FR
+TT-V2-COMB-00903,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,फिर एक बार!,ᱫᱩᱦᱲᱟᱹ!,hin:4640317|sat:11184385|via_eng:5355039,CC-BY-2.0-FR
+TT-V2-COMB-00904,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"नमस्ते, टॉम।","ᱡᱚᱦᱟᱨ, ᱴᱚᱢ ᱾",hin:6829772|sat:11182869|via_eng:54604,CC-BY-2.0-FR
+TT-V2-COMB-00905,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"नमस्कार, टॉम।","ᱡᱚᱦᱟᱨ, ᱴᱚᱢ ᱾",hin:6829774|sat:11182869|via_eng:54604,CC-BY-2.0-FR
+TT-V2-COMB-00906,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"सलाम, टॉम।","ᱡᱚᱦᱟᱨ, ᱴᱚᱢ ᱾",hin:6829775|sat:11182869|via_eng:54604,CC-BY-2.0-FR
+TT-V2-COMB-00907,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"हेलो, टॉम।","ᱡᱚᱦᱟᱨ, ᱴᱚᱢ ᱾",hin:6829776|sat:11182869|via_eng:54604,CC-BY-2.0-FR
+TT-V2-COMB-00908,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह किसकी किताब है?,ᱱᱚᱶᱟ ᱯᱚᱛᱚᱵ ᱫᱚ ᱚᱠᱚᱭᱟᱜ ᱠᱟᱱᱟ?,hin:485548|sat:10552691|via_eng:54871,CC-BY-2.0-FR
+TT-V2-COMB-00909,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ये किताबें मेरीं हैं।,ᱱᱚᱶᱟ ᱯᱚᱛᱚᱵ ᱫᱚ ᱤᱧᱟᱜ ᱠᱟᱱᱟ ᱾,hin:611428|sat:11195295|via_eng:55084,CC-BY-2.0-FR
+TT-V2-COMB-00910,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ये क्या किताबें हैं?,ᱱᱚᱶᱟ ᱯᱚᱛᱚᱵ ᱠᱚᱫᱚ ᱚᱠᱚᱭᱟᱜ ᱠᱟᱱᱟ ?,hin:588555|sat:11195296|via_eng:55087,CC-BY-2.0-FR
+TT-V2-COMB-00911,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ये कुत्ते बड़े हैं।,ᱱᱩᱠᱩ ᱥᱮᱛᱟ ᱫᱚ ᱢᱟᱨᱟᱝ ᱜᱮᱭᱟ ᱠᱚ ᱾,hin:475982|sat:11205019|via_eng:55306,CC-BY-2.0-FR
+TT-V2-COMB-00912,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह एक किताब है।,ᱱᱚᱶᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱯᱚᱛᱚᱵ ᱠᱟᱱᱟ᱾,hin:443049|sat:10552681|via_eng:55399,CC-BY-2.0-FR
+TT-V2-COMB-00913,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुस्कुरा!,ᱞᱟᱱᱫᱟ !,hin:11371051|sat:11195161|via_eng:5545232,CC-BY-2.0-FR
+TT-V2-COMB-00914,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुस्कुराओ!,ᱞᱟᱱᱫᱟ !,hin:11371052|sat:11195161|via_eng:5545232,CC-BY-2.0-FR
+TT-V2-COMB-00915,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम अहमद है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱟᱹᱦᱢᱟᱹᱫ ᱠᱟᱱᱟ ᱾,hin:4083863|sat:10303025|via_eng:554618,CC-BY-2.0-FR
+TT-V2-COMB-00916,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,केले पीले होते हैं।,ᱠᱟᱭᱨᱟ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047694|sat:12645760|via_eng:559000,CC-BY-2.0-FR
+TT-V2-COMB-00917,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम साशा है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱥᱟᱥᱟ ᱠᱟᱱᱟ ᱾,hin:4083855|sat:10303027|via_eng:567334,CC-BY-2.0-FR
+TT-V2-COMB-00918,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सो जाओ!,ᱡᱟᱹᱯᱤᱫ !,hin:9929516|sat:11195162|via_eng:5693342,CC-BY-2.0-FR
+TT-V2-COMB-00919,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,क्या यह किताब तुम्हारी है?,ᱱᱚᱶᱟ ᱯᱚᱨᱚᱵ ᱫᱚ ᱪᱮᱫ ᱟᱢᱟᱜ ᱠᱟᱱᱟ?,hin:561269|sat:10552791|via_eng:56970,CC-BY-2.0-FR
+TT-V2-COMB-00920,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हमेशा।,ᱥᱟᱨᱟᱜᱷᱟᱹᱬᱤᱡ ᱾,hin:11371053|sat:11195168|via_eng:5715657,CC-BY-2.0-FR
+TT-V2-COMB-00921,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सही।,ᱴᱷᱤᱠ ᱾,hin:11371054|sat:11165119|via_eng:5723530,CC-BY-2.0-FR
+TT-V2-COMB-00922,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम रिकार्डो है।,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱨᱤᱪᱟᱨᱰᱚ ᱠᱟᱱᱟ?,hin:4083847|sat:10303056|via_eng:5769626,CC-BY-2.0-FR
+TT-V2-COMB-00923,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हे.,ᱡᱚᱦᱟᱨ ᱾,hin:6179116|sat:11163958|via_eng:590217,CC-BY-2.0-FR
+TT-V2-COMB-00924,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सुनो तो.,ᱡᱚᱦᱟᱨ ᱾,hin:6179117|sat:11163958|via_eng:590217,CC-BY-2.0-FR
+TT-V2-COMB-00925,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,घास पीली है।,ᱜᱷᱟᱥ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047710|sat:12645777|via_eng:5927329,CC-BY-2.0-FR
+TT-V2-COMB-00926,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुत्ते वफ़ादार होते हैं।,ᱥᱮᱛᱟ ᱟᱹᱰᱤ ᱠᱚ ᱵᱷᱚᱨᱥᱟ ᱜᱮᱭᱟ ᱾,hin:3802007|sat:11758881|via_eng:593260,CC-BY-2.0-FR
+TT-V2-COMB-00927,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नकलची!,ᱱᱚᱠᱚᱞᱤᱭᱟ !,hin:11371055|sat:11195178|via_eng:5995112,CC-BY-2.0-FR
+TT-V2-COMB-00928,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लड़ो!,ᱞᱟᱹᱰᱷᱟᱹᱭ!,hin:11371056|sat:11195175|via_eng:6004026,CC-BY-2.0-FR
+TT-V2-COMB-00929,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,लड़ो!,ᱛᱟᱯᱟᱢ !,hin:11371056|sat:11302727|via_eng:6004026,CC-BY-2.0-FR
+TT-V2-COMB-00930,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सही में...,ᱥᱟᱹᱨᱤ ᱛᱮ ...,hin:8876326|sat:11184386|via_eng:6078396,CC-BY-2.0-FR
+TT-V2-COMB-00931,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तालियां!,ᱛᱷᱟᱭᱚ ᱾,hin:11371058|sat:11184387|via_eng:6092582,CC-BY-2.0-FR
+TT-V2-COMB-00932,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बैठ!,ᱫᱩᱲᱩᱵ !,hin:11371059|sat:11184391|via_eng:6092709,CC-BY-2.0-FR
+TT-V2-COMB-00933,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बैठो!,ᱫᱩᱲᱩᱵ !,hin:11371060|sat:11184391|via_eng:6092709,CC-BY-2.0-FR
+TT-V2-COMB-00934,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,साँस लीजिए।,ᱥᱟᱦᱮᱫ ᱾,hin:6544416|sat:11195184|via_eng:6092712,CC-BY-2.0-FR
+TT-V2-COMB-00935,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सांस ले।,ᱥᱟᱦᱮᱫ ᱤᱫᱤ ᱾,hin:11371061|sat:11195186|via_eng:6092716,CC-BY-2.0-FR
+TT-V2-COMB-00936,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सांस लो।,ᱥᱟᱦᱮᱫ ᱤᱫᱤ ᱾,hin:11371063|sat:11195186|via_eng:6092716,CC-BY-2.0-FR
+TT-V2-COMB-00937,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सांस छोड़।,ᱥᱟᱦᱮᱫ ᱟᱲᱟᱜ ᱾,hin:11371064|sat:11195187|via_eng:6092717,CC-BY-2.0-FR
+TT-V2-COMB-00938,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सांस छोड़ो।,ᱥᱟᱦᱮᱫ ᱟᱲᱟᱜ ᱾,hin:11371065|sat:11195187|via_eng:6092717,CC-BY-2.0-FR
+TT-V2-COMB-00939,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं माफ़ी माँगता हूँ।,ᱤᱧ ᱤᱠᱟᱹ ᱠᱷᱚᱡᱚᱜ ᱠᱟᱹᱱᱟᱹᱧ ᱾,hin:6830416|sat:11175525|via_eng:610114,CC-BY-2.0-FR
+TT-V2-COMB-00940,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चिल्ला!,ᱪᱤᱞᱟᱹᱣ !,hin:11371066|sat:11356985|via_eng:6102405,CC-BY-2.0-FR
+TT-V2-COMB-00941,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सड़क पार करो।,ᱦᱚᱨ ᱯᱟᱨᱚᱢ ᱢᱮ᱾,hin:9865097|sat:10536949|via_eng:6102428,CC-BY-2.0-FR
+TT-V2-COMB-00942,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चला!,ᱜᱟᱹᱰᱤ ᱪᱟᱹᱞᱩ !,hin:11371068|sat:11184394|via_eng:6102430,CC-BY-2.0-FR
+TT-V2-COMB-00943,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नाच।,ᱮᱱᱮᱡ ᱾,hin:8186543|sat:11195263|via_eng:6121104,CC-BY-2.0-FR
+TT-V2-COMB-00944,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नाचो।,ᱮᱱᱮᱡ ᱾,hin:8186544|sat:11195263|via_eng:6121104,CC-BY-2.0-FR
+TT-V2-COMB-00945,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टाइप कर।,ᱞᱮᱠᱟᱱᱤᱡ ᱾,hin:11371069|sat:11195194|via_eng:6121161,CC-BY-2.0-FR
+TT-V2-COMB-00946,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टाइप कर।,ᱞᱮᱠᱟᱱ ᱾,hin:11371069|sat:11195195|via_eng:6121161,CC-BY-2.0-FR
+TT-V2-COMB-00947,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टाइप कर।,ᱞᱮᱠᱟᱱᱟᱜ ᱾,hin:11371069|sat:11195196|via_eng:6121161,CC-BY-2.0-FR
+TT-V2-COMB-00948,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,प्याला सोने का बना है।,ᱠᱚᱯ ᱫᱚ ᱥᱚᱱᱟ ᱛᱮ ᱛᱮᱭᱟᱨ ᱠᱟᱱᱟ ᱾,hin:4027181|sat:11298803|via_eng:61234,CC-BY-2.0-FR
+TT-V2-COMB-00949,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हो गया?,ᱦᱩᱭᱱᱟ ᱥᱮ ?,hin:11371070|sat:11184401|via_eng:6146104,CC-BY-2.0-FR
+TT-V2-COMB-00950,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,टोपी!,ᱥᱟᱨᱦᱟᱣ !,hin:6179120|sat:11184320|via_eng:628227,CC-BY-2.0-FR
+TT-V2-COMB-00951,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हम सहमत हैं।,ᱟᱞᱮ ᱦᱮᱸᱥᱮᱨᱤᱭᱟᱹ ᱮᱫᱟ ᱞᱮ ᱾,hin:6830423|sat:11175526|via_eng:628230,CC-BY-2.0-FR
+TT-V2-COMB-00952,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उछलो.,ᱫᱚᱱ ᱾,hin:6179121|sat:11165050|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00953,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कूदो.,ᱫᱚᱱ ᱾,hin:6179122|sat:11165050|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00954,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छलांग.,ᱫᱚᱱ ᱾,hin:6179123|sat:11165050|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00955,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,उछलो.,ᱫᱚᱱ,hin:6179121|sat:11165059|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00956,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कूदो.,ᱫᱚᱱ,hin:6179122|sat:11165059|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00957,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,छलांग.,ᱫᱚᱱ,hin:6179123|sat:11165059|via_eng:631038,CC-BY-2.0-FR
+TT-V2-COMB-00958,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,काला कुत्ता दौड़ा।,ᱦᱮᱱᱫᱮ ᱥᱮᱛᱟ ᱫᱟᱹᱲ ᱠᱮᱜᱼᱟᱭ ᱾,hin:4509603|sat:11748200|via_eng:632211,CC-BY-2.0-FR
+TT-V2-COMB-00959,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,काला कुत्ता भागा।,ᱦᱮᱱᱫᱮ ᱥᱮᱛᱟ ᱫᱟᱹᱲ ᱠᱮᱜᱼᱟᱭ ᱾,hin:4509604|sat:11748200|via_eng:632211,CC-BY-2.0-FR
+TT-V2-COMB-00960,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम हासे है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱦᱮᱡᱽ ᱠᱟᱱᱟ ᱾,hin:4083841|sat:10303028|via_eng:638756,CC-BY-2.0-FR
+TT-V2-COMB-00961,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,माँ कहाँ है?,ᱟᱭᱳ ᱫᱚ ᱚᱠᱟᱮᱱᱟᱭ ?,hin:3318975|sat:11142981|via_eng:63954,CC-BY-2.0-FR
+TT-V2-COMB-00962,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बाय!,ᱵᱟᱭ !,hin:6179126|sat:11165051|via_eng:647456,CC-BY-2.0-FR
+TT-V2-COMB-00963,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बाय!,ᱡᱚᱦᱟᱨ !,hin:6179126|sat:11165053|via_eng:647456,CC-BY-2.0-FR
+TT-V2-COMB-00964,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,जल्दी!,ᱞᱚᱜᱚᱱ !,hin:4078486|sat:11165104|via_eng:6535958,CC-BY-2.0-FR
+TT-V2-COMB-00965,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत की आबादी क्या है?,ᱵᱷᱟᱨᱚᱛ ᱨᱮᱭᱟᱜ ᱡᱚᱱᱮᱞ ᱫᱚ ᱛᱤᱱᱟᱹᱜ ᱠᱟᱱᱟ ?,hin:487686|sat:10775980|via_eng:65727,CC-BY-2.0-FR
+TT-V2-COMB-00966,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत की जनसंख्या क्या है?,ᱵᱷᱟᱨᱚᱛ ᱨᱮᱭᱟᱜ ᱡᱚᱱᱮᱞ ᱫᱚ ᱛᱤᱱᱟᱹᱜ ᱠᱟᱱᱟ ?,hin:487689|sat:10775980|via_eng:65727,CC-BY-2.0-FR
+TT-V2-COMB-00967,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम कभी भारत गए हो क्या?,ᱟᱢ ᱫᱚ ᱛᱤᱥᱚᱜ ᱵᱷᱟᱨᱚᱛ ᱥᱮᱫ ᱪᱟᱞᱟᱣ ᱞᱮᱱᱟᱢ ᱥᱮ ?,hin:487704|sat:10775981|via_eng:65732,CC-BY-2.0-FR
+TT-V2-COMB-00968,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कभी नहीं!,ᱛᱤᱥ ᱦᱚᱸ ᱵᱟᱝ !,hin:11371071|sat:11184405|via_eng:6576508,CC-BY-2.0-FR
+TT-V2-COMB-00969,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,धीरे!,ᱵᱟᱹᱭᱼᱵᱟᱹᱭ!,hin:11371073|sat:11184407|via_eng:6581112,CC-BY-2.0-FR
+TT-V2-COMB-00970,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अभी!,ᱦᱩᱠ ᱠᱟᱹ !,hin:11371074|sat:11205002|via_eng:6583253,CC-BY-2.0-FR
+TT-V2-COMB-00971,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं बहुत मूत रहा हूँ।,ᱤᱧ ᱟᱹᱰᱤ ᱡᱟᱹᱛᱤ ᱤᱧ ᱡᱚᱨᱭᱟ ᱮᱫᱟ ᱾,hin:10047643|sat:11273120|via_eng:6588379,CC-BY-2.0-FR
+TT-V2-COMB-00972,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं बहुत मूत रही हूँ।,ᱤᱧ ᱟᱹᱰᱤ ᱡᱟᱹᱛᱤ ᱤᱧ ᱡᱚᱨᱭᱟ ᱮᱫᱟ ᱾,hin:10047644|sat:11273120|via_eng:6588379,CC-BY-2.0-FR
+TT-V2-COMB-00973,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह केला पीला है।,ᱱᱚᱶᱟ ᱠᱟᱭᱨᱟ ᱫᱚ ᱥᱟᱥᱟᱝ ᱜᱮᱭᱟ ᱾,hin:10047700|sat:12645805|via_eng:6696830,CC-BY-2.0-FR
+TT-V2-COMB-00974,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरा कुत्ता है।,ᱱᱩᱭ ᱫᱚ ᱤᱧ ᱥᱮᱛᱟ ᱠᱟᱱᱟᱭ ᱾,hin:443052|sat:11205028|via_eng:67056,CC-BY-2.0-FR
+TT-V2-COMB-00975,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह कौनसी चिड़िया है?,ᱩᱱᱤ ᱪᱮᱬᱮ ᱫᱚ ᱪᱤᱞᱤ ᱠᱟᱱᱟᱭ ?,hin:475970|sat:11545586|via_eng:67082,CC-BY-2.0-FR
+TT-V2-COMB-00976,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तू भागता है।,ᱟᱢ ᱫᱟᱹᱲ ᱟᱢ ᱾,hin:6830424|sat:11175537|via_eng:672252,CC-BY-2.0-FR
+TT-V2-COMB-00977,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ऐलिस मुस्कुरायी।,ᱮᱞᱤᱥ ᱞᱟᱱᱫᱟ ᱠᱮᱜᱼᱟᱭ ᱾,hin:588478|sat:11164037|via_eng:67345,CC-BY-2.0-FR
+TT-V2-COMB-00978,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरा दोस्त है।,ᱱᱩᱭ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070555|sat:10531758|via_eng:675960,CC-BY-2.0-FR
+TT-V2-COMB-00979,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरी सहेली है।,ᱱᱩᱭ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070556|sat:10531758|via_eng:675960,CC-BY-2.0-FR
+TT-V2-COMB-00980,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरा मित्र है।,ᱱᱩᱭ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070557|sat:10531758|via_eng:675960,CC-BY-2.0-FR
+TT-V2-COMB-00981,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यह मेरी दोस्त है।,ᱱᱩᱭ ᱫᱚ ᱤᱧ ᱜᱟᱛᱮ ᱠᱟᱱᱟᱭ᱾,hin:4070558|sat:10531758|via_eng:675960,CC-BY-2.0-FR
+TT-V2-COMB-00982,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हस्तमैथुनकर्ता.,ᱵᱚᱠᱟ ᱾,hin:6179127|sat:11184322|via_eng:686200,CC-BY-2.0-FR
+TT-V2-COMB-00983,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हस्तमैथुनकर्ता.,ᱢᱩᱨᱩᱠ ᱾,hin:6179127|sat:11184323|via_eng:686200,CC-BY-2.0-FR
+TT-V2-COMB-00984,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप यहां नहीं पी सकते।,ᱟᱢ ᱫᱚ ᱱᱚᱰᱮ ᱵᱟᱝ ᱧᱩᱸ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ᱾,hin:10531492|sat:10531491|via_eng:6890400,CC-BY-2.0-FR
+TT-V2-COMB-00985,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चुप!,ᱪᱩᱯ !,hin:6179128|sat:11165054|via_eng:689811,CC-BY-2.0-FR
+TT-V2-COMB-00986,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मूर्ख!,ᱵᱚᱠᱟ !,hin:6179129|sat:11164002|via_eng:693617,CC-BY-2.0-FR
+TT-V2-COMB-00987,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बेवकूफ़!,ᱵᱚᱠᱟ !,hin:6179130|sat:11164002|via_eng:693617,CC-BY-2.0-FR
+TT-V2-COMB-00988,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नासमझ!,ᱵᱚᱠᱟ !,hin:6179131|sat:11164002|via_eng:695013,CC-BY-2.0-FR
+TT-V2-COMB-00989,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम स्कूल जाते हो।,ᱟᱢ ᱟᱥᱲᱟ ᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:10047489|sat:11215426|via_eng:69523,CC-BY-2.0-FR
+TT-V2-COMB-00990,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,तुम स्कूल जाती हो।,ᱟᱢ ᱟᱥᱲᱟ ᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:10047490|sat:11215426|via_eng:69523,CC-BY-2.0-FR
+TT-V2-COMB-00991,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आप स्कूल जाते हैं।,ᱟᱢ ᱟᱥᱲᱟ ᱛᱮ ᱪᱟᱞᱟᱜ ᱢᱮ ᱾,hin:10047492|sat:11215426|via_eng:69523,CC-BY-2.0-FR
+TT-V2-COMB-00992,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हास्यस्पद!,ᱵᱟᱱᱴᱷᱤᱠ,hin:6179133|sat:11163959|via_eng:695668,CC-BY-2.0-FR
+TT-V2-COMB-00993,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हास्यास्पद!,ᱵᱟᱱᱴᱷᱤᱠ,hin:6179135|sat:11163959|via_eng:695668,CC-BY-2.0-FR
+TT-V2-COMB-00994,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बेतुका!,ᱵᱟᱱᱴᱷᱤᱠ,hin:6179136|sat:11163959|via_eng:695668,CC-BY-2.0-FR
+TT-V2-COMB-00995,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ओफ़ फ़ो.,ᱚᱦᱚ ᱾,hin:6179137|sat:11184324|via_eng:695839,CC-BY-2.0-FR
+TT-V2-COMB-00996,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किताब सफ़ेद है।,ᱯᱚᱛᱚᱵ ᱫᱚ ᱯᱩᱱᱰ ᱜᱮᱭᱟ ᱾,hin:4156918|sat:11207222|via_eng:697211,CC-BY-2.0-FR
+TT-V2-COMB-00997,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आपका नाम क्या है?,ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ?,hin:443217|sat:10290319|via_eng:70623,CC-BY-2.0-FR
+TT-V2-COMB-00998,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम लुइस है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱞᱩᱭᱤᱥ ᱠᱟᱱᱟ ᱾,hin:4083839|sat:10303029|via_eng:716144,CC-BY-2.0-FR
+TT-V2-COMB-00999,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वही तो।,ᱥᱚᱴᱷᱤᱠ ᱾,hin:11371080|sat:11205004|via_eng:7163241,CC-BY-2.0-FR
+TT-V2-COMB-01000,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कल मेरा जन्मदिन है।,ᱜᱟᱯᱟ ᱤᱧᱟᱜ ᱡᱟᱱᱟᱢ ᱢᱟᱦᱟᱸ ᱠᱟᱱᱟ ᱾,hin:446475|sat:11187875|via_eng:71844,CC-BY-2.0-FR
+TT-V2-COMB-01001,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पहले ही?,ᱢᱟᱲᱟᱝ ᱠᱷᱚᱱ ? !,hin:11371082|sat:11205006|via_eng:7290630,CC-BY-2.0-FR
+TT-V2-COMB-01002,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,बाद में।,ᱛᱟᱭᱚᱢ ᱛᱮ ᱾,hin:11371087|sat:11184415|via_eng:7422784,CC-BY-2.0-FR
+TT-V2-COMB-01003,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कुछ नहीं!,ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱝᱟ!,hin:11371088|sat:11184417|via_eng:7532014,CC-BY-2.0-FR
+TT-V2-COMB-01004,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,एक और!,ᱮᱴᱟᱜᱟᱜ !,hin:11371089|sat:11205007|via_eng:7532022,CC-BY-2.0-FR
+TT-V2-COMB-01005,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,सो जा।,ᱜᱤᱛᱤᱡ ᱾,hin:11371094|sat:11195215|via_eng:7532064,CC-BY-2.0-FR
+TT-V2-COMB-01006,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"हां, तो?","ᱦᱚᱭ, ᱟᱨ ?",hin:2072448|sat:11200705|via_eng:757399,CC-BY-2.0-FR
+TT-V2-COMB-01007,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,"हां, और?","ᱦᱚᱭ, ᱟᱨ ?",hin:2072449|sat:11200705|via_eng:757399,CC-BY-2.0-FR
+TT-V2-COMB-01008,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ओई!,ᱱᱚᱛᱮ ᱟᱧᱡᱚᱢ ᱢᱮ !,hin:11371096|sat:11205011|via_eng:7589503,CC-BY-2.0-FR
+TT-V2-COMB-01009,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे बुरा लगा।,ᱤᱧ ᱵᱟᱹᱲᱤᱡ ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱫᱟᱹᱧ ᱾,hin:944611|sat:12621067|via_eng:761881,CC-BY-2.0-FR
+TT-V2-COMB-01010,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे बुरा लगा।,ᱤᱧ ᱠᱷᱟᱨᱟᱯ ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱫᱟᱹᱧ ᱾,hin:944611|sat:12621068|via_eng:761881,CC-BY-2.0-FR
+TT-V2-COMB-01011,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा नाम सैली है।,ᱤᱧᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱥᱟᱞᱤ ᱠᱟᱱᱟ ᱾,hin:4907722|sat:10303031|via_eng:766635,CC-BY-2.0-FR
+TT-V2-COMB-01012,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं आपका नाम भूल गया।,ᱤᱧ ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟᱹᱧ ᱾,hin:10049567|sat:10303057|via_eng:7772550,CC-BY-2.0-FR
+TT-V2-COMB-01013,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं तुम्हारा नाम भूल गया।,ᱤᱧ ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟᱹᱧ ᱾,hin:10049568|sat:10303057|via_eng:7772550,CC-BY-2.0-FR
+TT-V2-COMB-01014,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं आपका नाम भूल गयी।,ᱤᱧ ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟᱹᱧ ᱾,hin:10049569|sat:10303057|via_eng:7772550,CC-BY-2.0-FR
+TT-V2-COMB-01015,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मैं तुम्हारा नाम भूल गयी।,ᱤᱧ ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱦᱤᱲᱤᱧ ᱠᱮᱜᱼᱟᱹᱧ ᱾,hin:10049571|sat:10303057|via_eng:7772550,CC-BY-2.0-FR
+TT-V2-COMB-01016,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नीचे!,ᱞᱟᱛᱟᱨ !,hin:11371099|sat:11195223|via_eng:7910275,CC-BY-2.0-FR
+TT-V2-COMB-01017,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पुलिस!,ᱯᱩᱞᱤᱥ !,hin:11371100|sat:11195224|via_eng:7910288,CC-BY-2.0-FR
+TT-V2-COMB-01018,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कल?,ᱜᱟᱯᱟ ?,hin:11371103|sat:11195229|via_eng:7910309,CC-BY-2.0-FR
+TT-V2-COMB-01019,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा दोस्त भारतीय है।,ᱤᱧ ᱜᱟᱛᱮ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱷᱟᱨᱚᱛᱤᱭᱚ ᱠᱟᱱᱟᱭ᱾,hin:3620908|sat:10531766|via_eng:791250,CC-BY-2.0-FR
+TT-V2-COMB-01020,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरा मित्र भारतीय है।,ᱤᱧ ᱜᱟᱛᱮ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱷᱟᱨᱚᱛᱤᱭᱚ ᱠᱟᱱᱟᱭ᱾,hin:3620909|sat:10531766|via_eng:791250,CC-BY-2.0-FR
+TT-V2-COMB-01021,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मेरी सहेली भारतीय है।,ᱤᱧ ᱜᱟᱛᱮ ᱫᱚ ᱢᱤᱫᱴᱟᱹᱝ ᱵᱷᱟᱨᱚᱛᱤᱭᱚ ᱠᱟᱱᱟᱭ᱾,hin:3620910|sat:10531766|via_eng:791250,CC-BY-2.0-FR
+TT-V2-COMB-01022,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पुस्तक लाल है।,ᱯᱚᱛᱚᱵ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮᱭᱟ ᱾,hin:4509587|sat:12638971|via_eng:801719,CC-BY-2.0-FR
+TT-V2-COMB-01023,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,किताब लाल है।,ᱯᱚᱛᱚᱵ ᱫᱚ ᱟᱨᱟᱜ ᱜᱮᱭᱟ ᱾,hin:4509588|sat:12638971|via_eng:801719,CC-BY-2.0-FR
+TT-V2-COMB-01024,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आगे!,ᱞᱟᱦᱟ !,hin:11371112|sat:11170109|via_eng:8190346,CC-BY-2.0-FR
+TT-V2-COMB-01025,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,पकड़ लिया!,ᱧᱟᱢ ᱠᱮᱜᱟᱹᱧ!,hin:2021617|sat:11184325|via_eng:826723,CC-BY-2.0-FR
+TT-V2-COMB-01026,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मिल गया!,ᱧᱟᱢ ᱠᱮᱜᱟᱹᱧ!,hin:4078401|sat:11184325|via_eng:826723,CC-BY-2.0-FR
+TT-V2-COMB-01027,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अनूठा!,ᱵᱟᱝ ᱯᱟᱹᱛᱤᱭᱟᱹᱣᱜ!,hin:6179140|sat:11184326|via_eng:844055,CC-BY-2.0-FR
+TT-V2-COMB-01028,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हट!,ᱩᱪᱟᱹᱲ!,hin:11371120|sat:11195235|via_eng:8481041,CC-BY-2.0-FR
+TT-V2-COMB-01029,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,चल!,ᱩᱪᱟᱹᱲ!,hin:11371121|sat:11195235|via_eng:8481041,CC-BY-2.0-FR
+TT-V2-COMB-01030,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,हाय.,ᱟᱹᱰᱤ ᱠᱷᱟᱨᱟᱯ ᱾,hin:6179141|sat:11184327|via_eng:858123,CC-BY-2.0-FR
+TT-V2-COMB-01031,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,समझ गया!,ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟᱢ !,hin:4083702|sat:11195238|via_eng:8665848,CC-BY-2.0-FR
+TT-V2-COMB-01032,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,समझ गई!,ᱵᱩᱡᱷᱟᱹᱣ ᱠᱮᱜᱼᱟᱢ !,hin:4083703|sat:11195238|via_eng:8665848,CC-BY-2.0-FR
+TT-V2-COMB-01033,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,अरे...,ᱟᱨᱮ ᱹᱹᱹ,hin:6179143|sat:11184328|via_eng:879076,CC-BY-2.0-FR
+TT-V2-COMB-01034,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नहीं.,ᱵᱟᱝᱟ ᱾,hin:6179144|sat:10307927|via_eng:879078,CC-BY-2.0-FR
+TT-V2-COMB-01035,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वह बदल गई।,ᱩᱱᱤ ᱫᱚ ᱵᱚᱫᱚᱞ ᱮᱱᱟᱭ᱾,hin:10519316|sat:10519317|via_eng:8794104,CC-BY-2.0-FR
+TT-V2-COMB-01036,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,मुझे हरा प्याज़ पसंद है।,ᱤᱧ ᱦᱟᱹᱨᱤᱭᱟᱹᱲ ᱯᱮᱭᱟᱡᱽ ᱤᱧ ᱠᱩᱥᱤᱭᱟᱜᱼᱟ ᱾,hin:13689085|sat:11388266|via_eng:8833904,CC-BY-2.0-FR
+TT-V2-COMB-01037,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,याद रखो!,ᱩᱭᱦᱟᱹᱨ!,hin:6179146|sat:11165069|via_eng:885704,CC-BY-2.0-FR
+TT-V2-COMB-01038,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,याद रखो!,ᱢᱚᱱᱮ ᱫᱚᱦᱚᱭ ᱢᱮ !,hin:6179146|sat:11193311|via_eng:885704,CC-BY-2.0-FR
+TT-V2-COMB-01039,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,ज़रूर!,ᱱᱤᱦᱟᱹᱛᱤ!,hin:4078408|sat:11163999|via_eng:888561,CC-BY-2.0-FR
+TT-V2-COMB-01040,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱦᱟᱹᱡᱩᱜ!,hin:4078409|sat:11165070|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01041,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आइए!,ᱦᱟᱹᱡᱩᱜ!,hin:4078410|sat:11165070|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01042,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाओ!,ᱦᱟᱹᱡᱩᱜ!,hin:4078411|sat:11165070|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01043,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाइए!,ᱦᱟᱹᱡᱩᱜ!,hin:4078412|sat:11165070|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01044,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ !,hin:4078409|sat:11165076|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01045,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आइए!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ !,hin:4078410|sat:11165076|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01046,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाओ!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ !,hin:4078411|sat:11165076|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01047,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाइए!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ !,hin:4078412|sat:11165076|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01048,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आओ!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱭᱟ !,hin:4078409|sat:11193312|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01049,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आइए!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱭᱟ !,hin:4078410|sat:11193312|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01050,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाओ!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱭᱟ !,hin:4078411|sat:11193312|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01051,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,आ जाइए!,ᱦᱟᱹᱡᱩᱜ ᱢᱮ ᱭᱟ !,hin:4078412|sat:11193312|via_eng:890415,CC-BY-2.0-FR
+TT-V2-COMB-01052,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भाग!,ᱫᱟᱹᱲ!,hin:3315725|sat:11165071|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01053,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागो!,ᱫᱟᱹᱲ!,hin:3315726|sat:11165071|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01054,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागिए!,ᱫᱟᱹᱲ!,hin:3315729|sat:11165071|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01055,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भाग!,ᱫᱟᱹᱲ !,hin:3315725|sat:11193313|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01056,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागो!,ᱫᱟᱹᱲ !,hin:3315726|sat:11193313|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01057,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागिए!,ᱫᱟᱹᱲ !,hin:3315729|sat:11193313|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01058,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भाग!,ᱫᱟᱹᱲ ᱢᱮ !,hin:3315725|sat:11193314|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01059,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागो!,ᱫᱟᱹᱲ ᱢᱮ !,hin:3315726|sat:11193314|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01060,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागिए!,ᱫᱟᱹᱲ ᱢᱮ !,hin:3315729|sat:11193314|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01061,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भाग!,ᱫᱟᱹᱲ ᱩᱛᱟᱹᱨ !,hin:3315725|sat:11193315|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01062,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागो!,ᱫᱟᱹᱲ ᱩᱛᱟᱹᱨ !,hin:3315726|sat:11193315|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01063,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागिए!,ᱫᱟᱹᱲ ᱩᱛᱟᱹᱨ !,hin:3315729|sat:11193315|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01064,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भाग!,ᱯᱚᱪᱚᱡᱽ !,hin:3315725|sat:11193316|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01065,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागो!,ᱯᱚᱪᱚᱡᱽ !,hin:3315726|sat:11193316|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01066,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भागिए!,ᱯᱚᱪᱚᱡᱽ !,hin:3315729|sat:11193316|via_eng:906328,CC-BY-2.0-FR
+TT-V2-COMB-01067,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कोई आया।,ᱪᱤᱞᱤ ᱪᱷᱚᱸ ᱠᱚ ᱦᱮᱡ ᱮᱱᱟ ᱾,hin:4025016|sat:11175541|via_eng:908398,CC-BY-2.0-FR
+TT-V2-COMB-01068,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,नामुमकिन।,ᱵᱟᱝ ᱦᱩᱭ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱾,hin:4078414|sat:11193317|via_eng:922491,CC-BY-2.0-FR
+TT-V2-COMB-01069,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,भारत का इतिहास बहुत पुराना है।,ᱵᱷᱟᱨᱚᱛ ᱨᱮ ᱟᱹᱰᱤ ᱢᱟᱨᱮ ᱱᱟᱜᱟᱢ ᱢᱮᱱᱟᱜᱼᱟ ᱾,hin:5561473|sat:10776019|via_eng:9415350,CC-BY-2.0-FR
+TT-V2-COMB-01070,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वाह!,ᱦᱤᱨᱮ !,hin:6179147|sat:11165079|via_eng:943665,CC-BY-2.0-FR
+TT-V2-COMB-01071,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वाह!,ᱴᱤᱜ ᱴᱚᱲᱚᱜ !,hin:6179147|sat:11193318|via_eng:943665,CC-BY-2.0-FR
+TT-V2-COMB-01072,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,वाह!,ᱦᱩᱨ ᱨᱮ !,hin:6179147|sat:11193319|via_eng:943665,CC-BY-2.0-FR
+TT-V2-COMB-01073,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,कौवे पंछी होते हैं।,ᱠᱟᱹᱦᱩ ᱫᱚ ᱪᱮᱬᱮ ᱠᱟᱱᱟ ᱠᱚ ᱾,hin:10047670|sat:11545567|via_eng:9464007,CC-BY-2.0-FR
+TT-V2-COMB-01074,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,यान्नी ज़िंदा था।,ᱩᱱᱤ ᱡᱤᱣᱤᱫ ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟᱭ ᱾,hin:13690377|sat:11704201|via_eng:9954055,CC-BY-2.0-FR
+TT-V2-COMB-01075,TATOEBA,tatoeba_eng_graph_pivot,hin_Deva,sat_Olck,दूध? चीनी?,ᱛᱚᱣᱟ? ᱪᱤᱱᱤ?,hin:10531509|sat:10531506|via_eng:997029,CC-BY-2.0-FR

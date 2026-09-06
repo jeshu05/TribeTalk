@@ -165,141 +165,97 @@ class VoiceTranslationBridge(
         Log.i("VOICE_PIPELINE", "[VOICE_PIPELINE] SANTALI_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
         Log.i("VoiceIntegration", "TRANSLATION_RESULT = \"${translationResult.translatedText}\" (${translationResult.latinPhonetic})")
 
-        // 3. TTS Speech Synthesis & Audio Queue Playback
+        // 3. TTS Speech Synthesis via SpeechOutputManager (matching Play Button path)
         tracker.markTtsStart()
+        Log.i(TAG, "BRIDGE_TTS_PROVIDER=SpeechOutputManager")
+        Log.i(TAG, "BRIDGE_TTS_LANGUAGE=sat")
+        Log.i(TAG, "BRIDGE_TTS_REQUEST=${translationResult.translatedText}")
+        Log.i("VoiceIntegration", "BRIDGE_TTS_PROVIDER=SpeechOutputManager")
+        Log.i("VoiceIntegration", "BRIDGE_TTS_LANGUAGE=sat")
+        Log.i("VoiceIntegration", "BRIDGE_TTS_REQUEST=${translationResult.translatedText}")
         Log.i("VoiceIntegration", "SANTALI_TTS_REQUEST = \"${translationResult.translatedText}\"")
-        onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
 
-        val realTts = realSantaliTTSProvider
-        val audioQueue = santaliAudioQueue
-
-        if (realTts != null && audioQueue != null) {
-            try {
-                val wavBytes = withContext(Dispatchers.IO) {
-                    realTts.synthesize(translationResult.translatedText)
-                }
-                tracker.markTtsResponse()
-
-                if (wavBytes.isNotEmpty()) {
-                    Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED (${wavBytes.size} bytes)")
-                    audioQueue.enqueueAudio(
-                        QueuedAudio(
-                            utteranceId = queuedItem.id,
-                            wavBytes = wavBytes,
-                            onStart = {
-                                tracker.markPlaybackStart()
-                                lastMeasuredLatency = tracker.computeMetrics()
-                                tracker.logLiveLatency(nlpResult.normalizedText)
-                                Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                                voiceInputManager?.pauseForPlayback()
-                                onStateChange(State.Speaking, "Playing Santali")
-                                onUtteranceResult(nlpResult.normalizedText, translationResult)
-                            },
-                            onComplete = {
-                                Log.i("VoiceIntegration", "PLAYBACK_COMPLETED")
-                                voiceInputManager?.resumeAfterPlayback()
-                                onStateChange(State.TranslationComplete, "Translation Complete")
-                                if (isLiveSessionActive) {
-                                    mainHandler.postDelayed({
-                                        if (isLiveSessionActive && !audioQueue.isAudioPlaying) {
-                                            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
-                                            onStateChange(State.Listening, "LIVE LISTENING")
-                                        }
-                                    }, 250)
-                                }
-                            },
-                            onError = { err ->
-                                Log.e(TAG, "[PLAYBACK ERROR] $err")
-                                voiceInputManager?.resumeAfterPlayback()
-                                onStateChange(State.Error, err)
-                            }
-                        )
-                    )
-                } else {
-                    onStateChange(State.Error, "Empty TTS audio response")
-                }
-            } catch (e: Exception) {
-                Log.w(TAG, "[TTS ERROR] Real TTS synthesis failed: ${e.localizedMessage}")
-                fallbackDirectPlay(translationResult, nlpResult, tracker, onStateChange, onUtteranceResult)
-            }
-        } else if (realTts != null) {
-            // Direct playback with suspendCoroutine
-            suspendCoroutine<Unit> { continuation ->
-                realTts.synthesizeAndPlay(
-                    text = translationResult.translatedText,
-                    onStart = {
-                        tracker.markTtsResponse()
-                        tracker.markPlaybackStart()
-                        lastMeasuredLatency = tracker.computeMetrics()
-                        tracker.logLiveLatency(nlpResult.normalizedText)
-                        Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
-                        Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                        voiceInputManager?.pauseForPlayback()
-                        onStateChange(State.Speaking, "Playing Santali")
-                        onUtteranceResult(nlpResult.normalizedText, translationResult)
-                    },
-                    onComplete = {
-                        voiceInputManager?.resumeAfterPlayback()
-                        onStateChange(State.TranslationComplete, "Translation Complete")
-                        continuation.resume(Unit)
-                    },
-                    onError = { err ->
-                        voiceInputManager?.resumeAfterPlayback()
-                        continuation.resume(Unit)
-                    }
-                )
-            }
+        val isSupported = speechOutputManager.isLanguageAvailable("sat")
+        if (!isSupported) {
+            val errMsg = "Santali voice unavailable on this device"
+            Log.e(TAG, "BRIDGE_TTS_ERROR=$errMsg")
+            Log.e("VoiceIntegration", "BRIDGE_TTS_ERROR=$errMsg")
+            onStateChange(State.Error, errMsg)
             if (isLiveSessionActive) {
-                delay(250)
+                delay(800)
                 Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
                 onStateChange(State.Listening, "LIVE LISTENING")
             }
+            return@withContext
         }
-    }
 
-    private fun fallbackDirectPlay(
-        translationResult: TranslationResult,
-        nlpResult: NlpProcessedUtterance,
-        tracker: LatencyTracker,
-        onStateChange: (State, String) -> Unit,
-        onUtteranceResult: (String, TranslationResult) -> Unit
-    ) {
-        neuralSynthesizer?.speak(
-            text = translationResult.translatedText,
-            languageCode = "sat",
-            onStart = {
-                tracker.markTtsResponse()
-                tracker.markPlaybackStart()
-                lastMeasuredLatency = tracker.computeMetrics()
-                tracker.logLiveLatency(nlpResult.normalizedText)
-                Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
-                Log.i("VoiceIntegration", "PLAYBACK_STARTED")
-                voiceInputManager?.pauseForPlayback()
-                onStateChange(State.Speaking, "Playing Santali (Neural)")
-                onUtteranceResult(nlpResult.normalizedText, translationResult)
-            },
-            onDone = {
-                voiceInputManager?.resumeAfterPlayback()
-                onStateChange(State.TranslationComplete, "Translation Complete")
-                if (isLiveSessionActive) {
-                    mainHandler.postDelayed({
-                        if (isLiveSessionActive) {
-                            Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
-                            onStateChange(State.Listening, "LIVE LISTENING")
-                        }
-                    }, 250)
-                }
-            },
-            onError = {
+        onStateChange(State.GeneratingSantaliSpeech, "Generating Santali voice...")
+
+        suspendCancellableCoroutine<Unit> { cont ->
+            cont.invokeOnCancellation {
+                speechOutputManager.stop()
                 voiceInputManager?.resumeAfterPlayback()
             }
-        ) ?: run {
-            voiceInputManager?.resumeAfterPlayback()
+
+            speechOutputManager.speak(
+                text = translationResult.translatedText,
+                languageCode = "sat",
+                onStart = {
+                    tracker.markTtsResponse()
+                    tracker.markPlaybackStart()
+                    lastMeasuredLatency = tracker.computeMetrics()
+                    tracker.logLiveLatency(nlpResult.normalizedText)
+                    Log.i(TAG, "BRIDGE_TTS_PLAYBACK_START")
+                    Log.i("VoiceIntegration", "BRIDGE_TTS_PLAYBACK_START")
+                    Log.i("VoiceIntegration", "TTS_AUDIO_RECEIVED")
+                    Log.i("VoiceIntegration", "PLAYBACK_STARTED")
+                    voiceInputManager?.pauseForPlayback()
+                    onStateChange(State.Speaking, "Playing Santali")
+                    onUtteranceResult(nlpResult.normalizedText, translationResult)
+                },
+                onDone = {
+                    Log.i(TAG, "BRIDGE_TTS_PLAYBACK_COMPLETE")
+                    Log.i("VoiceIntegration", "BRIDGE_TTS_PLAYBACK_COMPLETE")
+                    Log.i("VoiceIntegration", "PLAYBACK_COMPLETED")
+                    voiceInputManager?.resumeAfterPlayback()
+                    onStateChange(State.TranslationComplete, "Translation Complete")
+                    if (isLiveSessionActive) {
+                        mainHandler.postDelayed({
+                            if (isLiveSessionActive) {
+                                Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
+                                onStateChange(State.Listening, "LIVE LISTENING")
+                            }
+                        }, 250)
+                    }
+                    if (cont.isActive) {
+                        cont.resume(Unit)
+                    }
+                },
+                onError = { err ->
+                    Log.e(TAG, "BRIDGE_TTS_ERROR=$err")
+                    Log.e("VoiceIntegration", "BRIDGE_TTS_ERROR=$err")
+                    voiceInputManager?.resumeAfterPlayback()
+                    onStateChange(State.Error, "Audio: $err")
+                    if (isLiveSessionActive) {
+                        mainHandler.postDelayed({
+                            if (isLiveSessionActive) {
+                                Log.i("VoiceIntegration", "RETURNING_TO_LISTENING")
+                                onStateChange(State.Listening, "LIVE LISTENING")
+                            }
+                        }, 500)
+                    }
+                    if (cont.isActive) {
+                        cont.resume(Unit)
+                    }
+                }
+            )
         }
     }
 
     fun stopLiveVoiceSession() {
         isLiveSessionActive = false
+        speechOutputManager.stop()
+        voiceInputManager?.resumeAfterPlayback()
         liveQueue?.stop()
         liveQueue = null
         santaliAudioQueue?.stop()
