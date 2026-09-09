@@ -16,13 +16,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import org.tribetalk.ui.screens.FlnViewModel
 import org.tribetalk.ui.screens.HomeScreen
+import org.tribetalk.ui.screens.MainAppScreen
 import org.tribetalk.ui.screens.TranslationViewModel
 import org.tribetalk.ui.theme.TribeTalkTheme
 
 class MainActivity : ComponentActivity() {
 
     private val viewModel: TranslationViewModel by viewModels()
+    private val flnViewModel: FlnViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +61,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen(viewModel = viewModel)
+                    MainAppScreen(
+                        translationViewModel = viewModel,
+                        flnViewModel = flnViewModel
+                    )
                 }
             }
         }

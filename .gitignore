@@ -74,3 +74,7 @@ hf_cache/
 temp_*.wav
 .DS_Store
 Thumbs.db
+
+# Evaluation datasets & raw data (do not track large benchmark corpora)
+tribe-evaluation/
+*.parquet

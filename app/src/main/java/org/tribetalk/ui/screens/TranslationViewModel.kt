@@ -189,6 +189,45 @@ class TranslationViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * Instantly translates a direct prompt (e.g. from classroom command chips) with voice playback.
+     */
+    fun translateDirect(text: String) {
+        val trimmed = text.trim()
+        if (trimmed.isEmpty()) return
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = PipelineUiState.TRANSLATING
+            val t0 = System.currentTimeMillis()
+
+            val isHiToSat = _isHindiToSantali.value
+            val srcLang = if (isHiToSat) "hi" else "sat"
+            val tgtLang = if (isHiToSat) "sat" else "hi"
+
+            val translatedText = TribeTalkTranslator.translate(trimmed, isHiToSat)
+            val latency = (System.currentTimeMillis() - t0).toFloat().coerceAtLeast(10f)
+
+            val exchange = TranslationExchange(
+                sourceText = trimmed,
+                targetText = translatedText,
+                sourceLanguage = srcLang,
+                targetLanguage = tgtLang,
+                audioSamples = FloatArray(0),
+                totalLatencyMs = latency,
+                success = true
+            )
+
+            withContext(Dispatchers.Main) {
+                _conversations.value = listOf(exchange) + _conversations.value
+                _uiState.value = PipelineUiState.PLAYING
+
+                ttsManager.speak(translatedText, tgtLang) {
+                    _uiState.value = PipelineUiState.IDLE
+                }
+            }
+        }
+    }
+
     fun playAudio(exchange: TranslationExchange) {
         _uiState.value = PipelineUiState.PLAYING
         ttsManager.speak(exchange.targetText, exchange.targetLanguage) {

@@ -45,26 +45,22 @@ class TextNormalizer:
             return cls.contains_ol_chiki(text)
         return True
 
+    _QUOTE_TABLE = str.maketrans({"“": '"', "”": '"', "‘": "'", "’": "'", "`": "'"})
+
     @classmethod
     def normalize_input(cls, text: str) -> str:
         """Sanitize and canonicalize input text before passing to the translation model.
 
         1. Replaces newlines and tabs with spaces.
         2. Normalizes non-breaking and multi-spaces to a single space.
-        3. Normalizes smart quotes and backticks.
+        3. Normalizes smart quotes and backticks in a single fast pass.
         4. Trims leading/trailing whitespace.
         """
         if not text:
             return ""
 
-        # Normalize quotes
-        cleaned = (
-            text.replace("“", '"')
-            .replace("”", '"')
-            .replace("‘", "'")
-            .replace("’", "'")
-            .replace("`", "'")
-        )
+        # Normalize quotes via fast C translation table
+        cleaned = text.translate(cls._QUOTE_TABLE)
 
         # Normalize whitespace
         cleaned = cls.WHITESPACE_PATTERN.sub(" ", cleaned).strip()

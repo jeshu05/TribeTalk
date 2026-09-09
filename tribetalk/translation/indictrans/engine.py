@@ -1,7 +1,9 @@
 """IndicTrans2 translation engine implementing TranslationInterface."""
 
+from collections import OrderedDict
+import threading
 from pathlib import Path
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Tuple, Dict
 import time
 import numpy as np
 import logging
@@ -13,17 +15,26 @@ from tribetalk.translation.indictrans.model import IndicTransModelManager
 
 logger = logging.getLogger(__name__)
 
+# Pre-computed key tuples for KV cache feeding (eliminates 72 string allocations per generated token)
+_PAST_KEYS_CACHE: Dict[int, Tuple[str, ...]] = {}
+
+
+def _get_past_keys(num_layers: int) -> Tuple[str, ...]:
+    """Retrieve or pre-generate the past_key_values.* input keys tuple."""
+    if num_layers not in _PAST_KEYS_CACHE:
+        keys = []
+        for i in range(num_layers):
+            keys.append(f"past_key_values.{i}.decoder.key")
+            keys.append(f"past_key_values.{i}.decoder.value")
+            keys.append(f"past_key_values.{i}.encoder.key")
+            keys.append(f"past_key_values.{i}.encoder.value")
+        _PAST_KEYS_CACHE[num_layers] = tuple(keys)
+    return _PAST_KEYS_CACHE[num_layers]
+
 
 def _past_feed(past_outputs: List[np.ndarray], num_layers: int) -> dict:
-    """Build the past_key_values.* input dict for decoder_with_past."""
-    feed: dict = {}
-    for i in range(num_layers):
-        base = i * 4
-        feed[f"past_key_values.{i}.decoder.key"] = past_outputs[base]
-        feed[f"past_key_values.{i}.decoder.value"] = past_outputs[base + 1]
-        feed[f"past_key_values.{i}.encoder.key"] = past_outputs[base + 2]
-        feed[f"past_key_values.{i}.encoder.value"] = past_outputs[base + 3]
-    return feed
+    """Fast past_key_values feed builder using pre-cached string keys."""
+    return dict(zip(_get_past_keys(num_layers), past_outputs))
 
 
 class IndicTransEngine(TranslationInterface):
@@ -35,6 +46,7 @@ class IndicTransEngine(TranslationInterface):
         providers: Optional[List[str]] = None,
         lazy_load: bool = True,
         max_new_tokens: int = 128,
+        cache_size: int = 2048,
     ) -> None:
         """Initialize translation engine.
 
@@ -43,15 +55,30 @@ class IndicTransEngine(TranslationInterface):
             providers: ONNX Runtime execution providers.
             lazy_load: If False, loads model immediately upon initialization.
             max_new_tokens: Maximum target tokens to generate per sentence (default 128).
+            cache_size: Capacity of high-performance translation LRU cache.
         """
         self._mgr = IndicTransModelManager(
             model_path_or_repo=model_path_or_repo,
             providers=providers,
         )
         self._max_new_tokens = max_new_tokens
+        self._max_cache_size = cache_size
+        self._cache: OrderedDict[Tuple[str, str, str], str] = OrderedDict()
+        self._cache_lock = threading.Lock()
 
         if not lazy_load:
             self._mgr.load()
+
+    @property
+    def cache_size(self) -> int:
+        """Number of currently cached translation pairs."""
+        with self._cache_lock:
+            return len(self._cache)
+
+    def clear_cache(self) -> None:
+        """Clear all cached translation pairs."""
+        with self._cache_lock:
+            self._cache.clear()
 
     @property
     def is_loaded(self) -> bool:
@@ -160,6 +187,22 @@ class IndicTransEngine(TranslationInterface):
                 )
                 continue
 
+            cache_key = (cleaned_in, src_short, tgt_short)
+            with self._cache_lock:
+                if cache_key in self._cache:
+                    cached_target = self._cache[cache_key]
+                    self._cache.move_to_end(cache_key)
+                    results.append(
+                        TranslationResult(
+                            source_text=raw_in,
+                            target_text=cached_target,
+                            source_language=src_short,
+                            target_language=tgt_short,
+                            processing_time_ms=0.01,
+                        )
+                    )
+                    continue
+
             t0 = time.perf_counter()
 
             # 1. IndicProcessor preprocessing (injects language tags and normalizes script)
@@ -232,6 +275,12 @@ class IndicTransEngine(TranslationInterface):
             final_text = TextNormalizer.normalize_output(translated_raw, tgt_short)
 
             latency_ms = (time.perf_counter() - t0) * 1000.0
+
+            # Store into thread-safe LRU cache
+            with self._cache_lock:
+                self._cache[cache_key] = final_text
+                if len(self._cache) > self._max_cache_size:
+                    self._cache.popitem(last=False)
 
             results.append(
                 TranslationResult(

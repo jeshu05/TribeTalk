@@ -1,27 +1,96 @@
 package org.tribetalk.core
 
 import android.content.Context
+import android.util.LruCache
 
 /**
- * On-device AI Translator facade for TribeTalk.
- * Completely eliminates static mocked phrasebooks and delegates all translation
- * to the dynamic computational and neural linguistic engine.
+ * High-performance on-device AI Translator facade for TribeTalk.
+ * Enhances NLP performance with dual-tier LRU caching, thread safety,
+ * and zero-latency retrieval for recurring classroom dialogues and curriculum prompts.
+ *
+ * Preserves the underlying TribeTalkNeuralTranslator intact.
  */
 object TribeTalkTranslator {
 
     private var neuralTranslator: TribeTalkNeuralTranslator? = null
 
+    // High-performance thread-safe LRU caches for sub-millisecond repeated translations and phonetics
+    private val translationCache = LruCache<String, String>(512)
+    private val phoneticsCache = LruCache<String, String>(512)
+
+    private val lock = Any()
+
+    @Volatile
+    var cacheHits: Long = 0L
+        private set
+
+    @Volatile
+    var cacheMisses: Long = 0L
+        private set
+
     fun initialize(context: Context) {
         if (neuralTranslator == null) {
-            neuralTranslator = TribeTalkNeuralTranslator(context.applicationContext)
+            synchronized(lock) {
+                if (neuralTranslator == null) {
+                    neuralTranslator = TribeTalkNeuralTranslator(context.applicationContext)
+                }
+            }
         }
     }
 
+    /**
+     * Translates input text bidirectionally with LRU caching for maximum throughput.
+     */
     fun translate(input: String, isHindiToSantali: Boolean): String {
-        return neuralTranslator?.translate(input, isHindiToSantali) ?: ""
+        val trimmed = input.trim()
+        if (trimmed.isEmpty()) return ""
+
+        val cacheKey = "$isHindiToSantali:$trimmed"
+        synchronized(lock) {
+            val cached = translationCache.get(cacheKey)
+            if (cached != null) {
+                cacheHits++
+                return cached
+            }
+        }
+
+        cacheMisses++
+        val result = neuralTranslator?.translate(trimmed, isHindiToSantali) ?: ""
+
+        if (result.isNotEmpty()) {
+            synchronized(lock) {
+                translationCache.put(cacheKey, result)
+            }
+        }
+        return result
     }
 
+    /**
+     * Converts Ol Chiki text into pronounceable Indic syllables for teachers & TTS with caching.
+     */
     fun olChikiToSpeechPhonetics(olChikiText: String): String {
-        return neuralTranslator?.olChikiToSpeechPhonetics(olChikiText) ?: olChikiText
+        val trimmed = olChikiText.trim()
+        if (trimmed.isEmpty()) return ""
+
+        synchronized(lock) {
+            val cached = phoneticsCache.get(trimmed)
+            if (cached != null) return cached
+        }
+
+        val result = neuralTranslator?.olChikiToSpeechPhonetics(trimmed) ?: trimmed
+
+        synchronized(lock) {
+            phoneticsCache.put(trimmed, result)
+        }
+        return result
+    }
+
+    fun clearCache() {
+        synchronized(lock) {
+            translationCache.evictAll()
+            phoneticsCache.evictAll()
+            cacheHits = 0L
+            cacheMisses = 0L
+        }
     }
 }
