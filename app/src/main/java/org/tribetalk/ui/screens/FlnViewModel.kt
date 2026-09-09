@@ -106,8 +106,21 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     private val _lastGeneratedPdf = MutableStateFlow<File?>(null)
     val lastGeneratedPdf: StateFlow<File?> = _lastGeneratedPdf.asStateFlow()
 
+    // -------------------------------------------------------------------------
+    // On-Device SLM State
+    // -------------------------------------------------------------------------
+    private val _isSlmGenerating = MutableStateFlow(false)
+    val isSlmGenerating: StateFlow<Boolean> = _isSlmGenerating.asStateFlow()
+
+    private val _slmStatusMessage = MutableStateFlow<String?>(null)
+    val slmStatusMessage: StateFlow<String?> = _slmStatusMessage.asStateFlow()
+
+    private val _activeSlmPlan = MutableStateFlow<SlmCurriculumPlan?>(null)
+    val activeSlmPlan: StateFlow<SlmCurriculumPlan?> = _activeSlmPlan.asStateFlow()
+
     init {
         setupQuizQuestion()
+        org.tribetalk.fln.slm.SlmCurriculumEngine.initialize(application.applicationContext)
     }
 
     // -------------------------------------------------------------------------
@@ -267,5 +280,80 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
                 _isGeneratingPdf.value = false
             }
         }
+    }
+
+    // -------------------------------------------------------------------------
+    // On-Device SLM Generation Actions
+    // -------------------------------------------------------------------------
+
+    /**
+     * Synthesizes an entire NIPUN curriculum worksheet using the SLM pipeline.
+     */
+    fun generateCurriculumWithSlm(
+        prompt: String,
+        grade: FlnGrade? = null,
+        type: WorksheetType? = null
+    ) {
+        val targetGrade = grade ?: _worksheetConfig.value.grade
+        val targetType = type ?: _worksheetConfig.value.type
+
+        viewModelScope.launch(Dispatchers.Default) {
+            _isSlmGenerating.value = true
+            try {
+                val request = SlmCurriculumRequest(
+                    topicPrompt = prompt,
+                    grade = targetGrade,
+                    worksheetType = targetType,
+                    questionCount = 5
+                )
+
+                val (plan, items) = org.tribetalk.fln.slm.SlmCurriculumEngine.generateCurriculumPlan(request)
+
+                _activeSlmPlan.value = plan
+                _worksheetConfig.value = _worksheetConfig.value.copy(
+                    title = "NIPUN: ${plan.theme}",
+                    grade = targetGrade,
+                    type = targetType
+                )
+                _worksheetItems.value = items
+                _slmStatusMessage.value = "Generated '${plan.theme}' (${plan.nipunCode})"
+            } catch (e: Exception) {
+                _slmStatusMessage.value = "SLM note: using standard verified curriculum"
+            } finally {
+                _isSlmGenerating.value = false
+            }
+        }
+    }
+
+    /**
+     * Synthesizes a themed 5-card bilingual flashcard deck using the SLM pipeline.
+     */
+    fun generateFlashcardsWithSlm(topicPrompt: String) {
+        if (topicPrompt.isBlank()) return
+
+        viewModelScope.launch(Dispatchers.Default) {
+            _isSlmGenerating.value = true
+            try {
+                val newCards = org.tribetalk.fln.slm.SlmCurriculumEngine.generateFlashcardDeck(topicPrompt)
+                for (card in newCards) {
+                    FlnCurriculumRepository.addCustomCard(card)
+                }
+
+                _categories.value = FlnCurriculumRepository.getCategories()
+                _selectedCategory.value = FlnCurriculumRepository.CATEGORY_CUSTOM
+                _cards.value = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
+                _currentCardIndex.value = 0
+                _slmStatusMessage.value = "Synthesized ${newCards.size} cards for '$topicPrompt'"
+                setupQuizQuestion()
+            } catch (e: Exception) {
+                _slmStatusMessage.value = "Flashcard synthesis note: ${e.message}"
+            } finally {
+                _isSlmGenerating.value = false
+            }
+        }
+    }
+
+    fun clearSlmStatusMessage() {
+        _slmStatusMessage.value = null
     }
 }

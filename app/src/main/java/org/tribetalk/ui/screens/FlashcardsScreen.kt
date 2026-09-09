@@ -53,6 +53,8 @@ fun FlashcardsScreen(
     val selectedQuizOption by flnViewModel.selectedQuizOption.collectAsState()
     val isQuizAnswerChecked by flnViewModel.isQuizAnswerChecked.collectAsState()
     val customCardSuccessMessage by flnViewModel.customCardSuccessMessage.collectAsState()
+    val isSlmGenerating by flnViewModel.isSlmGenerating.collectAsState()
+    val slmStatusMessage by flnViewModel.slmStatusMessage.collectAsState()
 
     var showCreateDialog by remember { mutableStateOf(false) }
     var customPromptText by remember { mutableStateOf("") }
@@ -109,7 +111,7 @@ fun FlashcardsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Success Toast Banner
-            customCardSuccessMessage?.let { msg ->
+            (customCardSuccessMessage ?: slmStatusMessage)?.let { msg ->
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -124,7 +126,10 @@ fun FlashcardsScreen(
                     ) {
                         Text(text = msg, color = PureBlack, fontWeight = FontWeight.Bold)
                         IconButton(
-                            onClick = { flnViewModel.clearCustomCardMessage() },
+                            onClick = {
+                                flnViewModel.clearCustomCardMessage()
+                                flnViewModel.clearSlmStatusMessage()
+                            },
                             modifier = Modifier.size(20.dp)
                         ) {
                             Icon(Icons.Rounded.Close, "Dismiss", tint = PureBlack)
@@ -322,29 +327,61 @@ fun FlashcardsScreen(
         }
     }
 
-    // Custom Card Creator Dialog
+    // Custom Card & SLM Deck Creator Dialog
     if (showCreateDialog) {
         AlertDialog(
             onDismissRequest = { showCreateDialog = false },
             containerColor = DarkCard,
             title = {
-                Text(
-                    "Synthesize Custom Flashcard",
-                    color = PureWhite,
-                    fontWeight = FontWeight.Bold
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.AutoAwesome,
+                        contentDescription = "AI",
+                        tint = EmeraldGreen,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Text(
+                        "Synthesize Flashcard / Deck",
+                        color = PureWhite,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
-                        "Enter any Hindi word, object, or lesson prompt. The engine will instantly synthesize authentic Ol Chiki text, pronunciation guide, and vector icon.",
+                        "Enter any Hindi word or classroom topic. Synthesize a single card or let the on-device SLM dream a complete 5-card deck with Ol Chiki and pronunciation guides.",
                         style = MaterialTheme.typography.bodySmall,
                         color = WhiteSecondary
                     )
+
+                    // Quick topic chips
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        val sampleTopics = listOf("🍎 फल", "🐮 जानवर", "🌳 प्रकृति", "🏫 स्कूल", "💰 बाज़ार")
+                        items(sampleTopics) { topic ->
+                            Surface(
+                                onClick = { customPromptText = topic.substringAfter(" ") },
+                                shape = RoundedCornerShape(8.dp),
+                                color = DarkSurface,
+                                border = BorderStroke(0.8.dp, DarkBorder)
+                            ) {
+                                Text(
+                                    text = topic,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = PureWhite
+                                )
+                            }
+                        }
+                    }
+
                     OutlinedTextField(
                         value = customPromptText,
                         onValueChange = { customPromptText = it },
-                        label = { Text("Hindi Prompt / Concept") },
+                        label = { Text("Topic / Concept in Hindi") },
                         placeholder = { Text("उदा. नदी, आम, जंगल, स्कूल...") },
                         modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(
@@ -357,17 +394,35 @@ fun FlashcardsScreen(
                 }
             },
             confirmButton = {
-                Button(
-                    onClick = {
-                        if (customPromptText.isNotBlank()) {
-                            flnViewModel.createCustomFlashcard(customPromptText)
-                            customPromptText = ""
-                            showCreateDialog = false
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen, contentColor = PureBlack)
-                ) {
-                    Text("Synthesize & Add", fontWeight = FontWeight.Bold)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    FilledTonalButton(
+                        onClick = {
+                            if (customPromptText.isNotBlank()) {
+                                flnViewModel.generateFlashcardsWithSlm(customPromptText)
+                                customPromptText = ""
+                                showCreateDialog = false
+                            }
+                        },
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = DarkSurface,
+                            contentColor = EmeraldMint
+                        )
+                    ) {
+                        Text("AI 5-Card Deck", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    }
+
+                    Button(
+                        onClick = {
+                            if (customPromptText.isNotBlank()) {
+                                flnViewModel.createCustomFlashcard(customPromptText)
+                                customPromptText = ""
+                                showCreateDialog = false
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen, contentColor = PureBlack)
+                    ) {
+                        Text("Single Card", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    }
                 }
             },
             dismissButton = {

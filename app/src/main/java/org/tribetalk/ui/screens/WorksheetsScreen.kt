@@ -57,6 +57,12 @@ fun WorksheetsScreen(
     val previewTab by flnViewModel.previewTab.collectAsState()
     val isGeneratingPdf by flnViewModel.isGeneratingPdf.collectAsState()
 
+    val isSlmGenerating by flnViewModel.isSlmGenerating.collectAsState()
+    val slmStatusMessage by flnViewModel.slmStatusMessage.collectAsState()
+    val activeSlmPlan by flnViewModel.activeSlmPlan.collectAsState()
+
+    var slmPromptText by remember { mutableStateOf("") }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = PureBlack,
@@ -166,6 +172,158 @@ fun WorksheetsScreen(
         ) {
             item {
                 Spacer(modifier = Modifier.height(4.dp))
+
+                // AI Lesson Designer (On-Device SLM) Card
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = DarkCard),
+                    border = BorderStroke(1.2.dp, EmeraldGreen.copy(alpha = 0.5f))
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Rounded.AutoAwesome,
+                                    contentDescription = "AI",
+                                    tint = EmeraldGreen,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "AI LESSON DESIGNER (SLM)",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = EmeraldGreen,
+                                    letterSpacing = 1.sp
+                                )
+                            }
+                            Surface(
+                                color = EmeraldGreen.copy(alpha = 0.15f),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    text = "100% OFFLINE",
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = EmeraldMint,
+                                    fontSize = 10.sp
+                                )
+                            }
+                        }
+
+                        Text(
+                            text = "Synthesize village stories and problems aligned to NIPUN Bharat learning outcomes.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = WhiteSecondary
+                        )
+
+                        // Quick Rural Village Theme Chips
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            val suggestions = listOf(
+                                "🍎 हाट बाज़ार में फल",
+                                "🐟 नदी और मछलियाँ",
+                                "🌳 जंगल और पक्षी",
+                                "💰 सिक्का और रुपया",
+                                "🎒 स्कूल और किताबें"
+                            )
+                            items(suggestions) { suggestion ->
+                                Surface(
+                                    onClick = {
+                                        slmPromptText = suggestion.substringAfter(" ")
+                                        flnViewModel.generateCurriculumWithSlm(slmPromptText)
+                                    },
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = DarkSurface,
+                                    border = BorderStroke(0.8.dp, DarkBorder)
+                                ) {
+                                    Text(
+                                        text = suggestion,
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = PureWhite
+                                    )
+                                }
+                            }
+                        }
+
+                        // Custom Prompt Input Row
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedTextField(
+                                value = slmPromptText,
+                                onValueChange = { slmPromptText = it },
+                                placeholder = { Text("कक्षा का विषय लिखें...", fontSize = 13.sp) },
+                                modifier = Modifier.weight(1f),
+                                singleLine = true,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = EmeraldGreen,
+                                    unfocusedBorderColor = DarkBorder,
+                                    focusedTextColor = PureWhite,
+                                    unfocusedTextColor = PureWhite
+                                )
+                            )
+
+                            Button(
+                                onClick = {
+                                    if (slmPromptText.isNotBlank()) {
+                                        flnViewModel.generateCurriculumWithSlm(slmPromptText)
+                                    }
+                                },
+                                enabled = !isSlmGenerating && slmPromptText.isNotBlank(),
+                                shape = RoundedCornerShape(10.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = EmeraldGreen,
+                                    contentColor = PureBlack
+                                )
+                            ) {
+                                if (isSlmGenerating) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(16.dp),
+                                        color = PureBlack,
+                                        strokeWidth = 2.dp
+                                    )
+                                } else {
+                                    Text("Design", fontWeight = FontWeight.Bold)
+                                }
+                            }
+                        }
+
+                        // Active SLM Plan Context Badge
+                        activeSlmPlan?.let { plan ->
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(8.dp),
+                                color = EmeraldGreen.copy(alpha = 0.1f),
+                                border = BorderStroke(0.8.dp, DarkBorderGreen)
+                            ) {
+                                Column(modifier = Modifier.padding(10.dp)) {
+                                    Text(
+                                        text = "📖 Context: ${plan.storyContextHindi}",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = PureWhite,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // 8 Worksheet Types Horizontal Carousel
                 Text(
