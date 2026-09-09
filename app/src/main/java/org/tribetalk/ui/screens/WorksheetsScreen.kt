@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ListAlt
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,20 +29,11 @@ import org.tribetalk.fln.model.WorksheetDifficulty
 import org.tribetalk.fln.model.WorksheetItem
 import org.tribetalk.fln.model.WorksheetType
 import org.tribetalk.ui.components.FlnVectorGraphic
-import org.tribetalk.ui.theme.DarkBorder
-import org.tribetalk.ui.theme.DarkBorderGreen
-import org.tribetalk.ui.theme.DarkCard
-import org.tribetalk.ui.theme.DarkSurface
-import org.tribetalk.ui.theme.EmeraldGreen
-import org.tribetalk.ui.theme.EmeraldMint
-import org.tribetalk.ui.theme.PureBlack
-import org.tribetalk.ui.theme.PureWhite
-import org.tribetalk.ui.theme.WhiteSecondary
+import org.tribetalk.ui.theme.*
 
 /**
  * NIPUN Bharat bilingual worksheet studio.
- * 8 High-Impact Worksheet Types, Dual-Sheet Vector PDF Exporter, and Teacher Phonetics Key.
- * High-contrast Green, White, and Black styling.
+ * Clean, delightful educational design with dual-sheet vector PDF export.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,7 +55,7 @@ fun WorksheetsScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = PureBlack,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
@@ -73,13 +63,13 @@ fun WorksheetsScreen(
                         Text(
                             text = "NIPUN Worksheet Studio",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = PureWhite
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "Foundational Literacy & Numeracy • 2-Page Offline PDF",
+                            text = "Foundational Literacy & Numeracy • 2-Page Printable PDF",
                             style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
@@ -88,28 +78,29 @@ fun WorksheetsScreen(
                         Icon(
                             imageVector = Icons.Rounded.Refresh,
                             contentDescription = "New Problems",
-                            tint = EmeraldGreen
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = PureBlack
-                )
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                modifier = Modifier.border(1.dp, MaterialTheme.colorScheme.outline)
             )
         },
         bottomBar = {
             Surface(
-                color = PureBlack,
-                tonalElevation = 8.dp,
+                color = MaterialTheme.colorScheme.surface,
+                tonalElevation = 4.dp,
                 shadowElevation = 8.dp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(width = 0.5.dp, color = DarkBorder)
+                    .border(width = 1.dp, color = MaterialTheme.colorScheme.outline)
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(horizontal = 20.dp, vertical = 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
@@ -117,30 +108,30 @@ fun WorksheetsScreen(
                         enabled = !isGeneratingPdf,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(52.dp),
-                        shape = RoundedCornerShape(16.dp),
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = EmeraldGreen,
-                            contentColor = PureBlack
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = Color.White
                         )
                     ) {
                         if (isGeneratingPdf) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(22.dp),
-                                color = PureBlack,
-                                strokeWidth = 2.5.dp
+                                modifier = Modifier.size(20.dp),
+                                color = Color.White,
+                                strokeWidth = 2.dp
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 "Generating Dual-Sheet PDF...",
-                                color = PureBlack,
+                                color = Color.White,
                                 fontWeight = FontWeight.Bold
                             )
                         } else {
                             Icon(
                                 imageVector = Icons.Rounded.Print,
                                 contentDescription = "Print PDF",
-                                tint = PureBlack,
+                                tint = Color.White,
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(10.dp))
@@ -148,15 +139,15 @@ fun WorksheetsScreen(
                                 text = "Export & Print 2-Page A4 PDF",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = PureBlack
+                                color = Color.White
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Page 1: Student Sheet  •  Page 2: Teacher Answer Key & Pronunciation",
+                        text = "Page 1: Student Sheet  •  Page 2: Teacher Answer Key & Phonics",
                         style = MaterialTheme.typography.labelSmall,
-                        color = WhiteSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -166,24 +157,25 @@ fun WorksheetsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(PureBlack)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             item {
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
                 // AI Lesson Designer (On-Device SLM) Card
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = DarkCard),
-                    border = BorderStroke(1.2.dp, EmeraldGreen.copy(alpha = 0.5f))
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = EduPrimaryContainer),
+                    border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.25f)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
                 ) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(14.dp),
+                            .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Row(
@@ -192,31 +184,39 @@ fun WorksheetsScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Rounded.AutoAwesome,
-                                    contentDescription = "AI",
-                                    tint = EmeraldGreen,
-                                    modifier = Modifier.size(18.dp)
-                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(30.dp)
+                                        .clip(CircleShape)
+                                        .background(EduPrimaryLight),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.AutoAwesome,
+                                        contentDescription = "AI",
+                                        tint = EduPrimaryDark,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = "AI LESSON DESIGNER (SLM)",
                                     style = MaterialTheme.typography.labelMedium,
                                     fontWeight = FontWeight.Bold,
-                                    color = EmeraldGreen,
-                                    letterSpacing = 1.sp
+                                    color = EduPrimaryDark,
+                                    letterSpacing = 0.5.sp
                                 )
                             }
                             Surface(
-                                color = EmeraldGreen.copy(alpha = 0.15f),
-                                shape = RoundedCornerShape(6.dp)
+                                color = EduPrimaryLight,
+                                shape = RoundedCornerShape(8.dp)
                             ) {
                                 Text(
                                     text = "100% OFFLINE",
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = FontWeight.Bold,
-                                    color = EmeraldMint,
+                                    color = EduPrimaryDark,
                                     fontSize = 10.sp
                                 )
                             }
@@ -225,7 +225,7 @@ fun WorksheetsScreen(
                         Text(
                             text = "Synthesize village stories and problems aligned to NIPUN Bharat learning outcomes.",
                             style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
 
                         // Quick Rural Village Theme Chips
@@ -243,15 +243,16 @@ fun WorksheetsScreen(
                                         slmPromptText = suggestion.substringAfter(" ")
                                         flnViewModel.generateCurriculumWithSlm(slmPromptText)
                                     },
-                                    shape = RoundedCornerShape(8.dp),
-                                    color = DarkSurface,
-                                    border = BorderStroke(0.8.dp, DarkBorder)
+                                    shape = RoundedCornerShape(12.dp),
+                                    color = MaterialTheme.colorScheme.surface,
+                                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outline)
                                 ) {
                                     Text(
                                         text = suggestion,
                                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = PureWhite
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        fontWeight = FontWeight.Medium
                                     )
                                 }
                             }
@@ -266,14 +267,15 @@ fun WorksheetsScreen(
                             OutlinedTextField(
                                 value = slmPromptText,
                                 onValueChange = { slmPromptText = it },
-                                placeholder = { Text("कक्षा का विषय लिखें...", fontSize = 13.sp) },
+                                placeholder = { Text("कक्षा का विषय लिखें (उदा. हाट बाज़ार)...", fontSize = 13.sp) },
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
+                                shape = RoundedCornerShape(12.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = EmeraldGreen,
-                                    unfocusedBorderColor = DarkBorder,
-                                    focusedTextColor = PureWhite,
-                                    unfocusedTextColor = PureWhite
+                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.surface
                                 )
                             )
 
@@ -284,16 +286,16 @@ fun WorksheetsScreen(
                                     }
                                 },
                                 enabled = !isSlmGenerating && slmPromptText.isNotBlank(),
-                                shape = RoundedCornerShape(10.dp),
+                                shape = RoundedCornerShape(12.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = EmeraldGreen,
-                                    contentColor = PureBlack
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = Color.White
                                 )
                             ) {
                                 if (isSlmGenerating) {
                                     CircularProgressIndicator(
                                         modifier = Modifier.size(16.dp),
-                                        color = PureBlack,
+                                        color = Color.White,
                                         strokeWidth = 2.dp
                                     )
                                 } else {
@@ -306,15 +308,18 @@ fun WorksheetsScreen(
                         activeSlmPlan?.let { plan ->
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(8.dp),
-                                color = EmeraldGreen.copy(alpha = 0.1f),
-                                border = BorderStroke(0.8.dp, DarkBorderGreen)
+                                shape = RoundedCornerShape(10.dp),
+                                color = MaterialTheme.colorScheme.surface,
+                                border = BorderStroke(0.8.dp, EduPrimary.copy(alpha = 0.3f))
                             ) {
-                                Column(modifier = Modifier.padding(10.dp)) {
+                                Row(
+                                    modifier = Modifier.padding(10.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
                                     Text(
                                         text = "📖 Context: ${plan.storyContextHindi}",
                                         style = MaterialTheme.typography.bodySmall,
-                                        color = PureWhite,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         fontWeight = FontWeight.Medium
                                     )
                                 }
@@ -323,15 +328,15 @@ fun WorksheetsScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
                 // 8 Worksheet Types Horizontal Carousel
                 Text(
-                    text = "SELECT WORKSHEET FORMAT (${WorksheetType.entries.size} NIPUN Types)",
+                    text = "WORKSHEET FORMAT (${WorksheetType.entries.size} NIPUN Types)",
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
-                    color = EmeraldMint,
-                    letterSpacing = 1.sp
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    letterSpacing = 0.5.sp
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -343,16 +348,17 @@ fun WorksheetsScreen(
                         val isSelected = config.type == type
                         Card(
                             modifier = Modifier
-                                .width(200.dp)
+                                .width(190.dp)
                                 .clickable { flnViewModel.setWorksheetType(type) },
                             shape = RoundedCornerShape(14.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = if (isSelected) EmeraldGreen.copy(alpha = 0.15f) else DarkCard
+                                containerColor = if (isSelected) EduPrimaryLight else MaterialTheme.colorScheme.surface
                             ),
                             border = BorderStroke(
                                 1.5.dp,
-                                if (isSelected) EmeraldGreen else DarkBorder
-                            )
+                                if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
                         ) {
                             Column(
                                 modifier = Modifier
@@ -368,13 +374,13 @@ fun WorksheetsScreen(
                                         text = type.nipunTargetCode,
                                         style = MaterialTheme.typography.labelSmall,
                                         fontWeight = FontWeight.Bold,
-                                        color = if (isSelected) EmeraldGreen else WhiteSecondary
+                                        color = if (isSelected) EduPrimaryDark else MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                     if (isSelected) {
                                         Icon(
                                             imageVector = Icons.Rounded.CheckCircle,
                                             contentDescription = "Active",
-                                            tint = EmeraldGreen,
+                                            tint = EduPrimaryDark,
                                             modifier = Modifier.size(16.dp)
                                         )
                                     }
@@ -384,122 +390,108 @@ fun WorksheetsScreen(
                                     text = type.displayName,
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Bold,
-                                    color = PureWhite
+                                    color = if (isSelected) EduPrimaryDark else MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = type.santaliName,
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = EmeraldMint
+                                    color = if (isSelected) EduPrimaryDark.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
-                // Configuration Bar: Grade & Difficulty Chips
-                Card(
+                // Clean Filter Row: Grade & Difficulty Pills
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = CardDefaults.cardColors(containerColor = DarkCard),
-                    border = BorderStroke(1.dp, DarkBorder)
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(14.dp),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    // Grade Level Chips
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        // Grade Level
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = "Grade Level:",
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = WhiteSecondary
-                            )
-                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                FlnGrade.entries.forEach { grade ->
-                                    val isSel = config.grade == grade
-                                    FilterChip(
-                                        selected = isSel,
-                                        onClick = { flnViewModel.setWorksheetGrade(grade) },
-                                        label = {
-                                            Text(
-                                                text = grade.displayName.substringBefore(" "),
-                                                style = MaterialTheme.typography.labelSmall,
-                                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                                            )
-                                        },
-                                        colors = FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = EmeraldGreen,
-                                            selectedLabelColor = PureBlack,
-                                            containerColor = PureBlack,
-                                            labelColor = PureWhite
-                                        )
+                        FlnGrade.entries.forEach { grade ->
+                            val isSel = config.grade == grade
+                            FilterChip(
+                                selected = isSel,
+                                onClick = { flnViewModel.setWorksheetGrade(grade) },
+                                shape = RoundedCornerShape(20.dp),
+                                label = {
+                                    Text(
+                                        text = grade.displayName.substringBefore(" "),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
                                     )
-                                }
-                            }
+                                },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = MaterialTheme.colorScheme.primary,
+                                    selectedLabelColor = Color.White,
+                                    containerColor = MaterialTheme.colorScheme.surface,
+                                    labelColor = MaterialTheme.colorScheme.onSurface
+                                ),
+                                border = FilterChipDefaults.filterChipBorder(
+                                    enabled = true,
+                                    selected = isSel,
+                                    borderColor = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+                                )
+                            )
                         }
+                    }
 
-                        // Difficulty Level
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = "Difficulty:",
-                                style = MaterialTheme.typography.labelMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = WhiteSecondary
-                            )
-                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                WorksheetDifficulty.entries.forEach { diff ->
-                                    val isSel = config.difficulty == diff
-                                    FilterChip(
-                                        selected = isSel,
-                                        onClick = { flnViewModel.setWorksheetDifficulty(diff) },
-                                        label = {
-                                            Text(
-                                                text = diff.displayName.substringBefore(" "),
-                                                style = MaterialTheme.typography.labelSmall,
-                                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                                            )
-                                        },
-                                        colors = FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = EmeraldGreen,
-                                            selectedLabelColor = PureBlack,
-                                            containerColor = PureBlack,
-                                            labelColor = PureWhite
-                                        )
+                    // Difficulty Level Chips
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        WorksheetDifficulty.entries.forEach { diff ->
+                            val isSel = config.difficulty == diff
+                            FilterChip(
+                                selected = isSel,
+                                onClick = { flnViewModel.setWorksheetDifficulty(diff) },
+                                shape = RoundedCornerShape(20.dp),
+                                label = {
+                                    Text(
+                                        text = diff.displayName.substringBefore(" "),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
                                     )
-                                }
-                            }
+                                },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = EduIndigo,
+                                    selectedLabelColor = Color.White,
+                                    containerColor = MaterialTheme.colorScheme.surface,
+                                    labelColor = MaterialTheme.colorScheme.onSurface
+                                ),
+                                border = FilterChipDefaults.filterChipBorder(
+                                    enabled = true,
+                                    selected = isSel,
+                                    borderColor = if (isSel) EduIndigo else MaterialTheme.colorScheme.outline
+                                )
+                            )
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-                // Dual-Tab Switcher: Student Sheet vs Teacher Key
+                // Dual-Tab Switcher: Student Sheet vs Teacher Key (Clean Segmented Control)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(DarkSurface)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
                         .padding(4.dp)
                 ) {
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(10.dp))
-                            .background(if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) EmeraldGreen else Color.Transparent)
+                            .background(if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) MaterialTheme.colorScheme.surface else Color.Transparent)
                             .clickable { flnViewModel.setPreviewTab(WorksheetPreviewTab.STUDENT_SHEET) }
                             .padding(vertical = 10.dp),
                         contentAlignment = Alignment.Center
@@ -508,7 +500,7 @@ fun WorksheetsScreen(
                             text = "Student Sheet (Page 1)",
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
-                            color = if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) PureBlack else PureWhite
+                            color = if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
@@ -516,7 +508,7 @@ fun WorksheetsScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(10.dp))
-                            .background(if (previewTab == WorksheetPreviewTab.TEACHER_KEY) EmeraldGreen else Color.Transparent)
+                            .background(if (previewTab == WorksheetPreviewTab.TEACHER_KEY) MaterialTheme.colorScheme.surface else Color.Transparent)
                             .clickable { flnViewModel.setPreviewTab(WorksheetPreviewTab.TEACHER_KEY) }
                             .padding(vertical = 10.dp),
                         contentAlignment = Alignment.Center
@@ -525,7 +517,7 @@ fun WorksheetsScreen(
                             text = "Teacher Key & Phonics (Page 2)",
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
-                            color = if (previewTab == WorksheetPreviewTab.TEACHER_KEY) PureBlack else PureWhite
+                            color = if (previewTab == WorksheetPreviewTab.TEACHER_KEY) EduAmber else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -541,7 +533,7 @@ fun WorksheetsScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -556,15 +548,16 @@ private fun StudentProblemCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = DarkCard),
-        border = BorderStroke(1.dp, DarkBorder)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Header Row with Problem # and NIPUN Target
+            // Header Row: Problem Number Badge & NIPUN Target Pill
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -575,14 +568,14 @@ private fun StudentProblemCard(
                         modifier = Modifier
                             .size(28.dp)
                             .clip(CircleShape)
-                            .background(EmeraldGreen),
+                            .background(EduPrimaryLight),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = "$index",
-                            style = MaterialTheme.typography.labelLarge,
+                            style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
-                            color = PureBlack
+                            color = EduPrimaryDark
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
@@ -590,31 +583,31 @@ private fun StudentProblemCard(
                         text = item.nipunCode,
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
-                        color = EmeraldMint
+                        color = EduIndigo
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Prompts
             Text(
                 text = item.promptHindi,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = PureWhite
+                color = MaterialTheme.colorScheme.onSurface
             )
             if (item.promptSantali.isNotEmpty()) {
                 Text(
                     text = item.promptSantali,
                     style = MaterialTheme.typography.bodySmall,
-                    color = EmeraldMint
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Problem-specific visual layout
+            // Problem Visual Layout
             when (config.type) {
                 WorksheetType.COUNT_AND_MATCH -> {
                     Row(
@@ -630,21 +623,22 @@ private fun StudentProblemCard(
                                 FlnVectorGraphic(
                                     iconType = item.iconType,
                                     size = 28.dp,
-                                    tint = EmeraldGreen
+                                    tint = MaterialTheme.colorScheme.primary
                                 )
                             }
                         }
-                        Box(
-                            modifier = Modifier
-                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
-                                .background(DarkSurface)
-                                .padding(horizontal = 14.dp, vertical = 8.dp)
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                            modifier = Modifier.padding(start = 8.dp)
                         ) {
                             Text(
                                 text = "${item.rightLabelSantali} [ ${item.leftLabelHindi} ]",
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = PureWhite
+                                color = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)
                             )
                         }
                     }
@@ -657,26 +651,34 @@ private fun StudentProblemCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            FlnVectorGraphic(iconType = item.iconType, size = 42.dp, tint = EmeraldGreen)
+                            Box(
+                                modifier = Modifier
+                                    .size(44.dp)
+                                    .clip(CircleShape)
+                                    .background(EduPrimaryContainer),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                FlnVectorGraphic(iconType = item.iconType, size = 32.dp, tint = MaterialTheme.colorScheme.primary)
+                            }
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(
                                 text = item.leftLabelHindi,
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.Bold,
-                                color = PureWhite
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
-                        Box(
-                            modifier = Modifier
-                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
-                                .background(DarkSurface)
-                                .padding(horizontal = 14.dp, vertical = 8.dp)
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = EduPrimaryLight,
+                            border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.3f))
                         ) {
                             Text(
                                 text = item.rightLabelSantali,
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = EmeraldMint
+                                color = EduPrimaryDark,
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)
                             )
                         }
                     }
@@ -690,24 +692,24 @@ private fun StudentProblemCard(
                     ) {
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             for (i in 0 until item.quantity) {
-                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EmeraldGreen)
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = MaterialTheme.colorScheme.primary)
                             }
                         }
-                        Text("  +  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = PureWhite)
+                        Text("  +  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             for (i in 0 until item.secondaryQuantity) {
-                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = Color(0xFF60A5FA))
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EduSky)
                             }
                         }
-                        Text("  =  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = PureWhite)
+                        Text("  =  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         Box(
                             modifier = Modifier
-                                .size(40.dp)
-                                .border(1.5.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
-                                .background(DarkSurface),
+                                .size(38.dp)
+                                .border(1.5.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("?", color = WhiteSecondary, fontWeight = FontWeight.Bold)
+                            Text("?", color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
@@ -724,10 +726,10 @@ private fun StudentProblemCard(
                                     .weight(1f)
                                     .height(44.dp)
                                     .clip(RoundedCornerShape(8.dp))
-                                    .background(if (isMissing) EmeraldGreen.copy(alpha = 0.1f) else DarkSurface)
+                                    .background(if (isMissing) EduPrimaryLight else MaterialTheme.colorScheme.surfaceVariant)
                                     .border(
                                         width = if (isMissing) 1.5.dp else 1.dp,
-                                        color = if (isMissing) EmeraldGreen else DarkBorder,
+                                        color = if (isMissing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                                         shape = RoundedCornerShape(8.dp)
                                     ),
                                 contentAlignment = Alignment.Center
@@ -736,7 +738,7 @@ private fun StudentProblemCard(
                                     text = if (isMissing) "[ ? ]" else seqVal,
                                     style = MaterialTheme.typography.bodyLarge,
                                     fontWeight = FontWeight.Bold,
-                                    color = if (isMissing) EmeraldMint else PureWhite
+                                    color = if (isMissing) EduPrimaryDark else MaterialTheme.colorScheme.onSurface
                                 )
                             }
                         }
@@ -749,29 +751,26 @@ private fun StudentProblemCard(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Left Count
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             for (i in 0 until item.quantity) {
-                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EmeraldGreen)
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = MaterialTheme.colorScheme.primary)
                             }
                         }
 
-                        // Middle Circle
                         Box(
                             modifier = Modifier
-                                .size(46.dp)
+                                .size(42.dp)
                                 .clip(CircleShape)
-                                .background(DarkSurface)
-                                .border(1.5.dp, EmeraldGreen, CircleShape),
+                                .background(EduPrimaryLight)
+                                .border(1.dp, MaterialTheme.colorScheme.primary, CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(">", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = EmeraldMint)
+                            Text(">", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = EduPrimaryDark)
                         }
 
-                        // Right Count
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             for (i in 0 until item.secondaryQuantity) {
-                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = Color(0xFF60A5FA))
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EduSky)
                             }
                         }
                     }
@@ -783,28 +782,29 @@ private fun StudentProblemCard(
                             text = "Word: ${item.wordWithBlank ?: ""}",
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold,
-                            color = PureWhite
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             item.options.forEach { optChar ->
-                                Box(
+                                Surface(
+                                    shape = RoundedCornerShape(10.dp),
+                                    color = MaterialTheme.colorScheme.surfaceVariant,
+                                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(44.dp)
-                                        .clip(RoundedCornerShape(8.dp))
-                                        .background(DarkSurface)
-                                        .border(1.dp, DarkBorder, RoundedCornerShape(8.dp)),
-                                    contentAlignment = Alignment.Center
                                 ) {
-                                    Text(
-                                        text = optChar,
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Bold,
-                                        color = PureWhite
-                                    )
+                                    Box(contentAlignment = Alignment.Center) {
+                                        Text(
+                                            text = optChar,
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -821,18 +821,18 @@ private fun StudentProblemCard(
                             text = item.leftLabelHindi,
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold,
-                            color = PureWhite
+                            color = MaterialTheme.colorScheme.onSurface
                         )
-                        Box(
-                            modifier = Modifier
-                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
-                                .background(DarkSurface)
-                                .padding(horizontal = 20.dp, vertical = 12.dp)
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
                         ) {
                             Text(
                                 text = "Practice: . . .   . . .   . . .",
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = WhiteSecondary
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)
                             )
                         }
                     }
@@ -840,28 +840,30 @@ private fun StudentProblemCard(
 
                 WorksheetType.ASSESSMENT_CIRCLE -> {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        item.options.forEachIndexed { optIdx, optText ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(DarkSurface)
-                                    .border(1.dp, DarkBorder, RoundedCornerShape(8.dp))
-                                    .padding(horizontal = 14.dp, vertical = 10.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                        item.options.forEach { optText ->
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant,
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                                modifier = Modifier.fillMaxWidth()
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                        .clip(CircleShape)
-                                        .border(1.dp, EmeraldGreen, CircleShape)
-                                )
-                                Spacer(modifier = Modifier.width(12.dp))
-                                Text(
-                                    text = optText,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = PureWhite
-                                )
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                            .clip(CircleShape)
+                                            .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                                    )
+                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Text(
+                                        text = optText,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
                             }
                         }
                     }
@@ -876,14 +878,15 @@ private fun TeacherKeyCard(index: Int, item: WorksheetItem) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = DarkCard),
-        border = BorderStroke(1.dp, EmeraldGreen.copy(alpha = 0.5f))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, EduAmber.copy(alpha = 0.4f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -894,53 +897,52 @@ private fun TeacherKeyCard(index: Int, item: WorksheetItem) {
                     text = "Problem $index Solution Key",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = EmeraldMint
+                    color = EduAmber
                 )
                 Text(
                     text = item.nipunCode,
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold,
-                    color = EmeraldGreen
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
 
-            // Solution Note
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(DarkSurface)
-                    .padding(12.dp)
+            // Solution Note Box
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Column {
+                Column(modifier = Modifier.padding(12.dp)) {
                     Text(
                         text = "Verified Answer:",
                         style = MaterialTheme.typography.labelSmall,
-                        color = WhiteSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = item.teacherSolutionNote.ifEmpty { item.rightLabelSantali },
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
-                        color = PureWhite
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
 
             // Phonetics pronunciation guide
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(EmeraldGreen.copy(alpha = 0.1f))
-                    .border(1.dp, EmeraldGreen.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
-                    .padding(12.dp)
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = EduAmberLight,
+                border = BorderStroke(1.dp, EduAmber.copy(alpha = 0.3f)),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Icon(
                         imageVector = Icons.Rounded.RecordVoiceOver,
                         contentDescription = "Pronounce",
-                        tint = EmeraldGreen,
+                        tint = EduAmber,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(10.dp))
@@ -948,13 +950,14 @@ private fun TeacherKeyCard(index: Int, item: WorksheetItem) {
                         Text(
                             text = "Teacher Pronunciation (कक्षा में ऐसे बोलें):",
                             style = MaterialTheme.typography.labelSmall,
-                            color = EmeraldMint
+                            color = EduAmber,
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = item.teacherPhoneticAnswer.ifEmpty { item.rightLabelSantali },
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold,
-                            color = PureWhite
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }

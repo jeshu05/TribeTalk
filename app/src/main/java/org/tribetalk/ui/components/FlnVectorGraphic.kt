@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -126,7 +127,7 @@ fun FlnVectorGraphic(
             }
             "book" -> {
                 Icon(
-                    imageVector = Icons.Rounded.MenuBook,
+                    imageVector = Icons.AutoMirrored.Rounded.MenuBook,
                     contentDescription = "Book",
                     modifier = Modifier.size(size * 0.7f),
                     tint = tint

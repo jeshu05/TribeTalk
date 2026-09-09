@@ -40,11 +40,11 @@ fun MainAppScreen(
         modifier = modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
-                containerColor = PureBlack,
-                tonalElevation = 8.dp,
+                containerColor = MaterialTheme.colorScheme.surface,
+                tonalElevation = 2.dp,
                 modifier = Modifier.border(
-                    width = 0.5.dp,
-                    color = DarkBorder
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.outline
                 )
             ) {
                 AppTab.values().forEach { tab ->
@@ -62,15 +62,15 @@ fun MainAppScreen(
                             Text(
                                 text = tab.title,
                                 style = MaterialTheme.typography.labelMedium,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
                             )
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = PureBlack,
-                            selectedTextColor = EmeraldGreen,
-                            indicatorColor = EmeraldGreen,
-                            unselectedIconColor = PureWhite.copy(alpha = 0.65f),
-                            unselectedTextColor = PureWhite.copy(alpha = 0.65f)
+                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                            indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                         )
                     )
                 }

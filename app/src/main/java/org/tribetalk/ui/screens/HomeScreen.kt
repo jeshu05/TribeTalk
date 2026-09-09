@@ -34,20 +34,13 @@ import org.tribetalk.ui.components.LanguageSelectorPill
 import org.tribetalk.ui.components.RipplePulseButton
 import org.tribetalk.ui.components.StatusIndicator
 import org.tribetalk.ui.components.WaveformVisualizer
-import org.tribetalk.ui.theme.DarkBorder
-import org.tribetalk.ui.theme.DarkBorderGreen
-import org.tribetalk.ui.theme.DarkCard
-import org.tribetalk.ui.theme.DarkSurface
-import org.tribetalk.ui.theme.EmeraldContainerDark
-import org.tribetalk.ui.theme.EmeraldGreen
-import org.tribetalk.ui.theme.EmeraldMint
-import org.tribetalk.ui.theme.PureBlack
-import org.tribetalk.ui.theme.PureWhite
-import org.tribetalk.ui.theme.WhiteSecondary
+import org.tribetalk.ui.theme.EduPrimary
+import org.tribetalk.ui.theme.EduPrimaryDark
+import org.tribetalk.ui.theme.EduPrimaryLight
 
 /**
  * Main application screen for TribeTalk.
- * High-contrast Green, White, and Black styling.
+ * Modern, clean educational styling.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +61,7 @@ fun HomeScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = PureBlack,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
@@ -80,26 +73,26 @@ fun HomeScreen(
                             Text(
                                 text = "TribeTalk",
                                 style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = PureWhite
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                             Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = EmeraldContainerDark
+                                shape = RoundedCornerShape(10.dp),
+                                color = EduPrimaryLight
                             ) {
                                 Text(
                                     text = "100% Offline",
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = FontWeight.Bold,
-                                    color = EmeraldGreen,
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                                    color = EduPrimaryDark,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                                 )
                             }
                         }
                         Text(
                             text = "Hindi <-> Santali Bidirectional Translation",
                             style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
@@ -109,14 +102,15 @@ fun HomeScreen(
                             Icon(
                                 imageVector = Icons.Rounded.DeleteOutline,
                                 contentDescription = "Clear History",
-                                tint = WhiteSecondary
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = PureBlack
-                )
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                modifier = Modifier.border(1.dp, MaterialTheme.colorScheme.outline)
             )
         }
     ) { paddingValues ->
@@ -124,7 +118,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(PureBlack)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             // Direction & Status Subheader
             Column(
@@ -159,28 +153,27 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Surface(
-                            modifier = Modifier.size(50.dp),
+                            modifier = Modifier.size(56.dp),
                             shape = CircleShape,
-                            color = DarkCard,
-                            border = androidx.compose.foundation.BorderStroke(1.5.dp, DarkBorderGreen)
+                            color = EduPrimaryLight
                         ) {
                             Box(contentAlignment = Alignment.Center) {
                                 Icon(
                                     imageVector = Icons.Rounded.GraphicEq,
                                     contentDescription = null,
-                                    tint = EmeraldGreen,
-                                    modifier = Modifier.size(26.dp)
+                                    tint = EduPrimary,
+                                    modifier = Modifier.size(28.dp)
                                 )
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
                             text = "Ready to Translate",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = PureWhite
+                            color = MaterialTheme.colorScheme.onSurface
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
@@ -188,17 +181,17 @@ fun HomeScreen(
                         Text(
                             text = "Tap the microphone below to speak in ${if (isHindiToSantali) "Hindi" else "Santali"}, or tap a quick instruction.",
                             style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
                         )
 
-                        Spacer(modifier = Modifier.height(14.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Text(
                             text = "Quick Classroom Instructions",
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = EmeraldGreen
+                            color = EduPrimary
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
@@ -217,14 +210,15 @@ fun HomeScreen(
                                 Surface(
                                     onClick = { viewModel.translateDirect(prompt) },
                                     shape = RoundedCornerShape(16.dp),
-                                    color = DarkCard,
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, DarkBorderGreen)
+                                    color = MaterialTheme.colorScheme.surface,
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                                    shadowElevation = 1.dp
                                 ) {
                                     Text(
                                         text = prompt,
                                         style = MaterialTheme.typography.labelSmall,
                                         fontWeight = FontWeight.SemiBold,
-                                        color = PureWhite,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp)
                                     )
                                 }
@@ -241,14 +235,15 @@ fun HomeScreen(
                                 Surface(
                                     onClick = { viewModel.translateDirect(prompt) },
                                     shape = RoundedCornerShape(16.dp),
-                                    color = DarkCard,
-                                    border = androidx.compose.foundation.BorderStroke(1.dp, DarkBorderGreen)
+                                    color = MaterialTheme.colorScheme.surface,
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                                    shadowElevation = 1.dp
                                 ) {
                                     Text(
                                         text = prompt,
                                         style = MaterialTheme.typography.labelSmall,
                                         fontWeight = FontWeight.SemiBold,
-                                        color = PureWhite,
+                                        color = MaterialTheme.colorScheme.onSurface,
                                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp)
                                     )
                                 }
@@ -292,19 +287,19 @@ fun HomeScreen(
                             Text(
                                 text = if (isHindiToSantali) "Type Devanagari text..." else "Type Ol Chiki text...",
                                 fontSize = 14.sp,
-                                color = WhiteSecondary
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(24.dp),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = DarkCard,
-                            unfocusedContainerColor = DarkCard,
-                            focusedTextColor = PureWhite,
-                            unfocusedTextColor = PureWhite,
-                            focusedBorderColor = EmeraldGreen,
-                            unfocusedBorderColor = DarkBorder
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline
                         ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                         keyboardActions = KeyboardActions(onSend = {
@@ -321,12 +316,12 @@ fun HomeScreen(
                         modifier = Modifier
                             .size(48.dp)
                             .clip(CircleShape)
-                            .background(EmeraldGreen)
+                            .background(MaterialTheme.colorScheme.primary)
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.Send,
                             contentDescription = "Send Text",
-                            tint = PureBlack
+                            tint = Color.White
                         )
                     }
                 }
@@ -336,8 +331,8 @@ fun HomeScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(DarkSurface)
-                    .border(width = 0.5.dp, color = DarkBorder)
+                    .background(MaterialTheme.colorScheme.surface)
+                    .border(width = 1.dp, color = MaterialTheme.colorScheme.outline)
                     .padding(top = 12.dp, bottom = 20.dp, start = 16.dp, end = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -346,7 +341,7 @@ fun HomeScreen(
                 WaveformVisualizer(
                     amplitude = amplitude,
                     isActive = isRecording || isPlayingAudio,
-                    barColor = EmeraldGreen,
+                    barColor = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -362,13 +357,13 @@ fun HomeScreen(
                         modifier = Modifier
                             .size(44.dp)
                             .clip(CircleShape)
-                            .background(DarkCard)
-                            .border(1.dp, DarkBorder, CircleShape)
+                            .background(MaterialTheme.colorScheme.surface)
+                            .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
                     ) {
                         Icon(
                             imageVector = if (showTextInputDrawer) Icons.Rounded.Close else Icons.Rounded.Keyboard,
                             contentDescription = "Toggle Keyboard Input",
-                            tint = if (showTextInputDrawer) EmeraldGreen else PureWhite
+                            tint = if (showTextInputDrawer) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
@@ -381,13 +376,13 @@ fun HomeScreen(
                     // Memory Footprint Chip
                     Surface(
                         shape = RoundedCornerShape(16.dp),
-                        color = EmeraldContainerDark
+                        color = EduPrimaryLight
                     ) {
                         Text(
                             text = "< 350 MB",
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = EmeraldMint,
+                            color = EduPrimaryDark,
                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                         )
                     }
@@ -398,7 +393,7 @@ fun HomeScreen(
                     text = if (isRecording) "Recording... Tap stop when finished" else "Tap microphone to speak",
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Medium,
-                    color = WhiteSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

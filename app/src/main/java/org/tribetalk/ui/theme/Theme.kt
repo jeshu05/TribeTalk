@@ -8,54 +8,54 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = EmeraldGreen,
-    onPrimary = PureBlack,
-    primaryContainer = EmeraldContainerDark,
-    onPrimaryContainer = EmeraldMint,
-    secondary = PureWhite,
-    onSecondary = PureBlack,
-    secondaryContainer = DarkCardElevated,
-    onSecondaryContainer = PureWhite,
-    tertiary = EmeraldPrimary,
-    onTertiary = PureBlack,
-    tertiaryContainer = EmeraldContainerDark,
-    onTertiaryContainer = EmeraldMint,
-    background = PureBlack,
-    onBackground = PureWhite,
-    surface = DarkSurface,
-    onSurface = PureWhite,
-    surfaceVariant = DarkCard,
-    onSurfaceVariant = WhiteSecondary,
-    outline = DarkBorder,
-    outlineVariant = DarkBorderGreen
+    primary = EduPrimary,
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFF134E4A),
+    onPrimaryContainer = EduPrimaryLight,
+    secondary = EduIndigo,
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFF312E81),
+    onSecondaryContainer = EduIndigoLight,
+    tertiary = EduAmber,
+    onTertiary = Color.White,
+    tertiaryContainer = Color(0xFF78350F),
+    onTertiaryContainer = EduAmberLight,
+    background = EduDarkBackground,
+    onBackground = EduDarkTextPrimary,
+    surface = EduDarkSurface,
+    onSurface = EduDarkTextPrimary,
+    surfaceVariant = EduDarkSurfaceElevated,
+    onSurfaceVariant = EduDarkTextSecondary,
+    outline = EduDarkBorder,
+    outlineVariant = EduPrimary.copy(alpha = 0.3f)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = EmeraldDark,
-    onPrimary = PureWhite,
-    primaryContainer = EmeraldContainerLight,
-    onPrimaryContainer = EmeraldContainerDark,
-    secondary = PureBlack,
-    onSecondary = PureWhite,
-    secondaryContainer = OffWhite,
-    onSecondaryContainer = PureBlack,
-    tertiary = EmeraldPrimary,
-    onTertiary = PureWhite,
-    tertiaryContainer = EmeraldContainerLight,
-    onTertiaryContainer = EmeraldDark,
-    background = PureWhite,
-    onBackground = PureBlack,
-    surface = PureWhite,
-    onSurface = PureBlack,
-    surfaceVariant = OffWhite,
-    onSurfaceVariant = Color(0xFF52525B),
-    outline = CrispBorderLight,
-    outlineVariant = EmeraldPrimary.copy(alpha = 0.4f)
+    primary = EduPrimary,
+    onPrimary = EduTextOnPrimary,
+    primaryContainer = EduPrimaryLight,
+    onPrimaryContainer = EduPrimaryDark,
+    secondary = EduIndigo,
+    onSecondary = Color.White,
+    secondaryContainer = EduIndigoLight,
+    onSecondaryContainer = EduIndigo,
+    tertiary = EduAmber,
+    onTertiary = Color.White,
+    tertiaryContainer = EduAmberLight,
+    onTertiaryContainer = EduAmber,
+    background = EduBackground,
+    onBackground = EduTextPrimary,
+    surface = EduSurface,
+    onSurface = EduTextPrimary,
+    surfaceVariant = EduSurfaceElevated,
+    onSurfaceVariant = EduTextSecondary,
+    outline = EduBorder,
+    outlineVariant = EduBorderSubtle
 )
 
 @Composable
 fun TribeTalkTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false, // Default to clean, warm, accessible educational light theme
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme

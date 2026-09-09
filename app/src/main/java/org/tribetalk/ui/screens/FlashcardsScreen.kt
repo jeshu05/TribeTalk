@@ -23,14 +23,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.tribetalk.fln.model.FlnCard
 import org.tribetalk.ui.components.FlnCardView
 import org.tribetalk.ui.components.FlnVectorGraphic
 import org.tribetalk.ui.theme.*
 
 /**
- * Interactive NIPUN Bharat bilingual flashcards screen.
- * Supports Explore Mode, Interactive 4-Choice Quiz Mode, and On-the-Fly Card Synthesis.
- * High-contrast Green, White, and Black design.
+ * Interactive NIPUN Bharat bilingual flashcards studio.
+ * Clean, delightful educational design inspired by Quizlet and Duolingo.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,10 +60,11 @@ fun FlashcardsScreen(
     var customPromptText by remember { mutableStateOf("") }
 
     val currentCard = cards.getOrNull(currentIndex)
+    val progress = if (cards.isNotEmpty()) (currentIndex + 1).toFloat() / cards.size.toFloat() else 0f
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = PureBlack,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
@@ -71,35 +72,43 @@ fun FlashcardsScreen(
                         Text(
                             text = "NIPUN Flashcards",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = PureWhite
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "Hindi <-> Santali (Ol Chiki) • Balvatika to Grade 2",
+                            text = "Hindi • Santali (Ol Chiki) • Balvatika to Grade 2",
                             style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
                 actions = {
-                    IconButton(onClick = { showCreateDialog = true }) {
+                    FilledTonalIconButton(
+                        onClick = { showCreateDialog = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = EduPrimaryLight,
+                            contentColor = EduPrimaryDark
+                        )
+                    ) {
                         Icon(
-                            imageVector = Icons.Rounded.AddCircleOutline,
-                            contentDescription = "Add Custom Card",
-                            tint = EmeraldGreen
+                            imageVector = Icons.Rounded.AutoAwesome,
+                            contentDescription = "Synthesize",
+                            modifier = Modifier.size(20.dp)
                         )
                     }
+                    Spacer(modifier = Modifier.width(4.dp))
                     IconButton(onClick = { flnViewModel.shuffleCards() }) {
                         Icon(
                             imageVector = Icons.Rounded.Shuffle,
                             contentDescription = "Shuffle Deck",
-                            tint = EmeraldGreen
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = PureBlack
-                )
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                modifier = Modifier.border(1.dp, MaterialTheme.colorScheme.outline)
             )
         }
     ) { paddingValues ->
@@ -107,24 +116,41 @@ fun FlashcardsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(PureBlack),
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Success Toast Banner
+            // Status Feedback Banner
             (customCardSuccessMessage ?: slmStatusMessage)?.let { msg ->
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 6.dp),
-                    color = EmeraldGreen,
-                    shape = RoundedCornerShape(10.dp)
+                    color = EduPrimaryLight,
+                    shape = RoundedCornerShape(12.dp),
+                    border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.3f))
                 ) {
                     Row(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = msg, color = PureBlack, fontWeight = FontWeight.Bold)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.CheckCircle,
+                                contentDescription = "Success",
+                                tint = EduPrimaryDark,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Text(
+                                text = msg,
+                                color = EduPrimaryDark,
+                                fontWeight = FontWeight.Bold,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                         IconButton(
                             onClick = {
                                 flnViewModel.clearCustomCardMessage()
@@ -132,17 +158,17 @@ fun FlashcardsScreen(
                             },
                             modifier = Modifier.size(20.dp)
                         ) {
-                            Icon(Icons.Rounded.Close, "Dismiss", tint = PureBlack)
+                            Icon(Icons.Rounded.Close, "Dismiss", tint = EduPrimaryDark)
                         }
                     }
                 }
             }
 
-            // Category Filter Chips
+            // Category Filter Pills
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 10.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -151,79 +177,90 @@ fun FlashcardsScreen(
                     FilterChip(
                         selected = isSelected,
                         onClick = { flnViewModel.selectCategory(category) },
+                        shape = RoundedCornerShape(20.dp),
                         label = {
                             Text(
                                 text = category,
                                 style = MaterialTheme.typography.labelMedium,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
                             )
                         },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = EmeraldGreen,
-                            selectedLabelColor = PureBlack,
-                            containerColor = DarkCard,
-                            labelColor = PureWhite
+                            selectedContainerColor = MaterialTheme.colorScheme.primary,
+                            selectedLabelColor = Color.White,
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            labelColor = MaterialTheme.colorScheme.onSurface
                         ),
                         border = FilterChipDefaults.filterChipBorder(
                             enabled = true,
                             selected = isSelected,
-                            borderColor = if (isSelected) EmeraldGreen else DarkBorder,
+                            borderColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
                             borderWidth = 1.dp
                         )
                     )
                 }
             }
 
-            // Mode Toggle Header
+            // Clean Header Bar: Card Count Progress + Mode Switch
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 6.dp),
+                    .padding(horizontal = 20.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = if (cards.isNotEmpty()) "Card ${currentIndex + 1} of ${cards.size}" else "0 cards",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = EmeraldGreen,
-                    fontWeight = FontWeight.Bold
-                )
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = if (cards.isNotEmpty()) "${currentIndex + 1} / ${cards.size}" else "0",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                    LinearProgressIndicator(
+                        progress = { progress },
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(6.dp)
+                            .clip(CircleShape),
+                        color = MaterialTheme.colorScheme.primary,
+                        trackColor = MaterialTheme.colorScheme.outlineVariant
+                    )
+                }
 
-                // Quiz Mode Switch
+                // Explore vs Quiz Switcher
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = if (isQuizMode) "Quiz Mode" else "Explore",
+                        text = if (isQuizMode) "Quiz Mode" else "Practice",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
-                        color = if (isQuizMode) EmeraldMint else PureWhite
+                        color = if (isQuizMode) EduIndigo else MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Switch(
                         checked = isQuizMode,
                         onCheckedChange = { flnViewModel.toggleQuizMode() },
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = PureBlack,
-                            checkedTrackColor = EmeraldGreen,
-                            uncheckedThumbColor = WhiteSecondary,
-                            uncheckedTrackColor = DarkCard
+                            checkedThumbColor = Color.White,
+                            checkedTrackColor = EduIndigo,
+                            uncheckedThumbColor = Color.White,
+                            uncheckedTrackColor = MaterialTheme.colorScheme.outline
                         )
                     )
                 }
             }
 
-            // Main Display (Quiz Mode vs Card View)
+            // Main Display: Quiz View vs Flashcard View
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 16.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (currentCard != null) {
                     if (isQuizMode) {
-                        // Interactive Quiz View
                         InteractiveQuizCard(
                             card = currentCard,
                             score = quizScore,
@@ -237,7 +274,6 @@ fun FlashcardsScreen(
                             onResetQuiz = { flnViewModel.resetQuiz() }
                         )
                     } else {
-                        // Standard Flip Flashcard View
                         FlnCardView(
                             card = currentCard,
                             isQuizMode = false,
@@ -251,75 +287,80 @@ fun FlashcardsScreen(
                     Text(
                         text = "No cards available in this category.",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = WhiteSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
 
-            // Bottom Carousel Navigation Buttons (Visible in Explore Mode)
+            // Bottom Carousel Controls (Explore Mode)
             if (!isQuizMode) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 20.dp),
+                        .padding(horizontal = 24.dp, vertical = 14.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Previous Card Button
                     FilledTonalIconButton(
                         onClick = { flnViewModel.prevCard() },
-                        modifier = Modifier.size(54.dp),
+                        modifier = Modifier.size(52.dp),
                         shape = CircleShape,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = DarkCard,
-                            contentColor = PureWhite
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface
                         )
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Previous Card"
+                            contentDescription = "Previous Card",
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
 
-                    // Flip Prompt Hint
+                    // Flip Prompt Pill
                     Surface(
                         onClick = { flnViewModel.toggleCardReveal() },
                         shape = RoundedCornerShape(24.dp),
-                        color = DarkSurface,
-                        border = BorderStroke(1.dp, DarkBorderGreen),
-                        modifier = Modifier.height(44.dp)
+                        color = MaterialTheme.colorScheme.surface,
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                        modifier = Modifier.height(46.dp),
+                        shadowElevation = 1.dp
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 16.dp),
+                            modifier = Modifier.padding(horizontal = 20.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.TouchApp,
                                 contentDescription = "Tap to flip",
-                                tint = EmeraldGreen,
+                                tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(18.dp)
                             )
                             Text(
-                                text = if (isRevealed) "Hide Ol Chiki" else "Reveal Ol Chiki",
+                                text = if (isRevealed) "Hide Ol Chiki" else "Tap to Flip",
                                 style = MaterialTheme.typography.labelMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = PureWhite
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
 
+                    // Next Card Button
                     FilledTonalIconButton(
                         onClick = { flnViewModel.nextCard() },
-                        modifier = Modifier.size(54.dp),
+                        modifier = Modifier.size(52.dp),
                         shape = CircleShape,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = EmeraldGreen,
-                            contentColor = PureBlack
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = Color.White
                         )
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
-                            contentDescription = "Next Card"
+                            contentDescription = "Next Card",
+                            tint = Color.White
                         )
                     }
                 }
@@ -327,35 +368,44 @@ fun FlashcardsScreen(
         }
     }
 
-    // Custom Card & SLM Deck Creator Dialog
+    // Synthesize Custom Card / SLM Deck Dialog
     if (showCreateDialog) {
         AlertDialog(
             onDismissRequest = { showCreateDialog = false },
-            containerColor = DarkCard,
+            containerColor = MaterialTheme.colorScheme.surface,
             title = {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.AutoAwesome,
-                        contentDescription = "AI",
-                        tint = EmeraldGreen,
-                        modifier = Modifier.size(20.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(EduPrimaryLight),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.AutoAwesome,
+                            contentDescription = "AI",
+                            tint = EduPrimaryDark,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
                     Text(
-                        "Synthesize Flashcard / Deck",
-                        color = PureWhite,
-                        fontWeight = FontWeight.Bold
+                        "AI Flashcard Creator",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(
-                        "Enter any Hindi word or classroom topic. Synthesize a single card or let the on-device SLM dream a complete 5-card deck with Ol Chiki and pronunciation guides.",
+                        "Enter a Hindi word or classroom topic. Create a single card or let the on-device AI synthesize a full 5-card deck with Ol Chiki and teacher pronunciations.",
                         style = MaterialTheme.typography.bodySmall,
-                        color = WhiteSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     // Quick topic chips
@@ -364,15 +414,15 @@ fun FlashcardsScreen(
                         items(sampleTopics) { topic ->
                             Surface(
                                 onClick = { customPromptText = topic.substringAfter(" ") },
-                                shape = RoundedCornerShape(8.dp),
-                                color = DarkSurface,
-                                border = BorderStroke(0.8.dp, DarkBorder)
+                                shape = RoundedCornerShape(12.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant,
+                                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outline)
                             ) {
                                 Text(
                                     text = topic,
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = PureWhite
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
                         }
@@ -381,14 +431,13 @@ fun FlashcardsScreen(
                     OutlinedTextField(
                         value = customPromptText,
                         onValueChange = { customPromptText = it },
-                        label = { Text("Topic / Concept in Hindi") },
+                        label = { Text("Topic or Word in Hindi") },
                         placeholder = { Text("उदा. नदी, आम, जंगल, स्कूल...") },
                         modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = EmeraldGreen,
-                            unfocusedBorderColor = DarkBorder,
-                            focusedTextColor = PureWhite,
-                            unfocusedTextColor = PureWhite
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline
                         )
                     )
                 }
@@ -403,9 +452,10 @@ fun FlashcardsScreen(
                                 showCreateDialog = false
                             }
                         },
+                        shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = DarkSurface,
-                            contentColor = EmeraldMint
+                            containerColor = EduIndigoLight,
+                            contentColor = EduIndigo
                         )
                     ) {
                         Text("AI 5-Card Deck", fontWeight = FontWeight.Bold, fontSize = 12.sp)
@@ -419,7 +469,11 @@ fun FlashcardsScreen(
                                 showCreateDialog = false
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen, contentColor = PureBlack)
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = Color.White
+                        )
                     ) {
                         Text("Single Card", fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     }
@@ -427,7 +481,7 @@ fun FlashcardsScreen(
             },
             dismissButton = {
                 TextButton(onClick = { showCreateDialog = false }) {
-                    Text("Cancel", color = WhiteSecondary)
+                    Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         )
@@ -436,7 +490,7 @@ fun FlashcardsScreen(
 
 @Composable
 private fun InteractiveQuizCard(
-    card: org.tribetalk.fln.model.FlnCard,
+    card: FlnCard,
     score: Int,
     answeredCount: Int,
     options: List<String>,
@@ -450,10 +504,11 @@ private fun InteractiveQuizCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp),
+            .padding(vertical = 8.dp),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = DarkCard),
-        border = BorderStroke(1.5.dp, DarkBorderGreen)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier
@@ -468,25 +523,32 @@ private fun InteractiveQuizCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Score: $score / $answeredCount",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = EmeraldMint
-                )
+                Surface(
+                    color = EduAmberLight,
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text(
+                        text = "Score: $score / $answeredCount",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = EduAmber,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+
                 TextButton(onClick = onResetQuiz) {
-                    Text("Reset Score", color = WhiteSecondary, style = MaterialTheme.typography.labelSmall)
+                    Text("Reset", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall)
                 }
             }
 
             // Question Visual Prompt
-            FlnVectorGraphic(iconType = card.iconType, size = 64.dp, tint = EmeraldGreen)
+            FlnVectorGraphic(iconType = card.iconType, size = 60.dp, tint = MaterialTheme.colorScheme.primary)
 
             Text(
                 text = "What is '${card.hindiText}' in Santali (Ol Chiki)?",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = PureWhite,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
 
@@ -496,41 +558,47 @@ private fun InteractiveQuizCard(
                 val isCorrect = optIdx == correctIndex
 
                 val btnBgColor = when {
-                    isChecked && isCorrect -> EmeraldGreen.copy(alpha = 0.25f)
-                    isChecked && isSelected && !isCorrect -> Color(0xFFEF4444).copy(alpha = 0.25f)
-                    isSelected -> EmeraldGreen.copy(alpha = 0.15f)
-                    else -> DarkSurface
+                    isChecked && isCorrect -> EduPrimaryLight
+                    isChecked && isSelected && !isCorrect -> Color(0xFFFEE2E2)
+                    isSelected -> MaterialTheme.colorScheme.primaryContainer
+                    else -> MaterialTheme.colorScheme.surfaceVariant
                 }
 
                 val btnBorderColor = when {
-                    isChecked && isCorrect -> EmeraldGreen
+                    isChecked && isCorrect -> MaterialTheme.colorScheme.primary
                     isChecked && isSelected && !isCorrect -> Color(0xFFEF4444)
-                    isSelected -> EmeraldGreen
-                    else -> DarkBorder
+                    isSelected -> MaterialTheme.colorScheme.primary
+                    else -> MaterialTheme.colorScheme.outline
                 }
 
-                Box(
+                val btnTextColor = when {
+                    isChecked && isCorrect -> MaterialTheme.colorScheme.primary
+                    isChecked && isSelected && !isCorrect -> Color(0xFFDC2626)
+                    else -> MaterialTheme.colorScheme.onSurface
+                }
+
+                Surface(
+                    shape = RoundedCornerShape(14.dp),
+                    color = btnBgColor,
+                    border = BorderStroke(1.dp, btnBorderColor),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(btnBgColor)
-                        .border(1.2.dp, btnBorderColor, RoundedCornerShape(12.dp))
                         .clickable(enabled = !isChecked) { onOptionSelected(optIdx) }
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
                             text = optText,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = PureWhite
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = if (isSelected || (isChecked && isCorrect)) FontWeight.Bold else FontWeight.Medium,
+                            color = btnTextColor
                         )
+
                         if (isChecked && isCorrect) {
-                            Icon(Icons.Rounded.CheckCircle, "Correct", tint = EmeraldGreen, modifier = Modifier.size(20.dp))
+                            Icon(Icons.Rounded.CheckCircle, "Correct", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
                         } else if (isChecked && isSelected && !isCorrect) {
                             Icon(Icons.Rounded.Cancel, "Incorrect", tint = Color(0xFFEF4444), modifier = Modifier.size(20.dp))
                         }
@@ -538,23 +606,22 @@ private fun InteractiveQuizCard(
                 }
             }
 
-            // Teacher Phonetic Reveal on Check
+            // Next Question Button
             if (isChecked) {
-                Text(
-                    text = "Teacher Pronunciation: बोलें - ${card.teacherPhoneticGuide}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = EmeraldMint,
-                    fontWeight = FontWeight.SemiBold
-                )
-
                 Button(
                     onClick = onNextQuestion,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = EmeraldGreen, contentColor = PureBlack)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = Color.White
+                    )
                 ) {
-                    Text("Next Question", fontWeight = FontWeight.Bold)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(Icons.AutoMirrored.Rounded.ArrowForward, null, modifier = Modifier.size(18.dp))
+                    Text("Next Question", fontWeight = FontWeight.Bold, color = Color.White)
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Icon(Icons.AutoMirrored.Rounded.ArrowForward, "Next", tint = Color.White, modifier = Modifier.size(18.dp))
                 }
             }
         }

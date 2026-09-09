@@ -25,14 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.tribetalk.ui.theme.EmeraldGreen
-import org.tribetalk.ui.theme.PureBlack
-import org.tribetalk.ui.theme.PureWhite
 
 /**
- * Concentric ripple pulse recording button in Green, White, and Black styling.
+ * Concentric ripple pulse recording button with modern educational styling.
  */
 @Composable
 fun RipplePulseButton(
@@ -109,12 +107,12 @@ fun RipplePulseButton(
                     )
             )
         } else {
-            // Ambient Green Glow Ring
+            // Ambient Primary Glow Ring
             Box(
                 modifier = Modifier
                     .size(86.dp)
                     .background(
-                        EmeraldGreen.copy(alpha = 0.12f),
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                         shape = CircleShape
                     )
             )
@@ -122,16 +120,17 @@ fun RipplePulseButton(
 
         // Main Action Button
         val interactionSource = remember { MutableInteractionSource() }
-        val activeBg = if (isRecording) Color(0xFFEF4444) else EmeraldGreen
-        val iconColor = if (isRecording) PureWhite else PureBlack
+        val activeBg = if (isRecording) Color(0xFFEF4444) else MaterialTheme.colorScheme.primary
+        val iconColor = if (isRecording) Color.White else MaterialTheme.colorScheme.onPrimary
 
         Box(
             modifier = Modifier
-                .size(76.dp)
+                .size(72.dp)
+                .shadow(elevation = if (isRecording) 8.dp else 4.dp, shape = CircleShape)
                 .clip(CircleShape)
                 .border(
                     width = 2.dp,
-                    color = if (isRecording) Color.White.copy(alpha = 0.8f) else PureWhite.copy(alpha = 0.3f),
+                    color = if (isRecording) Color.White.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.35f),
                     shape = CircleShape
                 )
                 .background(activeBg)
@@ -151,3 +150,4 @@ fun RipplePulseButton(
         }
     }
 }
+

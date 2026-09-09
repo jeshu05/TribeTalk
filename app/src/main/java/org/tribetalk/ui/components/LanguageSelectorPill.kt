@@ -27,20 +27,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.tribetalk.ui.theme.DarkBorderGreen
-import org.tribetalk.ui.theme.DarkCard
-import org.tribetalk.ui.theme.EmeraldGreen
-import org.tribetalk.ui.theme.PureBlack
-import org.tribetalk.ui.theme.PureWhite
-import org.tribetalk.ui.theme.WhiteSecondary
+import org.tribetalk.ui.theme.EduPrimary
 
 /**
  * Direction selector pill cleanly toggling between:
  * Hindi (Devanagari) -> Santali (Ol Chiki) and Santali -> Hindi.
- * Styled in high-contrast Green, White, and Black.
+ * Designed with a clean, modern educational aesthetic.
  */
 @Composable
 fun LanguageSelectorPill(
@@ -60,15 +56,15 @@ fun LanguageSelectorPill(
             .clip(RoundedCornerShape(32.dp))
             .border(
                 width = 1.dp,
-                color = DarkBorderGreen,
+                color = MaterialTheme.colorScheme.outline,
                 shape = RoundedCornerShape(32.dp)
             ),
-        color = DarkCard,
-        tonalElevation = 4.dp
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 1.dp
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = 18.dp, vertical = 10.dp),
+                .padding(horizontal = 18.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
@@ -78,13 +74,13 @@ fun LanguageSelectorPill(
                     text = if (isHindiToSantali) "हिन्दी" else "ᱥᱟᱱᱛᱟᱲᱤ",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = PureWhite,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 17.sp
                 )
                 Text(
                     text = if (isHindiToSantali) "Hindi" else "Santali",
                     style = MaterialTheme.typography.labelSmall,
-                    color = WhiteSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -97,12 +93,12 @@ fun LanguageSelectorPill(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(EmeraldGreen)
+                    .background(EduPrimary)
             ) {
                 Icon(
                     imageVector = Icons.Rounded.SwapHoriz,
                     contentDescription = "Swap translation direction",
-                    tint = PureBlack,
+                    tint = Color.White,
                     modifier = Modifier
                         .size(22.dp)
                         .rotate(animatedRotation)
@@ -115,15 +111,16 @@ fun LanguageSelectorPill(
                     text = if (isHindiToSantali) "ᱥᱟᱱᱛᱟᱲᱤ" else "हिन्दी",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = EmeraldGreen,
+                    color = EduPrimary,
                     fontSize = 17.sp
                 )
                 Text(
                     text = if (isHindiToSantali) "Santali" else "Hindi",
                     style = MaterialTheme.typography.labelSmall,
-                    color = WhiteSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
     }
 }
+
