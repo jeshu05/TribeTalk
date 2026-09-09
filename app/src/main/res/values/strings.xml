@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TribeTalk</string>
+    <string name="app_tagline">Offline Bidirectional Speech Translation</string>
+    <string name="lang_hindi">हिन्दी (Hindi)</string>
+    <string name="lang_santali">ᱥᱟᱱᱛᱟᱲᱤ (Santali)</string>
+    <string name="state_idle">Ready</string>
+    <string name="state_listening">Listening</string>
+    <string name="state_asr">Transcribing</string>
+    <string name="state_translating">Translating</string>
+    <string name="state_synthesizing">Synthesizing</string>
+    <string name="state_playback">Playing Audio</string>
+    <string name="state_error">Error Encountered</string>
+    <string name="offline_badge">100% Offline</string>
+    <string name="memory_bound">Memory &lt; 350 MB</string>
+    <string name="mic_tap_to_speak">Tap to speak</string>
+    <string name="mic_tap_to_stop">Tap to finish</string>
+    <string name="type_placeholder">Type text in Devanagari or Ol Chiki...</string>
+    <string name="btn_translate">Translate</string>
+    <string name="no_conversations">No translations yet. Tap the microphone to start talking.</string>
+</resources>

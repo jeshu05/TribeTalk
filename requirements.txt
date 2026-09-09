@@ -1,0 +1,27 @@
+# Core Deep Learning
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.36.0
+accelerate>=0.26.0
+
+# Audio Processing (Pure-Python backends)
+soundfile>=0.12.0
+librosa>=0.10.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Model Hub, Tokenization & Deployment Runtimes
+huggingface_hub>=0.20.0
+sentencepiece>=0.2.0
+tokenizers>=0.14.0
+onnx>=1.15.0
+onnxruntime>=1.16.0
+IndicTransToolkit>=1.1.1
+
+# NeMo ASR (IndicConformer)
+nemo_toolkit[asr]>=2.0.0
+
+# Testing & Benchmarking
+pytest>=7.4.0
+sacrebleu>=2.3.0
+psutil>=5.9.0

@@ -1,25 +1,76 @@
-*.iml
-.gradle
-/local.properties
-/.idea
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-**/build/
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# Model binaries & large weights (>100MB GitHub limit)
-*.onnx
-*.onnx_data
-*.onnx.data
-*.pt
-*.pth
+# Environment & IDE
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+*.swp
+*~
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# C++ & Native Build Artifacts
+build/
+tribetalk-native/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeUserPresets.json
+*.dll
+*.dll.a
+*.dylib
+*.a
+*.lib
+*.obj
+*.o
+*.exe
+
+# Android & Gradle Build Artifacts
+.gradle/
+local.properties
+.cxx/
+**/.cxx/
+build/
+**/build/
+app/build/
+captures/
+*.apk
+*.aab
+staged_models/
+
+# Models & weights (do not track large binaries)
+models/hindi/*
+!models/hindi/.gitkeep
+models/santali/*
+!models/santali/.gitkeep
+models/translation/*
+!models/translation/.gitkeep
+models/tts/*
+!models/tts/.gitkeep
+*.nemo
 *.bin
 *.safetensors
-*.data
-*.wav
-*.mp3
-**/checkpoints/
-**/models/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.onnx.data
+
+# HuggingFace & Cache
+.cache/
+hf_cache/
+
+# Audio temp files & OS files
+*.tmp.wav
+temp_*.wav
+.DS_Store
+Thumbs.db
