@@ -2,10 +2,8 @@ package org.tribetalk.fln
 
 import org.junit.Assert.*
 import org.junit.Test
-import org.tribetalk.fln.model.FlnDomain
-import org.tribetalk.fln.model.FlnGrade
-import org.tribetalk.fln.model.WorksheetConfig
-import org.tribetalk.fln.model.WorksheetType
+import org.tribetalk.fln.generator.ProceduralCurriculumGenerator
+import org.tribetalk.fln.model.*
 import org.tribetalk.fln.repository.FlnCurriculumRepository
 
 class FlnCurriculumRepositoryTest {
@@ -57,6 +55,7 @@ class FlnCurriculumRepositoryTest {
             title = "Test Count & Match",
             type = WorksheetType.COUNT_AND_MATCH,
             grade = FlnGrade.GRADE_1,
+            difficulty = WorksheetDifficulty.EASY,
             questionCount = 5
         )
         val items = FlnCurriculumRepository.generateWorksheet(config)
@@ -65,6 +64,7 @@ class FlnCurriculumRepositoryTest {
             assertTrue("Quantity must be >= 1", item.quantity >= 1)
             assertFalse("Right Santali label must not be blank", item.rightLabelSantali.isBlank())
             assertFalse("Left Hindi label must not be blank", item.leftLabelHindi.isBlank())
+            assertFalse("Teacher phonetic guide must not be blank", item.teacherPhoneticAnswer.isBlank())
         }
     }
 
@@ -81,22 +81,126 @@ class FlnCurriculumRepositoryTest {
         for (item in items) {
             assertFalse("Left Hindi label must not be blank", item.leftLabelHindi.isBlank())
             assertFalse("Right Santali label must not be blank", item.rightLabelSantali.isBlank())
+            assertFalse("Teacher phonetic guide must not be blank", item.teacherPhoneticAnswer.isBlank())
         }
     }
 
     @Test
-    fun testWorksheetGenerationAssessmentCircle() {
+    fun testWorksheetGenerationAdditionWordProblem() {
         val config = WorksheetConfig(
-            title = "Test Multiple Choice Assessment",
-            type = WorksheetType.ASSESSMENT_CIRCLE,
+            title = "Test Addition Math",
+            type = WorksheetType.ADDITION_WORD_PROBLEM,
+            grade = FlnGrade.GRADE_1,
+            difficulty = WorksheetDifficulty.MEDIUM,
+            questionCount = 4
+        )
+        val items = FlnCurriculumRepository.generateWorksheet(config)
+        assertEquals(4, items.size)
+        for (item in items) {
+            assertEquals("+", item.operationSign)
+            assertTrue("Quantity 1 must be >= 1", item.quantity >= 1)
+            assertTrue("Quantity 2 must be >= 1", item.secondaryQuantity >= 1)
+            assertNotNull("Math answer must not be null", item.mathAnswer)
+            assertEquals("Math equation must be correct", item.quantity + item.secondaryQuantity, item.mathAnswer)
+            assertFalse("Hindi story prompt must not be blank", item.promptHindi.isBlank())
+            assertFalse("Santali story prompt must not be blank", item.promptSantali.isBlank())
+        }
+    }
+
+    @Test
+    fun testWorksheetGenerationNumberSequenceTrain() {
+        val config = WorksheetConfig(
+            title = "Test Number Train",
+            type = WorksheetType.NUMBER_SEQUENCE_TRAIN,
+            grade = FlnGrade.GRADE_1,
+            questionCount = 3
+        )
+        val items = FlnCurriculumRepository.generateWorksheet(config)
+        assertEquals(3, items.size)
+        for (item in items) {
+            assertEquals(5, item.sequenceItems.size)
+            assertTrue("Missing sequence index must be in 1..3", item.missingSequenceIndex in 1..3)
+            assertEquals("__", item.sequenceItems[item.missingSequenceIndex])
+            assertNotNull("Math answer must be present", item.mathAnswer)
+        }
+    }
+
+    @Test
+    fun testWorksheetGenerationGreaterLesserCompare() {
+        val config = WorksheetConfig(
+            title = "Test Compare Groups",
+            type = WorksheetType.GREATER_LESSER_COMPARE,
+            grade = FlnGrade.BALVATIKA,
+            questionCount = 4
+        )
+        val items = FlnCurriculumRepository.generateWorksheet(config)
+        assertEquals(4, items.size)
+        for (item in items) {
+            val expectedSign = when {
+                item.quantity > item.secondaryQuantity -> ">"
+                item.quantity < item.secondaryQuantity -> "<"
+                else -> "="
+            }
+            assertEquals(expectedSign, item.operationSign)
+        }
+    }
+
+    @Test
+    fun testWorksheetGenerationMissingAksharSpelling() {
+        val config = WorksheetConfig(
+            title = "Test Missing Akshar",
+            type = WorksheetType.MISSING_AKSHAR_SPELLING,
             grade = FlnGrade.GRADE_2,
             questionCount = 4
         )
         val items = FlnCurriculumRepository.generateWorksheet(config)
         assertEquals(4, items.size)
         for (item in items) {
-            assertEquals("Must have 3 multiple choice options", 3, item.options.size)
-            assertTrue("Correct index must be in 0..2", item.correctIndex in 0..2)
+            assertNotNull("Word with blank must not be null", item.wordWithBlank)
+            assertTrue("Word must contain blank placeholder", item.wordWithBlank!!.contains("[ _ ]"))
+            assertNotNull("Missing letter answer must not be null", item.missingLetterAnswer)
+            assertEquals("Must have 4 option choices", 4, item.options.size)
+            assertTrue("Options must contain the correct missing letter", item.options.contains(item.missingLetterAnswer))
+            assertEquals(item.missingLetterAnswer, item.options[item.correctIndex])
         }
+    }
+
+    @Test
+    fun testDeterministicSeedReproducibility() {
+        val seed = 123456789L
+        val config1 = WorksheetConfig(
+            type = WorksheetType.ADDITION_WORD_PROBLEM,
+            questionCount = 5,
+            seed = seed
+        )
+        val config2 = WorksheetConfig(
+            type = WorksheetType.ADDITION_WORD_PROBLEM,
+            questionCount = 5,
+            seed = seed
+        )
+
+        val items1 = FlnCurriculumRepository.generateWorksheet(config1)
+        val items2 = FlnCurriculumRepository.generateWorksheet(config2)
+
+        assertEquals(items1.size, items2.size)
+        for (i in items1.indices) {
+            assertEquals(items1[i].quantity, items2[i].quantity)
+            assertEquals(items1[i].secondaryQuantity, items2[i].secondaryQuantity)
+            assertEquals(items1[i].mathAnswer, items2[i].mathAnswer)
+            assertEquals(items1[i].promptHindi, items2[i].promptHindi)
+        }
+    }
+
+    @Test
+    fun testCustomFlashcardSynthesis() {
+        val card = ProceduralCurriculumGenerator.synthesizeCard("नदी (Water stream)")
+        assertNotNull(card)
+        assertTrue(card.isCustomUserGenerated)
+        assertFalse(card.santaliOlChiki.isBlank())
+        assertFalse(card.teacherPhoneticGuide.isBlank())
+
+        FlnCurriculumRepository.addCustomCard(card)
+        val customCards = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
+        assertTrue(customCards.any { it.id == card.id })
     }
 }

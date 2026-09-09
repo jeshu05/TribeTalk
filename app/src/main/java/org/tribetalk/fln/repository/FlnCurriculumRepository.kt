@@ -571,7 +571,11 @@ object FlnCurriculumRepository {
         )
     )
 
-    fun getAllCards(): List<FlnCard> = CARDS
+    val CATEGORY_CUSTOM = "Custom Teacher Topics (ᱢᱟᱪᱮᱛ ᱥᱟᱛᱟᱢ)"
+
+    private val customCards = mutableListOf<FlnCard>()
+
+    fun getAllCards(): List<FlnCard> = CARDS + customCards
 
     fun getCategories(): List<String> = listOf(
         CATEGORY_ALL,
@@ -580,101 +584,27 @@ object FlnCurriculumRepository {
         CATEGORY_ANIMALS,
         CATEGORY_NATURE,
         CATEGORY_SCHOOL_FAMILY,
-        CATEGORY_SHAPES
+        CATEGORY_SHAPES,
+        CATEGORY_CUSTOM
     )
 
     fun getCardsByCategory(category: String): List<FlnCard> {
+        val all = getAllCards()
         return if (category == CATEGORY_ALL) {
-            CARDS
+            all
         } else {
-            CARDS.filter { it.category == category }
+            all.filter { it.category == category }
         }
     }
 
+    fun addCustomCard(card: FlnCard) {
+        customCards.add(0, card)
+    }
+
     /**
-     * Algorithmic generation of bilingual worksheet problem sets.
+     * Algorithmic generation of bilingual worksheet problem sets via ProceduralCurriculumGenerator.
      */
     fun generateWorksheet(config: WorksheetConfig): List<WorksheetItem> {
-        val rand = Random(config.seed)
-        val count = config.questionCount.coerceIn(3, 8)
-
-        return when (config.type) {
-            WorksheetType.COUNT_AND_MATCH -> {
-                val numberCards = CARDS.filter { it.domain == FlnDomain.NUMERACY_COUNTING && it.numeralValue != null }
-                    .shuffled(rand)
-                    .take(count)
-
-                numberCards.mapIndexed { index, card ->
-                    WorksheetItem(
-                        id = "q_$index",
-                        prompt = "Count the objects and connect to the correct Santali & Hindi number:",
-                        iconType = listOf("star", "circle", "flower", "apple").random(rand),
-                        quantity = card.numeralValue ?: (index + 1),
-                        leftLabelHindi = card.hindiText,
-                        rightLabelSantali = card.santaliOlChiki
-                    )
-                }
-            }
-
-            WorksheetType.PICTURE_WORD_MATCH -> {
-                val vocabCards = CARDS.filter {
-                    it.category == CATEGORY_ANIMALS || it.category == CATEGORY_NATURE || it.category == CATEGORY_SCHOOL_FAMILY
-                }.shuffled(rand).take(count)
-
-                vocabCards.mapIndexed { index, card ->
-                    WorksheetItem(
-                        id = "q_$index",
-                        prompt = "Match the picture with its Santali word and Hindi translation:",
-                        iconType = card.iconType,
-                        quantity = 1,
-                        leftLabelHindi = card.hindiText,
-                        rightLabelSantali = "${card.santaliOlChiki} [${card.teacherPhoneticGuide}]"
-                    )
-                }
-            }
-
-            WorksheetType.AKSHAR_TRACING -> {
-                val aksharCards = CARDS.filter { it.domain == FlnDomain.LITERACY_AKSHAR }
-                    .shuffled(rand)
-                    .take(count)
-
-                aksharCards.mapIndexed { index, card ->
-                    WorksheetItem(
-                        id = "q_$index",
-                        prompt = "Trace the Ol Chiki letter and practice its pronunciation:",
-                        iconType = "akshar",
-                        quantity = 1,
-                        leftLabelHindi = "${card.santaliOlChiki} ( ${card.teacherPhoneticGuide} )",
-                        rightLabelSantali = ". . .  . . .  . . ."
-                    )
-                }
-            }
-
-            WorksheetType.ASSESSMENT_CIRCLE -> {
-                val candidateCards = CARDS.filter { it.domain != FlnDomain.LITERACY_AKSHAR }
-                    .shuffled(rand)
-                    .take(count)
-
-                candidateCards.mapIndexed { index, card ->
-                    val distractors = CARDS.filter { it.id != card.id && it.category == card.category }
-                        .shuffled(rand)
-                        .take(2)
-                        .map { it.santaliOlChiki }
-
-                    val allOptions = (distractors + card.santaliOlChiki).shuffled(rand)
-                    val correctIdx = allOptions.indexOf(card.santaliOlChiki)
-
-                    WorksheetItem(
-                        id = "q_$index",
-                        prompt = "What is '${card.hindiText}' in Santali (Ol Chiki)?",
-                        iconType = card.iconType,
-                        quantity = 1,
-                        leftLabelHindi = card.hindiText,
-                        options = allOptions,
-                        correctIndex = correctIdx
-                    )
-                }
-            }
-        }
+        return org.tribetalk.fln.generator.ProceduralCurriculumGenerator.generate(config)
     }
 }

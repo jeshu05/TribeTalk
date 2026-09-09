@@ -3,8 +3,12 @@ package org.tribetalk.ui.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -22,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.tribetalk.fln.model.FlnGrade
+import org.tribetalk.fln.model.WorksheetDifficulty
 import org.tribetalk.fln.model.WorksheetItem
 import org.tribetalk.fln.model.WorksheetType
 import org.tribetalk.ui.components.FlnVectorGraphic
@@ -30,12 +35,14 @@ import org.tribetalk.ui.theme.DarkBorderGreen
 import org.tribetalk.ui.theme.DarkCard
 import org.tribetalk.ui.theme.DarkSurface
 import org.tribetalk.ui.theme.EmeraldGreen
+import org.tribetalk.ui.theme.EmeraldMint
 import org.tribetalk.ui.theme.PureBlack
 import org.tribetalk.ui.theme.PureWhite
 import org.tribetalk.ui.theme.WhiteSecondary
 
 /**
  * NIPUN Bharat bilingual worksheet studio.
+ * 8 High-Impact Worksheet Types, Dual-Sheet Vector PDF Exporter, and Teacher Phonetics Key.
  * High-contrast Green, White, and Black styling.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,11 +54,8 @@ fun WorksheetsScreen(
     val context = LocalContext.current
     val config by flnViewModel.worksheetConfig.collectAsState()
     val items by flnViewModel.worksheetItems.collectAsState()
+    val previewTab by flnViewModel.previewTab.collectAsState()
     val isGeneratingPdf by flnViewModel.isGeneratingPdf.collectAsState()
-    val lastPdf by flnViewModel.lastGeneratedPdf.collectAsState()
-
-    var showTypeDropdown by remember { mutableStateOf(false) }
-    var showGradeDropdown by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -61,13 +65,13 @@ fun WorksheetsScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Worksheet Studio",
+                            text = "NIPUN Worksheet Studio",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.ExtraBold,
                             color = PureWhite
                         )
                         Text(
-                            text = "NIPUN Bharat Bilingual Generator • Offline A4",
+                            text = "Foundational Literacy & Numeracy • 2-Page Offline PDF",
                             style = MaterialTheme.typography.bodySmall,
                             color = WhiteSecondary
                         )
@@ -122,7 +126,7 @@ fun WorksheetsScreen(
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
-                                "Generating Printable PDF...",
+                                "Generating Dual-Sheet PDF...",
                                 color = PureBlack,
                                 fontWeight = FontWeight.Bold
                             )
@@ -135,7 +139,7 @@ fun WorksheetsScreen(
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
-                                text = "Export & Print A4 PDF",
+                                text = "Export & Print 2-Page A4 PDF",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = PureBlack
@@ -144,7 +148,7 @@ fun WorksheetsScreen(
                     }
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "100% Offline • Ready to print or share via Bluetooth / WhatsApp",
+                        text = "Page 1: Student Sheet  •  Page 2: Teacher Answer Key & Pronunciation",
                         style = MaterialTheme.typography.labelSmall,
                         color = WhiteSecondary
                     )
@@ -162,253 +166,219 @@ fun WorksheetsScreen(
         ) {
             item {
                 Spacer(modifier = Modifier.height(4.dp))
-                // Configuration Controls
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = DarkCard
-                    ),
-                    border = BorderStroke(1.dp, DarkBorderGreen)
+
+                // 8 Worksheet Types Horizontal Carousel
+                Text(
+                    text = "SELECT WORKSHEET FORMAT (${WorksheetType.entries.size} NIPUN Types)",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = EmeraldMint,
+                    letterSpacing = 1.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Text(
-                            text = "Worksheet Parameters",
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = EmeraldGreen
-                        )
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    items(WorksheetType.entries) { type ->
+                        val isSelected = config.type == type
+                        Card(
+                            modifier = Modifier
+                                .width(200.dp)
+                                .clickable { flnViewModel.setWorksheetType(type) },
+                            shape = RoundedCornerShape(14.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isSelected) EmeraldGreen.copy(alpha = 0.15f) else DarkCard
+                            ),
+                            border = BorderStroke(
+                                1.5.dp,
+                                if (isSelected) EmeraldGreen else DarkBorder
+                            )
                         ) {
-                            // Type Selector
-                            Box(modifier = Modifier.weight(1f)) {
-                                Button(
-                                    onClick = { showTypeDropdown = true },
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp)
+                            ) {
+                                Row(
                                     modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(12.dp),
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = DarkSurface,
-                                        contentColor = PureWhite
-                                    ),
-                                    border = BorderStroke(1.dp, DarkBorder)
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.AutoMirrored.Rounded.ListAlt,
-                                        contentDescription = null,
-                                        tint = EmeraldGreen,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = when (config.type) {
-                                            WorksheetType.COUNT_AND_MATCH -> "Count & Match"
-                                            WorksheetType.PICTURE_WORD_MATCH -> "Word & Picture"
-                                            WorksheetType.AKSHAR_TRACING -> "Letter Tracing"
-                                            WorksheetType.ASSESSMENT_CIRCLE -> "Multiple Choice"
-                                        },
-                                        style = MaterialTheme.typography.labelMedium,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = PureWhite,
-                                        maxLines = 1
+                                        text = type.nipunTargetCode,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (isSelected) EmeraldGreen else WhiteSecondary
                                     )
-                                }
-
-                                DropdownMenu(
-                                    expanded = showTypeDropdown,
-                                    onDismissRequest = { showTypeDropdown = false }
-                                ) {
-                                    WorksheetType.values().forEach { type ->
-                                        DropdownMenuItem(
-                                            text = { Text(type.displayName) },
-                                            onClick = {
-                                                flnViewModel.setWorksheetType(type)
-                                                showTypeDropdown = false
-                                            }
+                                    if (isSelected) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.CheckCircle,
+                                            contentDescription = "Active",
+                                            tint = EmeraldGreen,
+                                            modifier = Modifier.size(16.dp)
                                         )
                                     }
                                 }
-                            }
-
-                            // Grade Selector
-                            Box(modifier = Modifier.weight(0.9f)) {
-                                Button(
-                                    onClick = { showGradeDropdown = true },
-                                    modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(12.dp),
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = DarkSurface,
-                                        contentColor = PureWhite
-                                    ),
-                                    border = BorderStroke(1.dp, DarkBorder)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.School,
-                                        contentDescription = null,
-                                        tint = EmeraldGreen,
-                                        modifier = Modifier.size(16.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Text(
-                                        text = when (config.grade) {
-                                            FlnGrade.BALVATIKA -> "Balvatika"
-                                            FlnGrade.GRADE_1 -> "Grade 1"
-                                            FlnGrade.GRADE_2 -> "Grade 2"
-                                        },
-                                        style = MaterialTheme.typography.labelMedium,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = PureWhite,
-                                        maxLines = 1
-                                    )
-                                }
-
-                                DropdownMenu(
-                                    expanded = showGradeDropdown,
-                                    onDismissRequest = { showGradeDropdown = false }
-                                ) {
-                                    FlnGrade.values().forEach { grade ->
-                                        DropdownMenuItem(
-                                            text = { Text(grade.displayName) },
-                                            onClick = {
-                                                flnViewModel.setWorksheetGrade(grade)
-                                                showGradeDropdown = false
-                                            }
-                                        )
-                                    }
-                                }
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = type.displayName,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = PureWhite
+                                )
+                                Text(
+                                    text = type.santaliName,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = EmeraldMint
+                                )
                             }
                         }
-
-                        Text(
-                            text = config.type.description,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = WhiteSecondary
-                        )
                     }
                 }
-            }
 
-            // Sheet Paper Preview Header
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Sheet Preview (Print Layout)",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = PureWhite
-                    )
+                Spacer(modifier = Modifier.height(16.dp))
 
-                    AssistChip(
-                        onClick = { flnViewModel.regenerateWorksheet() },
-                        label = { Text("Shuffle Items", color = EmeraldGreen) },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Shuffle,
-                                contentDescription = null,
-                                tint = EmeraldGreen,
-                                modifier = Modifier.size(14.dp)
-                            )
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = DarkCard
-                        ),
-                        border = BorderStroke(1.dp, DarkBorderGreen)
-                    )
-                }
-            }
-
-            // Printable Paper Container (Crisp White Paper with Black Typography and Green Accents)
-            item {
+                // Configuration Bar: Grade & Difficulty Chips
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    border = BorderStroke(1.5.dp, Color(0xFFE2E8F0)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                    shape = RoundedCornerShape(14.dp),
+                    colors = CardDefaults.cardColors(containerColor = DarkCard),
+                    border = BorderStroke(1.dp, DarkBorder)
                 ) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(18.dp)
+                            .padding(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        // Official Worksheet Header
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color(0xFF0F172A), RoundedCornerShape(4.dp))
-                                .padding(12.dp)
-                        ) {
-                            Column {
-                                Text(
-                                    text = "TRIBETALK • NIPUN BHARAT FLN BILINGUAL WORKSHEET",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    color = Color(0xFF00E676)
-                                )
-                                Text(
-                                    text = "${config.type.displayName}  |  ${config.grade.displayName}",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = Color.White
-                                )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        // Student metadata line
+                        // Grade Level
                         Row(
                             modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("Name: ________________", style = MaterialTheme.typography.bodySmall, color = Color(0xFF0F172A))
-                            Text("Date: ________", style = MaterialTheme.typography.bodySmall, color = Color(0xFF0F172A))
-                            Text("Roll: ____", style = MaterialTheme.typography.bodySmall, color = Color(0xFF0F172A))
-                        }
-
-                        HorizontalDivider(
-                            modifier = Modifier.padding(vertical = 12.dp),
-                            color = Color(0xFFCBD5E1)
-                        )
-
-                        // Problem Items
-                        items.forEachIndexed { index, item ->
-                            WorksheetItemRow(
-                                index = index,
-                                item = item,
-                                type = config.type
+                            Text(
+                                text = "Grade Level:",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = WhiteSecondary
                             )
-                            if (index < items.size - 1) {
-                                HorizontalDivider(
-                                    modifier = Modifier.padding(vertical = 10.dp),
-                                    color = Color(0xFFF1F5F9)
-                                )
+                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                FlnGrade.entries.forEach { grade ->
+                                    val isSel = config.grade == grade
+                                    FilterChip(
+                                        selected = isSel,
+                                        onClick = { flnViewModel.setWorksheetGrade(grade) },
+                                        label = {
+                                            Text(
+                                                text = grade.displayName.substringBefore(" "),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
+                                            )
+                                        },
+                                        colors = FilterChipDefaults.filterChipColors(
+                                            selectedContainerColor = EmeraldGreen,
+                                            selectedLabelColor = PureBlack,
+                                            containerColor = PureBlack,
+                                            labelColor = PureWhite
+                                        )
+                                    )
+                                }
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(14.dp))
-                        HorizontalDivider(color = Color(0xFF0F172A), thickness = 1.5.dp)
-                        Spacer(modifier = Modifier.height(6.dp))
-
-                        Text(
-                            text = "NIPUN Bharat Target: Foundational Literacy & Numeracy • Generated 100% Offline",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color(0xFF059669),
-                            fontWeight = FontWeight.Bold,
+                        // Difficulty Level
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Difficulty:",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = WhiteSecondary
+                            )
+                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                WorksheetDifficulty.entries.forEach { diff ->
+                                    val isSel = config.difficulty == diff
+                                    FilterChip(
+                                        selected = isSel,
+                                        onClick = { flnViewModel.setWorksheetDifficulty(diff) },
+                                        label = {
+                                            Text(
+                                                text = diff.displayName.substringBefore(" "),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
+                                            )
+                                        },
+                                        colors = FilterChipDefaults.filterChipColors(
+                                            selectedContainerColor = EmeraldGreen,
+                                            selectedLabelColor = PureBlack,
+                                            containerColor = PureBlack,
+                                            labelColor = PureWhite
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Dual-Tab Switcher: Student Sheet vs Teacher Key
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(DarkSurface)
+                        .padding(4.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) EmeraldGreen else Color.Transparent)
+                            .clickable { flnViewModel.setPreviewTab(WorksheetPreviewTab.STUDENT_SHEET) }
+                            .padding(vertical = 10.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Student Sheet (Page 1)",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) PureBlack else PureWhite
                         )
                     }
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(if (previewTab == WorksheetPreviewTab.TEACHER_KEY) EmeraldGreen else Color.Transparent)
+                            .clickable { flnViewModel.setPreviewTab(WorksheetPreviewTab.TEACHER_KEY) }
+                            .padding(vertical = 10.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Teacher Key & Phonics (Page 2)",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = if (previewTab == WorksheetPreviewTab.TEACHER_KEY) PureBlack else PureWhite
+                        )
+                    }
+                }
+            }
+
+            // Render Items based on selected Tab
+            itemsIndexed(items) { index, item ->
+                if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
+                    StudentProblemCard(index = index + 1, item = item, config = config)
+                } else {
+                    TeacherKeyCard(index = index + 1, item = item)
                 }
             }
 
@@ -420,159 +390,414 @@ fun WorksheetsScreen(
 }
 
 @Composable
-private fun WorksheetItemRow(
+private fun StudentProblemCard(
     index: Int,
     item: WorksheetItem,
-    type: WorksheetType
+    config: org.tribetalk.fln.model.WorksheetConfig
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkCard),
+        border = BorderStroke(1.dp, DarkBorder)
     ) {
-        // Question number
-        Text(
-            text = "${index + 1}.",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF0F172A),
-            modifier = Modifier.width(28.dp)
-        )
-
-        when (type) {
-            WorksheetType.COUNT_AND_MATCH -> {
-                // Visual dots / shapes in green
-                Row(
-                    modifier = Modifier.weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    for (i in 0 until item.quantity) {
-                        Box(
-                            modifier = Modifier
-                                .size(14.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFF00E676))
-                                .border(1.dp, Color(0xFF059669), CircleShape)
-                        )
-                    }
-                }
-
-                Text(
-                    text = "• - - - - •",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color(0xFF94A3B8)
-                )
-
-                Text(
-                    text = "${item.rightLabelSantali}  [ ${item.leftLabelHindi} ]",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF0F172A),
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 12.dp)
-                )
-            }
-
-            WorksheetType.PICTURE_WORD_MATCH -> {
-                Row(
-                    modifier = Modifier.weight(1f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    FlnVectorGraphic(
-                        iconType = item.iconType,
-                        size = 32.dp,
-                        tint = Color(0xFF059669)
-                    )
-                    Text(
-                        text = item.leftLabelHindi,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF0F172A)
-                    )
-                }
-
-                Text(
-                    text = "• - - - - •",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color(0xFF94A3B8)
-                )
-
-                Text(
-                    text = item.rightLabelSantali,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF059669),
-                    modifier = Modifier
-                        .weight(1.2f)
-                        .padding(start = 12.dp)
-                )
-            }
-
-            WorksheetType.AKSHAR_TRACING -> {
-                Text(
-                    text = item.leftLabelHindi,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF0F172A),
-                    modifier = Modifier.weight(1f)
-                )
-
-                Surface(
-                    color = Color(0xFFF8FAFC),
-                    shape = RoundedCornerShape(6.dp),
-                    border = BorderStroke(1.dp, Color(0xFF059669)),
-                    modifier = Modifier
-                        .weight(1.2f)
-                        .height(38.dp)
-                ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            // Header Row with Problem # and NIPUN Target
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clip(CircleShape)
+                            .background(EmeraldGreen),
+                        contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Practice: . . . . . .",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color(0xFF059669),
-                            fontWeight = FontWeight.Bold
+                            text = "$index",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = PureBlack
                         )
                     }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = item.nipunCode,
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = EmeraldMint
+                    )
                 }
             }
 
-            WorksheetType.ASSESSMENT_CIRCLE -> {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = item.prompt,
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF1E293B)
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Prompts
+            Text(
+                text = item.promptHindi,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = PureWhite
+            )
+            if (item.promptSantali.isNotEmpty()) {
+                Text(
+                    text = item.promptSantali,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = EmeraldMint
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Problem-specific visual layout
+            when (config.type) {
+                WorksheetType.COUNT_AND_MATCH -> {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        item.options.forEach { opt ->
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(4.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(14.dp)
-                                        .border(1.5.dp, Color(0xFF059669), CircleShape)
-                                )
-                                Text(
-                                    text = opt,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF0F172A)
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            for (i in 0 until item.quantity.coerceAtMost(8)) {
+                                FlnVectorGraphic(
+                                    iconType = item.iconType,
+                                    size = 28.dp,
+                                    tint = EmeraldGreen
                                 )
                             }
                         }
+                        Box(
+                            modifier = Modifier
+                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
+                                .background(DarkSurface)
+                                .padding(horizontal = 14.dp, vertical = 8.dp)
+                        ) {
+                            Text(
+                                text = "${item.rightLabelSantali} [ ${item.leftLabelHindi} ]",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = PureWhite
+                            )
+                        }
+                    }
+                }
+
+                WorksheetType.PICTURE_WORD_MATCH -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            FlnVectorGraphic(iconType = item.iconType, size = 42.dp, tint = EmeraldGreen)
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = item.leftLabelHindi,
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = PureWhite
+                            )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
+                                .background(DarkSurface)
+                                .padding(horizontal = 14.dp, vertical = 8.dp)
+                        ) {
+                            Text(
+                                text = item.rightLabelSantali,
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = EmeraldMint
+                            )
+                        }
+                    }
+                }
+
+                WorksheetType.ADDITION_WORD_PROBLEM -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            for (i in 0 until item.quantity) {
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EmeraldGreen)
+                            }
+                        }
+                        Text("  +  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = PureWhite)
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            for (i in 0 until item.secondaryQuantity) {
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = Color(0xFF60A5FA))
+                            }
+                        }
+                        Text("  =  ", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = PureWhite)
+                        Box(
+                            modifier = Modifier
+                                .size(40.dp)
+                                .border(1.5.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
+                                .background(DarkSurface),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("?", color = WhiteSecondary, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+
+                WorksheetType.NUMBER_SEQUENCE_TRAIN -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item.sequenceItems.forEachIndexed { seqIdx, seqVal ->
+                            val isMissing = seqIdx == item.missingSequenceIndex
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(44.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(if (isMissing) EmeraldGreen.copy(alpha = 0.1f) else DarkSurface)
+                                    .border(
+                                        width = if (isMissing) 1.5.dp else 1.dp,
+                                        color = if (isMissing) EmeraldGreen else DarkBorder,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = if (isMissing) "[ ? ]" else seqVal,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (isMissing) EmeraldMint else PureWhite
+                                )
+                            }
+                        }
+                    }
+                }
+
+                WorksheetType.GREATER_LESSER_COMPARE -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Left Count
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            for (i in 0 until item.quantity) {
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = EmeraldGreen)
+                            }
+                        }
+
+                        // Middle Circle
+                        Box(
+                            modifier = Modifier
+                                .size(46.dp)
+                                .clip(CircleShape)
+                                .background(DarkSurface)
+                                .border(1.5.dp, EmeraldGreen, CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(">", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = EmeraldMint)
+                        }
+
+                        // Right Count
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            for (i in 0 until item.secondaryQuantity) {
+                                FlnVectorGraphic(iconType = item.iconType, size = 26.dp, tint = Color(0xFF60A5FA))
+                            }
+                        }
+                    }
+                }
+
+                WorksheetType.MISSING_AKSHAR_SPELLING -> {
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text(
+                            text = "Word: ${item.wordWithBlank ?: ""}",
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = PureWhite
+                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            item.options.forEach { optChar ->
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(44.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(DarkSurface)
+                                        .border(1.dp, DarkBorder, RoundedCornerShape(8.dp)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = optChar,
+                                        style = MaterialTheme.typography.titleMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        color = PureWhite
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                WorksheetType.AKSHAR_TRACING -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = item.leftLabelHindi,
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = PureWhite
+                        )
+                        Box(
+                            modifier = Modifier
+                                .border(1.dp, DarkBorderGreen, RoundedCornerShape(8.dp))
+                                .background(DarkSurface)
+                                .padding(horizontal = 20.dp, vertical = 12.dp)
+                        ) {
+                            Text(
+                                text = "Practice: . . .   . . .   . . .",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = WhiteSecondary
+                            )
+                        }
+                    }
+                }
+
+                WorksheetType.ASSESSMENT_CIRCLE -> {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        item.options.forEachIndexed { optIdx, optText ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(DarkSurface)
+                                    .border(1.dp, DarkBorder, RoundedCornerShape(8.dp))
+                                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .clip(CircleShape)
+                                        .border(1.dp, EmeraldGreen, CircleShape)
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = optText,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = PureWhite
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun TeacherKeyCard(index: Int, item: WorksheetItem) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkCard),
+        border = BorderStroke(1.dp, EmeraldGreen.copy(alpha = 0.5f))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Problem $index Solution Key",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = EmeraldMint
+                )
+                Text(
+                    text = item.nipunCode,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = EmeraldGreen
+                )
+            }
+
+            // Solution Note
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(DarkSurface)
+                    .padding(12.dp)
+            ) {
+                Column {
+                    Text(
+                        text = "Verified Answer:",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = WhiteSecondary
+                    )
+                    Text(
+                        text = item.teacherSolutionNote.ifEmpty { item.rightLabelSantali },
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = PureWhite
+                    )
+                }
+            }
+
+            // Phonetics pronunciation guide
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(EmeraldGreen.copy(alpha = 0.1f))
+                    .border(1.dp, EmeraldGreen.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+                    .padding(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Rounded.RecordVoiceOver,
+                        contentDescription = "Pronounce",
+                        tint = EmeraldGreen,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Column {
+                        Text(
+                            text = "Teacher Pronunciation (कक्षा में ऐसे बोलें):",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = EmeraldMint
+                        )
+                        Text(
+                            text = item.teacherPhoneticAnswer.ifEmpty { item.rightLabelSantali },
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = PureWhite
+                        )
                     }
                 }
             }

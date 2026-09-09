@@ -203,6 +203,54 @@ fun FlnVectorGraphic(
                     tint = tint
                 )
             }
+            "apple", "fruit" -> {
+                Icon(
+                    imageVector = Icons.Rounded.Eco,
+                    contentDescription = "Fruit",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFFEF4444)
+                )
+            }
+            "mango" -> {
+                Icon(
+                    imageVector = Icons.Rounded.Grass,
+                    contentDescription = "Mango",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFFF59E0B)
+                )
+            }
+            "coin" -> {
+                Icon(
+                    imageVector = Icons.Rounded.MonetizationOn,
+                    contentDescription = "Currency",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFFEAB308)
+                )
+            }
+            "train" -> {
+                Icon(
+                    imageVector = Icons.Rounded.DirectionsRailway,
+                    contentDescription = "Train",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFF10B981)
+                )
+            }
+            "star" -> {
+                Icon(
+                    imageVector = Icons.Rounded.Star,
+                    contentDescription = "Star",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFFFBBF24)
+                )
+            }
+            "rice" -> {
+                Icon(
+                    imageVector = Icons.Rounded.RiceBowl,
+                    contentDescription = "Rice",
+                    modifier = Modifier.size(size * 0.7f),
+                    tint = Color(0xFFE2E8F0)
+                )
+            }
             else -> {
                 Icon(
                     imageVector = Icons.Rounded.Category,

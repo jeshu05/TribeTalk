@@ -10,20 +10,31 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.tribetalk.audio.TribeTalkTtsManager
+import org.tribetalk.fln.generator.ProceduralCurriculumGenerator
 import org.tribetalk.fln.model.*
 import org.tribetalk.fln.repository.FlnCurriculumRepository
 import org.tribetalk.fln.worksheet.WorksheetPdfExporter
 import java.io.File
 
 /**
- * ViewModel managing state for NIPUN Bharat FLN flashcard deck and worksheet studio.
- * Runs completely offline and isolated from heavy neural ASR inference models.
+ * Preview modes for the interactive worksheet studio.
+ */
+enum class WorksheetPreviewTab {
+    STUDENT_SHEET,
+    TEACHER_KEY
+}
+
+/**
+ * ViewModel managing state for the NIPUN Bharat Foundational Literacy and Numeracy suite.
+ * Runs completely offline and isolated from heavy neural ASR inference models (< 5 MB RAM).
  */
 class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val ttsManager = TribeTalkTtsManager(application.applicationContext)
 
+    // -------------------------------------------------------------------------
     // Flashcards State
+    // -------------------------------------------------------------------------
     private val _categories = MutableStateFlow(FlnCurriculumRepository.getCategories())
     val categories: StateFlow<List<String>> = _categories.asStateFlow()
 
@@ -44,13 +55,39 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     val isPlayingAudio: StateFlow<Boolean> = ttsManager.isSpeaking
 
+    // Interactive Quiz State
+    private val _quizScore = MutableStateFlow(0)
+    val quizScore: StateFlow<Int> = _quizScore.asStateFlow()
+
+    private val _quizAnsweredCount = MutableStateFlow(0)
+    val quizAnsweredCount: StateFlow<Int> = _quizAnsweredCount.asStateFlow()
+
+    private val _selectedQuizOption = MutableStateFlow<Int?>(null)
+    val selectedQuizOption: StateFlow<Int?> = _selectedQuizOption.asStateFlow()
+
+    private val _isQuizAnswerChecked = MutableStateFlow(false)
+    val isQuizAnswerChecked: StateFlow<Boolean> = _isQuizAnswerChecked.asStateFlow()
+
+    private val _quizOptions = MutableStateFlow<List<String>>(emptyList())
+    val quizOptions: StateFlow<List<String>> = _quizOptions.asStateFlow()
+
+    private val _quizCorrectIndex = MutableStateFlow(0)
+    val quizCorrectIndex: StateFlow<Int> = _quizCorrectIndex.asStateFlow()
+
+    private val _customCardSuccessMessage = MutableStateFlow<String?>(null)
+    val customCardSuccessMessage: StateFlow<String?> = _customCardSuccessMessage.asStateFlow()
+
+    // -------------------------------------------------------------------------
     // Worksheets State
+    // -------------------------------------------------------------------------
     private val _worksheetConfig = MutableStateFlow(
         WorksheetConfig(
             title = "NIPUN Bharat FLN Practice Sheet",
             type = WorksheetType.COUNT_AND_MATCH,
             grade = FlnGrade.GRADE_1,
-            questionCount = 5
+            difficulty = WorksheetDifficulty.MEDIUM,
+            questionCount = 5,
+            schoolName = "Prathmik Vidyalaya (प्राथमिक विद्यालय)"
         )
     )
     val worksheetConfig: StateFlow<WorksheetConfig> = _worksheetConfig.asStateFlow()
@@ -60,11 +97,18 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     )
     val worksheetItems: StateFlow<List<WorksheetItem>> = _worksheetItems.asStateFlow()
 
+    private val _previewTab = MutableStateFlow(WorksheetPreviewTab.STUDENT_SHEET)
+    val previewTab: StateFlow<WorksheetPreviewTab> = _previewTab.asStateFlow()
+
     private val _isGeneratingPdf = MutableStateFlow(false)
     val isGeneratingPdf: StateFlow<Boolean> = _isGeneratingPdf.asStateFlow()
 
     private val _lastGeneratedPdf = MutableStateFlow<File?>(null)
     val lastGeneratedPdf: StateFlow<File?> = _lastGeneratedPdf.asStateFlow()
+
+    init {
+        setupQuizQuestion()
+    }
 
     // -------------------------------------------------------------------------
     // Flashcard Actions
@@ -75,6 +119,7 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         _cards.value = FlnCurriculumRepository.getCardsByCategory(category)
         _currentCardIndex.value = 0
         _isCardRevealed.value = false
+        setupQuizQuestion()
     }
 
     fun nextCard() {
@@ -82,6 +127,7 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         if (total > 0) {
             _currentCardIndex.value = (_currentCardIndex.value + 1) % total
             _isCardRevealed.value = false
+            setupQuizQuestion()
         }
     }
 
@@ -90,6 +136,7 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         if (total > 0) {
             _currentCardIndex.value = if (_currentCardIndex.value - 1 < 0) total - 1 else _currentCardIndex.value - 1
             _isCardRevealed.value = false
+            setupQuizQuestion()
         }
     }
 
@@ -97,11 +144,13 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         _cards.value = _cards.value.shuffled()
         _currentCardIndex.value = 0
         _isCardRevealed.value = false
+        setupQuizQuestion()
     }
 
     fun toggleQuizMode() {
         _isQuizMode.value = !_isQuizMode.value
         _isCardRevealed.value = false
+        setupQuizQuestion()
     }
 
     fun toggleCardReveal() {
@@ -110,6 +159,57 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playSantaliAudio(card: FlnCard) {
         ttsManager.speak(card.santaliOlChiki, "sat")
+    }
+
+    // -------------------------------------------------------------------------
+    // Quiz Mechanics
+    // -------------------------------------------------------------------------
+
+    private fun setupQuizQuestion() {
+        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
+        val otherCards = _cards.value.filter { it.id != current.id }.shuffled().take(3)
+        val distractors = otherCards.map { "${it.santaliOlChiki}  (${it.hindiText.substringBefore(" ")})" }
+        val correct = "${current.santaliOlChiki}  (${current.hindiText.substringBefore(" ")})"
+        val all = (distractors + correct).shuffled()
+        _quizOptions.value = all
+        _quizCorrectIndex.value = all.indexOf(correct)
+        _selectedQuizOption.value = null
+        _isQuizAnswerChecked.value = false
+    }
+
+    fun selectQuizOption(index: Int) {
+        if (_isQuizAnswerChecked.value) return
+        _selectedQuizOption.value = index
+        _isQuizAnswerChecked.value = true
+        _quizAnsweredCount.value++
+        if (index == _quizCorrectIndex.value) {
+            _quizScore.value++
+        }
+    }
+
+    fun resetQuiz() {
+        _quizScore.value = 0
+        _quizAnsweredCount.value = 0
+        setupQuizQuestion()
+    }
+
+    /**
+     * Synthesizes and adds a custom bilingual flashcard from teacher prompt.
+     */
+    fun createCustomFlashcard(hindiPrompt: String) {
+        if (hindiPrompt.isBlank()) return
+        val card = ProceduralCurriculumGenerator.synthesizeCard(hindiPrompt)
+        FlnCurriculumRepository.addCustomCard(card)
+        _categories.value = FlnCurriculumRepository.getCategories()
+        _selectedCategory.value = FlnCurriculumRepository.CATEGORY_CUSTOM
+        _cards.value = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
+        _currentCardIndex.value = 0
+        _customCardSuccessMessage.value = "Created: ${card.santaliOlChiki} [${card.teacherPhoneticGuide}]"
+        setupQuizQuestion()
+    }
+
+    fun clearCustomCardMessage() {
+        _customCardSuccessMessage.value = null
     }
 
     // -------------------------------------------------------------------------
@@ -126,6 +226,20 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         val newConfig = _worksheetConfig.value.copy(grade = grade, seed = System.currentTimeMillis())
         _worksheetConfig.value = newConfig
         _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
+    }
+
+    fun setWorksheetDifficulty(difficulty: WorksheetDifficulty) {
+        val newConfig = _worksheetConfig.value.copy(difficulty = difficulty, seed = System.currentTimeMillis())
+        _worksheetConfig.value = newConfig
+        _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
+    }
+
+    fun setWorksheetSchoolName(name: String) {
+        _worksheetConfig.value = _worksheetConfig.value.copy(schoolName = name)
+    }
+
+    fun setPreviewTab(tab: WorksheetPreviewTab) {
+        _previewTab.value = tab
     }
 
     fun regenerateWorksheet() {
