@@ -1,7 +1,6 @@
 package org.tribetalk.core
 
 import android.content.Context
-import android.util.LruCache
 
 /**
  * High-performance on-device AI Translator facade for TribeTalk.
@@ -14,9 +13,15 @@ object TribeTalkTranslator {
 
     private var neuralTranslator: TribeTalkNeuralTranslator? = null
 
-    // High-performance thread-safe LRU caches for sub-millisecond repeated translations and phonetics
-    private val translationCache = LruCache<String, String>(512)
-    private val phoneticsCache = LruCache<String, String>(512)
+// High-performance thread-safe LRU caches for sub-millisecond repeated translations and phonetics
+    private class SimpleLruCache<K, V>(private val maxEntries: Int) : LinkedHashMap<K, V>(maxEntries, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<K, V>?): Boolean {
+            return size > maxEntries
+        }
+    }
+
+    private val translationCache = SimpleLruCache<String, String>(512)
+    private val phoneticsCache = SimpleLruCache<String, String>(512)
 
     private val lock = Any()
 
@@ -87,8 +92,8 @@ object TribeTalkTranslator {
 
     fun clearCache() {
         synchronized(lock) {
-            translationCache.evictAll()
-            phoneticsCache.evictAll()
+            translationCache.clear()
+            phoneticsCache.clear()
             cacheHits = 0L
             cacheMisses = 0L
         }
