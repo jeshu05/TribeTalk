@@ -59,6 +59,30 @@ fun FlashcardsScreen(
     var showCreateDialog by remember { mutableStateOf(false) }
     var customPromptText by remember { mutableStateOf("") }
 
+    var isCustomGeneratorActive by remember { mutableStateOf(false) }
+    var activeGeneratedSet by remember { mutableStateOf<org.tribetalk.flashcards.FlashcardSet?>(null) }
+
+    if (activeGeneratedSet != null) {
+        FlashcardPreviewScreen(
+            initialSet = activeGeneratedSet!!,
+            onBack = { activeGeneratedSet = null },
+            modifier = modifier
+        )
+        return
+    }
+
+    if (isCustomGeneratorActive) {
+        FlashcardGeneratorScreen(
+            onFlashcardSetGenerated = { set ->
+                activeGeneratedSet = set
+                isCustomGeneratorActive = false
+            },
+            onBack = { isCustomGeneratorActive = false },
+            modifier = modifier
+        )
+        return
+    }
+
     val currentCard = cards.getOrNull(currentIndex)
     val progress = if (cards.isNotEmpty()) (currentIndex + 1).toFloat() / cards.size.toFloat() else 0f
 
@@ -83,6 +107,20 @@ fun FlashcardsScreen(
                     }
                 },
                 actions = {
+                    FilledTonalIconButton(
+                        onClick = { isCustomGeneratorActive = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = EduIndigoLight,
+                            contentColor = EduIndigo
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.AddPhotoAlternate,
+                            contentDescription = "Visual Studio",
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(4.dp))
                     FilledTonalIconButton(
                         onClick = { showCreateDialog = true },
                         colors = IconButtonDefaults.filledTonalIconButtonColors(

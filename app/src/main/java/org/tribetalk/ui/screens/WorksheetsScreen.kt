@@ -53,6 +53,30 @@ fun WorksheetsScreen(
 
     var slmPromptText by remember { mutableStateOf("") }
 
+    var isCustomGeneratorActive by remember { mutableStateOf(false) }
+    var activeGeneratedWorksheet by remember { mutableStateOf<org.tribetalk.worksheet.Worksheet?>(null) }
+
+    if (activeGeneratedWorksheet != null) {
+        WorksheetPreviewScreen(
+            initialWorksheet = activeGeneratedWorksheet!!,
+            onBack = { activeGeneratedWorksheet = null },
+            modifier = modifier
+        )
+        return
+    }
+
+    if (isCustomGeneratorActive) {
+        WorksheetGeneratorScreen(
+            onWorksheetGenerated = { ws ->
+                activeGeneratedWorksheet = ws
+                isCustomGeneratorActive = false
+            },
+            onBack = { isCustomGeneratorActive = false },
+            modifier = modifier
+        )
+        return
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -74,6 +98,20 @@ fun WorksheetsScreen(
                     }
                 },
                 actions = {
+                    FilledTonalIconButton(
+                        onClick = { isCustomGeneratorActive = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = EduIndigoLight,
+                            contentColor = EduIndigo
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.EditNote,
+                            contentDescription = "Lesson Worksheet Generator",
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(4.dp))
                     IconButton(onClick = { flnViewModel.regenerateWorksheet() }) {
                         Icon(
                             imageVector = Icons.Rounded.Refresh,
