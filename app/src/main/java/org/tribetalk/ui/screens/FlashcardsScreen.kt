@@ -201,31 +201,48 @@ fun FlashcardsScreen(
                 }
             }
 
-            // Clean Header Bar: Card Count Progress + Mode Switch
+            // Gamified Star Trail & Card Progress Header Bar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 4.dp),
+                    .padding(horizontal = 20.dp, vertical = 6.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = if (cards.isNotEmpty()) "${currentIndex + 1} / ${cards.size}" else "0",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                    LinearProgressIndicator(
-                        progress = { progress },
-                        modifier = Modifier
-                            .width(100.dp)
-                            .height(6.dp)
-                            .clip(CircleShape),
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = MaterialTheme.colorScheme.outlineVariant
-                    )
+                // Star Trail Indicator
+                Surface(
+                    color = EduAmberLight,
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(0.8.dp, EduAmber.copy(alpha = 0.3f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Text(
+                            text = "⭐",
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = if (cards.isNotEmpty()) "${currentIndex + 1} / ${cards.size} Stars" else "0 Stars",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = EduAmber,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
                 }
+
+                LinearProgressIndicator(
+                    progress = { progress },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 12.dp)
+                        .height(8.dp)
+                        .clip(CircleShape),
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.outlineVariant
+                )
 
                 // Explore vs Quiz Switcher
                 Row(
@@ -233,7 +250,7 @@ fun FlashcardsScreen(
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = if (isQuizMode) "Quiz Mode" else "Practice",
+                        text = if (isQuizMode) "Quiz" else "Cards",
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
                         color = if (isQuizMode) EduIndigo else MaterialTheme.colorScheme.onSurfaceVariant
@@ -251,44 +268,63 @@ fun FlashcardsScreen(
                 }
             }
 
-            // Main Display: Quiz View vs Flashcard View
-            Box(
+            // Main Display: Responsive Adaptive Flashcard / Quiz View
+            BoxWithConstraints(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (currentCard != null) {
-                    if (isQuizMode) {
-                        InteractiveQuizCard(
-                            card = currentCard,
-                            score = quizScore,
-                            answeredCount = quizAnsweredCount,
-                            options = quizOptions,
-                            correctIndex = quizCorrectIndex,
-                            selectedIndex = selectedQuizOption,
-                            isChecked = isQuizAnswerChecked,
-                            onOptionSelected = { flnViewModel.selectQuizOption(it) },
-                            onNextQuestion = { flnViewModel.nextCard() },
-                            onResetQuiz = { flnViewModel.resetQuiz() }
-                        )
+                val screenWidth = maxWidth
+                val screenHeight = maxHeight
+                val isTablet = screenWidth >= 600.dp
+                val cardMaxWidth = if (isTablet) 520.dp else 420.dp
+                val illustrationSize = when {
+                    screenHeight < 460.dp -> 90.dp
+                    isTablet -> 160.dp
+                    screenHeight < 660.dp -> 115.dp
+                    else -> 135.dp
+                }
+
+                Box(
+                    modifier = Modifier
+                        .widthIn(max = cardMaxWidth)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (currentCard != null) {
+                        if (isQuizMode) {
+                            InteractiveQuizCard(
+                                card = currentCard,
+                                score = quizScore,
+                                answeredCount = quizAnsweredCount,
+                                options = quizOptions,
+                                correctIndex = quizCorrectIndex,
+                                selectedIndex = selectedQuizOption,
+                                isChecked = isQuizAnswerChecked,
+                                onOptionSelected = { flnViewModel.selectQuizOption(it) },
+                                onNextQuestion = { flnViewModel.nextCard() },
+                                onResetQuiz = { flnViewModel.resetQuiz() }
+                            )
+                        } else {
+                            FlnCardView(
+                                card = currentCard,
+                                isQuizMode = false,
+                                isRevealed = isRevealed,
+                                isPlayingAudio = isPlayingAudio,
+                                onRevealToggle = { flnViewModel.toggleCardReveal() },
+                                onPlayAudio = { flnViewModel.playSantaliAudio(currentCard) },
+                                illustrationSize = illustrationSize
+                            )
+                        }
                     } else {
-                        FlnCardView(
-                            card = currentCard,
-                            isQuizMode = false,
-                            isRevealed = isRevealed,
-                            isPlayingAudio = isPlayingAudio,
-                            onRevealToggle = { flnViewModel.toggleCardReveal() },
-                            onPlayAudio = { flnViewModel.playSantaliAudio(currentCard) }
+                        Text(
+                            text = "No cards available in this category.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
-                } else {
-                    Text(
-                        text = "No cards available in this category.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                 }
             }
 
@@ -297,14 +333,14 @@ fun FlashcardsScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 14.dp),
+                        .padding(horizontal = 24.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // Previous Card Button
                     FilledTonalIconButton(
                         onClick = { flnViewModel.prevCard() },
-                        modifier = Modifier.size(52.dp),
+                        modifier = Modifier.size(54.dp),
                         shape = CircleShape,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surface,
@@ -314,7 +350,8 @@ fun FlashcardsScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = "Previous Card",
-                            tint = MaterialTheme.colorScheme.onSurface
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
 
@@ -323,24 +360,18 @@ fun FlashcardsScreen(
                         onClick = { flnViewModel.toggleCardReveal() },
                         shape = RoundedCornerShape(24.dp),
                         color = MaterialTheme.colorScheme.surface,
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                        modifier = Modifier.height(46.dp),
-                        shadowElevation = 1.dp
+                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+                        modifier = Modifier.height(48.dp),
+                        shadowElevation = 2.dp
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 20.dp),
+                            modifier = Modifier.padding(horizontal = 22.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Rounded.TouchApp,
-                                contentDescription = "Tap to flip",
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(18.dp)
-                            )
                             Text(
-                                text = if (isRevealed) "Hide Ol Chiki" else "Tap to Flip",
-                                style = MaterialTheme.typography.labelMedium,
+                                text = if (isRevealed) "🖼️ चित्र देखें" else "🔄 संथाली देखें",
+                                style = MaterialTheme.typography.labelLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -350,7 +381,7 @@ fun FlashcardsScreen(
                     // Next Card Button
                     FilledTonalIconButton(
                         onClick = { flnViewModel.nextCard() },
-                        modifier = Modifier.size(52.dp),
+                        modifier = Modifier.size(54.dp),
                         shape = CircleShape,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.primary,
@@ -360,7 +391,8 @@ fun FlashcardsScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                             contentDescription = "Next Card",
-                            tint = Color.White
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 }
