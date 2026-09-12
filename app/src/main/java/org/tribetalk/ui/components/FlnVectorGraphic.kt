@@ -60,8 +60,10 @@ fun FlnVectorGraphic(
             "water", "river" -> WaterCartoonGraphic(modifier = Modifier.size(size))
             "mountain" -> MountainCartoonGraphic(modifier = Modifier.size(size))
             "star" -> StarCartoonGraphic(modifier = Modifier.size(size))
+            "akshar" -> BookCartoonGraphic(modifier = Modifier.size(size))
             "shape_circle" -> ShapeCircleGraphic(color = tint, modifier = Modifier.size(size))
             "shape_triangle" -> ShapeTriangleGraphic(color = tint, modifier = Modifier.size(size))
+            "shape_square", "concept_big", "concept_small", "concept_up", "concept_down" -> NumberBlocksCartoonGraphic(count = 1, modifier = Modifier.size(size))
             else -> DefaultCuteStarGraphic(modifier = Modifier.size(size))
         }
     }

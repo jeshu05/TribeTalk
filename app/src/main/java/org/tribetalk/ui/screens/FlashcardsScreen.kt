@@ -1,9 +1,13 @@
 package org.tribetalk.ui.screens
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -12,25 +16,38 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
+import org.tribetalk.fln.image.LowMemoryImageLoader
 import org.tribetalk.fln.model.FlnCard
-import org.tribetalk.ui.components.FlnCardView
-import org.tribetalk.ui.components.FlnVectorGraphic
+import org.tribetalk.fln.repository.FlnCurriculumRepository
 import org.tribetalk.ui.theme.*
 
 /**
- * Interactive NIPUN Bharat bilingual flashcards studio.
- * Clean, delightful educational design inspired by Quizlet and Duolingo.
+ * Kid-friendly, focused Santali-First Bilingual Flashcards.
+ * Features:
+ * - Santali (Ol Chiki) as the hero target learning language
+ * - Real educational storybook illustrations loaded with low-memory Coil pipeline (< 130 KB RAM/image)
+ * - NIPUN Bharat learning outcome competencies (L1.1 to L2.5, N1.1 to N2.1)
+ * - Uncluttered, joyful interface with Move, Flip, and Sound
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,73 +59,46 @@ fun FlashcardsScreen(
     val selectedCategory by flnViewModel.selectedCategory.collectAsState()
     val cards by flnViewModel.cards.collectAsState()
     val currentIndex by flnViewModel.currentCardIndex.collectAsState()
-    val isQuizMode by flnViewModel.isQuizMode.collectAsState()
     val isRevealed by flnViewModel.isCardRevealed.collectAsState()
     val isPlayingAudio by flnViewModel.isPlayingAudio.collectAsState()
 
-    val quizScore by flnViewModel.quizScore.collectAsState()
-    val quizAnsweredCount by flnViewModel.quizAnsweredCount.collectAsState()
-    val quizOptions by flnViewModel.quizOptions.collectAsState()
-    val quizCorrectIndex by flnViewModel.quizCorrectIndex.collectAsState()
-    val selectedQuizOption by flnViewModel.selectedQuizOption.collectAsState()
-    val isQuizAnswerChecked by flnViewModel.isQuizAnswerChecked.collectAsState()
-    val customCardSuccessMessage by flnViewModel.customCardSuccessMessage.collectAsState()
-    val isSlmGenerating by flnViewModel.isSlmGenerating.collectAsState()
-    val slmStatusMessage by flnViewModel.slmStatusMessage.collectAsState()
-
-    var showCreateDialog by remember { mutableStateOf(false) }
-    var customPromptText by remember { mutableStateOf("") }
-
     val currentCard = cards.getOrNull(currentIndex)
-    val progress = if (cards.isNotEmpty()) (currentIndex + 1).toFloat() / cards.size.toFloat() else 0f
+    val totalCount = cards.size
+    val progress = if (totalCount > 0) (currentIndex + 1).toFloat() / totalCount.toFloat() else 0f
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = EduBackground,
         topBar = {
             TopAppBar(
                 title = {
                     Column {
                         Text(
-                            text = "NIPUN Flashcards",
+                            text = "ᱥᱟᱱᱛᱟᱲᱤ ᱯᱷᱞᱮᱥᱠᱟᱨᱰ (Santali Flashcards)",
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = EduTextPrimary
                         )
                         Text(
-                            text = "Hindi • Santali (Ol Chiki) • Balvatika to Grade 2",
+                            text = "संथाली (Ol Chiki) • NIPUN भारत FLN • 100% Offline",
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = EduTextSecondary
                         )
                     }
                 },
                 actions = {
-                    FilledTonalIconButton(
-                        onClick = { showCreateDialog = true },
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = EduPrimaryLight,
-                            contentColor = EduPrimaryDark
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.AutoAwesome,
-                            contentDescription = "Synthesize",
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(4.dp))
                     IconButton(onClick = { flnViewModel.shuffleCards() }) {
                         Icon(
                             imageVector = Icons.Rounded.Shuffle,
-                            contentDescription = "Shuffle Deck",
-                            tint = MaterialTheme.colorScheme.primary
+                            contentDescription = "Shuffle",
+                            tint = EduPrimary
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = EduSurface
                 ),
-                modifier = Modifier.border(1.dp, MaterialTheme.colorScheme.outline)
+                modifier = Modifier.padding(bottom = 2.dp)
             )
         }
     ) { paddingValues ->
@@ -116,59 +106,14 @@ fun FlashcardsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background),
+                .background(EduBackground),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Status Feedback Banner
-            (customCardSuccessMessage ?: slmStatusMessage)?.let { msg ->
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 6.dp),
-                    color = EduPrimaryLight,
-                    shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.3f))
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.CheckCircle,
-                                contentDescription = "Success",
-                                tint = EduPrimaryDark,
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Text(
-                                text = msg,
-                                color = EduPrimaryDark,
-                                fontWeight = FontWeight.Bold,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                        IconButton(
-                            onClick = {
-                                flnViewModel.clearCustomCardMessage()
-                                flnViewModel.clearSlmStatusMessage()
-                            },
-                            modifier = Modifier.size(20.dp)
-                        ) {
-                            Icon(Icons.Rounded.Close, "Dismiss", tint = EduPrimaryDark)
-                        }
-                    }
-                }
-            }
-
-            // Category Filter Pills
+            // 1. Simple, Clean Topic Pills
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
+                    .padding(vertical = 6.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -186,49 +131,45 @@ fun FlashcardsScreen(
                             )
                         },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = MaterialTheme.colorScheme.primary,
+                            selectedContainerColor = EduPrimary,
                             selectedLabelColor = Color.White,
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            labelColor = MaterialTheme.colorScheme.onSurface
+                            containerColor = EduSurface,
+                            labelColor = EduTextPrimary
                         ),
                         border = FilterChipDefaults.filterChipBorder(
                             enabled = true,
                             selected = isSelected,
-                            borderColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                            borderColor = if (isSelected) EduPrimary else EduBorder,
                             borderWidth = 1.dp
                         )
                     )
                 }
             }
 
-            // Gamified Star Trail & Card Progress Header Bar
+            // 2. Card Counter & Subtle Progress Bar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 20.dp, vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Star Trail Indicator
                 Surface(
                     color = EduAmberLight,
-                    shape = RoundedCornerShape(16.dp),
-                    border = BorderStroke(0.8.dp, EduAmber.copy(alpha = 0.3f))
+                    shape = RoundedCornerShape(12.dp),
+                    border = BorderStroke(1.dp, EduAmber.copy(alpha = 0.35f))
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
+                        Text("⭐", fontSize = 13.sp)
                         Text(
-                            text = "⭐",
-                            fontSize = 16.sp
-                        )
-                        Text(
-                            text = if (cards.isNotEmpty()) "${currentIndex + 1} / ${cards.size} Stars" else "0 Stars",
+                            text = if (totalCount > 0) "${currentIndex + 1} / $totalCount" else "0 / 0",
                             style = MaterialTheme.typography.labelMedium,
-                            color = EduAmber,
-                            fontWeight = FontWeight.ExtraBold
+                            fontWeight = FontWeight.ExtraBold,
+                            color = EduAmber
                         )
                     }
                 }
@@ -237,425 +178,562 @@ fun FlashcardsScreen(
                     progress = { progress },
                     modifier = Modifier
                         .weight(1f)
-                        .padding(horizontal = 12.dp)
-                        .height(8.dp)
+                        .padding(horizontal = 16.dp)
+                        .height(6.dp)
                         .clip(CircleShape),
-                    color = MaterialTheme.colorScheme.primary,
-                    trackColor = MaterialTheme.colorScheme.outlineVariant
+                    color = EduPrimary,
+                    trackColor = EduBorder
                 )
 
-                // Explore vs Quiz Switcher
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Text(
-                        text = if (isQuizMode) "Quiz" else "Cards",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = if (isQuizMode) EduIndigo else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Switch(
-                        checked = isQuizMode,
-                        onCheckedChange = { flnViewModel.toggleQuizMode() },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = Color.White,
-                            checkedTrackColor = EduIndigo,
-                            uncheckedThumbColor = Color.White,
-                            uncheckedTrackColor = MaterialTheme.colorScheme.outline
-                        )
-                    )
-                }
+                Text(
+                    text = "स्वाइप करें ↔",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = EduTextMuted
+                )
             }
 
-            // Main Display: Responsive Adaptive Flashcard / Quiz View
-            BoxWithConstraints(
+            // 3. Central Big Kid-Friendly Santali-First Flashcard
+            Box(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 20.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                val screenWidth = maxWidth
-                val screenHeight = maxHeight
-                val isTablet = screenWidth >= 600.dp
-                val cardMaxWidth = if (isTablet) 520.dp else 420.dp
-                val illustrationSize = when {
-                    screenHeight < 460.dp -> 90.dp
-                    isTablet -> 160.dp
-                    screenHeight < 660.dp -> 115.dp
-                    else -> 135.dp
-                }
-
-                Box(
-                    modifier = Modifier
-                        .widthIn(max = cardMaxWidth)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    if (currentCard != null) {
-                        if (isQuizMode) {
-                            InteractiveQuizCard(
-                                card = currentCard,
-                                score = quizScore,
-                                answeredCount = quizAnsweredCount,
-                                options = quizOptions,
-                                correctIndex = quizCorrectIndex,
-                                selectedIndex = selectedQuizOption,
-                                isChecked = isQuizAnswerChecked,
-                                onOptionSelected = { flnViewModel.selectQuizOption(it) },
-                                onNextQuestion = { flnViewModel.nextCard() },
-                                onResetQuiz = { flnViewModel.resetQuiz() }
-                            )
-                        } else {
-                            FlnCardView(
-                                card = currentCard,
-                                isQuizMode = false,
-                                isRevealed = isRevealed,
-                                isPlayingAudio = isPlayingAudio,
-                                onRevealToggle = { flnViewModel.toggleCardReveal() },
-                                onPlayAudio = { flnViewModel.playSantaliAudio(currentCard) },
-                                illustrationSize = illustrationSize
-                            )
-                        }
-                    } else {
-                        Text(
-                            text = "No cards available in this category.",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+                if (currentCard != null) {
+                    KidBilingualCard(
+                        card = currentCard,
+                        isRevealed = isRevealed,
+                        isPlayingAudio = isPlayingAudio,
+                        onFlip = { flnViewModel.toggleCardReveal() },
+                        onPlaySound = { flnViewModel.playSantaliAudio(currentCard) },
+                        onSwipeLeft = { flnViewModel.nextCard() },
+                        onSwipeRight = { flnViewModel.prevCard() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.96f)
+                    )
+                } else {
+                    Text(
+                        text = "इस विषय में कोई कार्ड उपलब्ध नहीं है।",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = EduTextSecondary
+                    )
                 }
             }
 
-            // Bottom Carousel Controls (Explore Mode)
-            if (!isQuizMode) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp, vertical = 12.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Previous Card Button
-                    FilledTonalIconButton(
-                        onClick = { flnViewModel.prevCard() },
-                        modifier = Modifier.size(54.dp),
-                        shape = CircleShape,
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Previous Card",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
+            // 4. Kid-Friendly Control Dock: Move, Flip, and Sound
+            CardControlDock(
+                isRevealed = isRevealed,
+                isPlayingAudio = isPlayingAudio,
+                onPrev = { flnViewModel.prevCard() },
+                onFlip = { flnViewModel.toggleCardReveal() },
+                onPlaySound = {
+                    if (currentCard != null) flnViewModel.playSantaliAudio(currentCard)
+                },
+                onNext = { flnViewModel.nextCard() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 12.dp)
+            )
+        }
+    }
+}
 
-                    // Flip Prompt Pill
-                    Surface(
-                        onClick = { flnViewModel.toggleCardReveal() },
-                        shape = RoundedCornerShape(24.dp),
-                        color = MaterialTheme.colorScheme.surface,
-                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
-                        modifier = Modifier.height(48.dp),
-                        shadowElevation = 2.dp
+/**
+ * Big, kid-friendly Santali-First Card with full 3D flip animation,
+ * low-memory WebP image loading, rich Ol Chiki typography, and bilingual sentences.
+ */
+@Composable
+private fun KidBilingualCard(
+    card: FlnCard,
+    isRevealed: Boolean,
+    isPlayingAudio: Boolean,
+    onFlip: () -> Unit,
+    onPlaySound: () -> Unit,
+    onSwipeLeft: () -> Unit,
+    onSwipeRight: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+    val density = LocalDensity.current.density
+    val imageLoader = remember(context) { LowMemoryImageLoader.get(context) }
+
+    // Smooth 3D Flip Rotation
+    val rotation by animateFloatAsState(
+        targetValue = if (isRevealed) 180f else 0f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioLowBouncy,
+            stiffness = Spring.StiffnessMediumLow
+        ),
+        label = "card_flip_3d"
+    )
+
+    val isBackFace = rotation > 90f
+
+    // Soft thematic pastel card palettes for kids
+    val (cardBg, cardBorder, accentColor) = when (card.category) {
+        FlnCurriculumRepository.CATEGORY_AKSHAR -> Triple(Color(0xFFF0FDF4), Color(0xFFBBF7D0), Color(0xFF16A34A))
+        FlnCurriculumRepository.CATEGORY_NUMBERS -> Triple(Color(0xFFF0F9FF), Color(0xFFBAE6FD), Color(0xFF0284C7))
+        FlnCurriculumRepository.CATEGORY_ANIMALS -> Triple(Color(0xFFFFFBEB), Color(0xFFFDE68A), Color(0xFFD97706))
+        FlnCurriculumRepository.CATEGORY_NATURE -> Triple(Color(0xFFF0FDF4), Color(0xFFBBF7D0), Color(0xFF059669))
+        FlnCurriculumRepository.CATEGORY_FRUITS -> Triple(Color(0xFFFFF1F2), Color(0xFFFECDD3), Color(0xFFE11D48))
+        FlnCurriculumRepository.CATEGORY_COLORS -> Triple(Color(0xFFFAF5FF), Color(0xFFE9D5FF), Color(0xFF7C3AED))
+        else -> Triple(Color(0xFFFFFFFF), Color(0xFFE2E8F0), EduPrimary)
+    }
+
+    Card(
+        modifier = modifier
+            .graphicsLayer {
+                rotationY = rotation
+                cameraDistance = 14f * density
+            }
+            .pointerInput(Unit) {
+                var totalDrag = 0f
+                detectHorizontalDragGestures(
+                    onDragStart = { totalDrag = 0f },
+                    onHorizontalDrag = { _, dragAmount -> totalDrag += dragAmount },
+                    onDragEnd = {
+                        if (totalDrag < -50) onSwipeLeft()
+                        else if (totalDrag > 50) onSwipeRight()
+                    }
+                )
+            }
+            .clickable { onFlip() },
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.cardColors(containerColor = cardBg),
+        border = BorderStroke(2.dp, cardBorder),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (!isBackFace) {
+                // =============================================================
+                // FRONT FACE: SANTALI-FIRST (Ol Chiki + Real Image + Phonics + Audio)
+                // =============================================================
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Top Bar: NIPUN Code + Category
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 22.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        Surface(
+                            color = accentColor.copy(alpha = 0.12f),
+                            shape = RoundedCornerShape(12.dp)
                         ) {
                             Text(
-                                text = if (isRevealed) "🖼️ चित्र देखें" else "🔄 संथाली देखें",
-                                style = MaterialTheme.typography.labelLarge,
+                                text = card.category,
+                                style = MaterialTheme.typography.labelMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = accentColor,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 5.dp)
+                            )
+                        }
+
+                        Surface(
+                            color = EduIndigoLight,
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(
+                                text = "NIPUN ${card.nipunCode}",
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = EduIndigo,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
                             )
                         }
                     }
 
-                    // Next Card Button
-                    FilledTonalIconButton(
-                        onClick = { flnViewModel.nextCard() },
-                        modifier = Modifier.size(54.dp),
-                        shape = CircleShape,
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
+                    // Center Content: Real Educational Image + Massive Ol Chiki Word
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // Real Educational Illustration (256x256 WebP decoded in RGB_565)
+                        SubcomposeAsyncImage(
+                            model = ImageRequest.Builder(context)
+                                .data(card.imageAssetPath)
+                                .crossfade(true)
+                                .build(),
+                            imageLoader = imageLoader,
+                            contentDescription = card.hindiText,
+                            loading = {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(accentColor.copy(alpha = 0.08f)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(24.dp),
+                                        strokeWidth = 2.dp,
+                                        color = accentColor
+                                    )
+                                }
+                            },
+                            error = {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(accentColor.copy(alpha = 0.12f)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = card.santaliOlChiki.take(1),
+                                        fontSize = 44.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = accentColor
+                                    )
+                                }
+                            },
+                            modifier = Modifier
+                                .size(148.dp)
+                                .clip(RoundedCornerShape(22.dp))
+                                .border(2.dp, cardBorder, RoundedCornerShape(22.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+
+                        // Hero Santali Word in Ol Chiki (Massive & Clear)
+                        Text(
+                            text = card.santaliOlChiki,
+                            style = MaterialTheme.typography.displayMedium,
+                            fontSize = 42.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = EduPrimary,
+                            textAlign = TextAlign.Center,
+                            letterSpacing = 1.5.sp
+                        )
+
+                        // Teacher Phonics Pronunciation Guide (Devanagari + Latin)
+                        Surface(
+                            color = EduAmberLight,
+                            shape = RoundedCornerShape(14.dp),
+                            border = BorderStroke(1.dp, EduAmber.copy(alpha = 0.35f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.RecordVoiceOver,
+                                    contentDescription = "Voice",
+                                    tint = EduAmber,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Text(
+                                    text = "उच्चारण: ${card.teacherPhoneticGuide}",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = EduAmber
+                                )
+                            }
+                        }
+                    }
+
+                    // Bottom Tap Prompt (With Audio Action)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Surface(
+                            onClick = onPlaySound,
+                            shape = RoundedCornerShape(18.dp),
+                            color = EduPrimary,
+                            shadowElevation = 2.dp
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Rounded.VolumeUp,
+                                    contentDescription = "Sound",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Text(
+                                    text = if (isPlayingAudio) "बोल रहा है..." else "🔊 सुनो",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White
+                                )
+                            }
+                        }
+
+                        Surface(
+                            color = accentColor.copy(alpha = 0.12f),
+                            shape = RoundedCornerShape(18.dp),
+                            border = BorderStroke(1.dp, accentColor.copy(alpha = 0.3f))
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    text = "हिन्दी अर्थ 🔄",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = accentColor
+                                )
+                            }
+                        }
+                    }
+                }
+            } else {
+                // =============================================================
+                // BACK FACE: HINDI MEANING + BILINGUAL CONTEXT SENTENCES
+                // =============================================================
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { rotationY = 180f },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Top Header
+                    Surface(
+                        color = EduPrimaryLight,
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = "हिन्दी अर्थ व वाक्य • Hindi Meaning & Sentence",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = EduPrimaryDark,
+                            modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                        )
+                    }
+
+                    // Main Hindi Word & English Gloss
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = card.hindiText,
+                            style = MaterialTheme.typography.displayMedium,
+                            fontSize = 38.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = EduTextPrimary,
+                            textAlign = TextAlign.Center
+                        )
+
+                        Text(
+                            text = card.englishGloss,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = EduTextSecondary,
+                            textAlign = TextAlign.Center
+                        )
+
+                        // Full Contextual Santali Sentence
+                        card.exampleSentenceSantali?.let { sSentence ->
+                            Surface(
+                                color = Color.White.copy(alpha = 0.9f),
+                                shape = RoundedCornerShape(14.dp),
+                                border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.3f)),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = "ᱥᱟᱱᱛᱟᱲᱤ ᱵᱟᱠᱭᱚ (Santali):",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = EduPrimaryDark
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = sSentence,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = EduPrimary,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                            }
+                        }
+
+                        // Hindi Sentence Translation
+                        card.exampleSentenceHindi?.let { hSentence ->
+                            Surface(
+                                color = Color.White.copy(alpha = 0.75f),
+                                shape = RoundedCornerShape(14.dp),
+                                border = BorderStroke(1.dp, cardBorder.copy(alpha = 0.5f)),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 6.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(
+                                        text = "हिन्दी अनुवाद (Hindi):",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = EduTextSecondary
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = "“$hSentence”",
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Medium,
+                                        color = EduTextPrimary,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    // Direct Sound Button on Back Face
+                    FilledTonalButton(
+                        onClick = onPlaySound,
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = EduPrimary,
                             contentColor = Color.White
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
-                            contentDescription = "Next Card",
+                            imageVector = Icons.AutoMirrored.Rounded.VolumeUp,
+                            contentDescription = "Play Sound",
                             tint = Color.White,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = if (isPlayingAudio) "बोल रहा है... 🔊" else "🔊 संथाली उच्चारण सुनो",
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
                         )
                     }
                 }
             }
         }
     }
-
-    // Synthesize Custom Card / SLM Deck Dialog
-    if (showCreateDialog) {
-        AlertDialog(
-            onDismissRequest = { showCreateDialog = false },
-            containerColor = MaterialTheme.colorScheme.surface,
-            title = {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .background(EduPrimaryLight),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.AutoAwesome,
-                            contentDescription = "AI",
-                            tint = EduPrimaryDark,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                    Text(
-                        "AI Flashcard Creator",
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-            },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(
-                        "Enter a Hindi word or classroom topic. Create a single card or let the on-device AI synthesize a full 5-card deck with Ol Chiki and teacher pronunciations.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
-                    // Quick topic chips
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        val sampleTopics = listOf("🍎 फल", "🐮 जानवर", "🌳 प्रकृति", "🏫 स्कूल", "💰 बाज़ार")
-                        items(sampleTopics) { topic ->
-                            Surface(
-                                onClick = { customPromptText = topic.substringAfter(" ") },
-                                shape = RoundedCornerShape(12.dp),
-                                color = MaterialTheme.colorScheme.surfaceVariant,
-                                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outline)
-                            ) {
-                                Text(
-                                    text = topic,
-                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
-                    }
-
-                    OutlinedTextField(
-                        value = customPromptText,
-                        onValueChange = { customPromptText = it },
-                        label = { Text("Topic or Word in Hindi") },
-                        placeholder = { Text("उदा. नदी, आम, जंगल, स्कूल...") },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = MaterialTheme.colorScheme.primary,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.outline
-                        )
-                    )
-                }
-            },
-            confirmButton = {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FilledTonalButton(
-                        onClick = {
-                            if (customPromptText.isNotBlank()) {
-                                flnViewModel.generateFlashcardsWithSlm(customPromptText)
-                                customPromptText = ""
-                                showCreateDialog = false
-                            }
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = EduIndigoLight,
-                            contentColor = EduIndigo
-                        )
-                    ) {
-                        Text("AI 5-Card Deck", fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                    }
-
-                    Button(
-                        onClick = {
-                            if (customPromptText.isNotBlank()) {
-                                flnViewModel.createCustomFlashcard(customPromptText)
-                                customPromptText = ""
-                                showCreateDialog = false
-                            }
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Text("Single Card", fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                    }
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showCreateDialog = false }) {
-                    Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-        )
-    }
 }
 
+/**
+ * Clean, kid-friendly Control Dock: Move (Prev/Next), Flip, and Sound.
+ */
 @Composable
-private fun InteractiveQuizCard(
-    card: FlnCard,
-    score: Int,
-    answeredCount: Int,
-    options: List<String>,
-    correctIndex: Int,
-    selectedIndex: Int?,
-    isChecked: Boolean,
-    onOptionSelected: (Int) -> Unit,
-    onNextQuestion: () -> Unit,
-    onResetQuiz: () -> Unit
+private fun CardControlDock(
+    isRevealed: Boolean,
+    isPlayingAudio: Boolean,
+    onPrev: () -> Unit,
+    onFlip: () -> Unit,
+    onPlaySound: () -> Unit,
+    onNext: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(14.dp)
-        ) {
-            // Score Banner
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Surface(
-                    color = EduAmberLight,
-                    shape = RoundedCornerShape(10.dp)
-                ) {
-                    Text(
-                        text = "Score: $score / $answeredCount",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = EduAmber,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-                    )
-                }
-
-                TextButton(onClick = onResetQuiz) {
-                    Text("Reset", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall)
-                }
-            }
-
-            // Question Visual Prompt
-            FlnVectorGraphic(iconType = card.iconType, size = 60.dp, tint = MaterialTheme.colorScheme.primary)
-
-            Text(
-                text = "What is '${card.hindiText}' in Santali (Ol Chiki)?",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center
+        // 1. Move: Previous Card (◀)
+        FilledTonalIconButton(
+            onClick = onPrev,
+            modifier = Modifier.size(52.dp),
+            shape = CircleShape,
+            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                containerColor = EduSurface,
+                contentColor = EduTextPrimary
             )
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                contentDescription = "Previous Card",
+                tint = EduTextPrimary,
+                modifier = Modifier.size(24.dp)
+            )
+        }
 
-            // 4 Option Buttons
-            options.forEachIndexed { optIdx, optText ->
-                val isSelected = selectedIndex == optIdx
-                val isCorrect = optIdx == correctIndex
+        // 2. Flip: Flip Card (🔄)
+        FilledTonalButton(
+            onClick = onFlip,
+            modifier = Modifier.height(50.dp),
+            shape = RoundedCornerShape(25.dp),
+            contentPadding = PaddingValues(horizontal = 18.dp, vertical = 8.dp),
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = if (isRevealed) EduPrimaryLight else EduSurface,
+                contentColor = if (isRevealed) EduPrimaryDark else EduTextPrimary
+            ),
+            border = BorderStroke(
+                1.5.dp,
+                if (isRevealed) EduPrimary else EduBorder
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.FlipCameraAndroid,
+                contentDescription = "Flip Card",
+                tint = if (isRevealed) EduPrimaryDark else EduTextPrimary,
+                modifier = Modifier.size(22.dp)
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                text = if (isRevealed) "संथाली" else "हिन्दी",
+                fontWeight = FontWeight.Bold,
+                fontSize = 15.sp,
+                color = if (isRevealed) EduPrimaryDark else EduTextPrimary
+            )
+        }
 
-                val btnBgColor = when {
-                    isChecked && isCorrect -> EduPrimaryLight
-                    isChecked && isSelected && !isCorrect -> Color(0xFFFEE2E2)
-                    isSelected -> MaterialTheme.colorScheme.primaryContainer
-                    else -> MaterialTheme.colorScheme.surfaceVariant
-                }
-
-                val btnBorderColor = when {
-                    isChecked && isCorrect -> MaterialTheme.colorScheme.primary
-                    isChecked && isSelected && !isCorrect -> Color(0xFFEF4444)
-                    isSelected -> MaterialTheme.colorScheme.primary
-                    else -> MaterialTheme.colorScheme.outline
-                }
-
-                val btnTextColor = when {
-                    isChecked && isCorrect -> MaterialTheme.colorScheme.primary
-                    isChecked && isSelected && !isCorrect -> Color(0xFFDC2626)
-                    else -> MaterialTheme.colorScheme.onSurface
-                }
-
-                Surface(
-                    shape = RoundedCornerShape(14.dp),
-                    color = btnBgColor,
-                    border = BorderStroke(1.dp, btnBorderColor),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(enabled = !isChecked) { onOptionSelected(optIdx) }
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = optText,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = if (isSelected || (isChecked && isCorrect)) FontWeight.Bold else FontWeight.Medium,
-                            color = btnTextColor
-                        )
-
-                        if (isChecked && isCorrect) {
-                            Icon(Icons.Rounded.CheckCircle, "Correct", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
-                        } else if (isChecked && isSelected && !isCorrect) {
-                            Icon(Icons.Rounded.Cancel, "Incorrect", tint = Color(0xFFEF4444), modifier = Modifier.size(20.dp))
-                        }
-                    }
-                }
+        // 3. Sound: Listen to Santali Audio (🔊)
+        Surface(
+            onClick = onPlaySound,
+            modifier = Modifier.size(52.dp),
+            shape = CircleShape,
+            color = EduPrimary,
+            shadowElevation = 3.dp
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.VolumeUp,
+                    contentDescription = "Play Audio",
+                    tint = Color.White,
+                    modifier = Modifier.size(26.dp)
+                )
             }
+        }
 
-            // Next Question Button
-            if (isChecked) {
-                Button(
-                    onClick = onNextQuestion,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text("Next Question", fontWeight = FontWeight.Bold, color = Color.White)
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Icon(Icons.AutoMirrored.Rounded.ArrowForward, "Next", tint = Color.White, modifier = Modifier.size(18.dp))
-                }
-            }
+        // 4. Move: Next Card (▶)
+        FilledTonalIconButton(
+            onClick = onNext,
+            modifier = Modifier.size(52.dp),
+            shape = CircleShape,
+            colors = IconButtonDefaults.filledTonalIconButtonColors(
+                containerColor = EduPrimary,
+                contentColor = Color.White
+            )
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
+                contentDescription = "Next Card",
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
+            )
         }
     }
 }

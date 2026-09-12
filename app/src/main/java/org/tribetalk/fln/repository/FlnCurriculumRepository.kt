@@ -1,581 +1,213 @@
 package org.tribetalk.fln.repository
 
 import org.tribetalk.fln.model.*
-import kotlin.random.Random
 
 /**
  * Curated curriculum repository providing NIPUN Bharat aligned bilingual datasets
  * for Foundational Literacy and Numeracy in Hindi and Santali (Ol Chiki).
+ * Contains 120+ rich foundational cards across 10 essential early childhood domains.
  */
 object FlnCurriculumRepository {
 
-    val CATEGORY_ALL = "All Topics"
-    val CATEGORY_AKSHAR = "Akshar (ᱚᱞ ᱪᱤᱠᱤ)"
-    val CATEGORY_NUMBERS = "Numbers (ᱞᱮᱠᱷᱟ)"
-    val CATEGORY_ANIMALS = "Animals (ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ)"
-    val CATEGORY_NATURE = "Nature (ᱥᱤᱨᱡᱚᱱ)"
-    val CATEGORY_SCHOOL_FAMILY = "School & Family (ᱟᱥᱲᱟ ᱟᱨ ᱜᱷᱟᱨᱚᱸᱡᱽ)"
-    val CATEGORY_SHAPES = "Shapes & Space (ᱨᱩᱯ ᱟᱨ ᱡᱟᱭᱜᱟ)"
+    const val CATEGORY_ALL = "All Topics"
+    const val CATEGORY_AKSHAR = "Akshar (ᱚᱞ ᱪᱤᱠᱤ)"
+    const val CATEGORY_NUMBERS = "Numbers (ᱞᱮᱠᱷᱟ)"
+    const val CATEGORY_ANIMALS = "Animals (ᱡᱤᱵᱽ ᱡᱤᱭᱟᱹᱞᱤ)"
+    const val CATEGORY_NATURE = "Nature (ᱥᱤᱨᱡᱚᱱ)"
+    const val CATEGORY_FRUITS = "Fruits & Food (ᱡᱚ ᱟᱨ ᱡᱚᱢᱟᱜ)"
+    const val CATEGORY_COLORS = "Colors (ᱨᱚᱝ)"
+    const val CATEGORY_SCHOOL_FAMILY = "School & Family (ᱟᱥᱲᱟ ᱟᱨ ᱜᱷᱟᱨᱚᱸᱡᱽ)"
+    const val CATEGORY_SHAPES = "Shapes & Space (ᱨᱩᱯ ᱟᱨ ᱡᱟᱭᱜᱟ)"
+    const val CATEGORY_CUSTOM = "Custom Teacher Topics (ᱢᱟᱪᱮᱛ ᱥᱟᱛᱟᱢ)"
 
     private val CARDS = listOf(
-        // ---------------------------------------------------------------------
-        // 1. Akshar / Ol Chiki Alphabets (NIPUN L1: Phonological Awareness)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "ak_01",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "अ (ध्वनि /a/)",
-            santaliOlChiki = "ᱚ",
-            teacherPhoneticGuide = "अ (La / Ah)",
-            englishGloss = "Vowel /a/",
-            iconType = "akshar",
-            exampleSentenceHindi = "पहला अक्षर 'अ' है।",
-            exampleSentenceSantali = "ᱯᱩᱭᱞᱩ ᱪᱤᱠᱤ ᱫᱚ 'ᱚ' ᱠᱟᱱᱟ ᱾"
-        ),
-        FlnCard(
-            id = "ak_02",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "त (ध्वनि /at/)",
-            santaliOlChiki = "ᱛ",
-            teacherPhoneticGuide = "अत् (At)",
-            englishGloss = "Consonant /t/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_03",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "ग (ध्वनि /ag/)",
-            santaliOlChiki = "ᱜ",
-            teacherPhoneticGuide = "अग् (Ag)",
-            englishGloss = "Consonant /g/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_04",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "ङ (ध्वनि /ang/)",
-            santaliOlChiki = "ᱝ",
-            teacherPhoneticGuide = "अं (Ang)",
-            englishGloss = "Nasal /ng/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_05",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "ल (ध्वनि /al/)",
-            santaliOlChiki = "ᱞ",
-            teacherPhoneticGuide = "अल् (Al)",
-            englishGloss = "Liquid /l/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_06",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "आ (ध्वनि /aa/)",
-            santaliOlChiki = "ᱟ",
-            teacherPhoneticGuide = "आ (Aak)",
-            englishGloss = "Vowel /aa/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_07",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "क (ध्वनि /aak/)",
-            santaliOlChiki = "ᱠ",
-            teacherPhoneticGuide = "आक् (Ak)",
-            englishGloss = "Consonant /k/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_08",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "ज (ध्वनि /aaj/)",
-            santaliOlChiki = "ᱡ",
-            teacherPhoneticGuide = "आज् (Aj)",
-            englishGloss = "Consonant /j/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_09",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "म (ध्वनि /aam/)",
-            santaliOlChiki = "ᱢ",
-            teacherPhoneticGuide = "आम् (Am)",
-            englishGloss = "Consonant /m/",
-            iconType = "akshar"
-        ),
-        FlnCard(
-            id = "ak_10",
-            domain = FlnDomain.LITERACY_AKSHAR,
-            category = CATEGORY_AKSHAR,
-            nipunCode = "L1.1",
-            hindiText = "स (ध्वनि /is/)",
-            santaliOlChiki = "ᱥ",
-            teacherPhoneticGuide = "इस् (Is)",
-            englishGloss = "Sibilant /s/",
-            iconType = "akshar"
-        ),
+        // =====================================================================
+        // 1. COMPLETE OL CHIKI ALPHABET (All 30 Core Letters) - NIPUN L1.1
+        // =====================================================================
+        // Row 1: La Series (ᱚ ᱛ ᱜ ᱝ ᱞ)
+        FlnCard("ak_01", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "अ (ध्वनि /a/)", "ᱚ", "अ (La / Ah)", "Vowel /a/", "akshar", exampleSentenceHindi = "पहला अक्षर 'अ' है।", exampleSentenceSantali = "ᱯᱩᱭᱞᱩ ᱪᱤᱠᱤ ᱫᱚ 'ᱚ' ᱠᱟᱱᱟ ᱾"),
+        FlnCard("ak_02", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "त (ध्वनि /at/)", "ᱛ", "अत् (At)", "Consonant /t/", "akshar"),
+        FlnCard("ak_03", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ग (ध्वनि /ag/)", "ᱜ", "अग् (Ag)", "Consonant /g/", "akshar"),
+        FlnCard("ak_04", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ङ (ध्वनि /ang/)", "ᱝ", "अं (Ang)", "Nasal /ng/", "akshar"),
+        FlnCard("ak_05", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ल (ध्वनि /al/)", "ᱞ", "अल् (Al)", "Liquid /l/", "akshar"),
 
-        // ---------------------------------------------------------------------
-        // 2. Foundational Numeracy (1–10) (NIPUN N1: Number Sense)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "num_01",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.1",
-            hindiText = "एक (१)",
-            santaliOlChiki = "ᱢᱤᱫ (᱑)",
-            teacherPhoneticGuide = "मिद (Mid)",
-            englishGloss = "One (1)",
-            iconType = "number_counter",
-            numeralValue = 1,
-            exampleSentenceHindi = "यह एक सेब है।",
-            exampleSentenceSantali = "ᱱᱚᱣᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱝ ᱥᱮᱣ ᱠᱟᱱᱟ ᱾"
-        ),
-        FlnCard(
-            id = "num_02",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.1",
-            hindiText = "दो (२)",
-            santaliOlChiki = "ᱵᱟᱨ (᱒)",
-            teacherPhoneticGuide = "बार (Bar)",
-            englishGloss = "Two (2)",
-            iconType = "number_counter",
-            numeralValue = 2,
-            exampleSentenceHindi = "दो पक्षी उड़ रहे हैं।",
-            exampleSentenceSantali = "ᱵᱟᱨᱭᱟ ᱪᱮᱬᱮ ᱠᱤᱱ ᱩᱰᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱾"
-        ),
-        FlnCard(
-            id = "num_03",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.1",
-            hindiText = "तीन (३)",
-            santaliOlChiki = "ᱯᱮ (᱓)",
-            teacherPhoneticGuide = "पे (Pe)",
-            englishGloss = "Three (3)",
-            iconType = "number_counter",
-            numeralValue = 3
-        ),
-        FlnCard(
-            id = "num_04",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.1",
-            hindiText = "चार (४)",
-            santaliOlChiki = "ᱯᱩᱱ (᱔)",
-            teacherPhoneticGuide = "पुन (Pun)",
-            englishGloss = "Four (4)",
-            iconType = "number_counter",
-            numeralValue = 4
-        ),
-        FlnCard(
-            id = "num_05",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.1",
-            hindiText = "पाँच (५)",
-            santaliOlChiki = "ᱢᱚᱬᱮ (᱕)",
-            teacherPhoneticGuide = "मोण़े (Mone)",
-            englishGloss = "Five (5)",
-            iconType = "number_counter",
-            numeralValue = 5
-        ),
-        FlnCard(
-            id = "num_06",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.2",
-            hindiText = "छह (६)",
-            santaliOlChiki = "ᱛᱩᱨᱩᱭ (᱖)",
-            teacherPhoneticGuide = "तुरुय (Turuy)",
-            englishGloss = "Six (6)",
-            iconType = "number_counter",
-            numeralValue = 6
-        ),
-        FlnCard(
-            id = "num_07",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.2",
-            hindiText = "सात (७)",
-            santaliOlChiki = "ᱮᱭᱟᱭ (᱗)",
-            teacherPhoneticGuide = "एयाय (Eyay)",
-            englishGloss = "Seven (7)",
-            iconType = "number_counter",
-            numeralValue = 7
-        ),
-        FlnCard(
-            id = "num_08",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.2",
-            hindiText = "आठ (८)",
-            santaliOlChiki = "ᱤᱨᱟᱹᱞ (᱘)",
-            teacherPhoneticGuide = "इरल (Iral)",
-            englishGloss = "Eight (8)",
-            iconType = "number_counter",
-            numeralValue = 8
-        ),
-        FlnCard(
-            id = "num_09",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.2",
-            hindiText = "नौ (९)",
-            santaliOlChiki = "ᱟᱨᱮ (᱙)",
-            teacherPhoneticGuide = "आरे (Are)",
-            englishGloss = "Nine (9)",
-            iconType = "number_counter",
-            numeralValue = 9
-        ),
-        FlnCard(
-            id = "num_10",
-            domain = FlnDomain.NUMERACY_COUNTING,
-            category = CATEGORY_NUMBERS,
-            nipunCode = "N1.2",
-            hindiText = "दस (१०)",
-            santaliOlChiki = "ᱜᱮᱞ (᱑᱐)",
-            teacherPhoneticGuide = "गेल (Gel)",
-            englishGloss = "Ten (10)",
-            iconType = "number_counter",
-            numeralValue = 10
-        ),
+        // Row 2: Aak Series (ᱟ ᱠ ᱡ ᱢ ᱣ)
+        FlnCard("ak_06", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "आ (ध्वनि /aa/)", "ᱟ", "आ (Aak)", "Vowel /aa/", "akshar"),
+        FlnCard("ak_07", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "क (ध्वनि /aak/)", "ᱠ", "आक् (Ak)", "Consonant /k/", "akshar"),
+        FlnCard("ak_08", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ज (ध्वनि /aaj/)", "ᱡ", "आज् (Aj)", "Consonant /j/", "akshar"),
+        FlnCard("ak_09", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "म (ध्वनि /aam/)", "ᱢ", "आम् (Am)", "Consonant /m/", "akshar"),
+        FlnCard("ak_10", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "व (ध्वनि /aaw/)", "ᱣ", "आव् (Aw)", "Semivowel /w/", "akshar"),
 
-        // ---------------------------------------------------------------------
-        // 3. Animals & Living World (NIPUN L2: Vocabulary Development)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "an_01",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "कुत्ता",
-            santaliOlChiki = "ᱥᱮᱛᱟ",
-            teacherPhoneticGuide = "सेता (Seta)",
-            englishGloss = "Dog",
-            iconType = "dog",
-            exampleSentenceHindi = "कुत्ता भौंकता है।",
-            exampleSentenceSantali = "ᱥᱮᱛᱟ ᱫᱚᱭ ᱵᱷᱩᱜᱟᱹᱜ-ᱟ ᱾"
-        ),
-        FlnCard(
-            id = "an_02",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "गाय",
-            santaliOlChiki = "ᱜᱟᱹᱭ",
-            teacherPhoneticGuide = "गय (Gai)",
-            englishGloss = "Cow",
-            iconType = "cow",
-            exampleSentenceHindi = "गाय दूध देती है।",
-            exampleSentenceSantali = "ᱜᱟᱹᱭ ᱫᱚ ᱛᱚᱣᱟᱭ ᱮᱢᱟ ᱾"
-        ),
-        FlnCard(
-            id = "an_03",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "बकरी",
-            santaliOlChiki = "ᱢᱮᱨᱚᱢ",
-            teacherPhoneticGuide = "मेरोम (Merom)",
-            englishGloss = "Goat",
-            iconType = "goat"
-        ),
-        FlnCard(
-            id = "an_04",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "पक्षी (चिड़िया)",
-            santaliOlChiki = "ᱪᱮᱬᱮ",
-            teacherPhoneticGuide = "चेण़े (Chene)",
-            englishGloss = "Bird",
-            iconType = "bird"
-        ),
-        FlnCard(
-            id = "an_05",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "मछली",
-            santaliOlChiki = "ᱦᱟᱹᱠᱩ",
-            teacherPhoneticGuide = "हाकु (Haku)",
-            englishGloss = "Fish",
-            iconType = "fish"
-        ),
-        FlnCard(
-            id = "an_06",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "बिल्ली",
-            santaliOlChiki = "ᱯᱩᱥᱤ",
-            teacherPhoneticGuide = "पुसी (Pusi)",
-            englishGloss = "Cat",
-            iconType = "cat"
-        ),
-        FlnCard(
-            id = "an_07",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_ANIMALS,
-            nipunCode = "L2.1",
-            hindiText = "हाथी",
-            santaliOlChiki = "ᱦᱟᱛᱤ",
-            teacherPhoneticGuide = "हाती (Hati)",
-            englishGloss = "Elephant",
-            iconType = "elephant"
-        ),
+        // Row 3: Is Series (ᱤ ᱥ ᱦ ᱧ ᱨ)
+        FlnCard("ak_11", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "इ (ध्वनि /i/)", "ᱤ", "इ (Is / I)", "Vowel /i/", "akshar"),
+        FlnCard("ak_12", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "स (ध्वनि /is/)", "ᱥ", "इस् (Is)", "Sibilant /s/", "akshar"),
+        FlnCard("ak_13", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ह (ध्वनि /ih/)", "ᱦ", "इह् (Ih)", "Aspirate /h/", "akshar"),
+        FlnCard("ak_14", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ञ (ध्वनि /iny/)", "ᱧ", "इञ् (Iny)", "Nasal /ny/", "akshar"),
+        FlnCard("ak_15", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "र (ध्वनि /ir/)", "ᱨ", "इर् (Ir)", "Liquid /r/", "akshar"),
 
-        // ---------------------------------------------------------------------
-        // 4. Nature & Environment (NIPUN L2: Vocabulary)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "na_01",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "पेड़",
-            santaliOlChiki = "ᱫᱟᱨᱮ",
-            teacherPhoneticGuide = "दारे (Dare)",
-            englishGloss = "Tree",
-            iconType = "tree",
-            exampleSentenceHindi = "यह एक बड़ा पेड़ है।",
-            exampleSentenceSantali = "ᱱᱚᱣᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱝ ᱢᱟᱨᱟᱝ ᱫᱟᱨᱮ ᱠᱟᱱᱟ ᱾"
-        ),
-        FlnCard(
-            id = "na_02",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "पानी",
-            santaliOlChiki = "ᱫᱟᱜ",
-            teacherPhoneticGuide = "दाग (Dag)",
-            englishGloss = "Water",
-            iconType = "water"
-        ),
-        FlnCard(
-            id = "na_03",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "नदी",
-            santaliOlChiki = "ᱜᱟᱰᱟ",
-            teacherPhoneticGuide = "गाडा (Gada)",
-            englishGloss = "River",
-            iconType = "river"
-        ),
-        FlnCard(
-            id = "na_04",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "पहाड़",
-            santaliOlChiki = "ᱵᱩᱨᱩ",
-            teacherPhoneticGuide = "बुरु (Buru)",
-            englishGloss = "Mountain",
-            iconType = "mountain"
-        ),
-        FlnCard(
-            id = "na_05",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "सूरज",
-            santaliOlChiki = "ᱥᱤᱧ ᱪᱟᱸᱫᱚ",
-            teacherPhoneticGuide = "सिञ चाँद (Sin Chando)",
-            englishGloss = "Sun",
-            iconType = "sun"
-        ),
-        FlnCard(
-            id = "na_06",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "फूल",
-            santaliOlChiki = "ᱵᱟᱦᱟ",
-            teacherPhoneticGuide = "बाहा (Baha)",
-            englishGloss = "Flower",
-            iconType = "flower"
-        ),
-        FlnCard(
-            id = "na_07",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_NATURE,
-            nipunCode = "L2.2",
-            hindiText = "जंगल",
-            santaliOlChiki = "ᱵᱤᱨ",
-            teacherPhoneticGuide = "बीर (Bir)",
-            englishGloss = "Forest",
-            iconType = "forest"
-        ),
+        // Row 4: Uch Series (ᱩ ᱪ ᱫ ᱬ ᱭ)
+        FlnCard("ak_16", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "उ (ध्वनि /u/)", "ᱩ", "उ (Uch / U)", "Vowel /u/", "akshar"),
+        FlnCard("ak_17", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "च (ध्वनि /uch/)", "ᱪ", "उच् (Uch)", "Consonant /c/", "akshar"),
+        FlnCard("ak_18", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "द (ध्वनि /ud/)", "ᱫ", "उद् (Ud)", "Consonant /d/", "akshar"),
+        FlnCard("ak_19", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ण (ध्वनि /unn/)", "ᱬ", "उण् (Unn)", "Retroflex /nn/", "akshar"),
+        FlnCard("ak_20", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "य (ध्वनि /uy/)", "ᱭ", "उय् (Uy)", "Semivowel /y/", "akshar"),
 
-        // ---------------------------------------------------------------------
-        // 5. School & Family (NIPUN L2: Daily Context)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "sf_01",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "किताब (पुस्तक)",
-            santaliOlChiki = "ᱯᱩᱛᱷᱤ",
-            teacherPhoneticGuide = "पुथी (Puthi)",
-            englishGloss = "Book",
-            iconType = "book"
-        ),
-        FlnCard(
-            id = "sf_02",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "कलम",
-            santaliOlChiki = "ᱠᱚᱞᱚᱢ",
-            teacherPhoneticGuide = "कोलम (Kolom)",
-            englishGloss = "Pen",
-            iconType = "pencil"
-        ),
-        FlnCard(
-            id = "sf_03",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "स्कूल (विद्यालय)",
-            santaliOlChiki = "ᱤᱛᱩᱱ ᱟᱥᱲᱟ",
-            teacherPhoneticGuide = "इतुन आसड़ा (Itun Asra)",
-            englishGloss = "School",
-            iconType = "school"
-        ),
-        FlnCard(
-            id = "sf_04",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "माँ (माता)",
-            santaliOlChiki = "ᱟᱭᱳ",
-            teacherPhoneticGuide = "आयो (Ayo)",
-            englishGloss = "Mother",
-            iconType = "mother"
-        ),
-        FlnCard(
-            id = "sf_05",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "पिताजी (बापू)",
-            santaliOlChiki = "ᱵᱟᱵᱟ",
-            teacherPhoneticGuide = "बाबा (Baba)",
-            englishGloss = "Father",
-            iconType = "father"
-        ),
-        FlnCard(
-            id = "sf_06",
-            domain = FlnDomain.LITERACY_VOCAB,
-            category = CATEGORY_SCHOOL_FAMILY,
-            nipunCode = "L2.3",
-            hindiText = "मित्र (दोस्त)",
-            santaliOlChiki = "ᱜᱟᱛᱮ",
-            teacherPhoneticGuide = "गाते (Gate)",
-            englishGloss = "Friend",
-            iconType = "friend"
-        ),
+        // Row 5: Ep Series (ᱮ ᱯ ᱰ ᱱ ᱲ)
+        FlnCard("ak_21", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ए (ध्वनि /e/)", "ᱮ", "ए (Ep / E)", "Vowel /e/", "akshar"),
+        FlnCard("ak_22", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "प (ध्वनि /ep/)", "ᱯ", "एप् (Ep)", "Consonant /p/", "akshar"),
+        FlnCard("ak_23", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ड (ध्वनि /edd/)", "ᱰ", "एड (Edd)", "Retroflex /dd/", "akshar"),
+        FlnCard("ak_24", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "न (ध्वनि /en/)", "ᱱ", "एन् (En)", "Nasal /n/", "akshar"),
+        FlnCard("ak_25", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ड़ (ध्वनि /err/)", "ᱲ", "एड़ (Err)", "Retroflex flap /rr/", "akshar"),
 
-        // ---------------------------------------------------------------------
-        // 6. Shapes & Spatial Concepts (NIPUN N2: Spatial Understanding)
-        // ---------------------------------------------------------------------
-        FlnCard(
-            id = "sh_01",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.1",
-            hindiText = "गोल (वृत्त)",
-            santaliOlChiki = "ᱜᱳᱞ",
-            teacherPhoneticGuide = "गोल (Gol)",
-            englishGloss = "Circle",
-            iconType = "shape_circle"
-        ),
-        FlnCard(
-            id = "sh_02",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.1",
-            hindiText = "त्रिभुज",
-            santaliOlChiki = "ᱯᱮ ᱠᱳᱬ",
-            teacherPhoneticGuide = "पे कोण (Pe Kon)",
-            englishGloss = "Triangle",
-            iconType = "shape_triangle"
-        ),
-        FlnCard(
-            id = "sh_03",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.2",
-            hindiText = "बड़ा",
-            santaliOlChiki = "ᱢᱟᱨᱟᱝ",
-            teacherPhoneticGuide = "मारांग (Marang)",
-            englishGloss = "Big",
-            iconType = "concept_big"
-        ),
-        FlnCard(
-            id = "sh_04",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.2",
-            hindiText = "छोटा",
-            santaliOlChiki = "ᱦᱩᱰᱤᱧ",
-            teacherPhoneticGuide = "हुडिञ (Hudin)",
-            englishGloss = "Small",
-            iconType = "concept_small"
-        ),
-        FlnCard(
-            id = "sh_05",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.2",
-            hindiText = "ऊपर",
-            santaliOlChiki = "ᱪᱮᱛᱟᱱ",
-            teacherPhoneticGuide = "चेतान (Chetan)",
-            englishGloss = "Up",
-            iconType = "concept_up"
-        ),
-        FlnCard(
-            id = "sh_06",
-            domain = FlnDomain.NUMERACY_SHAPES,
-            category = CATEGORY_SHAPES,
-            nipunCode = "N2.2",
-            hindiText = "नीचे",
-            santaliOlChiki = "ᱞᱟᱛᱟᱨ",
-            teacherPhoneticGuide = "लातार (Latar)",
-            englishGloss = "Down",
-            iconType = "concept_down"
-        )
+        // Row 6: Ot Series (ᱳ ᱴ ᱵ ᱶ ᱷ)
+        FlnCard("ak_26", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ओ (ध्वनि /o/)", "ᱳ", "ओ (Ot / O)", "Vowel /o/", "akshar"),
+        FlnCard("ak_27", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ट (ध्वनि /ot/)", "ᱴ", "ओट् (Ot)", "Retroflex /tt/", "akshar"),
+        FlnCard("ak_28", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ब (ध्वनि /ob/)", "ᱵ", "ओब् (Ob)", "Consonant /b/", "akshar"),
+        FlnCard("ak_29", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ँ (ध्वनि /ov/)", "ᱶ", "ओंव (Ov)", "Nasalized /w~/", "akshar"),
+        FlnCard("ak_30", FlnDomain.LITERACY_AKSHAR, CATEGORY_AKSHAR, "L1.1", "ह (ध्वनि /oh/)", "ᱷ", "ओह् (Oh)", "Aspirate /h/", "akshar"),
+
+        // =====================================================================
+        // 2. FOUNDATIONAL NUMERACY (1 to 20) - NIPUN N1.1 / N1.2
+        // =====================================================================
+        FlnCard("num_01", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.1", "एक (१)", "ᱢᱤᱫ (᱑)", "मिद (Mid)", "One (1)", "number_counter", numeralValue = 1, exampleSentenceHindi = "यह एक सेब है।", exampleSentenceSantali = "ᱱᱚᱣᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱝ ᱥᱮᱣ ᱠᱟᱱᱟ ᱾"),
+        FlnCard("num_02", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.1", "दो (२)", "ᱵᱟᱨ (᱒)", "बार (Bar)", "Two (2)", "number_counter", numeralValue = 2, exampleSentenceHindi = "दो पक्षी उड़ रहे हैं।", exampleSentenceSantali = "ᱵᱟᱨᱭᱟ ᱪᱮᱬᱮ ᱠᱤᱱ ᱩᱰᱟᱹᱣᱜ ᱠᱟᱱᱟ ᱾"),
+        FlnCard("num_03", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.1", "तीन (३)", "ᱯᱮ (᱓)", "पे (Pe)", "Three (3)", "number_counter", numeralValue = 3),
+        FlnCard("num_04", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.1", "चार (४)", "ᱯᱩᱱ (᱔)", "पुन (Pun)", "Four (4)", "number_counter", numeralValue = 4),
+        FlnCard("num_05", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.1", "पाँच (५)", "ᱢᱚᱬᱮ (᱕)", "मोण़े (Mone)", "Five (5)", "number_counter", numeralValue = 5),
+        FlnCard("num_06", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "छह (६)", "ᱛᱩᱨᱩᱭ (᱖)", "तुरुय (Turuy)", "Six (6)", "number_counter", numeralValue = 6),
+        FlnCard("num_07", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "सात (७)", "ᱮᱭᱟᱭ (᱗)", "एयाय (Eyay)", "Seven (7)", "number_counter", numeralValue = 7),
+        FlnCard("num_08", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "आठ (८)", "ᱤᱨᱟᱹᱞ (᱘)", "इरल (Iral)", "Eight (8)", "number_counter", numeralValue = 8),
+        FlnCard("num_09", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "नौ (९)", "ᱟᱨᱮ (᱙)", "आरे (Are)", "Nine (9)", "number_counter", numeralValue = 9),
+        FlnCard("num_10", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "दस (१०)", "ᱜᱮᱞ (᱑᱐)", "गेल (Gel)", "Ten (10)", "number_counter", numeralValue = 10),
+        FlnCard("num_11", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "ग्यारह (११)", "ᱜᱮᱞ ᱢᱤᱫ (᱑᱑)", "गेल मिद (Gel Mid)", "Eleven (11)", "number_counter", numeralValue = 11),
+        FlnCard("num_12", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "बारह (१२)", "ᱜᱮᱞ ᱵᱟᱨ (᱑᱒)", "गेल बार (Gel Bar)", "Twelve (12)", "number_counter", numeralValue = 12),
+        FlnCard("num_13", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "तेरह (१३)", "ᱜᱮᱞ ᱯᱮ (᱑᱓)", "गेल पे (Gel Pe)", "Thirteen (13)", "number_counter", numeralValue = 13),
+        FlnCard("num_14", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "चौदह (१४)", "ᱜᱮᱞ ᱯᱩᱱ (᱑᱔)", "गेल पुन (Gel Pun)", "Fourteen (14)", "number_counter", numeralValue = 14),
+        FlnCard("num_15", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "पंद्रह (१५)", "ᱜᱮᱞ ᱢᱚᱬᱮ (᱑᱕)", "गेल मोण़े (Gel Mone)", "Fifteen (15)", "number_counter", numeralValue = 15),
+        FlnCard("num_16", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "सोलह (१६)", "ᱜᱮᱞ ᱛᱩᱨᱩᱭ (᱑᱖)", "गेल तुरुय (Gel Turuy)", "Sixteen (16)", "number_counter", numeralValue = 16),
+        FlnCard("num_17", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "सत्रह (१७)", "ᱜᱮᱞ ᱮᱭᱟᱭ (᱑᱗)", "गेल एयाय (Gel Eyay)", "Seventeen (17)", "number_counter", numeralValue = 17),
+        FlnCard("num_18", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "अठारह (१८)", "ᱜᱮᱞ ᱤᱨᱟᱹᱞ (᱑᱘)", "गेल इरल (Gel Iral)", "Eighteen (18)", "number_counter", numeralValue = 18),
+        FlnCard("num_19", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "उन्नीस (१९)", "ᱜᱮᱞ ᱟᱨᱮ (᱑᱙)", "गेल आरे (Gel Are)", "Nineteen (19)", "number_counter", numeralValue = 19),
+        FlnCard("num_20", FlnDomain.NUMERACY_COUNTING, CATEGORY_NUMBERS, "N1.2", "बीस (२०)", "ᱵᱟᱨ ᱜᱮᱞ (᱒᱐)", "बार गेल (Bar Gel)", "Twenty (20)", "number_counter", numeralValue = 20),
+
+        // =====================================================================
+        // 3. ANIMALS & LIVING WORLD (15 Cards) - NIPUN L2.1
+        // =====================================================================
+        FlnCard("an_01", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "कुत्ता", "ᱥᱮᱛᱟ", "सेता (Seta)", "Dog", "dog", exampleSentenceHindi = "कुत्ता भौंकता है।", exampleSentenceSantali = "ᱥᱮᱛᱟ ᱫᱚᱭ ᱵᱷᱩᱜᱟᱹᱜ-ᱟ ᱾"),
+        FlnCard("an_02", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "गाय", "ᱜᱟᱹᱭ", "गय (Gai)", "Cow", "cow", exampleSentenceHindi = "गाय दूध देती है।", exampleSentenceSantali = "ᱜᱟᱹᱭ ᱫᱚ ᱛᱚᱣᱟᱭ ᱮᱢᱟ ᱾"),
+        FlnCard("an_03", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बकरी", "ᱢᱮᱨᱚᱢ", "मेरोम (Merom)", "Goat", "cow"),
+        FlnCard("an_04", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बिल्ली", "ᱯᱩᱥᱤ", "पुसी (Pusi)", "Cat", "cat"),
+        FlnCard("an_05", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "हाथी", "ᱦᱟᱛᱤ", "हाती (Hati)", "Elephant", "elephant"),
+        FlnCard("an_06", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "पक्षी (चिड़िया)", "ᱪᱮᱬᱮ", "चेण़े (Chene)", "Bird", "bird"),
+        FlnCard("an_07", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "मछली", "ᱦᱟᱹᱠᱩ", "हाकु (Haku)", "Fish", "fish"),
+        FlnCard("an_08", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बाघ", "ᱛᱟᱹᱨᱩᱵ", "तारुब (Tarub)", "Tiger", "cat"),
+        FlnCard("an_09", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "घोड़ा", "ᱥᱟᱫᱚᱢ", "सादोम (Sadom)", "Horse", "cow"),
+        FlnCard("an_10", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बंदर", "ᱜᱟᱹᱲᱤ", "गाड़ी (Gari)", "Monkey", "cat"),
+        FlnCard("an_11", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "मोर", "ᱢᱟᱨᱟᱜ", "माराग (Marag)", "Peacock", "bird"),
+        FlnCard("an_12", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बतख", "ᱜᱮᱰᱮ", "गेडे (Gede)", "Duck", "bird"),
+        FlnCard("an_13", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "मेंढक", "ᱪᱮᱨᱚ", "चेरो (Chero)", "Frog", "fish"),
+        FlnCard("an_14", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "हिरण", "ᱡᱷᱤᱞ", "झिल (Jhil)", "Deer", "cow"),
+        FlnCard("an_15", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "भेड़", "ᱵᱷᱤᱰᱤ", "भिडी (Bhidi)", "Sheep", "cow"),
+
+        // =====================================================================
+        // 4. NATURE, SKY & ENVIRONMENT (15 Cards) - NIPUN L2.2
+        // =====================================================================
+        FlnCard("na_01", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "पेड़", "ᱫᱟᱨᱮ", "दारे (Dare)", "Tree", "tree", exampleSentenceHindi = "यह एक बड़ा पेड़ है।", exampleSentenceSantali = "ᱱᱚᱣᱟ ᱫᱚ ᱢᱤᱫᱴᱟᱝ ᱢᱟᱨᱟᱝ ᱫᱟᱨᱮ ᱠᱟᱱᱟ ᱾"),
+        FlnCard("na_02", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "पानी", "ᱫᱟᱜ", "दाग (Dag)", "Water", "water"),
+        FlnCard("na_03", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "नदी", "ᱜᱟᱰᱟ", "गाडा (Gada)", "River", "river"),
+        FlnCard("na_04", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "पहाड़", "ᱵᱩᱨᱩ", "बुरु (Buru)", "Mountain", "mountain"),
+        FlnCard("na_05", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "सूरज", "ᱥᱤᱧ ᱪᱟᱸᱫᱚ", "सिञ चाँद (Sin Chando)", "Sun", "sun"),
+        FlnCard("na_06", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "चाँद", "ᱧᱤᱫᱟᱹ ᱪᱟᱸᱫᱚ", "निदा चाँद (Nida Chando)", "Moon", "star"),
+        FlnCard("na_07", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "तारा", "ᱤᱯᱤᱞ", "इपिल (Ipil)", "Star", "star"),
+        FlnCard("na_08", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "फूल", "ᱵᱟᱦᱟ", "बाहा (Baha)", "Flower", "flower"),
+        FlnCard("na_09", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "जंगल", "ᱵᱤᱨ", "बीर (Bir)", "Forest", "forest"),
+        FlnCard("na_10", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "पत्ता", "ᱥᱟᱠᱟᱢ", "साकाम (Sakam)", "Leaf", "tree"),
+        FlnCard("na_11", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "बादल", "ᱨᱤᱢᱤᱞ", "रिमिल (Rimil)", "Cloud", "water"),
+        FlnCard("na_12", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "बारिश", "ᱫᱟᱜ ᱡᱟᱹᱲᱤ", "दाग जाड़ी (Dag Jari)", "Rain", "water"),
+        FlnCard("na_13", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "आग", "ᱥᱮᱸᱜᱮᱞ", "सेंगेल (Sengel)", "Fire", "sun"),
+        FlnCard("na_14", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "हवा", "ᱦᱚᱭ", "होय (Hoy)", "Wind", "water"),
+        FlnCard("na_15", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "मिट्टी / भूमि", "ᱦᱟᱥᱟ", "हासा (Hasa)", "Soil / Earth", "mountain"),
+
+        // =====================================================================
+        // 5. FRUITS, CROPS & FOOD (12 Cards) - NIPUN L2.2
+        // =====================================================================
+        FlnCard("fr_01", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "आम", "ᱩᱞ", "उल (Ul)", "Mango", "mango", exampleSentenceHindi = "मीठा आम खाओ।", exampleSentenceSantali = "ᱦᱮᱲᱮᱢ ᱩᱞ ᱡᱚᱢ ᱢᱮ ᱾"),
+        FlnCard("fr_02", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "सेब", "ᱥᱮᱣ", "सेव (Sew)", "Apple", "apple"),
+        FlnCard("fr_03", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "केला", "ᱠᱟᱭᱨᱟ", "कायरा (Kayra)", "Banana", "fruit"),
+        FlnCard("fr_04", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "अमरूद", "ᱟᱢᱨᱩᱫᱽ", "अमरुद (Amrud)", "Guava", "apple"),
+        FlnCard("fr_05", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "पपीता", "ᱯᱚᱯᱮ", "पोपे (Pope)", "Papaya", "mango"),
+        FlnCard("fr_06", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "संतरा", "ᱠᱚᱢᱞᱟ", "कोमला (Komla)", "Orange", "mango"),
+        FlnCard("fr_07", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "तरबूज", "ᱛᱟᱨᱵᱩᱡᱽ", "तरबुज (Tarbuj)", "Watermelon", "fruit"),
+        FlnCard("fr_08", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "चावल (भात)", "ᱫᱟᱠᱟ", "दाका (Daka)", "Rice / Food", "fruit"),
+        FlnCard("fr_09", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "रोटी / पीठा", "ᱯᱤᱴᱷᱟᱹ", "पीठा (Pitha)", "Bread / Cake", "fruit"),
+        FlnCard("fr_10", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "दूध", "ᱛᱚᱣᱟ", "तोवा (Towa)", "Milk", "water"),
+        FlnCard("fr_11", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "नमक", "ᱵᱩᱞᱩᱝ", "बुलुंग (Bulung)", "Salt", "star"),
+        FlnCard("fr_12", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "मीठा / शहद", "ᱦᱮᱲᱮᱢ", "हेड़ेम (Herem)", "Sweet / Honey", "flower"),
+
+        // =====================================================================
+        // 6. COLORS (7 Cards) - NIPUN L2.1
+        // =====================================================================
+        FlnCard("col_01", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "लाल", "ᱟᱨᱟᱜ", "आराग (Arag)", "Red", "flower", exampleSentenceHindi = "लाल फूल सुंदर है।", exampleSentenceSantali = "ᱟᱨᱟᱜ ᱵᱟᱦᱟ ᱫᱚ ᱪᱚᱨᱚᱠ ᱜᱮᱭᱟ ᱾"),
+        FlnCard("col_02", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "हरा", "ᱦᱟᱹᱨᱭᱟᱹᱲ", "हरियाड़ (Hariyar)", "Green", "tree"),
+        FlnCard("col_03", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "नीला", "ᱞᱤᱞ", "लिल (Lil)", "Blue", "water"),
+        FlnCard("col_04", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "पीला", "ᱥᱟᱥᱟᱝ", "सासांग (Sasang)", "Yellow", "sun"),
+        FlnCard("col_05", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "सफेद", "ᱯᱩᱸᱰ", "पुंड (Pund)", "White", "star"),
+        FlnCard("col_06", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "काला", "ᱦᱮᱸᱫᱮ", "हेंदे (Hende)", "Black", "star"),
+        FlnCard("col_07", FlnDomain.LITERACY_VOCAB, CATEGORY_COLORS, "L2.1", "नारंगी (गेरुआ)", "ᱜᱮᱨᱩᱣᱟ", "गेरुआ (Gerua)", "Orange Color", "mango"),
+
+        // =====================================================================
+        // 7. SCHOOL, FAMILY & VILLAGE LIFE (15 Cards) - NIPUN L2.3
+        // =====================================================================
+        FlnCard("sf_01", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "किताब (पुस्तक)", "ᱯᱩᱛᱷᱤ", "पुथी (Puthi)", "Book", "book"),
+        FlnCard("sf_02", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "कलम (पेंसिल)", "ᱠᱚᱞᱚᱢ", "कोलम (Kolom)", "Pen / Pencil", "pencil"),
+        FlnCard("sf_03", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "स्कूल (विद्यालय)", "ᱤᱛᱩᱱ ᱟᱥᱲᱟ", "इतुन आसड़ा (Itun Asra)", "School", "school"),
+        FlnCard("sf_04", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "माँ (माता)", "ᱟᱭᱳ", "आयो (Ayo)", "Mother", "school"),
+        FlnCard("sf_05", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "पिताजी (बापू)", "ᱵᱟᱵᱟ", "बाबा (Baba)", "Father", "school"),
+        FlnCard("sf_06", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "भाई", "ᱵᱚᱭᱦᱟ", "बोयहा (Boyha)", "Brother", "school"),
+        FlnCard("sf_07", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "बहन", "ᱢᱤᱥᱤ", "मिसि (Misi)", "Sister", "school"),
+        FlnCard("sf_08", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "मित्र (दोस्त)", "ᱜᱟᱛᱮ", "गाते (Gate)", "Friend", "school"),
+        FlnCard("sf_09", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "शिक्षक (गुरुजी)", "ᱢᱟᱪᱮᱛ", "माचेत (Machet)", "Teacher", "school"),
+        FlnCard("sf_10", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "घर", "ᱚᱲᱟᱜ", "ओड़ाग (Orag)", "House / Home", "school"),
+        FlnCard("sf_11", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "गाँव", "ᱟᱹᱛᱩ", "आतु (Atu)", "Village", "school"),
+        FlnCard("sf_12", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "रास्ता (सड़क)", "ᱦᱚᱨ", "होर (Hor)", "Road / Path", "mountain"),
+        FlnCard("sf_13", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "नगाड़ा (मांदर)", "ᱴᱟᱢᱟᱠ", "टामाक (Tamak)", "Tribal Drum", "coin"),
+        FlnCard("sf_14", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "रुपया", "ᱴᱟᱠᱟ", "टाका (Taka)", "Rupee", "coin"),
+        FlnCard("sf_15", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "सिक्का (पैसा)", "ᱯᱩᱭᱥᱟᱹ", "पुयसा (Puysa)", "Coin", "coin"),
+
+        // =====================================================================
+        // 8. SHAPES, SPACE & COMPARISONS (8 Cards) - NIPUN N2.1 / N2.2
+        // =====================================================================
+        FlnCard("sh_01", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.1", "गोल (वृत्त)", "ᱜᱳᱞ", "गोल (Gol)", "Circle", "shape_circle"),
+        FlnCard("sh_02", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.1", "चौकोर (वर्ग)", "ᱪᱟᱹᱣᱠᱟᱹ", "चौका (Chowka)", "Square", "shape_square"),
+        FlnCard("sh_03", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.1", "त्रिभुज", "ᱯᱮ ᱠᱳᱬ", "पे कोण (Pe Kon)", "Triangle", "shape_triangle"),
+        FlnCard("sh_04", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.2", "बड़ा", "ᱢᱟᱨᱟᱝ", "मारांग (Marang)", "Big", "concept_big"),
+        FlnCard("sh_05", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.2", "छोटा", "ᱦᱩᱰᱤᱧ", "हुडिञ (Hudin)", "Small", "concept_small"),
+        FlnCard("sh_06", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.2", "ऊपर", "ᱪᱮᱛᱟᱱ", "चेतान (Chetan)", "Up", "concept_up"),
+        FlnCard("sh_07", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.2", "नीचे", "ᱞᱟᱛᱟᱨ", "लातार (Latar)", "Down", "concept_down"),
+        FlnCard("sh_08", FlnDomain.NUMERACY_SHAPES, CATEGORY_SHAPES, "N2.2", "समान (बराबर)", "ᱥᱚᱢᱟᱱ", "सोमान (Soman)", "Equal", "coin")
     )
-
-    val CATEGORY_CUSTOM = "Custom Teacher Topics (ᱢᱟᱪᱮᱛ ᱥᱟᱛᱟᱢ)"
 
     private val customCards = mutableListOf<FlnCard>()
 
+    val AI_STORYBOOK_CARDS = listOf(
+        FlnCard("an_05", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "हाथी", "ᱦᱟᱹᱛᱤ", "हाति (Hati)", "Elephant", "elephant", exampleSentenceSantali = "ᱦᱟᱹᱛᱤ ᱫᱚ ᱵᱤᱨ ᱨᱤᱱᱤᱡ ᱢᱟᱨᱟᱝ ᱡᱤᱵᱽ ᱠᱟᱱᱟᱭ ᱾", exampleSentenceHindi = "हाथी जंगल का सबसे बड़ा और समझदार जानवर है।"),
+        FlnCard("an_02", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "गाय", "ᱜᱟᱹᱭ", "गय (Gai)", "Cow", "cow", exampleSentenceSantali = "ᱜᱟᱹᱭ ᱫᱚ ᱟᱵᱚ ᱢᱤଠᱟᱹ ᱛᱚᱣᱟᱭ ᱮᱢᱟᱵᱚᱱᱟ ᱾", exampleSentenceHindi = "गाय हमें मीठा और पौष्टिक दूध देती है।"),
+        FlnCard("an_01", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "कुत्ता", "ᱥᱮᱛᱟ", "सेता (Seta)", "Dog", "dog", exampleSentenceSantali = "ᱥᱮᱛᱟ ᱫᱚ ᱟᱹᱰᱤ ᱵᱩᱫᱷᱤᱢᱟᱱ ᱟᱨ ᱜᱟᱛᱮ ᱡᱤᱵᱽ ᱠᱟᱱᱟᱭ ᱾", exampleSentenceHindi = "कुत्ता बहुत वफ़ादार और सच्चा मित्र होता है।"),
+        FlnCard("an_04", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "बिल्ली", "ᱯᱩᱥᱤ", "पुसी (Pusi)", "Cat", "cat", exampleSentenceSantali = "ᱯᱩᱥᱤ ᱫᱚ ᱛᱚᱣᱟ ᱧᱩ ᱟᱹᱰᱤ ᱠᱩᱥᱤᱭᱟᱜ-ᱟ ᱾", exampleSentenceHindi = "बिल्ली दूध पीना और खेलना बहुत पसंद करती है।"),
+        FlnCard("an_06", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "पक्षी (चिड़िया)", "ᱪᱮᱬᱮ", "चेण़े (Chene)", "Bird", "bird", exampleSentenceSantali = "ᱪᱮᱬᱮ ᱫᱚ ᱥᱮᱨᱢᱟ ᱨᱮ ᱪᱚᱨᱚᱠ ᱮ ᱩᱰᱟᱹᱣᱜ-ᱟ ᱾", exampleSentenceHindi = "चिड़िया नीले आकाश में सुंदर उड़ती है।"),
+        FlnCard("an_07", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "मछली", "ᱦᱟᱹᱠᱩ", "हाकु (Haku)", "Fish", "fish", exampleSentenceSantali = "ᱦᱟᱹᱠᱩ ᱫᱚ ᱱᱤᱨᱢᱚᱲ ᱫᱟᱜ ᱨᱮᱠᱚ ᱯᱟᱭᱨᱟᱜ-ᱟ ᱾", exampleSentenceHindi = "मछली साफ़ और ठंडे पानी में तैरती है।"),
+        FlnCard("an_11", FlnDomain.LITERACY_VOCAB, CATEGORY_ANIMALS, "L2.1", "मोर", "ᱢᱟᱨᱟᱜ", "माराग (Marag)", "Peacock", "bird", exampleSentenceSantali = "ᱢᱟᱨᱟᱜ ᱫᱚ ᱫᱟᱜ ᱡᱟᱹᱲᱤ ᱨᱮ ᱪᱚᱨᱚᱠ ᱮ ᱮᱱᱮᱡ-ᱟ ᱾", exampleSentenceHindi = "मोर बारिश में सुंदर पंख फैलाकर नाचता है।"),
+        FlnCard("fr_01", FlnDomain.LITERACY_VOCAB, CATEGORY_FRUITS, "L2.2", "आम", "ᱩᱞ", "उल (Ul)", "Mango", "mango", exampleSentenceSantali = "ᱦᱮᱲᱮᱢ ᱩᱞ ᱡᱚᱢ ᱛᱮ ᱟᱹᱰᱤ ᱨᱟᱹᱥᱠᱟᱹ ᱾", exampleSentenceHindi = "मीठा पका आम खाने में बहुत स्वादिष्ट लगता है।"),
+        FlnCard("na_01", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "पेड़", "ᱫᱟᱨᱮ", "दारे (Dare)", "Tree", "tree", exampleSentenceSantali = "ᱫᱟᱨᱮ ᱫᱚ ᱟᱵᱚ ᱪᱷᱟᱸᱭ ᱟᱨ ᱦᱚᱭ ᱮᱢᱟᱵᱚᱱᱟ ᱾", exampleSentenceHindi = "पेड़ हमें शीतल छाया और ताज़ी हवा देता है।"),
+        FlnCard("na_05", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "सूरज", "ᱥᱤᱧ ᱪᱟᱸᱫᱚ", "सिञ चाँद (Sin Chando)", "Sun", "sun", exampleSentenceSantali = "ᱥᱤᱧ ᱪᱟᱸᱫᱚ ᱫᱚ ᱫᱷᱟᱹᱨᱛᱤ ᱨᱮ ᱢᱟᱨᱥᱟᱞ ᱮ ᱮᱢᱟ ᱾", exampleSentenceHindi = "सूरज पूरी धरती को सवेरे रोशनी और गरमी देता है।"),
+        FlnCard("na_08", FlnDomain.LITERACY_VOCAB, CATEGORY_NATURE, "L2.2", "फूल", "ᱵᱟᱦᱟ", "बाहा (Baha)", "Flower", "flower", exampleSentenceSantali = "ᱵᱟᱦᱟ ᱨᱮᱱᱟᱜ ᱥᱚ ᱟᱹᱰᱤ ᱪᱚᱨᱚᱠ ᱜᱮᱭᱟ ᱾", exampleSentenceHindi = "फूलों की खुशबू और रंग मन को मोह लेते हैं।"),
+        FlnCard("sf_03", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "स्कूल (विद्यालय)", "ᱤᱛᱩᱱ ᱟᱥᱲᱟ", "इतुन आसड़ा (Itun Asra)", "School", "school", exampleSentenceSantali = "ᱜᱤᱫᱽᱨᱟᱹ ᱠᱚ ᱤᱛᱩᱱ ᱟᱥᱲᱟ ᱨᱮ ᱯᱟᱲᱦᱟᱣ ᱠᱚ ᱪᱟᱞᱟᱜ-ᱟ ᱾", exampleSentenceHindi = "बच्चे विद्यालय में पढ़ने और नए दोस्त बनाने जाते हैं।"),
+        FlnCard("sf_13", FlnDomain.LITERACY_VOCAB, CATEGORY_SCHOOL_FAMILY, "L2.3", "नगाड़ा (मांदर/ढोल)", "ᱴᱟᱢᱟᱠ", "टामाक (Tamak)", "Tribal Drum", "coin", exampleSentenceSantali = "ᱴᱟᱢᱟᱠ ᱨᱩ ᱟᱸᱡᱚᱢ ᱛᱮ ᱥᱟᱱᱟᱢ ᱦᱚᱲ ᱮᱱᱮᱡ ᱠᱚ ᱮᱦᱚᱵ-ᱟ ᱾", exampleSentenceHindi = "टामाक की ताल सुनते ही सब खुशी से नाच उठते हैं।")
+    )
+
     fun getAllCards(): List<FlnCard> = CARDS + customCards
+
+    fun getFlashcards(): List<FlnCard> = AI_STORYBOOK_CARDS + customCards
 
     fun getCategories(): List<String> = listOf(
         CATEGORY_ALL,
@@ -583,13 +215,33 @@ object FlnCurriculumRepository {
         CATEGORY_NUMBERS,
         CATEGORY_ANIMALS,
         CATEGORY_NATURE,
+        CATEGORY_FRUITS,
+        CATEGORY_COLORS,
         CATEGORY_SCHOOL_FAMILY,
         CATEGORY_SHAPES,
         CATEGORY_CUSTOM
     )
 
+    fun getFlashcardCategories(): List<String> = listOf(
+        CATEGORY_ALL,
+        CATEGORY_ANIMALS,
+        CATEGORY_NATURE,
+        CATEGORY_FRUITS,
+        CATEGORY_SCHOOL_FAMILY,
+        CATEGORY_CUSTOM
+    )
+
     fun getCardsByCategory(category: String): List<FlnCard> {
         val all = getAllCards()
+        return if (category == CATEGORY_ALL) {
+            all
+        } else {
+            all.filter { it.category == category }
+        }
+    }
+
+    fun getFlashcardsByCategory(category: String): List<FlnCard> {
+        val all = getFlashcards()
         return if (category == CATEGORY_ALL) {
             all
         } else {

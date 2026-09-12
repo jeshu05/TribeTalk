@@ -49,6 +49,7 @@ data class FlnCard(
     val numeralValue: Int? = null,
     val exampleSentenceHindi: String? = null,
     val exampleSentenceSantali: String? = null,
+    val imageAssetPath: String? = "file:///android_asset/flashcards/${id}.webp",
     val isCustomUserGenerated: Boolean = false
 )
 

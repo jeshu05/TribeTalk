@@ -138,6 +138,75 @@ class SlmCurriculumEngineTest {
             assertFalse("Hindi text should not be blank", card.hindiText.isBlank())
             assertFalse("Ol Chiki text should not be blank", card.santaliOlChiki.isBlank())
             assertFalse("Teacher phonetic guide should not be blank", card.teacherPhoneticGuide.isBlank())
+            assertFalse("Icon type should not be blank", card.iconType.isBlank())
         }
+    }
+
+    @Test
+    fun testPlanBindingSupportsMultipleWorksheetFormats() {
+        // 1. Number Sequence Train
+        val trainReq = SlmCurriculumRequest("संख्या रेलगाड़ी", FlnGrade.GRADE_1, WorksheetType.NUMBER_SEQUENCE_TRAIN, 3)
+        val (_, trainItems) = SlmCurriculumEngine.generateCurriculumPlan(trainReq)
+        assertEquals(3, trainItems.size)
+        for (item in trainItems) {
+            assertEquals("train", item.iconType)
+            assertEquals(5, item.sequenceItems.size)
+            assertTrue("Sequence must contain missing blank", item.sequenceItems.contains("__"))
+            assertNotNull("Math answer must be set", item.mathAnswer)
+        }
+
+        // 2. Count & Match
+        val countReq = SlmCurriculumRequest("हाट के फल", FlnGrade.BALVATIKA, WorksheetType.COUNT_AND_MATCH, 4)
+        val (_, countItems) = SlmCurriculumEngine.generateCurriculumPlan(countReq)
+        assertEquals(4, countItems.size)
+        for (item in countItems) {
+            assertTrue("Quantity must be > 0", item.quantity > 0)
+            assertTrue(item.rightLabelSantali.contains("[") && item.rightLabelSantali.contains("]"))
+        }
+
+        // 3. Greater Lesser Compare
+        val cmpReq = SlmCurriculumRequest("गाँव के पशु", FlnGrade.GRADE_1, WorksheetType.GREATER_LESSER_COMPARE, 3)
+        val (_, cmpItems) = SlmCurriculumEngine.generateCurriculumPlan(cmpReq)
+        assertEquals(3, cmpItems.size)
+        for (item in cmpItems) {
+            assertTrue(listOf(">", "<", "=").contains(item.operationSign))
+        }
+
+        // 4. Missing Akshar Spelling
+        val spellReq = SlmCurriculumRequest("जंगल और प्रकृति", FlnGrade.GRADE_1, WorksheetType.MISSING_AKSHAR_SPELLING, 3)
+        val (_, spellItems) = SlmCurriculumEngine.generateCurriculumPlan(spellReq)
+        assertEquals(3, spellItems.size)
+        for (item in spellItems) {
+            assertNotNull(item.wordWithBlank)
+            assertTrue("Must contain blank slot", item.wordWithBlank!!.contains("[ _ ]"))
+            assertNotNull(item.missingLetterAnswer)
+            assertFalse("Missing letter answer must not be empty", item.missingLetterAnswer!!.isBlank())
+            assertEquals(4, item.options.size)
+            assertTrue("Options must contain missing letter", item.options.contains(item.missingLetterAnswer))
+        }
+
+        // 5. Assessment Circle MCQ
+        val mcqReq = SlmCurriculumRequest("पाठशाला", FlnGrade.GRADE_2, WorksheetType.ASSESSMENT_CIRCLE, 3)
+        val (_, mcqItems) = SlmCurriculumEngine.generateCurriculumPlan(mcqReq)
+        assertEquals(3, mcqItems.size)
+        for (item in mcqItems) {
+            assertEquals(4, item.options.size)
+            assertTrue("Correct index must be in bounds", item.correctIndex in 0..3)
+        }
+    }
+
+    @Test
+    fun testMultiDomainReasoningExpandsBeyondBasics() {
+        val birdReq = SlmCurriculumRequest("आकाश के सुंदर पंछी", FlnGrade.GRADE_1, WorksheetType.PICTURE_WORD_MATCH, 3)
+        val birdPlan = SlmCurriculumEngine.runSymbolicReasoning(birdReq)
+        assertTrue(birdPlan.theme.contains("पंछी") || birdPlan.theme.contains("Birds"))
+
+        val vegReq = SlmCurriculumRequest("खेत की ताज़ी सब्जियाँ", FlnGrade.GRADE_1, WorksheetType.PICTURE_WORD_MATCH, 3)
+        val vegPlan = SlmCurriculumEngine.runSymbolicReasoning(vegReq)
+        assertTrue(vegPlan.theme.contains("सब्जियाँ") || vegPlan.theme.contains("Vegetables"))
+
+        val colorReq = SlmCurriculumRequest("रंग-बिरंगे फूल", FlnGrade.GRADE_1, WorksheetType.PICTURE_WORD_MATCH, 3)
+        val colorPlan = SlmCurriculumEngine.runSymbolicReasoning(colorReq)
+        assertTrue(colorPlan.theme.contains("रंग") || colorPlan.theme.contains("Colors"))
     }
 }

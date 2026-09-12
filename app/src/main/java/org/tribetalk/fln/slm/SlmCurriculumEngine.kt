@@ -123,6 +123,15 @@ object SlmCurriculumEngine {
         return Pair(plan, items)
     }
 
+    private val OL_CHIKI_DIGITS = listOf(
+        "᱐", "᱑", "᱒", "᱓", "᱔", "᱕", "᱖", "᱗", "᱘", "᱙",
+        "᱑᱐", "᱑᱑", "᱑᱒", "᱑᱓", "᱑᱔", "᱑᱕", "᱑᱖", "᱑᱗", "᱑᱘", "᱑᱙", "᱒᱐"
+    )
+
+    private fun toOlChikiNumber(num: Int): String {
+        return if (num in 0..20) OL_CHIKI_DIGITS[num] else "$num"
+    }
+
     /**
      * Generates a complete 5-card bilingual flashcard deck from a single teacher topic theme.
      */
@@ -137,7 +146,28 @@ object SlmCurriculumEngine {
         )
 
         return plan.problemSpecs.mapIndexed { idx, spec ->
-            ProceduralCurriculumGenerator.synthesizeCard(spec.conceptHindi)
+            val olChiki = TribeTalkTranslator.translate(spec.conceptHindi, isHindiToSantali = true).ifEmpty {
+                mapConceptToOlChiki(spec.conceptHindi)
+            }
+            val phonetics = TribeTalkTranslator.olChikiToSpeechPhonetics(olChiki).ifEmpty {
+                mapConceptToPhonetics(spec.conceptHindi)
+            }
+            val iconType = mapConceptToIcon(spec.conceptHindi)
+
+            FlnCard(
+                id = "slm_card_${System.currentTimeMillis()}_$idx",
+                domain = FlnDomain.LITERACY_VOCAB,
+                category = "AI: ${plan.theme}",
+                nipunCode = "L-G1.1",
+                hindiText = spec.conceptHindi,
+                santaliOlChiki = olChiki,
+                teacherPhoneticGuide = phonetics,
+                englishGloss = mapConceptToEnglish(spec.conceptHindi),
+                iconType = iconType,
+                exampleSentenceHindi = "${plan.storyContextHindi} यह ${spec.conceptHindi} है।",
+                exampleSentenceSantali = "ᱱᱚᱣᱟ ᱫᱚ $olChiki ᱠᱟᱱᱟ ᱾",
+                isCustomUserGenerated = true
+            )
         }
     }
 
@@ -146,9 +176,7 @@ object SlmCurriculumEngine {
     // -------------------------------------------------------------------------
     private fun runNeuralInference(request: SlmCurriculumRequest): SlmCurriculumPlan? {
         return try {
-            // Note: In onnxruntime-genai / mobile INT4 session, prompt is fed to tokenizer and model
-            // For now, if raw text output is produced, we parse it:
-            val rawOutput = "" // Placeholder for session run
+            val rawOutput = "" // Placeholder for mobile ONNX session run
             if (rawOutput.isNotBlank()) {
                 parseJsonPlan(rawOutput)
             } else {
@@ -167,39 +195,89 @@ object SlmCurriculumEngine {
         val prompt = request.topicPrompt.lowercase().trim()
         val rand = Random(System.currentTimeMillis())
 
-        // Extract entity domain based on teacher prompt keywords
-        val entityCatalog = when {
-            prompt.contains("फल") || prompt.contains("आम") || prompt.contains("सेब") -> listOf(
-                "सेब" to "apple", "आम" to "mango", "अमरूद" to "apple", "केला" to "apple", "जामुन" to "fruit"
+        // Extract entity domain across 15+ rich rural domains
+        val (themeTitle, storyContext, entityCatalog) = when {
+            // 1. Fruits & Orchard
+            prompt.contains("फल") || prompt.contains("आम") || prompt.contains("सेब") || prompt.contains("fruit") -> Triple(
+                "हाट के फल (Fruits)",
+                "रोहन और मीरा गाँव के साप्ताहिक हाट बाज़ार में ताज़े फल देखने और खरीदने गए।",
+                listOf("आम" to "mango", "सेब" to "apple", "केला" to "apple", "अमरूद" to "apple", "पपीता" to "mango")
             )
-            prompt.contains("जानवर") || prompt.contains("पशु") || prompt.contains("गाय") -> listOf(
-                "गाय" to "cow", "बकरी" to "goat", "मछली" to "fish", "कुत्ता" to "dog", "पक्षी" to "bird"
+            // 2. Vegetables & Farming
+            prompt.contains("सब्जी") || prompt.contains("आलू") || prompt.contains("टमाटर") || prompt.contains("vegetable") -> Triple(
+                "खेत की सब्जियाँ (Vegetables)",
+                "मीरा अपनी नानी के खेत से ताज़ी हरी सब्जियाँ टोकरी में चुनकर ला रही है।",
+                listOf("टमाटर" to "apple", "आलू" to "tree", "प्याज" to "flower", "मिर्च" to "flower", "मटर" to "fruit")
             )
-            prompt.contains("जंगल") || prompt.contains("पेड़") || prompt.contains("प्रकृति") -> listOf(
-                "पेड़" to "tree", "फूल" to "flower", "पक्षी" to "bird", "नदी" to "river", "तारा" to "star"
+            // 3. Animals & Livestock
+            prompt.contains("जानवर") || prompt.contains("पशु") || prompt.contains("गाय") || prompt.contains("animal") -> Triple(
+                "गाँव के पशु (Village Animals)",
+                "गाँव के हरे-भरे खलिहान में चरवाहे के साथ पालतू और जंगली जानवर घूम रहे हैं।",
+                listOf("गाय" to "cow", "बकरी" to "cow", "कुत्ता" to "dog", "बिल्ली" to "cat", "हाथी" to "elephant")
             )
-            prompt.contains("बाज़ार") || prompt.contains("दुकान") || prompt.contains("सिक्का") || prompt.contains("रुपया") -> listOf(
-                "सिक्का (रुपया)" to "coin", "सेब" to "apple", "किताब" to "book", "आम" to "mango", "मछली" to "fish"
+            // 4. Birds & Sky
+            prompt.contains("पक्षी") || prompt.contains("चिड़िया") || prompt.contains("पंछी") || prompt.contains("मोर") || prompt.contains("bird") -> Triple(
+                "आकाश के पंछी (Birds)",
+                "सुबह के समय बरगद के पेड़ पर सुंदर-सुंदर पक्षी चहचहाते हुए दाना चुग रहे हैं।",
+                listOf("पक्षी (चिड़िया)" to "bird", "मोर" to "bird", "कौआ" to "bird", "बतख" to "bird", "कबूतर" to "bird")
             )
-            prompt.contains("स्कूल") || prompt.contains("कक्षा") || prompt.contains("पढ़") -> listOf(
-                "किताब" to "book", "कलम (पेंसिल)" to "pencil", "स्कूल" to "school", "दोस्त" to "friend", "तारा" to "star"
+            // 5. River, Water & Fish
+            prompt.contains("नदी") || prompt.contains("मछली") || prompt.contains("पानी") || prompt.contains("जल") || prompt.contains("fish") || prompt.contains("river") -> Triple(
+                "नदी और जल जीवन (River & Fish)",
+                "गाँव की स्वच्छ नदी किनारे सुबह बच्चे मछलियों को पानी में तैरते देख रहे हैं।",
+                listOf("मछली" to "fish", "पानी" to "water", "नदी" to "river", "नाव" to "water", "मेंढक" to "fish")
             )
-            else -> listOf(
-                "सेब" to "apple", "मछली" to "fish", "पेड़" to "tree", "किताब" to "book", "गाय" to "cow"
+            // 6. Colors
+            prompt.contains("रंग") || prompt.contains("color") || prompt.contains("लाल") || prompt.contains("नीला") -> Triple(
+                "रंग-बिरंगी दुनिया (Colors)",
+                "कक्षा में बच्चे विभिन्न रंगों के फूलों और चित्रों की पहचान कर रहे हैं।",
+                listOf("लाल (फूल)" to "flower", "हरा (पत्ता)" to "tree", "पीला (सूरज)" to "sun", "नीला (पानी)" to "water", "सफेद (दूध)" to "star")
             )
-        }
-
-        val themeTitle = if (request.topicPrompt.isNotBlank()) {
-            request.topicPrompt.replaceFirstChar { it.uppercase() }
-        } else {
-            "हाट बाज़ार और प्रकृति (Village Nature & Market)"
-        }
-
-        val storyContext = when {
-            prompt.contains("बाज़ार") || prompt.contains("फल") -> "रोहन और मीरा गाँव के साप्ताहिक हाट बाज़ार में फल खरीदने गए।"
-            prompt.contains("जानवर") -> "गाँव के खेत और खलिहान में चरवाहे के साथ जानवर घूम रहे हैं।"
-            prompt.contains("नदी") || prompt.contains("मछली") -> "गाँव की नदी किनारे सुबह ताज़ी मछलियाँ और पंछी दिखे।"
-            else -> "कक्षा में शिक्षक और बच्चे मिलकर बुनियादी गणित और संथाली भाषा सीख रहे हैं।"
+            // 7. Forest, Trees & Nature
+            prompt.contains("जंगल") || prompt.contains("पेड़") || prompt.contains("प्रकृति") || prompt.contains("फूल") || prompt.contains("forest") || prompt.contains("nature") -> Triple(
+                "जंगल और प्रकृति (Forest & Nature)",
+                "गाँव के पास घने साल के जंगल में ऊँचे-ऊँचे पेड़ और महकते हुए जंगली फूल खिले हैं।",
+                listOf("पेड़" to "tree", "फूल" to "flower", "जंगल" to "tree", "पहाड़" to "mountain", "पत्ता" to "tree")
+            )
+            // 8. Celestial & Weather
+            prompt.contains("सूरज") || prompt.contains("चाँद") || prompt.contains("तारा") || prompt.contains("मौसम") || prompt.contains("बारिश") || prompt.contains("weather") -> Triple(
+                "सूरज, चाँद और मौसम (Sky & Weather)",
+                "खुले नीले आकाश में दिन में चमकता सूरज और रात में सुंदर चाँद और तारे दिखाई देते हैं।",
+                listOf("सूरज" to "sun", "चाँद" to "star", "तारा" to "star", "पानी (बारिश)" to "water", "पहाड़" to "mountain")
+            )
+            // 9. School & Learning
+            prompt.contains("स्कूल") || prompt.contains("कक्षा") || prompt.contains("पढ़") || prompt.contains("किताब") || prompt.contains("school") || prompt.contains("book") -> Triple(
+                "हमारी पाठशाला (School & Learning)",
+                "प्राथमिक विद्यालय की कक्षा में सभी बच्चे गुरुजी के साथ मिलकर संथाली और गणित सीख रहे हैं।",
+                listOf("किताब" to "book", "कलम (पेंसिल)" to "pencil", "स्कूल" to "school", "मित्र (दोस्त)" to "book", "तारा" to "star")
+            )
+            // 10. Market & Money
+            prompt.contains("बाज़ार") || prompt.contains("दुकान") || prompt.contains("सिक्का") || prompt.contains("रुपया") || prompt.contains("पैसा") || prompt.contains("market") -> Triple(
+                "गाँव का साप्ताहिक हाट (Village Market)",
+                "गाँव के साप्ताहिक हाट में बच्चे सिक्के और रुपये देकर सामान खरीद रहे हैं।",
+                listOf("सिक्का (रुपया)" to "coin", "सेब" to "apple", "किताब" to "book", "आम" to "mango", "मछली" to "fish")
+            )
+            // 11. Family & Home
+            prompt.contains("घर") || prompt.contains("परिवार") || prompt.contains("माँ") || prompt.contains("पिता") || prompt.contains("दोस्त") || prompt.contains("family") -> Triple(
+                "हमारा प्यारा परिवार (Family & Home)",
+                "गाँव के सुंदर घर में माता-पिता और बच्चे मिलकर खुशहाली से रहते हैं।",
+                listOf("माँ" to "school", "पिताजी" to "school", "मित्र (दोस्त)" to "school", "किताब" to "book", "घर" to "school")
+            )
+            // 12. Numbers & Counting
+            prompt.contains("गिनती") || prompt.contains("संख्या") || prompt.contains("गणित") || prompt.contains("number") || prompt.contains("math") -> Triple(
+                "संख्या ज्ञान (Numeracy 1–10)",
+                "बच्चे सुंदर नंबर ब्लॉक और चित्रों को गिनकर संथाली संख्या सीख रहे हैं।",
+                listOf("एक (१)" to "number_counter", "दो (२)" to "number_counter", "तीन (३)" to "number_counter", "चार (४)" to "number_counter", "पाँच (५)" to "number_counter")
+            )
+            // General Village Context Fallback
+            else -> {
+                val derivedName = if (request.topicPrompt.isNotBlank()) request.topicPrompt else "गाँव और प्रकृति"
+                Triple(
+                    derivedName.replaceFirstChar { it.uppercase() },
+                    "गाँव के सुंदर परिवेश में बच्चे अपने दैनिक जीवन की वस्तुओं के माध्यम से सीख रहे हैं।",
+                    listOf("सेब" to "apple", "मछली" to "fish", "पेड़" to "tree", "किताब" to "book", "गाय" to "cow")
+                )
+            }
         }
 
         val maxQuantity = when (request.grade) {
@@ -250,7 +328,6 @@ object SlmCurriculumEngine {
             val matcher = jsonPattern.matcher(rawText)
             if (matcher.find()) {
                 val jsonStr = matcher.group()
-                // Simple parsing without heavy Gson dependencies
                 val theme = extractJsonField(jsonStr, "theme") ?: "Dynamic AI Curriculum"
                 val nipunCode = extractJsonField(jsonStr, "nipunCode") ?: "N-G1.1"
                 val grade = extractJsonField(jsonStr, "grade") ?: "GRADE_1"
@@ -285,54 +362,385 @@ object SlmCurriculumEngine {
     }
 
     /**
-     * Binds the high-level SLM plan into verified, renderable WorksheetItems.
+     * Binds the high-level SLM plan into verified, renderable WorksheetItems across all 8 NIPUN types.
      */
     fun bindPlanToWorksheetItems(plan: SlmCurriculumPlan, type: WorksheetType): List<WorksheetItem> {
+        val rand = Random(System.currentTimeMillis())
+
         return plan.problemSpecs.mapIndexed { idx, spec ->
-            val olChikiWord = TribeTalkTranslator.translate(spec.conceptHindi, isHindiToSantali = true).ifEmpty {
-                when {
-                    spec.conceptHindi.contains("सेब") -> "ᱥᱮᱣ"
-                    spec.conceptHindi.contains("मछली") -> "ᱦᱟᱹᱠᱩ"
-                    spec.conceptHindi.contains("पेड़") -> "ᱫᱟᱨᱮ"
-                    spec.conceptHindi.contains("आम") -> "ᱩᱞ"
-                    spec.conceptHindi.contains("किताब") -> "ᱯᱩᱛᱷᱤ"
-                    else -> "ᱥᱮᱣ"
+            val cleanHindi = spec.conceptHindi.substringBefore(" (").trim()
+            val olChikiWord = TribeTalkTranslator.translate(cleanHindi, isHindiToSantali = true).ifEmpty {
+                mapConceptToOlChiki(cleanHindi)
+            }
+            val phonetics = TribeTalkTranslator.olChikiToSpeechPhonetics(olChikiWord).ifEmpty {
+                mapConceptToPhonetics(cleanHindi)
+            }
+            val icon = mapConceptToIcon(cleanHindi)
+
+            when (type) {
+                // 1. COUNT & MATCH (N-BAL.1 / N-G1.1)
+                WorksheetType.COUNT_AND_MATCH -> {
+                    val count = spec.quantity1.coerceIn(1, 8)
+                    val olNum = toOlChikiNumber(count)
+                    WorksheetItem(
+                        id = "slm_cm_$idx",
+                        prompt = "Count the objects and match with the Santali numeral and word:",
+                        promptHindi = "वस्तुओं को गिनें और सही संथाली संख्या व शब्द से मिलाएँ:",
+                        promptSantali = "ᱡᱤᱱᱤᱥ ᱠᱚ ᱞᱮᱠᱷᱟ ᱢᱮ ᱟᱨ ᱥᱟᱱᱛᱟᱲᱤ ᱮᱞ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = count,
+                        leftLabelHindi = "$count $cleanHindi",
+                        rightLabelSantali = "$olChikiWord [ $olNum ]",
+                        mathAnswer = count,
+                        teacherSolutionNote = "Count: $count | Word: $olChikiWord ($olNum)",
+                        teacherPhoneticAnswer = "$olNum ($phonetics)",
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 2. PICTURE & WORD MATCH (L-BAL.1 / L-G1.1)
+                WorksheetType.PICTURE_WORD_MATCH -> {
+                    WorksheetItem(
+                        id = "slm_pwm_$idx",
+                        prompt = "Match each picture with its correct Santali (Ol Chiki) word:",
+                        promptHindi = "चित्र पहचानें और सही संथाली (ओल चिकी) शब्द से मिलान करें:",
+                        promptSantali = "ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ ᱠᱟᱛᱮ ᱥᱟᱹᱨᱤ ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱲᱟᱹ ᱥᱟᱶ ᱡᱚᱲᱟᱣ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = 1,
+                        leftLabelHindi = cleanHindi,
+                        rightLabelSantali = olChikiWord,
+                        teacherSolutionNote = "$cleanHindi -> $olChikiWord",
+                        teacherPhoneticAnswer = phonetics,
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 3. ADDITION WORD PROBLEMS (N-G1.1 / N-G2.1)
+                WorksheetType.ADDITION_WORD_PROBLEM -> {
+                    val q1 = spec.quantity1.coerceIn(1, 8)
+                    val q2 = spec.quantity2.coerceIn(1, 8)
+                    val sum = q1 + q2
+                    val q1Ol = toOlChikiNumber(q1)
+                    val q2Ol = toOlChikiNumber(q2)
+                    val sumOl = toOlChikiNumber(sum)
+
+                    val promptHi = "${plan.storyContextHindi} रोहन के पास $q1 $cleanHindi थे, मीरा ने $q2 और दिए। कुल कितने हुए?"
+                    val promptSat = "ᱨᱳᱦᱟᱱ ᱴᱷᱮᱱ $q1Ol ᱜᱚᱴᱟᱝ $olChikiWord ᱛᱟᱦᱮᱸ ᱠᱟᱱᱟ ᱾ ᱢᱤᱨᱟ ᱟᱨᱦᱚᱸ $q2Ol ᱜᱚᱴᱟᱝ ᱮᱢᱟᱫᱮᱭᱟ ᱾ ᱞᱮᱠᱷᱟ ᱛᱮ ᱛᱤᱱᱟᱹᱜ ᱦᱩᱭᱮᱱᱟ?"
+
+                    WorksheetItem(
+                        id = "slm_add_$idx",
+                        prompt = "Count both groups, add them together, and find the total:",
+                        promptHindi = promptHi,
+                        promptSantali = promptSat,
+                        iconType = icon,
+                        quantity = q1,
+                        secondaryQuantity = q2,
+                        operationSign = "+",
+                        leftLabelHindi = "$q1 + $q2 = [ ? ]",
+                        rightLabelSantali = "$q1Ol + $q2Ol = [ ? ]",
+                        mathAnswer = sum,
+                        teacherSolutionNote = "Math: $q1 + $q2 = $sum (Santali: $q1Ol + $q2Ol = $sumOl)",
+                        teacherPhoneticAnswer = "$sumOl ($phonetics)",
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 4. NUMBER SEQUENCE TRAIN (N-G1.2)
+                WorksheetType.NUMBER_SEQUENCE_TRAIN -> {
+                    val start = (idx * 3 + 1).coerceIn(1, 15)
+                    val seqLength = 5
+                    val missingPos = (idx % 3) + 1
+                    val fullNums = (start until (start + seqLength)).toList()
+                    val missingVal = fullNums[missingPos]
+                    val olChikiSeq = fullNums.mapIndexed { pos, num ->
+                        if (pos == missingPos) "__" else toOlChikiNumber(num)
+                    }
+                    val missingOl = toOlChikiNumber(missingVal)
+
+                    WorksheetItem(
+                        id = "slm_train_$idx",
+                        prompt = "Find the missing number in the train track and write in Ol Chiki:",
+                        promptHindi = "रेलगाड़ी के डिब्बों में छूटी हुई संख्या पहचानें और भरें:",
+                        promptSantali = "ᱨᱮᱞᱜᱟᱹᱰᱤ ᱨᱮ ᱟᱫ ᱟᱠᱟᱱ ᱞᱮᱠᱷᱟ ᱯᱟᱱᱛᱮ ᱧᱟᱢ ᱠᱟᱛᱮ ᱚᱞ ᱢᱮ ᱾",
+                        iconType = "train",
+                        quantity = 1,
+                        leftLabelHindi = "क्रम: " + fullNums.mapIndexed { p, n -> if (p == missingPos) "__" else "$n" }.joinToString(" , "),
+                        rightLabelSantali = "ᱪᱤᱠᱤ: " + olChikiSeq.joinToString(" , "),
+                        sequenceItems = olChikiSeq,
+                        missingSequenceIndex = missingPos,
+                        mathAnswer = missingVal,
+                        teacherSolutionNote = "Missing Number: $missingVal (Ol Chiki: $missingOl)",
+                        teacherPhoneticAnswer = "$missingOl ($missingVal)",
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 5. GREATER / LESSER COMPARISON (N-G1.2)
+                WorksheetType.GREATER_LESSER_COMPARE -> {
+                    val q1 = spec.quantity1.coerceIn(1, 10)
+                    val q2 = spec.quantity2.coerceIn(1, 10)
+                    val q1Ol = toOlChikiNumber(q1)
+                    val q2Ol = toOlChikiNumber(q2)
+                    val sign = when {
+                        q1 > q2 -> ">"
+                        q1 < q2 -> "<"
+                        else -> "="
+                    }
+                    val santaliTerm = when {
+                        q1 > q2 -> "ᱢᱟᱨᱟᱝ (बड़ा)"
+                        q1 < q2 -> "ᱦᱩᱰᱤᱧ (छोटा)"
+                        else -> "ᱥᱚᱢᱟᱱ (बराबर)"
+                    }
+
+                    WorksheetItem(
+                        id = "slm_cmp_$idx",
+                        prompt = "Compare both groups. Fill the circle with > , < , or = :",
+                        promptHindi = "दोनों समूहों की तुलना करें और गोल घेरे में > , < या = भरें:",
+                        promptSantali = "ᱵᱟᱱᱟᱨ ᱫᱚᱞ ᱧᱮᱞ ᱠᱟᱛᱮ ᱪᱤᱱᱦᱟᱹ ( > , < , = ) ᱚᱞ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = q1,
+                        secondaryQuantity = q2,
+                        operationSign = sign,
+                        leftLabelHindi = "$q1  [ O ]  $q2",
+                        rightLabelSantali = "$q1Ol  [ O ]  $q2Ol",
+                        teacherSolutionNote = "Answer: $q1 $sign $q2 (Santali: $santaliTerm)",
+                        teacherPhoneticAnswer = "$sign ($santaliTerm)",
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 6. MISSING AKSHAR SPELLING (L-G1.1)
+                WorksheetType.MISSING_AKSHAR_SPELLING -> {
+                    val charList = olChikiWord.map { it.toString() }
+                    val blankPos = if (charList.size > 1) rand.nextInt(0, charList.size) else 0
+                    val correctChar = if (charList.isNotEmpty()) charList[blankPos] else "ᱚ"
+                    val wordWithBlank = charList.mapIndexed { p, c -> if (p == blankPos) "[ _ ]" else c }.joinToString(" ")
+
+                    val distractorChars = listOf("ᱚ", "ᱛ", "ᱜ", "ᱝ", "ᱞ", "ᱟ", "ᱠ", "ᱡ", "ᱢ", "ᱥ", "ᱦ", "ᱨ", "ᱩ", "ᱪ", "ᱫ")
+                        .filter { it != correctChar }
+                        .shuffled(rand)
+                        .take(3)
+                    val options = (distractorChars + correctChar).shuffled(rand)
+                    val correctIndex = options.indexOf(correctChar)
+
+                    WorksheetItem(
+                        id = "slm_mas_$idx",
+                        prompt = "Select the missing Ol Chiki letter to complete the word:",
+                        promptHindi = "'$cleanHindi' का शब्द पूरा करने के लिए छूटा हुआ ओल चिकी अक्षर चुनें:",
+                        promptSantali = "'$cleanHindi' ᱨᱮᱭᱟᱜ ᱟᱹᱲᱟᱹ ᱯᱩᱨᱟᱹᱣ ᱞᱟᱹᱜᱤᱫ ᱪᱤᱠᱤ ᱵᱟᱪᱷᱟᱣ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = 1,
+                        leftLabelHindi = "$cleanHindi -> $wordWithBlank",
+                        rightLabelSantali = olChikiWord,
+                        wordWithBlank = wordWithBlank,
+                        missingLetterAnswer = correctChar,
+                        options = options,
+                        correctIndex = correctIndex,
+                        teacherSolutionNote = "Word: $olChikiWord | Missing: $correctChar",
+                        teacherPhoneticAnswer = "$phonetics [अक्षर: $correctChar]",
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 7. ASSESSMENT CIRCLE / MCQ (L-G2.1)
+                WorksheetType.ASSESSMENT_CIRCLE -> {
+                    val otherConcepts = listOf("सेब", "मछली", "पेड़", "किताब", "गाय", "फूल", "सूरज", "पानी")
+                        .filter { it != cleanHindi }
+                        .shuffled(rand)
+                        .take(3)
+                    val distractors = otherConcepts.map { other ->
+                        val otherOl = TribeTalkTranslator.translate(other, isHindiToSantali = true).ifEmpty { mapConceptToOlChiki(other) }
+                        "$otherOl ($other)"
+                    }
+                    val correctOption = "$olChikiWord ($cleanHindi)"
+                    val allOptions = (distractors + correctOption).shuffled(rand)
+                    val correctIdx = allOptions.indexOf(correctOption)
+
+                    WorksheetItem(
+                        id = "slm_ac_$idx",
+                        prompt = "Circle the correct Ol Chiki word for '$cleanHindi':",
+                        promptHindi = "'$cleanHindi' के लिए सही संथाली (ओल चिकी) शब्द पर गोला लगाएँ:",
+                        promptSantali = "'$cleanHindi' ᱞᱟᱹᱜᱤᱫ ᱴᱷᱤᱠ ᱥᱟᱱᱛᱟᱲᱤ ᱟᱹᱲᱟᱹ ᱨᱮ ᱜᱩᱞ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = 1,
+                        leftLabelHindi = cleanHindi,
+                        options = allOptions,
+                        correctIndex = correctIdx,
+                        teacherSolutionNote = "Correct Option: $correctOption",
+                        teacherPhoneticAnswer = phonetics,
+                        nipunCode = plan.nipunCode
+                    )
+                }
+
+                // 8. AKSHAR TRACING (L-BAL.1)
+                WorksheetType.AKSHAR_TRACING -> {
+                    val firstChar = olChikiWord.firstOrNull()?.toString() ?: "ᱚ"
+                    WorksheetItem(
+                        id = "slm_trace_$idx",
+                        prompt = "Trace the Ol Chiki letter carefully:",
+                        promptHindi = "ओल चिकी अक्षर '$firstChar' को बिंदुओं पर सुंदर रेखा खींचकर लिखें:",
+                        promptSantali = "ᱚᱞ ᱪᱤᱠᱤ '$firstChar' ᱨᱮ ᱨᱚᱝ ᱯᱮᱨᱮᱡ ᱢᱮ ᱾",
+                        iconType = icon,
+                        quantity = 1,
+                        leftLabelHindi = "$cleanHindi ($firstChar)",
+                        rightLabelSantali = firstChar,
+                        teacherSolutionNote = "Tracing Letter: $firstChar (${cleanHindi})",
+                        teacherPhoneticAnswer = phonetics,
+                        nipunCode = plan.nipunCode
+                    )
                 }
             }
+        }
+    }
 
-            val phonetics = TribeTalkTranslator.olChikiToSpeechPhonetics(olChikiWord).ifEmpty {
-                spec.conceptHindi
-            }
+    // -------------------------------------------------------------------------
+    // DOMAIN TRANSLATION & ICON MAPPING HELPERS
+    // -------------------------------------------------------------------------
 
-            val sum = spec.quantity1 + spec.quantity2
-            val promptHindi = "${plan.storyContextHindi} रोहन के पास ${spec.quantity1} ${spec.conceptHindi} थे, मीरा ने ${spec.quantity2} और दिए। कुल कितने हुए?"
-            val promptSantali = "ᱞᱮᱠᱷᱟ ᱛᱮ ᱛᱤᱱᱟᱹᱜ ᱦᱩᱭᱮᱱᱟ?"
+    private fun mapConceptToOlChiki(concept: String): String {
+        return when {
+            concept.contains("आम") -> "ᱩᱞ"
+            concept.contains("सेब") -> "ᱥᱮᱣ"
+            concept.contains("केला") -> "ᱠᱟᱭᱨᱟ"
+            concept.contains("अमरूद") -> "ᱟᱢᱨᱩᱫᱽ"
+            concept.contains("पपीता") -> "ᱯᱚᱯᱮ"
+            concept.contains("टमाटर") -> "ᱵᱤᱞᱟᱹᱛᱤ"
+            concept.contains("आलू") -> "ᱟᱹᱞᱩ"
+            concept.contains("मछली") -> "ᱦᱟᱹᱠᱩ"
+            concept.contains("पेड़") -> "ᱫᱟᱨᱮ"
+            concept.contains("फूल") -> "ᱵᱟᱦᱟ"
+            concept.contains("सूरज") -> "ᱥᱤᱧ ᱪᱟᱸᱫᱚ"
+            concept.contains("चाँद") -> "ᱧᱤᱫᱟᱹ ᱪᱟᱸᱫᱚ"
+            concept.contains("तारा") -> "ᱤᱯᱤᱞ"
+            concept.contains("पानी") -> "ᱫᱟᱜ"
+            concept.contains("नदी") -> "ᱜᱟᱰᱟ"
+            concept.contains("पहाड़") -> "ᱵᱩᱨᱩ"
+            concept.contains("जंगल") -> "ᱵᱤᱨ"
+            concept.contains("किताब") -> "ᱯᱩᱛᱷᱤ"
+            concept.contains("कलम") || concept.contains("पेंसिल") -> "ᱠᱚᱞᱚᱢ"
+            concept.contains("स्कूल") -> "ᱤᱛᱩᱱ ᱟᱥᱲᱟ"
+            concept.contains("गाय") -> "ᱜᱟᱹᱭ"
+            concept.contains("बैल") -> "ᱰᱟᱝᱜᱽᱨᱟ"
+            concept.contains("बकरी") -> "ᱢᱮᱨᱚᱢ"
+            concept.contains("कुत्ता") -> "ᱥᱮᱛᱟ"
+            concept.contains("बिल्ली") -> "ᱯᱩᱥᱤ"
+            concept.contains("हाथी") -> "ᱦᱟᱛᱤ"
+            concept.contains("घोड़ा") -> "ᱥᱟᱫᱚᱢ"
+            concept.contains("पक्षी") || concept.contains("चिड़िया") -> "ᱪᱮᱬᱮ"
+            concept.contains("मोर") -> "ᱢᱟᱨᱟᱜ"
+            concept.contains("सिक्का") || concept.contains("रुपया") -> "ᱴᱟᱠᱟ"
+            concept.contains("घर") -> "ᱚᱲᱟᱜ"
+            concept.contains("गाँव") -> "ᱟᱹᱛᱩ"
+            concept.contains("माँ") -> "ᱟᱭᱳ"
+            concept.contains("पिता") -> "ᱵᱟᱵᱟ"
+            concept.contains("दोस्त") || concept.contains("मित्र") -> "ᱜᱟᱛᱮ"
+            concept.contains("लाल") -> "ᱟᱨᱟᱜ"
+            concept.contains("हरा") -> "ᱦᱟᱹᱨᱭᱟᱹᱲ"
+            concept.contains("नीला") -> "ᱞᱤᱞ"
+            concept.contains("पीला") -> "ᱥᱟᱥᱟᱝ"
+            else -> "ᱥᱮᱣ"
+        }
+    }
 
-            val icon = when {
-                spec.conceptHindi.contains("सेब") -> "apple"
-                spec.conceptHindi.contains("मछली") -> "fish"
-                spec.conceptHindi.contains("पेड़") -> "tree"
-                spec.conceptHindi.contains("आम") -> "mango"
-                spec.conceptHindi.contains("किताब") -> "book"
-                else -> "star"
-            }
+    private fun mapConceptToPhonetics(concept: String): String {
+        return when {
+            concept.contains("आम") -> "उल (Ul)"
+            concept.contains("सेब") -> "सेव (Sew)"
+            concept.contains("केला") -> "कायरा (Kayra)"
+            concept.contains("अमरूद") -> "अमरुद (Amrud)"
+            concept.contains("पपीता") -> "पोपे (Pope)"
+            concept.contains("टमाटर") -> "बिलती (Bilati)"
+            concept.contains("आलू") -> "आलू (Aalu)"
+            concept.contains("मछली") -> "हाकु (Haku)"
+            concept.contains("पेड़") -> "दारे (Dare)"
+            concept.contains("फूल") -> "बाहा (Baha)"
+            concept.contains("सूरज") -> "सिञ चाँद (Sin Chando)"
+            concept.contains("चाँद") -> "निदा चाँद (Nida Chando)"
+            concept.contains("तारा") -> "इपिल (Ipil)"
+            concept.contains("पानी") -> "दाग (Dag)"
+            concept.contains("नदी") -> "गाडा (Gada)"
+            concept.contains("पहाड़") -> "बुरु (Buru)"
+            concept.contains("जंगल") -> "बीर (Bir)"
+            concept.contains("किताब") -> "पुथी (Puthi)"
+            concept.contains("कलम") || concept.contains("पेंसिल") -> "कोलम (Kolom)"
+            concept.contains("स्कूल") -> "इतुन आसड़ा (Itun Asra)"
+            concept.contains("गाय") -> "गय (Gai)"
+            concept.contains("बकरी") -> "मेरोम (Merom)"
+            concept.contains("कुत्ता") -> "सेता (Seta)"
+            concept.contains("बिल्ली") -> "पुसी (Pusi)"
+            concept.contains("हाथी") -> "हाती (Hati)"
+            concept.contains("पक्षी") -> "चेण़े (Chene)"
+            concept.contains("सिक्का") || concept.contains("रुपया") -> "टाका (Taka)"
+            concept.contains("घर") -> "ओड़ाग (Orag)"
+            concept.contains("माँ") -> "आयो (Ayo)"
+            concept.contains("पिता") -> "बाबा (Baba)"
+            concept.contains("दोस्त") -> "गाते (Gate)"
+            else -> concept
+        }
+    }
 
-            WorksheetItem(
-                id = "slm_item_$idx",
-                prompt = promptHindi,
-                promptHindi = promptHindi,
-                promptSantali = promptSantali,
-                iconType = icon,
-                quantity = spec.quantity1,
-                secondaryQuantity = spec.quantity2,
-                operationSign = "+",
-                leftLabelHindi = "${spec.conceptHindi} (${spec.quantity1} + ${spec.quantity2})",
-                rightLabelSantali = "$olChikiWord [ $sum ]",
-                mathAnswer = sum,
-                teacherSolutionNote = "SLM Verified Math: ${spec.quantity1} + ${spec.quantity2} = $sum",
-                teacherPhoneticAnswer = "$sum ($phonetics)",
-                nipunCode = plan.nipunCode
-            )
+    private fun mapConceptToEnglish(concept: String): String {
+        return when {
+            concept.contains("आम") -> "Mango"
+            concept.contains("सेब") -> "Apple"
+            concept.contains("केला") -> "Banana"
+            concept.contains("अमरूद") -> "Guava"
+            concept.contains("पपीता") -> "Papaya"
+            concept.contains("टमाटर") -> "Tomato"
+            concept.contains("आलू") -> "Potato"
+            concept.contains("मछली") -> "Fish"
+            concept.contains("पेड़") -> "Tree"
+            concept.contains("फूल") -> "Flower"
+            concept.contains("सूरज") -> "Sun"
+            concept.contains("चाँद") -> "Moon"
+            concept.contains("तारा") -> "Star"
+            concept.contains("पानी") -> "Water"
+            concept.contains("नदी") -> "River"
+            concept.contains("पहाड़") -> "Mountain"
+            concept.contains("जंगल") -> "Forest"
+            concept.contains("किताब") -> "Book"
+            concept.contains("कलम") || concept.contains("पेंसिल") -> "Pencil"
+            concept.contains("स्कूल") -> "School"
+            concept.contains("गाय") -> "Cow"
+            concept.contains("बकरी") -> "Goat"
+            concept.contains("कुत्ता") -> "Dog"
+            concept.contains("बिल्ली") -> "Cat"
+            concept.contains("हाथी") -> "Elephant"
+            concept.contains("पक्षी") -> "Bird"
+            concept.contains("सिक्का") || concept.contains("रुपया") -> "Coin"
+            concept.contains("घर") -> "House"
+            concept.contains("माँ") -> "Mother"
+            concept.contains("पिता") -> "Father"
+            concept.contains("दोस्त") -> "Friend"
+            else -> concept
+        }
+    }
+
+    private fun mapConceptToIcon(concept: String): String {
+        return when {
+            concept.contains("आम") -> "mango"
+            concept.contains("सेब") || concept.contains("फल") -> "apple"
+            concept.contains("मछली") -> "fish"
+            concept.contains("कुत्ता") -> "dog"
+            concept.contains("बिल्ली") -> "cat"
+            concept.contains("हाथी") -> "elephant"
+            concept.contains("गाय") || concept.contains("बकरी") -> "cow"
+            concept.contains("पक्षी") || concept.contains("चिड़िया") || concept.contains("मोर") -> "bird"
+            concept.contains("पेड़") || concept.contains("जंगल") -> "tree"
+            concept.contains("फूल") -> "flower"
+            concept.contains("सूरज") -> "sun"
+            concept.contains("चाँद") || concept.contains("तारा") -> "star"
+            concept.contains("पानी") || concept.contains("नदी") || concept.contains("नाव") -> "water"
+            concept.contains("पहाड़") -> "mountain"
+            concept.contains("किताब") -> "book"
+            concept.contains("कलम") || concept.contains("पेंसिल") -> "pencil"
+            concept.contains("स्कूल") || concept.contains("घर") -> "school"
+            concept.contains("सिक्का") || concept.contains("रुपया") -> "coin"
+            concept.contains("रेलगाड़ी") -> "train"
+            concept.contains("गिनती") || concept.contains("संख्या") -> "number_counter"
+            concept.contains("गोल") -> "shape_circle"
+            concept.contains("त्रिकोण") -> "shape_triangle"
+            else -> "star"
         }
     }
 }

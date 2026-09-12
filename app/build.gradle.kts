@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.kotlinx.coroutines.android)
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
     testImplementation("junit:junit:4.13.2")
 
     debugImplementation(libs.androidx.ui.tooling)

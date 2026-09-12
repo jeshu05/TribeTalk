@@ -17,6 +17,16 @@ import org.tribetalk.fln.worksheet.WorksheetPdfExporter
 import java.io.File
 
 /**
+ * Interactive Classroom Modes for the Single-Tablet Rural Classroom Station.
+ * Designed for 30-second rapid turn-taking when handed to random kids.
+ */
+enum class ClassroomPlayMode(val displayName: String, val santaliName: String, val icon: String) {
+    CHORUS_REVEAL("मिलकर बोलो", "ᱢᱤᱫᱛᱮ ᱨᱚᱲ", "📢"),
+    LISTEN_AND_TAP("सुनो और पहचानो", "ᱟᱸᱡᱚᱢ ᱟᱨ ᱥᱟᱵ", "🎯"),
+    VOICE_ECHO("सुनो और बोलो", "ᱟᱸᱡᱚᱢ ᱟᱨ ᱨᱚᱲ", "🎤")
+}
+
+/**
  * Preview modes for the interactive worksheet studio.
  */
 enum class WorksheetPreviewTab {
@@ -31,17 +41,44 @@ enum class WorksheetPreviewTab {
 class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val ttsManager = TribeTalkTtsManager(application.applicationContext)
+    private val speechRecognizer = org.tribetalk.audio.AndroidSpeechRecognizer(application.applicationContext)
+
+    // -------------------------------------------------------------------------
+    // Classroom Station & Turn-Taking State
+    // -------------------------------------------------------------------------
+    private val _classroomMode = MutableStateFlow(ClassroomPlayMode.CHORUS_REVEAL)
+    val classroomMode: StateFlow<ClassroomPlayMode> = _classroomMode.asStateFlow()
+
+    private val _kidsTurnCount = MutableStateFlow(0)
+    val kidsTurnCount: StateFlow<Int> = _kidsTurnCount.asStateFlow()
+
+    private val _listenAndTapOptions = MutableStateFlow<List<FlnCard>>(emptyList())
+    val listenAndTapOptions: StateFlow<List<FlnCard>> = _listenAndTapOptions.asStateFlow()
+
+    private val _selectedTapCard = MutableStateFlow<FlnCard?>(null)
+    val selectedTapCard: StateFlow<FlnCard?> = _selectedTapCard.asStateFlow()
+
+    private val _isTapAnswerCorrect = MutableStateFlow<Boolean?>(null)
+    val isTapAnswerCorrect: StateFlow<Boolean?> = _isTapAnswerCorrect.asStateFlow()
+
+    private val _isKidSpeaking = MutableStateFlow(false)
+    val isKidSpeaking: StateFlow<Boolean> = _isKidSpeaking.asStateFlow()
+
+    private val _kidVoiceSuccess = MutableStateFlow<Boolean?>(null)
+    val kidVoiceSuccess: StateFlow<Boolean?> = _kidVoiceSuccess.asStateFlow()
+
+    val speechAmplitude: StateFlow<Float> = speechRecognizer.amplitude
 
     // -------------------------------------------------------------------------
     // Flashcards State
     // -------------------------------------------------------------------------
-    private val _categories = MutableStateFlow(FlnCurriculumRepository.getCategories())
+    private val _categories = MutableStateFlow(FlnCurriculumRepository.getFlashcardCategories())
     val categories: StateFlow<List<String>> = _categories.asStateFlow()
 
     private val _selectedCategory = MutableStateFlow(FlnCurriculumRepository.CATEGORY_ALL)
     val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
 
-    private val _cards = MutableStateFlow(FlnCurriculumRepository.getAllCards())
+    private val _cards = MutableStateFlow(FlnCurriculumRepository.getFlashcards())
     val cards: StateFlow<List<FlnCard>> = _cards.asStateFlow()
 
     private val _currentCardIndex = MutableStateFlow(0)
@@ -119,8 +156,9 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     val activeSlmPlan: StateFlow<SlmCurriculumPlan?> = _activeSlmPlan.asStateFlow()
 
     init {
-        setupQuizQuestion()
+        org.tribetalk.core.TribeTalkTranslator.initialize(application.applicationContext)
         org.tribetalk.fln.slm.SlmCurriculumEngine.initialize(application.applicationContext)
+        setupQuizQuestion()
     }
 
     // -------------------------------------------------------------------------
@@ -129,7 +167,7 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     fun selectCategory(category: String) {
         _selectedCategory.value = category
-        _cards.value = FlnCurriculumRepository.getCardsByCategory(category)
+        _cards.value = FlnCurriculumRepository.getFlashcardsByCategory(category)
         _currentCardIndex.value = 0
         _isCardRevealed.value = false
         setupQuizQuestion()
@@ -175,6 +213,88 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // -------------------------------------------------------------------------
+    // Classroom Turn-Taking Actions
+    // -------------------------------------------------------------------------
+
+    fun setClassroomMode(mode: ClassroomPlayMode) {
+        _classroomMode.value = mode
+        _isCardRevealed.value = false
+        _selectedTapCard.value = null
+        _isTapAnswerCorrect.value = null
+        _kidVoiceSuccess.value = null
+        if (mode == ClassroomPlayMode.LISTEN_AND_TAP) {
+            setupListenAndTap()
+        } else if (mode == ClassroomPlayMode.VOICE_ECHO) {
+            playCurrentCardSantali()
+        }
+    }
+
+    fun nextChildTurn() {
+        _kidsTurnCount.value++
+        nextCard()
+        _selectedTapCard.value = null
+        _isTapAnswerCorrect.value = null
+        _kidVoiceSuccess.value = null
+        if (_classroomMode.value == ClassroomPlayMode.LISTEN_AND_TAP) {
+            setupListenAndTap()
+        } else if (_classroomMode.value == ClassroomPlayMode.VOICE_ECHO) {
+            playCurrentCardSantali()
+        }
+    }
+
+    fun setupListenAndTap() {
+        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
+        val otherCards = _cards.value.filter { it.id != current.id }.shuffled().take(2)
+        val all = (otherCards + current).shuffled()
+        _listenAndTapOptions.value = all
+        _selectedTapCard.value = null
+        _isTapAnswerCorrect.value = null
+        // Auto-play the target sound
+        ttsManager.speak(current.santaliOlChiki, "sat")
+    }
+
+    fun selectTapCard(card: FlnCard) {
+        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
+        if (_isTapAnswerCorrect.value == true) return
+        _selectedTapCard.value = card
+        val correct = (card.id == current.id)
+        _isTapAnswerCorrect.value = correct
+        if (correct) {
+            ttsManager.speak(card.santaliOlChiki, "sat")
+        }
+    }
+
+    fun playCurrentCardSantali() {
+        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
+        ttsManager.speak(current.santaliOlChiki, "sat")
+    }
+
+    fun startKidVoicePractice() {
+        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
+        _isKidSpeaking.value = true
+        _kidVoiceSuccess.value = null
+
+        speechRecognizer.startListening(
+            isHindi = false,
+            onResult = {
+                _isKidSpeaking.value = false
+                _kidVoiceSuccess.value = true
+                ttsManager.speak(current.santaliOlChiki, "sat")
+            },
+            onError = {
+                // Offline fallback: treat verbal attempt as praised learning effort
+                _isKidSpeaking.value = false
+                _kidVoiceSuccess.value = true
+            }
+        )
+    }
+
+    fun stopKidVoicePractice() {
+        speechRecognizer.stopListening()
+        _isKidSpeaking.value = false
+    }
+
+    // -------------------------------------------------------------------------
     // Quiz Mechanics
     // -------------------------------------------------------------------------
 
@@ -213,9 +333,9 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         if (hindiPrompt.isBlank()) return
         val card = ProceduralCurriculumGenerator.synthesizeCard(hindiPrompt)
         FlnCurriculumRepository.addCustomCard(card)
-        _categories.value = FlnCurriculumRepository.getCategories()
+        _categories.value = FlnCurriculumRepository.getFlashcardCategories()
         _selectedCategory.value = FlnCurriculumRepository.CATEGORY_CUSTOM
-        _cards.value = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
+        _cards.value = FlnCurriculumRepository.getFlashcardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
         _currentCardIndex.value = 0
         _customCardSuccessMessage.value = "Created: ${card.santaliOlChiki} [${card.teacherPhoneticGuide}]"
         setupQuizQuestion()
