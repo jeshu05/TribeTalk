@@ -49,7 +49,9 @@ data class FlnCard(
     val numeralValue: Int? = null,
     val exampleSentenceHindi: String? = null,
     val exampleSentenceSantali: String? = null,
-    val isCustomUserGenerated: Boolean = false
+    val isCustomUserGenerated: Boolean = false,
+    val imageUri: String? = null,
+    val imageEmoji: String? = null
 )
 
 /**

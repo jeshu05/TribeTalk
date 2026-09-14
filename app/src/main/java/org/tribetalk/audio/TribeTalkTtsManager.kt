@@ -99,6 +99,18 @@ class TribeTalkTtsManager(context: Context) {
         }
     }
 
+    /**
+     * Coroutine-safe suspending speech playback.
+     * Suspends until TTS audio playback is completely finished, ensuring zero audio overlap.
+     */
+    suspend fun speakSuspend(text: String, targetLang: String) = kotlinx.coroutines.suspendCancellableCoroutine<Unit> { cont ->
+        speak(text, targetLang) {
+            if (cont.isActive) {
+                cont.resume(Unit) {}
+            }
+        }
+    }
+
     fun stop() {
         _isSpeaking.value = false
         mainHandler.post {

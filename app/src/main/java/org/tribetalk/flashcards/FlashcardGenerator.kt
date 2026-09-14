@@ -151,7 +151,7 @@ class FlashcardGenerator {
         )
     }
 
-    fun getEmojiForWord(word: String): String {
+    fun getEmojiForWord(word: String): String? {
         return when {
             word.contains("गाय") -> "🐄"
             word.contains("कुत्ता") -> "🐕"
@@ -173,7 +173,7 @@ class FlashcardGenerator {
             word.contains("तीन") -> "3️⃣"
             word.contains("चार") -> "4️⃣"
             word.contains("पांच") -> "5️⃣"
-            else -> "🎴"
+            else -> null
         }
     }
 }

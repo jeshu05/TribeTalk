@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import org.tribetalk.flashcards.Flashcard
 import org.tribetalk.flashcards.FlashcardGenerator
 import org.tribetalk.flashcards.FlashcardSet
+import org.tribetalk.flashcards.FlashcardImageLoader
+import org.tribetalk.flashcards.FlashcardVisual
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,6 +53,7 @@ import kotlinx.coroutines.withContext
 fun FlashcardPreviewScreen(
     initialSet: FlashcardSet,
     onBack: () -> Unit,
+    onCreateWorksheet: ((org.tribetalk.worksheet.Worksheet) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -96,6 +99,20 @@ fun FlashcardPreviewScreen(
                     }
                 },
                 actions = {
+                    // Create Worksheet from Deck (Phase 12)
+                    if (onCreateWorksheet != null && cards.isNotEmpty()) {
+                        IconButton(onClick = {
+                            val ws = org.tribetalk.worksheet.WorksheetGenerator().createWorksheetFromFlashcards(currentSet)
+                            onCreateWorksheet(ws)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Assignment,
+                                contentDescription = "Create Worksheet from Deck",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+
                     // Study Mode Toggle
                     FilledTonalIconToggleButton(
                         checked = isStudyMode,
@@ -317,41 +334,15 @@ fun BilingualFlashcardView(
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                if (!card.imageUri.isNullOrBlank()) {
-                    val bitmap = remember(card.imageUri) {
-                        try {
-                            val uri = Uri.parse(card.imageUri)
-                            context.contentResolver.openInputStream(uri)?.use { stream ->
-                                BitmapFactory.decodeStream(stream)
-                            }
-                        } catch (_: Exception) {
-                            null
-                        }
-                    }
-
-                    if (bitmap != null) {
-                        Image(
-                            bitmap = bitmap.asImageBitmap(),
-                            contentDescription = card.hindiText,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(8.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                        )
-                    } else {
-                        Text(
-                            text = card.imageEmoji ?: "🎴",
-                            fontSize = 80.sp,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                } else {
-                    Text(
-                        text = card.imageEmoji ?: "🎴",
-                        fontSize = 80.sp,
-                        textAlign = TextAlign.Center
-                    )
-                }
+                FlashcardVisual(
+                    imageUri = card.imageUri,
+                    iconType = card.iconType,
+                    imageEmoji = card.imageEmoji,
+                    contentDescription = card.hindiText,
+                    maxImageSize = 130.dp,
+                    emojiFontSize = 80.sp,
+                    vectorGraphicSize = 96.dp
+                )
             }
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -517,12 +508,17 @@ fun TeacherEditFlashcardDialog(
     val coroutineScope = rememberCoroutineScope()
     val generator = remember { FlashcardGenerator() }
 
-    // Gallery Image Picker launcher
+    val context = LocalContext.current
+
+    // Gallery Image Picker launcher with safe persistent internal storage copy
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri != null) {
-            imageUri = uri.toString()
+            val persistentPath = FlashcardImageLoader.saveTeacherPhoto(context, uri)
+            if (persistentPath != null) {
+                imageUri = persistentPath
+            }
         }
     }
 

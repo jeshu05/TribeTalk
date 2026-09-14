@@ -24,6 +24,7 @@ import java.util.Locale
  *
  * Generates standard A4 printable PDF documents containing curriculum-aligned
  * Hindi + Santali bilingual activities using android.graphics.pdf.PdfDocument.
+ * Includes separate Teacher Answer Key and official NIPUN / NCF-FS alignment info.
  * No external third-party PDF dependencies are required.
  */
 class WorksheetPdfExporter(private val context: Context) {
@@ -64,15 +65,15 @@ class WorksheetPdfExporter(private val context: Context) {
         // Draw First Page Header
         var currentY = drawHeader(canvas, paint, worksheet, isFirstPage = true)
 
-        // Draw Questions
+        // Draw Student Questions
         for ((index, question) in worksheet.questions.withIndex()) {
             val estimatedHeight = estimateQuestionHeight(question)
             if (currentY + estimatedHeight > MARGIN_BOTTOM - 40f) {
-                // Finish current page
-                drawFooter(canvas, paint, pageNumber)
+                // Finish current student page
+                drawFooter(canvas, paint, pageNumber, isAnswerKey = false)
                 pdfDocument.finishPage(page)
 
-                // Start new page
+                // Start new student page
                 pageNumber++
                 pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
                 page = pdfDocument.startPage(pageInfo)
@@ -92,9 +93,20 @@ class WorksheetPdfExporter(private val context: Context) {
             currentY += 12f // gap between questions
         }
 
-        // Finish last page
-        drawFooter(canvas, paint, pageNumber)
+        // Finish last student page
+        drawFooter(canvas, paint, pageNumber, isAnswerKey = false, teacherAlignment = if (worksheet.showTeacherAlignment) worksheet else null)
         pdfDocument.finishPage(page)
+
+        // Draw Separate Teacher Answer Key Page if requested (Phase 16)
+        if (worksheet.includeAnswerKey) {
+            pageNumber++
+            pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNumber).create()
+            page = pdfDocument.startPage(pageInfo)
+            canvas = page.canvas
+
+            drawTeacherAnswerKeyPage(canvas, paint, borderPaint, worksheet, pageNumber)
+            pdfDocument.finishPage(page)
+        }
 
         // Clean topic for filename
         val safeTopic = worksheet.topic
@@ -135,39 +147,44 @@ class WorksheetPdfExporter(private val context: Context) {
 
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
         paint.textSize = 10f
-        val gradeText = worksheet.grade?.let { " • Grade: $it" } ?: ""
-        canvas.drawText("Topic: ${worksheet.topic}$gradeText • NIPUN Bharat FLN Bilingual Pedagogy", MARGIN_LEFT + 14f, currentY + 42f, paint)
+        val gradeText = worksheet.grade?.let { " • $it" } ?: ""
+        canvas.drawText("Topic: ${worksheet.topic}$gradeText • NIPUN Bharat / NCF-FS Bilingual Pedagogy", MARGIN_LEFT + 14f, currentY + 42f, paint)
 
         currentY += 66f
 
         if (isFirstPage) {
-            // Student Info Header Box
+            // Student Info Header Box (Phase 13)
             paint.color = Color.parseColor("#F8FAFC")
-            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 44f, 4f, 4f, paint)
+            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 50f, 4f, 4f, paint)
 
             val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = Color.parseColor("#E2E8F0")
                 style = Paint.Style.STROKE
                 strokeWidth = 1f
             }
-            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 44f, 4f, 4f, borderPaint)
+            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 50f, 4f, 4f, borderPaint)
 
             paint.color = Color.parseColor("#334155")
             paint.textSize = 10f
             val dateStr = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(worksheet.createdAt))
             canvas.drawText("Student Name (विद्यार्थी का नाम): __________________________", MARGIN_LEFT + 12f, currentY + 18f, paint)
-            canvas.drawText("Date: $dateStr", MARGIN_RIGHT - 130f, currentY + 18f, paint)
-            canvas.drawText("Class / Section (कक्षा): ________________", MARGIN_LEFT + 12f, currentY + 34f, paint)
-            canvas.drawText("Roll No: ___________", MARGIN_RIGHT - 130f, currentY + 34f, paint)
+            canvas.drawText("Date (दिनांक): $dateStr", MARGIN_RIGHT - 150f, currentY + 18f, paint)
+            canvas.drawText("Class / Grade (कक्षा): ________________", MARGIN_LEFT + 12f, currentY + 38f, paint)
+            canvas.drawText("Roll No / School: _________________", MARGIN_RIGHT - 150f, currentY + 38f, paint)
 
-            currentY += 54f
+            currentY += 60f
 
-            // Instructions line
+            // Instructions line in Hindi and Santali
+            paint.color = Color.parseColor("#475569")
+            paint.textSize = 9.5f
+            paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
             if (worksheet.instructions.isNotBlank()) {
-                paint.color = Color.parseColor("#64748B")
-                paint.textSize = 9f
-                paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
                 canvas.drawText("निर्देश: ${worksheet.instructions}", MARGIN_LEFT + 4f, currentY, paint)
+                currentY += 14f
+            }
+            if (!worksheet.santaliInstructions.isNullOrBlank()) {
+                paint.color = Color.parseColor("#2F8F83")
+                canvas.drawText("ᱥᱟᱱᱛᱟᱲᱤ ᱱᱤᱨᱫᱮᱥ: ${worksheet.santaliInstructions}", MARGIN_LEFT + 4f, currentY, paint)
                 currentY += 16f
             }
         }
@@ -195,12 +212,12 @@ class WorksheetPdfExporter(private val context: Context) {
 
         // Question Type & Number Badge
         paint.color = Color.parseColor("#C95C5C") // Coral Secondary
-        canvas.drawRoundRect(MARGIN_LEFT + 10f, currentY + 8f, MARGIN_LEFT + 140f, currentY + 24f, 4f, 4f, paint)
+        canvas.drawRoundRect(MARGIN_LEFT + 10f, currentY + 8f, MARGIN_LEFT + 150f, currentY + 24f, 4f, 4f, paint)
 
         paint.color = Color.WHITE
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         paint.textSize = 8.5f
-        canvas.drawText("Q$questionNumber • ${question.type.name.replace('_', ' ')}", MARGIN_LEFT + 16f, currentY + 19f, paint)
+        canvas.drawText("Q$questionNumber • ${question.type.displayName}", MARGIN_LEFT + 16f, currentY + 19f, paint)
 
         currentY += 34f
 
@@ -235,18 +252,99 @@ class WorksheetPdfExporter(private val context: Context) {
             }
         }
 
-        // Answer Line / Blank Space
+        // Answer Line / Blank Space for Student Writing (Never print answers on student page)
         currentY += 4f
         paint.color = Color.parseColor("#64748B")
         paint.textSize = 9.5f
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
-        canvas.drawText("उत्तर / Answer:", MARGIN_LEFT + 14f, currentY + 8f, paint)
-        canvas.drawLine(MARGIN_LEFT + 80f, currentY + 8f, MARGIN_RIGHT - 14f, currentY + 8f, dottedPaint)
+        canvas.drawText("उत्तर / Answer Space:", MARGIN_LEFT + 14f, currentY + 8f, paint)
+        canvas.drawLine(MARGIN_LEFT + 110f, currentY + 8f, MARGIN_RIGHT - 14f, currentY + 8f, dottedPaint)
 
         return startY + height
     }
 
-    private fun drawFooter(canvas: Canvas, paint: Paint, pageNumber: Int) {
+    private fun drawTeacherAnswerKeyPage(
+        canvas: Canvas,
+        paint: Paint,
+        borderPaint: Paint,
+        worksheet: Worksheet,
+        pageNumber: Int
+    ) {
+        var currentY = MARGIN_TOP
+
+        // Top Banner for Answer Key
+        paint.style = Paint.Style.FILL
+        paint.color = Color.parseColor("#1E293B") // Dark Slate for Teacher Key
+        canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 54f, 6f, 6f, paint)
+
+        paint.color = Color.WHITE
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        paint.textSize = 16f
+        canvas.drawText("TEACHER ANSWER KEY & CURRICULUM GUIDE", MARGIN_LEFT + 14f, currentY + 24f, paint)
+
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        paint.textSize = 9.5f
+        canvas.drawText("Official Pedagogy Reference • ${worksheet.title} • DO NOT DISTRIBUTE TO STUDENTS", MARGIN_LEFT + 14f, currentY + 42f, paint)
+
+        currentY += 68f
+
+        // Curriculum Alignment Card
+        paint.color = Color.parseColor("#F1F5F9")
+        canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 56f, 4f, 4f, paint)
+        canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 56f, 4f, 4f, borderPaint)
+
+        paint.color = Color.parseColor("#0F172A")
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        paint.textSize = 9.5f
+        canvas.drawText("CURRICULUM MAPPING (NIPUN Bharat / NCF-FS 2022):", MARGIN_LEFT + 10f, currentY + 16f, paint)
+
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        paint.textSize = 8.5f
+        paint.color = Color.parseColor("#334155")
+        val stageStr = worksheet.stageId ?: worksheet.grade ?: "Foundational"
+        val cgStr = worksheet.curricularGoalId?.let { " • $it" } ?: ""
+        val cStr = worksheet.competencyId?.let { " • $it" } ?: ""
+        canvas.drawText("Stage: $stageStr$cgStr$cStr", MARGIN_LEFT + 10f, currentY + 30f, paint)
+        val loStr = worksheet.learningOutcomeText?.let { "Outcome: $it" } ?: "Developmental Trajectory Assessment"
+        canvas.drawText(loStr.take(85), MARGIN_LEFT + 10f, currentY + 44f, paint)
+
+        currentY += 68f
+
+        // Draw Structured Answer Table
+        for ((index, question) in worksheet.questions.withIndex()) {
+            paint.color = Color.parseColor("#FFFFFF")
+            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 48f, 4f, 4f, paint)
+            canvas.drawRoundRect(MARGIN_LEFT, currentY, MARGIN_RIGHT, currentY + 48f, 4f, 4f, borderPaint)
+
+            paint.color = Color.parseColor("#4338CA") // Indigo
+            paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            paint.textSize = 10f
+            canvas.drawText("Q${index + 1}. [${question.type.displayName}]", MARGIN_LEFT + 10f, currentY + 18f, paint)
+
+            paint.color = Color.parseColor("#059669") // Green for Answer
+            paint.textSize = 10f
+            val ans = question.answer.ifBlank { "Teacher Discretion / Guided Assessment" }
+            canvas.drawText("Correct Answer: $ans", MARGIN_LEFT + 10f, currentY + 34f, paint)
+
+            val statusStr = question.verificationStatus.displayName
+            paint.color = Color.parseColor("#64748B")
+            paint.textSize = 8f
+            canvas.drawText("Santali Status: $statusStr", MARGIN_RIGHT - 160f, currentY + 18f, paint)
+
+            currentY += 56f
+            if (currentY > MARGIN_BOTTOM - 30f) break
+        }
+
+        drawFooter(canvas, paint, pageNumber, isAnswerKey = true)
+    }
+
+    private fun drawFooter(
+        canvas: Canvas,
+        paint: Paint,
+        pageNumber: Int,
+        isAnswerKey: Boolean,
+        teacherAlignment: Worksheet? = null
+    ) {
         paint.style = Paint.Style.FILL
         paint.color = Color.parseColor("#94A3B8")
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
@@ -258,8 +356,17 @@ class WorksheetPdfExporter(private val context: Context) {
         }
         canvas.drawLine(MARGIN_LEFT, MARGIN_BOTTOM, MARGIN_RIGHT, MARGIN_BOTTOM, dividerPaint)
 
-        canvas.drawText("TribeTalk Offline Bilingual Worksheet • NIPUN Bharat Foundational Learning", MARGIN_LEFT, MARGIN_BOTTOM + 16f, paint)
+        val footerPrefix = if (isAnswerKey) "TribeTalk Teacher Evaluation Copy • Answer Key" else "TribeTalk Offline Bilingual Worksheet • NIPUN Bharat / NCF-FS"
+        canvas.drawText(footerPrefix, MARGIN_LEFT, MARGIN_BOTTOM + 16f, paint)
         canvas.drawText("Page $pageNumber", MARGIN_RIGHT - 45f, MARGIN_BOTTOM + 16f, paint)
+
+        // If teacher alignment is requested on student copy footer
+        if (teacherAlignment != null && !isAnswerKey) {
+            paint.textSize = 7.5f
+            paint.color = Color.parseColor("#64748B")
+            val alignInfo = "Alignment: NIPUN/NCF-FS | Stage: ${teacherAlignment.stageId ?: teacherAlignment.grade} | ${teacherAlignment.curricularGoalId ?: ""} | ${teacherAlignment.competencyId ?: ""}"
+            canvas.drawText(alignInfo, MARGIN_LEFT, MARGIN_BOTTOM + 26f, paint)
+        }
     }
 
     private fun estimateQuestionHeight(question: WorksheetQuestion): Float {

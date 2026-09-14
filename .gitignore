@@ -10,6 +10,9 @@ env/
 venv/
 .idea/
 .vscode/
+*.iml
+*.ipr
+*.iws
 *.swp
 *~
 
@@ -34,8 +37,9 @@ CMakeUserPresets.json
 *.o
 *.exe
 
-# Android & Gradle Build Artifacts
+# Android, Kotlin & Gradle Build Artifacts
 .gradle/
+.kotlin/
 local.properties
 .cxx/
 **/.cxx/
@@ -46,6 +50,15 @@ captures/
 *.apk
 *.aab
 staged_models/
+
+# Scratch, Debug Dumps & Test Outputs
+scratch_*
+screen_*.png
+uidump.xml
+*.dump.xml
+test_*.wav
+extracted_*.txt
+*.pdf
 
 # Models & weights (do not track large binaries)
 models/hindi/*
@@ -73,7 +86,14 @@ hf_cache/
 *.tmp.wav
 temp_*.wav
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
 
 # Evaluation datasets & raw data (do not track large benchmark corpora)
 tribe-evaluation/

@@ -19,5 +19,18 @@ data class Flashcard(
     val exampleSentenceHindi: String? = null,
     val exampleSentenceSantali: String? = null,
     val order: Int = 0,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    // FLN Curriculum Metadata
+    val domain: String = "",
+    val grade: String = "Grade 1-3",
+    val difficulty: String = "Foundational",
+    val englishGloss: String = "",
+    val iconType: String = "",
+    // Local Progress Tracking
+    val seenCount: Int = 0,
+    val revealedCount: Int = 0,
+    val heardCount: Int = 0,
+    val correctCount: Int = 0,
+    val incorrectCount: Int = 0,
+    val lastPracticedAt: Long? = null
 )

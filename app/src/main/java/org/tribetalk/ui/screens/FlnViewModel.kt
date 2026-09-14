@@ -16,6 +16,20 @@ import org.tribetalk.fln.repository.FlnCurriculumRepository
 import org.tribetalk.fln.worksheet.WorksheetPdfExporter
 import java.io.File
 
+import org.tribetalk.flashcards.Flashcard
+import org.tribetalk.flashcards.FlashcardSet
+import org.tribetalk.fln.progress.CardProgress
+import org.tribetalk.fln.progress.FlnProgressManager
+
+/**
+ * Operating modes for the FLN Flashcard Experience.
+ */
+enum class FlashcardMode {
+    STUDY,
+    QUIZ,
+    MATCH
+}
+
 /**
  * Preview modes for the interactive worksheet studio.
  */
@@ -31,6 +45,7 @@ enum class WorksheetPreviewTab {
 class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val ttsManager = TribeTalkTtsManager(application.applicationContext)
+    val progressManager: FlnProgressManager = FlnProgressManager.getInstance(application.applicationContext)
 
     // -------------------------------------------------------------------------
     // Flashcards State
@@ -44,14 +59,23 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     private val _cards = MutableStateFlow(FlnCurriculumRepository.getAllCards())
     val cards: StateFlow<List<FlnCard>> = _cards.asStateFlow()
 
+    private val _flashcards = MutableStateFlow(_cards.value.map { it.toFlashcard() })
+    val flashcards: StateFlow<List<Flashcard>> = _flashcards.asStateFlow()
+
     private val _currentCardIndex = MutableStateFlow(0)
     val currentCardIndex: StateFlow<Int> = _currentCardIndex.asStateFlow()
+
+    private val _activeMode = MutableStateFlow(FlashcardMode.STUDY)
+    val activeMode: StateFlow<FlashcardMode> = _activeMode.asStateFlow()
 
     private val _isQuizMode = MutableStateFlow(false)
     val isQuizMode: StateFlow<Boolean> = _isQuizMode.asStateFlow()
 
     private val _isCardRevealed = MutableStateFlow(false)
     val isCardRevealed: StateFlow<Boolean> = _isCardRevealed.asStateFlow()
+
+    private val _activeDeckTitle = MutableStateFlow("All Topics")
+    val activeDeckTitle: StateFlow<String> = _activeDeckTitle.asStateFlow()
 
     val isPlayingAudio: StateFlow<Boolean> = ttsManager.isSpeaking
 
@@ -61,6 +85,9 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _quizAnsweredCount = MutableStateFlow(0)
     val quizAnsweredCount: StateFlow<Int> = _quizAnsweredCount.asStateFlow()
+
+    private val _isQuizCompleted = MutableStateFlow(false)
+    val isQuizCompleted: StateFlow<Boolean> = _isQuizCompleted.asStateFlow()
 
     private val _selectedQuizOption = MutableStateFlow<Int?>(null)
     val selectedQuizOption: StateFlow<Int?> = _selectedQuizOption.asStateFlow()
@@ -119,20 +146,80 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     val activeSlmPlan: StateFlow<SlmCurriculumPlan?> = _activeSlmPlan.asStateFlow()
 
     init {
+        _flashcards.value = _cards.value.map { it.toFlashcard() }
         setupQuizQuestion()
         org.tribetalk.fln.slm.SlmCurriculumEngine.initialize(application.applicationContext)
     }
 
+    private fun FlnCard.toFlashcard(): Flashcard = Flashcard(
+        id = this.id,
+        topic = this.category,
+        skill = this.domain.displayName,
+        hindiText = this.hindiText,
+        santaliText = this.englishGloss,
+        santaliOlChiki = this.santaliOlChiki,
+        phoneticGuide = this.teacherPhoneticGuide,
+        imageUri = this.imageUri ?: if (this.iconType.isNotBlank()) "ic_fln_${this.iconType}" else null,
+        imageEmoji = this.imageEmoji ?: when (this.iconType) {
+            "dog" -> "🐕"
+            "cow" -> "🐄"
+            "cat" -> "🐈"
+            "elephant" -> "🐘"
+            "bird" -> "🐦"
+            "fish" -> "🐟"
+            "goat" -> "🐐"
+            "tree" -> "🌳"
+            "sun" -> "☀️"
+            "moon" -> "🌙"
+            "water" -> "💧"
+            "river" -> "🌊"
+            "mountain" -> "⛰️"
+            "flower" -> "🌸"
+            "forest" -> "🌲"
+            "house" -> "🏠"
+            "book" -> "📖"
+            "pen", "pencil" -> "✏️"
+            "school" -> "🏫"
+            "mother", "father", "friend" -> "🧑"
+            else -> if (this.numeralValue != null) "${this.numeralValue}️⃣" else null
+        },
+        iconType = this.iconType,
+        domain = this.domain.displayName,
+        grade = "Grade 1-3",
+        englishGloss = this.englishGloss,
+        exampleSentenceHindi = this.exampleSentenceHindi,
+        exampleSentenceSantali = this.exampleSentenceSantali
+    )
+
     // -------------------------------------------------------------------------
-    // Flashcard Actions
+    // Flashcard Actions & Mode Management
     // -------------------------------------------------------------------------
+
+    fun setMode(mode: FlashcardMode) {
+        _activeMode.value = mode
+        _isQuizMode.value = (mode == FlashcardMode.QUIZ)
+        _isCardRevealed.value = false
+        when (mode) {
+            FlashcardMode.QUIZ -> resetQuiz()
+            FlashcardMode.STUDY -> {
+                _cards.value.getOrNull(_currentCardIndex.value)?.let {
+                    progressManager.recordCardSeen(it.id)
+                }
+            }
+            FlashcardMode.MATCH -> {}
+        }
+    }
 
     fun selectCategory(category: String) {
         _selectedCategory.value = category
-        _cards.value = FlnCurriculumRepository.getCardsByCategory(category)
+        _activeDeckTitle.value = category
+        val newCards = FlnCurriculumRepository.getCardsByCategory(category)
+        _cards.value = newCards
+        _flashcards.value = newCards.map { it.toFlashcard() }
         _currentCardIndex.value = 0
         _isCardRevealed.value = false
         setupQuizQuestion()
+        newCards.firstOrNull()?.let { progressManager.recordCardSeen(it.id) }
     }
 
     fun nextCard() {
@@ -140,6 +227,9 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         if (total > 0) {
             _currentCardIndex.value = (_currentCardIndex.value + 1) % total
             _isCardRevealed.value = false
+            _cards.value.getOrNull(_currentCardIndex.value)?.let {
+                progressManager.recordCardSeen(it.id)
+            }
             setupQuizQuestion()
         }
     }
@@ -149,29 +239,45 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         if (total > 0) {
             _currentCardIndex.value = if (_currentCardIndex.value - 1 < 0) total - 1 else _currentCardIndex.value - 1
             _isCardRevealed.value = false
+            _cards.value.getOrNull(_currentCardIndex.value)?.let {
+                progressManager.recordCardSeen(it.id)
+            }
             setupQuizQuestion()
         }
     }
 
     fun shuffleCards() {
         _cards.value = _cards.value.shuffled()
+        _flashcards.value = _cards.value.map { it.toFlashcard() }
         _currentCardIndex.value = 0
         _isCardRevealed.value = false
         setupQuizQuestion()
     }
 
     fun toggleQuizMode() {
-        _isQuizMode.value = !_isQuizMode.value
-        _isCardRevealed.value = false
-        setupQuizQuestion()
+        val newMode = if (_activeMode.value == FlashcardMode.QUIZ) FlashcardMode.STUDY else FlashcardMode.QUIZ
+        setMode(newMode)
     }
 
     fun toggleCardReveal() {
-        _isCardRevealed.value = !_isCardRevealed.value
+        val newState = !_isCardRevealed.value
+        _isCardRevealed.value = newState
+        if (newState) {
+            _cards.value.getOrNull(_currentCardIndex.value)?.let {
+                progressManager.recordCardRevealed(it.id)
+            }
+        }
+    }
+
+    fun playSantaliAudio(card: Flashcard) {
+        val text = if (!card.santaliOlChiki.isNullOrBlank()) card.santaliOlChiki else card.santaliText
+        ttsManager.speak(text, "sat")
+        progressManager.recordCardHeard(card.id)
     }
 
     fun playSantaliAudio(card: FlnCard) {
         ttsManager.speak(card.santaliOlChiki, "sat")
+        progressManager.recordCardHeard(card.id)
     }
 
     // -------------------------------------------------------------------------
@@ -195,15 +301,79 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         _selectedQuizOption.value = index
         _isQuizAnswerChecked.value = true
         _quizAnsweredCount.value++
-        if (index == _quizCorrectIndex.value) {
+        val isCorrect = (index == _quizCorrectIndex.value)
+        if (isCorrect) {
             _quizScore.value++
+        }
+        _cards.value.getOrNull(_currentCardIndex.value)?.let {
+            progressManager.recordQuizResult(it.id, isCorrect)
+        }
+    }
+
+    fun onQuizNextQuestion() {
+        val total = _cards.value.size
+        if (_quizAnsweredCount.value >= total) {
+            _isQuizCompleted.value = true
+        } else {
+            nextCard()
         }
     }
 
     fun resetQuiz() {
         _quizScore.value = 0
         _quizAnsweredCount.value = 0
+        _isQuizCompleted.value = false
+        _currentCardIndex.value = 0
         setupQuizQuestion()
+    }
+
+    fun recordMatchSuccess(cardId: String) {
+        progressManager.recordMatchingResult(cardId, true)
+    }
+
+    fun saveTeacherCard(card: Flashcard) {
+        val flnCard = FlnCard(
+            id = card.id,
+            domain = FlnDomain.LITERACY_VOCAB,
+            category = if (card.topic.isNotBlank()) card.topic else FlnCurriculumRepository.CATEGORY_CUSTOM,
+            nipunCode = "T-CUSTOM",
+            hindiText = card.hindiText,
+            santaliOlChiki = if (!card.santaliOlChiki.isNullOrBlank()) card.santaliOlChiki else card.santaliText,
+            teacherPhoneticGuide = card.phoneticGuide ?: "",
+            englishGloss = card.santaliText,
+            iconType = if (card.iconType.isNotBlank()) card.iconType else "akshar",
+            exampleSentenceHindi = card.exampleSentenceHindi,
+            exampleSentenceSantali = card.exampleSentenceSantali,
+            isCustomUserGenerated = true,
+            imageUri = card.imageUri,
+            imageEmoji = card.imageEmoji
+        )
+        FlnCurriculumRepository.addCustomCard(flnCard)
+        _categories.value = FlnCurriculumRepository.getCategories()
+        selectCategory(flnCard.category)
+        _customCardSuccessMessage.value = "Saved Card: ${card.hindiText} ➔ ${flnCard.santaliOlChiki}"
+    }
+
+    fun applyCustomDeck(
+        category: String,
+        grade: String,
+        skill: String,
+        cardLimit: Int,
+        mode: FlashcardMode = FlashcardMode.STUDY
+    ) {
+        val pool = if (category == FlnCurriculumRepository.CATEGORY_ALL) {
+            FlnCurriculumRepository.getAllCards()
+        } else {
+            FlnCurriculumRepository.getCardsByCategory(category)
+        }
+        val limit = if (cardLimit > 0) cardLimit else 5
+        val filtered = pool.take(limit)
+        _cards.value = filtered
+        _flashcards.value = filtered.map { it.toFlashcard() }
+        _activeDeckTitle.value = "$category ($grade • $skill)"
+        _currentCardIndex.value = 0
+        _isCardRevealed.value = false
+        setMode(mode)
     }
 
     /**

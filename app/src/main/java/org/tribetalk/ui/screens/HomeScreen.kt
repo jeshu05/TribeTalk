@@ -55,6 +55,9 @@ fun HomeScreen(
     val amplitude by viewModel.amplitude.collectAsState()
     val textInput by viewModel.textInput.collectAsState()
     val isPlayingAudio by viewModel.isPlayingAudio.collectAsState()
+    val currentPartialHindi by viewModel.currentPartialHindi.collectAsState()
+    val liveStatusLabel by viewModel.liveStatusLabel.collectAsState()
+    val activeUtteranceSequence by viewModel.activeUtteranceSequence.collectAsState()
 
     var showTextInputDrawer by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -134,6 +137,44 @@ fun HomeScreen(
                 )
 
                 StatusIndicator(state = uiState)
+            }
+
+            // Active Live Voice Mode Card
+            if (isRecording) {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(10.dp)
+                        ) {}
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = if (currentPartialHindi.isNotBlank()) "Recognizing: \"$currentPartialHindi\"" else liveStatusLabel,
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                            if (activeUtteranceSequence > 0) {
+                                Text(
+                                    text = "Classroom Stream • Utterance #$activeUtteranceSequence",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.outline
+                                )
+                            }
+                        }
+                    }
+                }
             }
 
             // Main Conversation Stream or Empty State
@@ -390,7 +431,7 @@ fun HomeScreen(
 
                 // Subtitle Instruction
                 Text(
-                    text = if (isRecording) "Recording... Tap stop when finished" else "Tap microphone to speak",
+                    text = if (isRecording) "🔴 Live Classroom Mode Active • Speak freely in Hindi" else "Tap microphone to start Live Classroom mode",
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant

@@ -1,7 +1,10 @@
 package org.tribetalk.ui.screens
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.tribetalk.worksheet.QuestionType
+import org.tribetalk.worksheet.SantaliVerificationStatus
 import org.tribetalk.worksheet.Worksheet
 import org.tribetalk.worksheet.WorksheetGenerator
 import org.tribetalk.worksheet.WorksheetPdfExporter
@@ -29,13 +34,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * Screen 2: Worksheet Preview & Teacher Editing.
  *
  * Displays the generated bilingual activities in stacked Hindi + Santali blocks.
  * Enables in-place teacher corrections, dynamic Hindi -> Santali re-translation,
- * and native offline A4 PDF export with Open, Share, and Print actions.
+ * verified status tracking, answer key generation, and native offline A4 PDF export.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,6 +57,7 @@ fun WorksheetPreviewScreen(
     var editingQuestionIndex by remember { mutableStateOf<Int?>(null) }
     var exportedPdfFile by remember { mutableStateOf<File?>(null) }
     var showExportDialog by remember { mutableStateOf(false) }
+    var showTeacherInfo by remember { mutableStateOf(false) }
 
     val pdfExporter = remember { WorksheetPdfExporter(context) }
 
@@ -171,7 +180,7 @@ fun WorksheetPreviewScreen(
             contentPadding = PaddingValues(top = 16.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            // Header Overview Card
+            // Student Classroom Header Preview (Phase 13)
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -183,7 +192,7 @@ fun WorksheetPreviewScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -191,7 +200,7 @@ fun WorksheetPreviewScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = currentWorksheet.title,
+                                text = "TRIBETALK WORKSHEET",
                                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -200,7 +209,7 @@ fun WorksheetPreviewScreen(
                                 shape = RoundedCornerShape(6.dp)
                             ) {
                                 Text(
-                                    text = currentWorksheet.grade ?: "FLN Grade 1-3",
+                                    text = currentWorksheet.grade ?: "Foundational Stage",
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                                     color = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -208,11 +217,99 @@ fun WorksheetPreviewScreen(
                             }
                         }
 
+                        // Student Info Preview Box
+                        Surface(
+                            shape = RoundedCornerShape(6.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                val dateStr = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(currentWorksheet.createdAt))
+                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                    Text("Name: ____________________", style = MaterialTheme.typography.bodySmall)
+                                    Text("Date: $dateStr", style = MaterialTheme.typography.bodySmall)
+                                }
+                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                    Text("Class: ${currentWorksheet.grade ?: "______"}", style = MaterialTheme.typography.bodySmall)
+                                    Text("Roll No: ________", style = MaterialTheme.typography.bodySmall)
+                                }
+                            }
+                        }
+
                         Text(
-                            text = currentWorksheet.instructions,
+                            text = "निर्देश: ${currentWorksheet.instructions}",
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.outline
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
+                        if (!currentWorksheet.santaliInstructions.isNullOrBlank()) {
+                            Text(
+                                text = "ᱥᱟᱱᱛᱟᱲᱤ ᱱᱤᱨᱫᱮᱥ: ${currentWorksheet.santaliInstructions}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color(0xFF2F8F83)
+                            )
+                        }
+                    }
+                }
+            }
+
+            // PDF Options & Alignment Toggle (Phase 9 & 16)
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Icon(Icons.Default.MenuBook, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+                                Text("Teacher Answer Key & Guide", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold))
+                            }
+                            Switch(
+                                checked = currentWorksheet.includeAnswerKey,
+                                onCheckedChange = { currentWorksheet = currentWorksheet.copy(includeAnswerKey = it) }
+                            )
+                        }
+
+                        // Collapsible Teacher Curriculum Info
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { showTeacherInfo = !showTeacherInfo },
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Teacher Info: Curriculum Alignment",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                color = MaterialTheme.colorScheme.secondary
+                            )
+                            Icon(
+                                imageVector = if (showTeacherInfo) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.secondary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+
+                        AnimatedVisibility(visible = showTeacherInfo) {
+                            Column(modifier = Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                Text("• Framework: NIPUN Bharat & NCF-FS 2022", fontSize = 11.sp)
+                                if (currentWorksheet.curricularGoalId != null) {
+                                    Text("• Curricular Goal: ${currentWorksheet.curricularGoalId}", fontSize = 11.sp)
+                                }
+                                if (currentWorksheet.competencyId != null) {
+                                    Text("• Competency: ${currentWorksheet.competencyId}", fontSize = 11.sp)
+                                }
+                                if (currentWorksheet.learningOutcomeText != null) {
+                                    Text("• Learning Trajectory: ${currentWorksheet.learningOutcomeText}", fontSize = 11.sp)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -330,22 +427,25 @@ fun QuestionPreviewCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            // Header Row: Type Badge + Edit Button
+            // Header Row: Type Badge + Verification Status + Edit Button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
-                    color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
-                    shape = RoundedCornerShape(6.dp)
-                ) {
-                    Text(
-                        text = "$index. ${question.type.displayName}",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                    )
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Surface(
+                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = "$index. ${question.type.displayName}",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.secondary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                    VerificationBadge(question.verificationStatus)
                 }
 
                 if (question.editable) {
@@ -415,9 +515,9 @@ fun QuestionPreviewCard(
                 }
             }
 
-            // Answer Space / Answer Line
+            // Student Answer Line / Blank Space
             Surface(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
                 shape = RoundedCornerShape(6.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -426,20 +526,34 @@ fun QuestionPreviewCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Answer Space:",
+                        text = "Student Answer Space: ____________________________",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.outline
                     )
-                    if (question.answer.isNotBlank()) {
-                        Text(
-                            text = question.answer,
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun VerificationBadge(status: SantaliVerificationStatus) {
+    val (color, label) = when (status) {
+        SantaliVerificationStatus.VERIFIED -> Color(0xFF059669) to "VERIFIED"
+        SantaliVerificationStatus.TEACHER_VERIFIED -> Color(0xFF2563EB) to "TEACHER VERIFIED"
+        SantaliVerificationStatus.NEEDS_REVIEW -> Color(0xFFD97706) to "NEEDS REVIEW"
+        SantaliVerificationStatus.UNAVAILABLE -> Color(0xFF64748B) to "UNAVAILABLE"
+    }
+    Surface(
+        shape = RoundedCornerShape(4.dp),
+        color = color.copy(alpha = 0.12f)
+    ) {
+        Text(
+            text = label,
+            color = color,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+        )
     }
 }
 
@@ -490,7 +604,7 @@ fun TeacherEditQuestionDialog(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Secondary Action: Translate to Santali
+                // Action: Translate to Santali
                 OutlinedButton(
                     onClick = {
                         if (hindiText.isBlank()) {
@@ -557,7 +671,7 @@ fun TeacherEditQuestionDialog(
                     )
                 }
 
-                // Santali Field (Editable manually, teacher changes are preserved)
+                // Santali Field (Editable manually, teacher changes are preserved as TEACHER_VERIFIED)
                 OutlinedTextField(
                     value = santaliText,
                     onValueChange = {
@@ -601,12 +715,20 @@ fun TeacherEditQuestionDialog(
                         question.options
                     }
 
+                    // Mark as TEACHER_VERIFIED when edited by teacher
+                    val newStatus = if (santaliText.trim() != question.santaliText.trim()) {
+                        SantaliVerificationStatus.TEACHER_VERIFIED
+                    } else {
+                        question.verificationStatus
+                    }
+
                     val updated = question.copy(
                         type = selectedType,
                         hindiText = hindiText.trim(),
                         santaliText = santaliText.trim(),
                         options = parsedOptions,
-                        answer = answerText.trim()
+                        answer = answerText.trim(),
+                        verificationStatus = newStatus
                     )
                     onSave(updated)
                 },
