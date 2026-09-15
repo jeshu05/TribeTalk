@@ -121,15 +121,6 @@ def stage_models():
     shutil.copyfile(tts_model, STAGING_DIR / "tts" / "hindi_tts.onnx")
     shutil.copyfile(tts_vocab, STAGING_DIR / "tts" / "hindi_tts_vocab.json")
     print(f"  -> Hindi TTS staged: {tts_model.stat().st_size / 1e6:.1f} MB")
-
-    # 5. SmolLM2 SLM
-    (STAGING_DIR / "slm").mkdir(exist_ok=True)
-    slm_cached_model = STAGING_DIR / "slm" / "model.onnx"
-    if slm_cached_model.exists():
-        print(f"  -> SmolLM2 SLM already staged: {slm_cached_model.stat().st_size / 1e6:.1f} MB")
-    else:
-        print("  -> Note: Run scripts/download_and_stage_slm.py to fetch SmolLM2-135M INT8 ONNX.")
-
     print("All models staged successfully.")
 
 

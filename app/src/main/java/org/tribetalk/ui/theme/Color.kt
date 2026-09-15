@@ -22,6 +22,9 @@ val EduSky = Color(0xFF0284C7)              // Sky Blue (Numeracy, Sequence Trai
 val EduSkyLight = Color(0xFFE0F2FE)         // Soft Sky Tint (Counting Containers)
 val EduRose = Color(0xFFE11D48)             // Coral Rose (Attention, Difficulty: Challenge)
 val EduRoseLight = Color(0xFFFFE4E6)        // Soft Rose Tint
+val EduGreen = Color(0xFF16A34A)            // Vibrant Nature Green
+val EduGreenLight = Color(0xFFDCFCE7)       // Soft Green Tint (Success, Completion)
+val EduGreenDark = Color(0xFF15803D)        // Forest Green
 
 // 3. Clean Educational Canvas & Card Surfaces (Light Mode Defaults)
 val EduBackground = Color(0xFFF8FAFC)       // Slate 50 (Soft, calming, warm background)

@@ -99,6 +99,13 @@ class TribeTalkTtsManager(context: Context) {
         }
     }
 
+    /**
+     * Speaks Santali phonetic text with authentic pronunciation.
+     */
+    fun speakSantaliPhonetic(phoneticText: String, onComplete: (() -> Unit)? = null) {
+        speak(phoneticText, "sat", onComplete)
+    }
+
     fun stop() {
         _isSpeaking.value = false
         mainHandler.post {

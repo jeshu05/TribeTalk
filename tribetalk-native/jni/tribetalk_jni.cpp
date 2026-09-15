@@ -1,12 +1,15 @@
 #include <jni.h>
 #include "tribetalk/pipeline/pipeline.h"
+#include "tribetalk/slm/qwen_engine.h"
 #include <string>
 #include <vector>
 
 using namespace tribetalk::pipeline;
 using namespace tribetalk::audio;
+using namespace tribetalk::slm;
 
 static TribeTalkPipeline* g_pipeline = nullptr;
+static QwenEngine* g_qwen_engine = nullptr;
 
 extern "C" {
 
@@ -201,4 +204,91 @@ Java_org_tribetalk_core_NativePipeline_nativeProcessSpeechFull(
     return j_result;
 }
 
+JNIEXPORT jboolean JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenInit(
+    JNIEnv* env,
+    jobject /* thiz */,
+    jstring j_model_dir
+) {
+    const char* model_dir = env->GetStringUTFChars(j_model_dir, nullptr);
+    if (!g_qwen_engine) {
+        g_qwen_engine = new QwenEngine();
+    }
+    bool success = g_qwen_engine->initialize(model_dir ? model_dir : "");
+    if (model_dir) {
+        env->ReleaseStringUTFChars(j_model_dir, model_dir);
+    }
+    return static_cast<jboolean>(success);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenLoad(
+    JNIEnv* /* env */,
+    jobject /* thiz */
+) {
+    if (!g_qwen_engine) {
+        g_qwen_engine = new QwenEngine();
+    }
+    return static_cast<jboolean>(g_qwen_engine->load_model());
+}
+
+JNIEXPORT jstring JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenGenerate(
+    JNIEnv* env,
+    jobject /* thiz */,
+    jstring j_prompt,
+    jint max_tokens,
+    jfloat temperature,
+    jint seed
+) {
+    if (!g_qwen_engine) {
+        return env->NewStringUTF("{}");
+    }
+    const char* prompt = env->GetStringUTFChars(j_prompt, nullptr);
+    QwenGenerationConfig config;
+    config.max_tokens = max_tokens;
+    config.temperature = temperature;
+    config.seed = seed;
+
+    QwenGenerationResult res = g_qwen_engine->generate(prompt ? prompt : "", config);
+
+    if (prompt) {
+        env->ReleaseStringUTFChars(j_prompt, prompt);
+    }
+    return env->NewStringUTF(res.text.c_str());
+}
+
+JNIEXPORT void JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenCancel(
+    JNIEnv* /* env */,
+    jobject /* thiz */
+) {
+    if (g_qwen_engine) {
+        g_qwen_engine->cancel_generation();
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenUnload(
+    JNIEnv* /* env */,
+    jobject /* thiz */
+) {
+    if (g_qwen_engine) {
+        g_qwen_engine->unload_model();
+    }
+}
+
+JNIEXPORT jstring JNICALL
+Java_org_tribetalk_core_NativePipeline_nativeQwenGetModelInfo(
+    JNIEnv* env,
+    jobject /* thiz */
+) {
+    if (!g_qwen_engine) {
+        return env->NewStringUTF("{\"model\":\"Qwen2.5-0.5B-Instruct\",\"is_loaded\":false}");
+    }
+    std::string info = g_qwen_engine->get_model_info();
+    return env->NewStringUTF(info.c_str());
+}
+
 } // extern "C"
+

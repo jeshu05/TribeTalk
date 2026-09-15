@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Rice mound -->
+  <path d="M22 50 C22 34 34 26 50 26 C66 26 78 34 78 50 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  <circle cx="42" cy="38" r="2" fill="#CBD5E1"/>
+  <circle cx="54" cy="34" r="2" fill="#CBD5E1"/>
+  <circle cx="62" cy="40" r="2" fill="#CBD5E1"/>
+  <!-- Clay/metal bowl -->
+  <path d="M16 50 C18 78 32 86 50 86 C68 86 82 78 84 50 Z" fill="#EA580C" stroke="#9A3412" stroke-width="3.5"/>
+  <!-- Rim -->
+  <ellipse cx="50" cy="50" rx="36" ry="6" fill="#F97316" stroke="#9A3412" stroke-width="3"/>
+</svg>

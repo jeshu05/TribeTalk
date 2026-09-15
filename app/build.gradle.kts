@@ -48,6 +48,10 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -90,7 +94,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("io.coil-kt:coil-svg:2.6.0")
+    implementation("com.caverock:androidsvg-aar:1.4")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.json:json:20231013")
 
     debugImplementation(libs.androidx.ui.tooling)
 }

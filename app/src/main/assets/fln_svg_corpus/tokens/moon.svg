@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Crescent moon -->
+  <path d="M65 15 C42 15 24 33 24 56 C24 79 42 97 65 97 C52 86 44 70 44 56 C44 42 52 26 65 15 Z" 
+        fill="#FDE047" stroke="#CA8A04" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Highlight -->
+  <path d="M34 40 C32 50 34 65 40 76" fill="none" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

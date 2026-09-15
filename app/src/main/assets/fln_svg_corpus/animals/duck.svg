@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Body floating in water -->
+  <path d="M28 50 C28 40 40 46 54 48 C68 48 86 52 86 64 C86 76 70 82 50 82 C34 82 24 76 24 66 C24 58 28 52 28 50 Z" 
+        fill="#FACC15" stroke="#CA8A04" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Wing -->
+  <path d="M44 56 C52 54 66 54 72 64 C64 70 50 70 44 56 Z" fill="#EAB308" stroke="#CA8A04" stroke-width="2"/>
+  <!-- Head and Neck -->
+  <circle cx="30" cy="34" r="16" fill="#FDE047" stroke="#CA8A04" stroke-width="3"/>
+  <!-- Bill / Beak -->
+  <path d="M18 36 C10 36 6 38 4 42 C10 44 18 42 20 40 Z" fill="#F97316" stroke="#C2410C" stroke-width="2"/>
+  <!-- Eye -->
+  <circle cx="28" cy="30" r="3" fill="#1E293B"/>
+  <circle cx="27" cy="29" r="1" fill="#FFFFFF"/>
+  <!-- Water waves -->
+  <path d="M10 86 Q20 82 30 86 T50 86 T70 86 T90 86" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+</svg>

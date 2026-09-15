@@ -78,3 +78,4 @@ Thumbs.db
 # Evaluation datasets & raw data (do not track large benchmark corpora)
 tribe-evaluation/
 *.parquet
+scratch/

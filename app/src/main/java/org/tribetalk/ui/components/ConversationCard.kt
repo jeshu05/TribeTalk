@@ -32,6 +32,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.rounded.Description
+import androidx.compose.material.icons.rounded.Style
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.core.content.ContextCompat
 import org.tribetalk.core.TranslationExchange
 import org.tribetalk.ui.theme.*
@@ -45,6 +52,8 @@ fun ConversationCard(
     exchange: TranslationExchange,
     onPlayAudio: () -> Unit,
     isPlaying: Boolean,
+    onMakeFlashcard: ((String) -> Unit)? = null,
+    onGenerateWorksheet: ((String) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -222,6 +231,71 @@ fun ConversationCard(
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(19.dp)
                         )
+                    }
+                }
+            }
+
+            // FLN Classroom Action Bar: Instant Flashcard or Matching Worksheet from spoken instruction
+            if (onMakeFlashcard != null || onGenerateWorksheet != null) {
+                val instructionText = if (exchange.sourceLanguage == "hi") exchange.sourceText else exchange.targetText
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (onMakeFlashcard != null) {
+                        FilledTonalButton(
+                            onClick = { onMakeFlashcard(instructionText) },
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = EduAmberLight,
+                                contentColor = EduAmber
+                            ),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Style,
+                                contentDescription = "Flashcard",
+                                modifier = Modifier.size(16.dp),
+                                tint = EduAmber
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "फ़्लैशकार्ड",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = EduAmber
+                            )
+                        }
+                    }
+
+                    if (onGenerateWorksheet != null) {
+                        FilledTonalButton(
+                            onClick = { onGenerateWorksheet(instructionText) },
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.filledTonalButtonColors(
+                                containerColor = EduIndigoLight,
+                                contentColor = EduIndigo
+                            ),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Description,
+                                contentDescription = "Worksheet",
+                                modifier = Modifier.size(16.dp),
+                                tint = EduIndigo
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "वर्कशीट बनाएं",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = EduIndigo
+                            )
+                        }
                     }
                 }
             }

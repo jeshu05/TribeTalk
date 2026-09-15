@@ -5,133 +5,125 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.tribetalk.audio.TribeTalkTtsManager
-import org.tribetalk.fln.generator.ProceduralCurriculumGenerator
+import org.tribetalk.core.orchestration.ResourceOrchestrator
+import org.tribetalk.core.orchestration.TaskPriority
+import org.tribetalk.curriculum.ai.QwenContentPlanner
+import org.tribetalk.curriculum.ai.QwenLocalModel
+import org.tribetalk.curriculum.cache.CurriculumCacheManager
+import org.tribetalk.curriculum.cache.CurriculumPrefetcher
+import org.tribetalk.curriculum.context.TeachingContext
+import org.tribetalk.curriculum.ontology.CurriculumRegistry
+import org.tribetalk.curriculum.ontology.LearningObjective
+import org.tribetalk.curriculum.render.FlashcardSetGenerator
+import org.tribetalk.curriculum.spec.ActivitySpec
+import org.tribetalk.curriculum.spec.VisualTheme
 import org.tribetalk.fln.model.*
+import org.tribetalk.fln.pipeline.*
 import org.tribetalk.fln.repository.FlnCurriculumRepository
+import org.tribetalk.fln.worksheet.WorksheetGenerator
 import org.tribetalk.fln.worksheet.WorksheetPdfExporter
 import java.io.File
 
 /**
- * Interactive Classroom Modes for the Single-Tablet Rural Classroom Station.
- * Designed for 30-second rapid turn-taking when handed to random kids.
- */
-enum class ClassroomPlayMode(val displayName: String, val santaliName: String, val icon: String) {
-    CHORUS_REVEAL("मिलकर बोलो", "ᱢᱤᱫᱛᱮ ᱨᱚᱲ", "📢"),
-    LISTEN_AND_TAP("सुनो और पहचानो", "ᱟᱸᱡᱚᱢ ᱟᱨ ᱥᱟᱵ", "🎯"),
-    VOICE_ECHO("सुनो और बोलो", "ᱟᱸᱡᱚᱢ ᱟᱨ ᱨᱚᱲ", "🎤")
-}
-
-/**
- * Preview modes for the interactive worksheet studio.
- */
-enum class WorksheetPreviewTab {
-    STUDENT_SHEET,
-    TEACHER_KEY
-}
-
-/**
- * ViewModel managing state for the NIPUN Bharat Foundational Literacy and Numeracy suite.
- * Runs completely offline and isolated from heavy neural ASR inference models (< 5 MB RAM).
+ * Clean, unified ViewModel managing state for the Foundational Literacy & Numeracy (FLN) suite.
+ * High-performance, reactive, and 100% offline.
  */
 class FlnViewModel(application: Application) : AndroidViewModel(application) {
 
     private val ttsManager = TribeTalkTtsManager(application.applicationContext)
-    private val speechRecognizer = org.tribetalk.audio.AndroidSpeechRecognizer(application.applicationContext)
+    val isSpeaking: StateFlow<Boolean> = ttsManager.isSpeaking
 
     // -------------------------------------------------------------------------
-    // Classroom Station & Turn-Taking State
+    // Real Qwen 0.5B Inference & Central Teaching Context
     // -------------------------------------------------------------------------
-    private val _classroomMode = MutableStateFlow(ClassroomPlayMode.CHORUS_REVEAL)
-    val classroomMode: StateFlow<ClassroomPlayMode> = _classroomMode.asStateFlow()
+    val localModel = QwenLocalModel(application.applicationContext)
+    val contentPlanner = QwenContentPlanner(localModel)
+    val prefetcher = CurriculumPrefetcher(contentPlanner)
 
-    private val _kidsTurnCount = MutableStateFlow(0)
-    val kidsTurnCount: StateFlow<Int> = _kidsTurnCount.asStateFlow()
+    private val _teachingContext = MutableStateFlow(TeachingContext())
+    val teachingContext: StateFlow<TeachingContext> = _teachingContext.asStateFlow()
 
-    private val _listenAndTapOptions = MutableStateFlow<List<FlnCard>>(emptyList())
-    val listenAndTapOptions: StateFlow<List<FlnCard>> = _listenAndTapOptions.asStateFlow()
+    private val _activeObjective = MutableStateFlow(CurriculumRegistry.getDefaultObjective())
+    val activeObjective: StateFlow<LearningObjective> = _activeObjective.asStateFlow()
 
-    private val _selectedTapCard = MutableStateFlow<FlnCard?>(null)
-    val selectedTapCard: StateFlow<FlnCard?> = _selectedTapCard.asStateFlow()
+    private val _currentActivitySpec = MutableStateFlow<ActivitySpec?>(null)
+    val currentActivitySpec: StateFlow<ActivitySpec?> = _currentActivitySpec.asStateFlow()
 
-    private val _isTapAnswerCorrect = MutableStateFlow<Boolean?>(null)
-    val isTapAnswerCorrect: StateFlow<Boolean?> = _isTapAnswerCorrect.asStateFlow()
+    private val _isStudioOpen = MutableStateFlow(false)
+    val isStudioOpen: StateFlow<Boolean> = _isStudioOpen.asStateFlow()
 
-    private val _isKidSpeaking = MutableStateFlow(false)
-    val isKidSpeaking: StateFlow<Boolean> = _isKidSpeaking.asStateFlow()
+    private val _isGeneratingStudioContent = MutableStateFlow(false)
+    val isGeneratingStudioContent: StateFlow<Boolean> = _isGeneratingStudioContent.asStateFlow()
 
-    private val _kidVoiceSuccess = MutableStateFlow<Boolean?>(null)
-    val kidVoiceSuccess: StateFlow<Boolean?> = _kidVoiceSuccess.asStateFlow()
+    private val _studioProgressStep = MutableStateFlow(0)
+    val studioProgressStep: StateFlow<Int> = _studioProgressStep.asStateFlow()
 
-    val speechAmplitude: StateFlow<Float> = speechRecognizer.amplitude
+    private val _studioGeneratedSpec = MutableStateFlow<ActivitySpec?>(null)
+    val studioGeneratedSpec: StateFlow<ActivitySpec?> = _studioGeneratedSpec.asStateFlow()
 
     // -------------------------------------------------------------------------
-    // Flashcards State
+    // Shared Generative Pipeline & Activity IR State
     // -------------------------------------------------------------------------
-    private val _categories = MutableStateFlow(FlnCurriculumRepository.getFlashcardCategories())
-    val categories: StateFlow<List<String>> = _categories.asStateFlow()
+    private val _currentActivityIR = MutableStateFlow<ActivityIR?>(null)
+    val currentActivityIR: StateFlow<ActivityIR?> = _currentActivityIR.asStateFlow()
 
-    private val _selectedCategory = MutableStateFlow(FlnCurriculumRepository.CATEGORY_ALL)
-    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
+    private val _learnerState = MutableStateFlow(LearnerState())
+    val learnerState: StateFlow<LearnerState> = _learnerState.asStateFlow()
 
-    private val _cards = MutableStateFlow(FlnCurriculumRepository.getFlashcards())
-    val cards: StateFlow<List<FlnCard>> = _cards.asStateFlow()
+    // -------------------------------------------------------------------------
+    // Flashcard Deck State
+    // -------------------------------------------------------------------------
+    private val _selectedDomain = MutableStateFlow<FlnDomain?>(null)
+    val selectedDomain: StateFlow<FlnDomain?> = _selectedDomain.asStateFlow()
 
-    private val _currentCardIndex = MutableStateFlow(0)
-    val currentCardIndex: StateFlow<Int> = _currentCardIndex.asStateFlow()
+    private val _selectedCategory = MutableStateFlow(FlnCategory.ALL)
+    val selectedCategory: StateFlow<FlnCategory> = _selectedCategory.asStateFlow()
 
-    private val _isQuizMode = MutableStateFlow(false)
-    val isQuizMode: StateFlow<Boolean> = _isQuizMode.asStateFlow()
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
-    private val _isCardRevealed = MutableStateFlow(false)
-    val isCardRevealed: StateFlow<Boolean> = _isCardRevealed.asStateFlow()
+    private val _filteredCards = MutableStateFlow(FlnCurriculumRepository.getAllCards())
+    val filteredCards: StateFlow<List<FlnCard>> = _filteredCards.asStateFlow()
 
-    val isPlayingAudio: StateFlow<Boolean> = ttsManager.isSpeaking
+    private val _activeCardIndex = MutableStateFlow(0)
+    val activeCardIndex: StateFlow<Int> = _activeCardIndex.asStateFlow()
 
-    // Interactive Quiz State
-    private val _quizScore = MutableStateFlow(0)
-    val quizScore: StateFlow<Int> = _quizScore.asStateFlow()
+    private val _isCardFlipped = MutableStateFlow(false)
+    val isCardFlipped: StateFlow<Boolean> = _isCardFlipped.asStateFlow()
 
-    private val _quizAnsweredCount = MutableStateFlow(0)
-    val quizAnsweredCount: StateFlow<Int> = _quizAnsweredCount.asStateFlow()
+    private val _playMode = MutableStateFlow(FlnPlayMode.EXPLORE)
+    val playMode: StateFlow<FlnPlayMode> = _playMode.asStateFlow()
+
+    val activeCard: StateFlow<FlnCard?> = combine(_filteredCards, _activeCardIndex) { cards, idx ->
+        if (cards.isNotEmpty() && idx in cards.indices) cards[idx] else cards.firstOrNull()
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    // -------------------------------------------------------------------------
+    // Star Quiz State
+    // -------------------------------------------------------------------------
+    private val _quizQuestion = MutableStateFlow<QuizQuestion?>(null)
+    val quizQuestion: StateFlow<QuizQuestion?> = _quizQuestion.asStateFlow()
 
     private val _selectedQuizOption = MutableStateFlow<Int?>(null)
     val selectedQuizOption: StateFlow<Int?> = _selectedQuizOption.asStateFlow()
 
-    private val _isQuizAnswerChecked = MutableStateFlow(false)
-    val isQuizAnswerChecked: StateFlow<Boolean> = _isQuizAnswerChecked.asStateFlow()
+    private val _quizScore = MutableStateFlow(0)
+    val quizScore: StateFlow<Int> = _quizScore.asStateFlow()
 
-    private val _quizOptions = MutableStateFlow<List<String>>(emptyList())
-    val quizOptions: StateFlow<List<String>> = _quizOptions.asStateFlow()
-
-    private val _quizCorrectIndex = MutableStateFlow(0)
-    val quizCorrectIndex: StateFlow<Int> = _quizCorrectIndex.asStateFlow()
-
-    private val _customCardSuccessMessage = MutableStateFlow<String?>(null)
-    val customCardSuccessMessage: StateFlow<String?> = _customCardSuccessMessage.asStateFlow()
+    private val _quizTotal = MutableStateFlow(0)
+    val quizTotal: StateFlow<Int> = _quizTotal.asStateFlow()
 
     // -------------------------------------------------------------------------
-    // Worksheets State
+    // Worksheet Studio State
     // -------------------------------------------------------------------------
-    private val _worksheetConfig = MutableStateFlow(
-        WorksheetConfig(
-            title = "NIPUN Bharat FLN Practice Sheet",
-            type = WorksheetType.COUNT_AND_MATCH,
-            grade = FlnGrade.GRADE_1,
-            difficulty = WorksheetDifficulty.MEDIUM,
-            questionCount = 5,
-            schoolName = "Prathmik Vidyalaya (प्राथमिक विद्यालय)"
-        )
-    )
+    private val _worksheetConfig = MutableStateFlow(WorksheetConfig())
     val worksheetConfig: StateFlow<WorksheetConfig> = _worksheetConfig.asStateFlow()
 
-    private val _worksheetItems = MutableStateFlow(
-        FlnCurriculumRepository.generateWorksheet(_worksheetConfig.value)
-    )
+    private val _worksheetItems = MutableStateFlow<List<WorksheetItem>>(emptyList())
     val worksheetItems: StateFlow<List<WorksheetItem>> = _worksheetItems.asStateFlow()
 
     private val _previewTab = MutableStateFlow(WorksheetPreviewTab.STUDENT_SHEET)
@@ -143,206 +135,415 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     private val _lastGeneratedPdf = MutableStateFlow<File?>(null)
     val lastGeneratedPdf: StateFlow<File?> = _lastGeneratedPdf.asStateFlow()
 
-    // -------------------------------------------------------------------------
-    // On-Device SLM State
-    // -------------------------------------------------------------------------
-    private val _isSlmGenerating = MutableStateFlow(false)
-    val isSlmGenerating: StateFlow<Boolean> = _isSlmGenerating.asStateFlow()
-
-    private val _slmStatusMessage = MutableStateFlow<String?>(null)
-    val slmStatusMessage: StateFlow<String?> = _slmStatusMessage.asStateFlow()
-
-    private val _activeSlmPlan = MutableStateFlow<SlmCurriculumPlan?>(null)
-    val activeSlmPlan: StateFlow<SlmCurriculumPlan?> = _activeSlmPlan.asStateFlow()
-
     init {
-        org.tribetalk.core.TribeTalkTranslator.initialize(application.applicationContext)
-        org.tribetalk.fln.slm.SlmCurriculumEngine.initialize(application.applicationContext)
-        setupQuizQuestion()
+        SvgCorpusRegistry.init(application.applicationContext)
+        ResourceOrchestrator.registerSlm(localModel)
+        updateFilteredCards()
+        regenerateWorksheet()
+        setupNewQuizQuestion()
+        initializeDefaultActivityIR()
+        prefetcher.prefetchForLesson(_teachingContext.value, _activeObjective.value)
+    }
+
+    // -------------------------------------------------------------------------
+    // Content Studio & Real Qwen Generation Actions
+    // -------------------------------------------------------------------------
+
+    fun openStudio() {
+        _isStudioOpen.value = true
+        _studioGeneratedSpec.value = null
+        _studioProgressStep.value = 0
+    }
+
+    fun closeStudio() {
+        _isStudioOpen.value = false
+        _isGeneratingStudioContent.value = false
+    }
+
+    fun generateStudioMaterials(
+        difficulty: WorksheetDifficulty = WorksheetDifficulty.EASY,
+        theme: VisualTheme = VisualTheme.GARDEN,
+        genFlashcards: Boolean = true,
+        genWorksheet: Boolean = true
+    ) {
+        viewModelScope.launch {
+            _isGeneratingStudioContent.value = true
+            _studioProgressStep.value = 0
+
+            try {
+                // Step 0: Understanding learning objective
+                _studioProgressStep.value = 1
+                delay(80)
+
+                // Step 1: Planning activities with Qwen 0.5B
+                _studioProgressStep.value = 2
+                val context = _teachingContext.value.copy(difficulty = difficulty)
+                val objective = _activeObjective.value
+                val seed = System.currentTimeMillis()
+
+                val planResult = contentPlanner.generateActivityPlan(context, objective, seed)
+
+                // Step 2 & 3: Creating questions & checking math
+                _studioProgressStep.value = 3
+                delay(60)
+                _studioProgressStep.value = 4
+                delay(60)
+
+                // Step 4: Building offline visuals
+                val visualSpec = planResult.spec.visualSpec.copy(theme = theme)
+                val tunedSpec = planResult.spec.copy(visualSpec = visualSpec)
+                _studioProgressStep.value = 5
+                delay(60)
+
+                // Step 5 & 6: Preparing Hindi & Santhali
+                _studioProgressStep.value = 6
+                delay(60)
+                _studioProgressStep.value = 7
+                delay(60)
+
+                _studioGeneratedSpec.value = tunedSpec
+            } finally {
+                _isGeneratingStudioContent.value = false
+            }
+        }
+    }
+
+    fun applyGeneratedSpec(spec: ActivitySpec) {
+        _currentActivitySpec.value = spec
+        val ir = ActivitySpec.toActivityIR(spec)
+        setActivityIR(ir)
+
+        // 1. Update Flashcards with the structured 6-card lesson set
+        val cards = FlashcardSetGenerator.generateSet(spec, _teachingContext.value)
+        _filteredCards.value = cards
+        _activeCardIndex.value = 0
+
+        // 2. Update Worksheets with the same items
+        val wsItems = WorksheetGenerator.generateFromActivitySpec(spec, _worksheetConfig.value)
+        _worksheetItems.value = wsItems
+
+        // 3. Cache the real generation results
+        val cacheKey = CurriculumCacheManager.buildCacheKey(_teachingContext.value, _activeObjective.value, spec.metadata.generationSeed)
+        CurriculumCacheManager.putActivity(cacheKey, spec)
+        CurriculumCacheManager.putFlashcards(cacheKey, cards)
+        CurriculumCacheManager.putWorksheet(cacheKey, wsItems)
+    }
+
+    fun setActiveObjective(objective: LearningObjective) {
+        _activeObjective.value = objective
+        _teachingContext.value = _teachingContext.value.copy(
+            objectiveId = objective.id,
+            grade = objective.grade,
+            domain = objective.domain
+        )
+        prefetcher.prefetchForLesson(_teachingContext.value, objective)
+    }
+
+    // -------------------------------------------------------------------------
+    // Shared Activity IR & Progression Pipeline Actions
+    // -------------------------------------------------------------------------
+
+    fun setActivityIR(ir: ActivityIR) {
+        val validated = ActivityValidator.validateAndRepair(ir)
+        _currentActivityIR.value = validated.repairedIR
+    }
+
+    fun advanceToNextPhrase(objectKey: String) {
+        val nextTier = when (_learnerState.value.currentTier) {
+            LinguisticTier.ISOLATED_AKSHAR -> LinguisticTier.CORE_VOCABULARY
+            LinguisticTier.CORE_VOCABULARY -> LinguisticTier.DESCRIPTIVE_PHRASE
+            LinguisticTier.DESCRIPTIVE_PHRASE -> LinguisticTier.FLUENCY_SENTENCE
+            else -> LinguisticTier.FLUENCY_SENTENCE
+        }
+        val nextIR = LearnerProgressionEngine.generateNextPhraseActivity(
+            objectKey = objectKey,
+            targetTier = nextTier,
+            grade = _learnerState.value.grade
+        )
+        setActivityIR(nextIR)
+    }
+
+    fun submitActivityAnswer(selectedAnswer: String) {
+        val current = _currentActivityIR.value ?: return
+        val isSuccess = selectedAnswer == current.correctValue
+        val updatedState = LearnerProgressionEngine.recordActivityCompletion(_learnerState.value, current, isSuccess)
+        _learnerState.value = updatedState
+
+        if (isSuccess) {
+            ttsManager.speak("ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭ! ${current.correctValue}", "sat")
+        }
+    }
+
+    fun playActivitySantaliAudio() {
+        val current = _currentActivityIR.value ?: return
+        val text = current.bilingualPhraseSantali.ifBlank { current.santaliWord.ifBlank { current.correctValue } }
+        ttsManager.speak(text, "sat")
+    }
+
+    fun playActivityHindiAudio() {
+        val current = _currentActivityIR.value ?: return
+        val text = current.bilingualPhraseHindi.ifBlank { current.hindiWord.ifBlank { current.instructionHindi } }
+        ttsManager.speak(text, "hi")
+    }
+
+    fun playSantaliText(text: String) {
+        if (text.isNotBlank()) ttsManager.speak(text, "sat")
+    }
+
+    fun playHindiText(text: String) {
+        if (text.isNotBlank()) ttsManager.speak(text, "hi")
+    }
+
+    private fun initializeDefaultActivityIR() {
+        val defaultIR = ActivityIR(
+            id = "act_init_mango",
+            nipunCompetencyCode = "N-BAL.1",
+            actionType = ActivityActionType.COUNT_AND_SELECT,
+            grade = FlnGrade.BALVATIKA,
+            difficulty = WorksheetDifficulty.EASY,
+            linguisticTier = LinguisticTier.CORE_VOCABULARY,
+            primaryObjectKey = "mango",
+            quantity = 5,
+            correctValue = "5",
+            distractorOptions = listOf("3", "5", "6"),
+            santaliWord = "ᱩᱞ",
+            hindiWord = "आम",
+            englishWord = "Mango",
+            bilingualPhraseSantali = "ᱦᱮᱲᱮᱢ ᱩᱞ",
+            bilingualPhraseHindi = "मीठा आम",
+            phraseEnglishGloss = "Sweet Mango",
+            instructionSantali = "ᱩᱞ ᱞᱮᱠᱷᱟᱭ ᱢᱮ ᱟᱨ ᱥᱟᱹᱦᱤ ᱞᱮᱠᱷᱟ ᱵᱟᱪᱷᱟᱣ ᱢᱮ:",
+            instructionHindi = "आम गिनें और सही संख्या चुनें:"
+        )
+        setActivityIR(defaultIR)
     }
 
     // -------------------------------------------------------------------------
     // Flashcard Actions
     // -------------------------------------------------------------------------
 
-    fun selectCategory(category: String) {
+    fun setDomain(domain: FlnDomain?) {
+        _selectedDomain.value = domain
+        _selectedCategory.value = FlnCategory.ALL
+        _activeCardIndex.value = 0
+        _isCardFlipped.value = false
+        updateFilteredCards()
+        setupNewQuizQuestion()
+    }
+
+    fun setCategory(category: FlnCategory) {
         _selectedCategory.value = category
-        _cards.value = FlnCurriculumRepository.getFlashcardsByCategory(category)
-        _currentCardIndex.value = 0
-        _isCardRevealed.value = false
-        setupQuizQuestion()
+        _activeCardIndex.value = 0
+        _isCardFlipped.value = false
+        updateFilteredCards()
+        setupNewQuizQuestion()
+    }
+
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+        _activeCardIndex.value = 0
+        updateFilteredCards()
+    }
+
+    fun setPlayMode(mode: FlnPlayMode) {
+        _playMode.value = mode
+        _isCardFlipped.value = false
+        if (mode == FlnPlayMode.QUIZ && _quizQuestion.value == null) {
+            setupNewQuizQuestion()
+        }
+    }
+
+    fun toggleCardFlip() {
+        _isCardFlipped.value = !_isCardFlipped.value
     }
 
     fun nextCard() {
-        val total = _cards.value.size
+        val total = _filteredCards.value.size
         if (total > 0) {
-            _currentCardIndex.value = (_currentCardIndex.value + 1) % total
-            _isCardRevealed.value = false
-            setupQuizQuestion()
+            _activeCardIndex.value = (_activeCardIndex.value + 1) % total
+            _isCardFlipped.value = false
         }
     }
 
-    fun prevCard() {
-        val total = _cards.value.size
+    fun previousCard() {
+        val total = _filteredCards.value.size
         if (total > 0) {
-            _currentCardIndex.value = if (_currentCardIndex.value - 1 < 0) total - 1 else _currentCardIndex.value - 1
-            _isCardRevealed.value = false
-            setupQuizQuestion()
+            _activeCardIndex.value = if (_activeCardIndex.value - 1 < 0) total - 1 else _activeCardIndex.value - 1
+            _isCardFlipped.value = false
         }
     }
 
-    fun shuffleCards() {
-        _cards.value = _cards.value.shuffled()
-        _currentCardIndex.value = 0
-        _isCardRevealed.value = false
-        setupQuizQuestion()
-    }
-
-    fun toggleQuizMode() {
-        _isQuizMode.value = !_isQuizMode.value
-        _isCardRevealed.value = false
-        setupQuizQuestion()
-    }
-
-    fun toggleCardReveal() {
-        _isCardRevealed.value = !_isCardRevealed.value
-    }
-
-    fun playSantaliAudio(card: FlnCard) {
-        ttsManager.speak(card.santaliOlChiki, "sat")
-    }
-
-    // -------------------------------------------------------------------------
-    // Classroom Turn-Taking Actions
-    // -------------------------------------------------------------------------
-
-    fun setClassroomMode(mode: ClassroomPlayMode) {
-        _classroomMode.value = mode
-        _isCardRevealed.value = false
-        _selectedTapCard.value = null
-        _isTapAnswerCorrect.value = null
-        _kidVoiceSuccess.value = null
-        if (mode == ClassroomPlayMode.LISTEN_AND_TAP) {
-            setupListenAndTap()
-        } else if (mode == ClassroomPlayMode.VOICE_ECHO) {
-            playCurrentCardSantali()
+    fun selectCard(card: FlnCard) {
+        val index = _filteredCards.value.indexOf(card)
+        if (index != -1) {
+            _activeCardIndex.value = index
+            _isCardFlipped.value = false
         }
     }
 
-    fun nextChildTurn() {
-        _kidsTurnCount.value++
-        nextCard()
-        _selectedTapCard.value = null
-        _isTapAnswerCorrect.value = null
-        _kidVoiceSuccess.value = null
-        if (_classroomMode.value == ClassroomPlayMode.LISTEN_AND_TAP) {
-            setupListenAndTap()
-        } else if (_classroomMode.value == ClassroomPlayMode.VOICE_ECHO) {
-            playCurrentCardSantali()
-        }
-    }
-
-    fun setupListenAndTap() {
-        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
-        val otherCards = _cards.value.filter { it.id != current.id }.shuffled().take(2)
-        val all = (otherCards + current).shuffled()
-        _listenAndTapOptions.value = all
-        _selectedTapCard.value = null
-        _isTapAnswerCorrect.value = null
-        // Auto-play the target sound
-        ttsManager.speak(current.santaliOlChiki, "sat")
-    }
-
-    fun selectTapCard(card: FlnCard) {
-        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
-        if (_isTapAnswerCorrect.value == true) return
-        _selectedTapCard.value = card
-        val correct = (card.id == current.id)
-        _isTapAnswerCorrect.value = correct
-        if (correct) {
-            ttsManager.speak(card.santaliOlChiki, "sat")
-        }
-    }
-
-    fun playCurrentCardSantali() {
-        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
-        ttsManager.speak(current.santaliOlChiki, "sat")
-    }
-
-    fun startKidVoicePractice() {
-        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
-        _isKidSpeaking.value = true
-        _kidVoiceSuccess.value = null
-
-        speechRecognizer.startListening(
-            isHindi = false,
-            onResult = {
-                _isKidSpeaking.value = false
-                _kidVoiceSuccess.value = true
-                ttsManager.speak(current.santaliOlChiki, "sat")
-            },
-            onError = {
-                // Offline fallback: treat verbal attempt as praised learning effort
-                _isKidSpeaking.value = false
-                _kidVoiceSuccess.value = true
+    fun playActiveCardAudio() {
+        val card = activeCard.value ?: return
+        val textToSpeak = when {
+            card.category == FlnCategory.AKSHAR -> {
+                card.teacherPhoneticGuide.substringBefore("(").trim().ifBlank { card.santaliOlChiki }
             }
-        )
+            card.exemplarPhonetic.isNotBlank() -> card.exemplarPhonetic
+            card.teacherPhoneticGuide.isNotBlank() -> card.teacherPhoneticGuide.substringBefore("(").trim()
+            else -> card.santaliOlChiki
+        }
+        ttsManager.speakSantaliPhonetic(textToSpeak)
     }
 
-    fun stopKidVoicePractice() {
-        speechRecognizer.stopListening()
-        _isKidSpeaking.value = false
+    fun playActiveCardHindiAudio() {
+        val card = activeCard.value ?: return
+        val text = card.hindiText.substringBefore("(").trim()
+        ttsManager.speak(text, "hi")
     }
 
-    // -------------------------------------------------------------------------
-    // Quiz Mechanics
-    // -------------------------------------------------------------------------
+    private fun updateFilteredCards() {
+        val query = _searchQuery.value.trim()
+        val domain = _selectedDomain.value
+        val cat = _selectedCategory.value
 
-    private fun setupQuizQuestion() {
-        val current = _cards.value.getOrNull(_currentCardIndex.value) ?: return
-        val otherCards = _cards.value.filter { it.id != current.id }.shuffled().take(3)
-        val distractors = otherCards.map { "${it.santaliOlChiki}  (${it.hindiText.substringBefore(" ")})" }
-        val correct = "${current.santaliOlChiki}  (${current.hindiText.substringBefore(" ")})"
-        val all = (distractors + correct).shuffled()
-        _quizOptions.value = all
-        _quizCorrectIndex.value = all.indexOf(correct)
-        _selectedQuizOption.value = null
-        _isQuizAnswerChecked.value = false
-    }
+        var list = when {
+            query.isNotBlank() -> FlnCurriculumRepository.searchCards(query)
+            cat != FlnCategory.ALL -> FlnCurriculumRepository.getCardsByCategory(cat)
+            domain != null -> FlnCurriculumRepository.getCardsByDomain(domain)
+            else -> FlnCurriculumRepository.getAllCards()
+        }
 
-    fun selectQuizOption(index: Int) {
-        if (_isQuizAnswerChecked.value) return
-        _selectedQuizOption.value = index
-        _isQuizAnswerChecked.value = true
-        _quizAnsweredCount.value++
-        if (index == _quizCorrectIndex.value) {
-            _quizScore.value++
+        if (domain != null && cat == FlnCategory.ALL && query.isBlank()) {
+            list = list.filter { it.domain == domain }
+        }
+
+        _filteredCards.value = list
+        if (_activeCardIndex.value >= list.size) {
+            _activeCardIndex.value = 0
         }
     }
 
-    fun resetQuiz() {
-        _quizScore.value = 0
-        _quizAnsweredCount.value = 0
-        setupQuizQuestion()
+    // -------------------------------------------------------------------------
+    // Star Quiz Actions
+    // -------------------------------------------------------------------------
+
+    fun setupNewQuizQuestion() {
+        val pool = _filteredCards.value.ifEmpty { FlnCurriculumRepository.getAllCards() }
+        if (pool.isEmpty()) return
+
+        val targetCard = pool.random()
+        val isAkshar = targetCard.category == FlnCategory.AKSHAR
+        val isNumber = targetCard.category == FlnCategory.NUMBERS
+
+        val promptHindi = when {
+            isAkshar -> "चित्र के पहले अक्षर / ध्वनि की पहचान करें:"
+            isNumber -> "चित्र में कितनी वस्तुएं हैं? गिनकर सही संख्या चुनें:"
+            else -> "चित्र में क्या दिखाया गया है? सही नाम चुनें:"
+        }
+
+        val promptSantali = when {
+            isAkshar -> "ᱱᱚᱣᱟ ᱪᱤᱛᱟᱹᱨ ᱨᱮᱭᱟᱜ ᱮᱛᱚᱦᱚᱵ ᱪᱤᱠᱤ ᱪᱮᱫ ᱠᱟᱱᱟ?"
+            isNumber -> "ᱱᱚᱣᱟ ᱪᱤᱛᱟᱹᱨ ᱨᱮ ᱛᱤᱱᱟᱹᱜ ᱡᱤᱱᱤᱥ ᱢᱮᱱᱟᱜᱼᱟ? ᱞᱮᱠᱷᱟᱭ ᱢᱮ ᱟᱨ ᱥᱟᱹᱦᱤ ᱮᱞ ᱵᱟᱪᱷᱟᱣ ᱢᱮ:"
+            else -> "ᱱᱚᱣᱟ ᱪᱤᱛᱟᱹᱨ ᱨᱮ ᱪᱮᱫ ᱢᱮᱱᱟᱜᱼᱟ? ᱥᱟᱹᱦᱤ ᱧᱩᱛᱩᱢ ᱵᱟᱪᱷᱟᱣ ᱢᱮ:"
+        }
+
+        val correctAnswer = when {
+            isNumber -> {
+                val num = targetCard.numeralValue ?: 1
+                "${FlnCurriculumRepository.toOlChikiDigits(num)} ($num)"
+            }
+            isAkshar -> targetCard.santaliOlChiki
+            else -> targetCard.santaliOlChiki
+        }
+
+        // Category-matched distractors: strictly 3 distinct distractors matching the semantic type
+        val distractors: List<String> = when {
+            isNumber -> {
+                val num = targetCard.numeralValue ?: 1
+                val candidates = mutableListOf<Int>()
+                for (offset in listOf(1, -1, 2, -2, 3, -3, 4, -4)) {
+                    val cand = num + offset
+                    if (cand in 1..20 && cand != num && !candidates.contains(cand)) {
+                        candidates.add(cand)
+                    }
+                    if (candidates.size >= 3) break
+                }
+                var fallback = 1
+                while (candidates.size < 3 && fallback <= 20) {
+                    if (fallback != num && !candidates.contains(fallback)) {
+                        candidates.add(fallback)
+                    }
+                    fallback++
+                }
+                candidates.take(3).map { "${FlnCurriculumRepository.toOlChikiDigits(it)} ($it)" }
+            }
+            isAkshar -> {
+                val otherAkshars = FlnCurriculumRepository.getCardsByCategory(FlnCategory.AKSHAR)
+                    .filter { it.id != targetCard.id && it.santaliOlChiki != correctAnswer }
+                    .map { it.santaliOlChiki }
+                    .distinct()
+                    .shuffled()
+                val list = otherAkshars.take(3).toMutableList()
+                val defaultAkshars = listOf("ᱚ", "ᱛ", "ᱜ", "ᱝ", "ᱞ", "ᱟ", "ᱠ", "ᱡ", "ᱢ", "ᱣ", "ᱤ", "ᱥ")
+                for (a in defaultAkshars) {
+                    if (list.size >= 3) break
+                    if (a != correctAnswer && !list.contains(a)) list.add(a)
+                }
+                list.take(3)
+            }
+            else -> {
+                FlnCurriculumRepository.generateDistractorsForCard(targetCard, 3)
+            }
+        }
+
+        // Ensure strictly 4 distinct shuffled options, always containing correctAnswer
+        val allOptions = (distractors + correctAnswer).distinct().toMutableList()
+        if (allOptions.size < 4 && isNumber) {
+            val num = targetCard.numeralValue ?: 1
+            for (fallback in 1..20) {
+                val opt = "${FlnCurriculumRepository.toOlChikiDigits(fallback)} ($fallback)"
+                if (!allOptions.contains(opt)) allOptions.add(opt)
+                if (allOptions.size >= 4) break
+            }
+        }
+        val finalOptions = allOptions.take(4).shuffled()
+        val correctIdx = finalOptions.indexOf(correctAnswer)
+
+        _quizQuestion.value = QuizQuestion(
+            card = targetCard,
+            promptHindi = promptHindi,
+            promptSantali = promptSantali,
+            options = finalOptions,
+            correctOptionIndex = if (correctIdx != -1) correctIdx else 0,
+            hintHindi = "सही उत्तर है: $correctAnswer"
+        )
+        _selectedQuizOption.value = null
     }
 
-    /**
-     * Synthesizes and adds a custom bilingual flashcard from teacher prompt.
-     */
-    fun createCustomFlashcard(hindiPrompt: String) {
-        if (hindiPrompt.isBlank()) return
-        val card = ProceduralCurriculumGenerator.synthesizeCard(hindiPrompt)
-        FlnCurriculumRepository.addCustomCard(card)
-        _categories.value = FlnCurriculumRepository.getFlashcardCategories()
-        _selectedCategory.value = FlnCurriculumRepository.CATEGORY_CUSTOM
-        _cards.value = FlnCurriculumRepository.getFlashcardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
-        _currentCardIndex.value = 0
-        _customCardSuccessMessage.value = "Created: ${card.santaliOlChiki} [${card.teacherPhoneticGuide}]"
-        setupQuizQuestion()
+    fun submitQuizAnswer(optionIndex: Int) {
+        if (_selectedQuizOption.value != null) return // Already submitted
+        _selectedQuizOption.value = optionIndex
+        _quizTotal.value += 1
+
+        val current = _quizQuestion.value ?: return
+        if (optionIndex == current.correctOptionIndex) {
+            _quizScore.value += 1
+            val phoneticText = current.card.exemplarPhonetic.ifBlank {
+                current.card.teacherPhoneticGuide.substringBefore("(").trim().ifBlank { current.card.santaliOlChiki }
+            }
+            ttsManager.speakSantaliPhonetic(phoneticText)
+        } else {
+            ttsManager.speak("ᱟᱨ ᱢᱤᱫ ᱫᱷᱟᱣ ᱪᱮᱥᱴᱟᱭ ᱢᱮ", "sat")
+        }
     }
 
-    fun clearCustomCardMessage() {
-        _customCardSuccessMessage.value = null
+    fun nextQuizQuestion() {
+        setupNewQuizQuestion()
+    }
+
+    fun playQuizAudio() {
+        val q = _quizQuestion.value ?: return
+        val text = q.promptSantali.ifBlank { q.promptHindi }
+        ttsManager.speak(text, "sat")
     }
 
     // -------------------------------------------------------------------------
@@ -350,25 +551,18 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     // -------------------------------------------------------------------------
 
     fun setWorksheetType(type: WorksheetType) {
-        val newConfig = _worksheetConfig.value.copy(type = type, seed = System.currentTimeMillis())
-        _worksheetConfig.value = newConfig
-        _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
+        _worksheetConfig.value = _worksheetConfig.value.copy(type = type)
+        regenerateWorksheet()
     }
 
     fun setWorksheetGrade(grade: FlnGrade) {
-        val newConfig = _worksheetConfig.value.copy(grade = grade, seed = System.currentTimeMillis())
-        _worksheetConfig.value = newConfig
-        _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
+        _worksheetConfig.value = _worksheetConfig.value.copy(grade = grade)
+        regenerateWorksheet()
     }
 
-    fun setWorksheetDifficulty(difficulty: WorksheetDifficulty) {
-        val newConfig = _worksheetConfig.value.copy(difficulty = difficulty, seed = System.currentTimeMillis())
-        _worksheetConfig.value = newConfig
-        _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
-    }
-
-    fun setWorksheetSchoolName(name: String) {
-        _worksheetConfig.value = _worksheetConfig.value.copy(schoolName = name)
+    fun setWorksheetDifficulty(diff: WorksheetDifficulty) {
+        _worksheetConfig.value = _worksheetConfig.value.copy(difficulty = diff)
+        regenerateWorksheet()
     }
 
     fun setPreviewTab(tab: WorksheetPreviewTab) {
@@ -376,24 +570,25 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun regenerateWorksheet() {
-        val newConfig = _worksheetConfig.value.copy(seed = System.currentTimeMillis())
-        _worksheetConfig.value = newConfig
-        _worksheetItems.value = FlnCurriculumRepository.generateWorksheet(newConfig)
+        val newSeed = System.currentTimeMillis()
+        val currentConfig = _worksheetConfig.value.copy(seed = newSeed)
+        _worksheetConfig.value = currentConfig
+        _worksheetItems.value = WorksheetGenerator.generateWorksheet(currentConfig)
     }
 
     fun exportAndSharePdf(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
             _isGeneratingPdf.value = true
             try {
-                val pdfFile = WorksheetPdfExporter.generatePdf(
+                val pdf = WorksheetPdfExporter.generatePdf(
                     context = context,
                     config = _worksheetConfig.value,
                     items = _worksheetItems.value
                 )
-                _lastGeneratedPdf.value = pdfFile
-                if (pdfFile != null) {
+                _lastGeneratedPdf.value = pdf
+                if (pdf != null) {
                     launch(Dispatchers.Main) {
-                        WorksheetPdfExporter.sharePdf(context, pdfFile)
+                        WorksheetPdfExporter.sharePdf(context, pdf)
                     }
                 }
             } finally {
@@ -403,77 +598,51 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // -------------------------------------------------------------------------
-    // On-Device SLM Generation Actions
+    // Instant Bridges from Home Screen Translation
     // -------------------------------------------------------------------------
 
-    /**
-     * Synthesizes an entire NIPUN curriculum worksheet using the SLM pipeline.
-     */
-    fun generateCurriculumWithSlm(
-        prompt: String,
-        grade: FlnGrade? = null,
-        type: WorksheetType? = null
-    ) {
-        val targetGrade = grade ?: _worksheetConfig.value.grade
-        val targetType = type ?: _worksheetConfig.value.type
+    fun createCustomFlashcard(topic: String) {
+        val matchingCard = FlnCurriculumRepository.searchCards(topic).firstOrNull()
+        if (matchingCard != null) {
+            selectCard(matchingCard)
+        }
+    }
 
-        viewModelScope.launch(Dispatchers.Default) {
-            _isSlmGenerating.value = true
+    fun generateWorksheetFromTopic(topic: String) {
+        viewModelScope.launch {
+            _isGeneratingStudioContent.value = true
             try {
-                val request = SlmCurriculumRequest(
-                    topicPrompt = prompt,
-                    grade = targetGrade,
-                    worksheetType = targetType,
-                    questionCount = 5
+                val context = _teachingContext.value.copy(
+                    difficulty = _worksheetConfig.value.difficulty,
+                    grade = _worksheetConfig.value.grade
                 )
+                val seed = System.currentTimeMillis()
 
-                val (plan, items) = org.tribetalk.fln.slm.SlmCurriculumEngine.generateCurriculumPlan(request)
+                // Generate via Qwen 0.5B on-device content planner
+                val planResult = contentPlanner.generateActivityPlanFromTopic(topic, context, seed)
 
-                _activeSlmPlan.value = plan
-                _worksheetConfig.value = _worksheetConfig.value.copy(
-                    title = "NIPUN: ${plan.theme}",
-                    grade = targetGrade,
-                    type = targetType
-                )
-                _worksheetItems.value = items
-                _slmStatusMessage.value = "Generated '${plan.theme}' (${plan.nipunCode})"
+                val newConfig = WorksheetGenerator.createConfigFromTopic(topic, _worksheetConfig.value.grade).copy(seed = seed)
+                _worksheetConfig.value = newConfig
+
+                val wsItems = WorksheetGenerator.generateFromActivitySpec(planResult.spec, newConfig)
+                _worksheetItems.value = wsItems
+
+                val ir = ActivitySpec.toActivityIR(planResult.spec)
+                setActivityIR(ir)
             } catch (e: Exception) {
-                _slmStatusMessage.value = "SLM note: using standard verified curriculum"
+                // Safe procedural fallback
+                val newConfig = WorksheetGenerator.createConfigFromTopic(topic, _worksheetConfig.value.grade)
+                _worksheetConfig.value = newConfig
+                _worksheetItems.value = WorksheetGenerator.generateWorksheet(newConfig)
+                val ir = ActivitySynthesizer.synthesizeFromTopic(topic, _worksheetConfig.value.grade)
+                setActivityIR(ir)
             } finally {
-                _isSlmGenerating.value = false
+                _isGeneratingStudioContent.value = false
             }
         }
     }
 
-    /**
-     * Synthesizes a themed 5-card bilingual flashcard deck using the SLM pipeline.
-     */
-    fun generateFlashcardsWithSlm(topicPrompt: String) {
-        if (topicPrompt.isBlank()) return
-
-        viewModelScope.launch(Dispatchers.Default) {
-            _isSlmGenerating.value = true
-            try {
-                val newCards = org.tribetalk.fln.slm.SlmCurriculumEngine.generateFlashcardDeck(topicPrompt)
-                for (card in newCards) {
-                    FlnCurriculumRepository.addCustomCard(card)
-                }
-
-                _categories.value = FlnCurriculumRepository.getCategories()
-                _selectedCategory.value = FlnCurriculumRepository.CATEGORY_CUSTOM
-                _cards.value = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
-                _currentCardIndex.value = 0
-                _slmStatusMessage.value = "Synthesized ${newCards.size} cards for '$topicPrompt'"
-                setupQuizQuestion()
-            } catch (e: Exception) {
-                _slmStatusMessage.value = "Flashcard synthesis note: ${e.message}"
-            } finally {
-                _isSlmGenerating.value = false
-            }
-        }
-    }
-
-    fun clearSlmStatusMessage() {
-        _slmStatusMessage.value = null
+    fun planActivityFromPrompt(topic: String, grade: FlnGrade = _worksheetConfig.value.grade) {
+        generateWorksheetFromTopic(topic)
     }
 }

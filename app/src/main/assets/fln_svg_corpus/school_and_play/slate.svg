@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Wooden frame -->
+  <rect x="12" y="16" width="76" height="68" rx="6" fill="#B45309" stroke="#78350F" stroke-width="4"/>
+  <!-- Blackboard surface -->
+  <rect x="22" y="26" width="56" height="48" rx="3" fill="#1E293B" stroke="#0F172A" stroke-width="2"/>
+  <!-- Ol Chiki letter / writing on slate: "ᱚ" -->
+  <text x="50" y="58" font-size="28" font-family="sans-serif" font-weight="bold" fill="#F8FAFC" text-anchor="middle">ᱚ</text>
+  <!-- Slate pencil tied with string -->
+  <path d="M78 68 Q86 78 82 88" fill="none" stroke="#FDE68A" stroke-width="2"/>
+  <rect x="76" y="82" width="6" height="14" rx="2" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1"/>
+</svg>

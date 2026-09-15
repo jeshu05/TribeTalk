@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Village Thatched Straw Hut -->
+  <!-- Thatched roof -->
+  <polygon points="50,14 10,48 90,48" fill="#F59E0B" stroke="#B45309" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Thatch texture lines -->
+  <path d="M50 14 L30 48 M50 14 L70 48 M50 14 L42 48 M50 14 L58 48" fill="none" stroke="#D97706" stroke-width="1.8"/>
+  <!-- Mud walls -->
+  <rect x="20" y="48" width="60" height="38" fill="#D97706" stroke="#92400E" stroke-width="3"/>
+  <!-- Doorway -->
+  <path d="M42 86 L42 62 C42 56 58 56 58 62 L58 86 Z" fill="#78350F" stroke="#451A03" stroke-width="2"/>
+  <!-- Ground line -->
+  <line x1="8" y1="86" x2="92" y2="86" stroke="#15803D" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

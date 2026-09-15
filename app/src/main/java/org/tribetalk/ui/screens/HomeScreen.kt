@@ -37,15 +37,19 @@ import org.tribetalk.ui.components.WaveformVisualizer
 import org.tribetalk.ui.theme.EduPrimary
 import org.tribetalk.ui.theme.EduPrimaryDark
 import org.tribetalk.ui.theme.EduPrimaryLight
+import org.tribetalk.ui.theme.rememberWindowSizeInfo
 
 /**
- * Main application screen for TribeTalk.
- * Modern, clean educational styling.
+ * Main application screen for TribeTalk Translator.
+ * Clean, modern educational voice & text translation.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     viewModel: TranslationViewModel,
+    flnViewModel: FlnViewModel? = null,
+    onNavigateToFlashcards: (() -> Unit)? = null,
+    onNavigateToWorksheets: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -59,41 +63,28 @@ fun HomeScreen(
     var showTextInputDrawer by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
+    val windowSizeInfo = rememberWindowSizeInfo()
+    val isCompactHeight = windowSizeInfo.isCompactHeight
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
                     Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Text(
-                                text = "TribeTalk",
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Surface(
-                                shape = RoundedCornerShape(10.dp),
-                                color = EduPrimaryLight
-                            ) {
-                                Text(
-                                    text = "100% Offline",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = EduPrimaryDark,
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                                )
-                            }
-                        }
                         Text(
-                            text = "Hindi <-> Santali Bidirectional Translation",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            text = "TribeTalk",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
+                        if (!isCompactHeight) {
+                            Text(
+                                text = "Hindi <-> Santali Bidirectional Translation",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 },
                 actions = {
@@ -118,29 +109,48 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Direction & Status Subheader
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                LanguageSelectorPill(
-                    isHindiToSantali = isHindiToSantali,
-                    onSwapDirection = { viewModel.swapDirection() }
-                )
-
-                StatusIndicator(state = uiState)
+            // Direction & Status Subheader (Compact in Landscape)
+            if (isCompactHeight) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .widthIn(max = 840.dp)
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LanguageSelectorPill(
+                        isHindiToSantali = isHindiToSantali,
+                        onSwapDirection = { viewModel.swapDirection() }
+                    )
+                    StatusIndicator(state = uiState)
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .widthIn(max = 840.dp)
+                        .padding(horizontal = 16.dp, vertical = 10.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    LanguageSelectorPill(
+                        isHindiToSantali = isHindiToSantali,
+                        onSwapDirection = { viewModel.swapDirection() }
+                    )
+                    StatusIndicator(state = uiState)
+                }
             }
 
-            // Main Conversation Stream or Empty State
+            // Main Conversation Stream or Empty State (Centrally Constrained)
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
+                    .widthIn(max = 840.dp)
                     .padding(horizontal = 16.dp)
             ) {
                 if (conversations.isEmpty()) {
@@ -260,7 +270,19 @@ fun HomeScreen(
                             ConversationCard(
                                 exchange = exchange,
                                 onPlayAudio = { viewModel.playAudio(exchange) },
-                                isPlaying = isPlayingAudio
+                                isPlaying = isPlayingAudio,
+                                onMakeFlashcard = if (flnViewModel != null) {
+                                    { prompt ->
+                                        flnViewModel.createCustomFlashcard(prompt)
+                                        onNavigateToFlashcards?.invoke()
+                                    }
+                                } else null,
+                                onGenerateWorksheet = if (flnViewModel != null) {
+                                    { prompt ->
+                                        flnViewModel.generateWorksheetFromTopic(prompt)
+                                        onNavigateToWorksheets?.invoke()
+                                    }
+                                } else null
                             )
                         }
                     }
@@ -333,10 +355,20 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
                     .border(width = 1.dp, color = MaterialTheme.colorScheme.outline)
-                    .padding(top = 12.dp, bottom = 20.dp, start = 16.dp, end = 16.dp),
+                    .padding(
+                        top = if (isCompactHeight) 4.dp else 10.dp,
+                        bottom = if (isCompactHeight) 8.dp else 18.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    ),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 4.dp else 10.dp)
             ) {
+                Column(
+                    modifier = Modifier.widthIn(max = 840.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 4.dp else 10.dp)
+                ) {
                 // Live Waveform Visualizer
                 WaveformVisualizer(
                     amplitude = amplitude,
@@ -373,19 +405,8 @@ fun HomeScreen(
                         onClick = { viewModel.toggleRecording() }
                     )
 
-                    // Memory Footprint Chip
-                    Surface(
-                        shape = RoundedCornerShape(16.dp),
-                        color = EduPrimaryLight
-                    ) {
-                        Text(
-                            text = "< 350 MB",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = EduPrimaryDark,
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
-                        )
-                    }
+                    // Balance placeholder to keep Mic Button centered
+                    Spacer(modifier = Modifier.size(44.dp))
                 }
 
                 // Subtitle Instruction
@@ -398,4 +419,5 @@ fun HomeScreen(
             }
         }
     }
+}
 }

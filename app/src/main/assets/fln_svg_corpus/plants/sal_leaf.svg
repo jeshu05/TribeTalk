@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Sal leaf (broad ovate with prominent venation) -->
+  <path d="M50 12 C32 24 22 48 26 72 C28 82 38 88 50 88 C62 88 72 82 74 72 C78 48 68 24 50 12 Z" 
+        fill="#16A34A" stroke="#14532D" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Central main vein -->
+  <path d="M50 16 L50 94" 
+        fill="none" stroke="#BBF7D0" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Side lateral veins -->
+  <path d="M50 30 L36 24 M50 30 L64 24" fill="none" stroke="#BBF7D0" stroke-width="2"/>
+  <path d="M50 44 L32 38 M50 44 L68 38" fill="none" stroke="#BBF7D0" stroke-width="2"/>
+  <path d="M50 58 L32 54 M50 58 L68 54" fill="none" stroke="#BBF7D0" stroke-width="2"/>
+  <path d="M50 72 L36 70 M50 72 L64 70" fill="none" stroke="#BBF7D0" stroke-width="2"/>
+</svg>

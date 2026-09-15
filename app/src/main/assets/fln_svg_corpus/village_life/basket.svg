@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Woven basket base -->
+  <path d="M18 42 L26 84 C28 90 40 92 50 92 C60 92 72 90 74 84 L82 42 Z" fill="#D97706" stroke="#92400E" stroke-width="3"/>
+  <!-- Rim ellipse -->
+  <ellipse cx="50" cy="42" rx="32" ry="10" fill="#FDE68A" stroke="#92400E" stroke-width="3"/>
+  <!-- Handle -->
+  <path d="M24 42 C24 16 76 16 76 42" fill="none" stroke="#78350F" stroke-width="4" stroke-linecap="round"/>
+  <!-- Weave pattern lines -->
+  <line x1="30" y1="50" x2="36" y2="88" stroke="#B45309" stroke-width="2"/>
+  <line x1="44" y1="52" x2="46" y2="92" stroke="#B45309" stroke-width="2"/>
+  <line x1="56" y1="52" x2="54" y2="92" stroke="#B45309" stroke-width="2"/>
+  <line x1="70" y1="50" x2="64" y2="88" stroke="#B45309" stroke-width="2"/>
+  <path d="M22 62 Q50 68 78 62" fill="none" stroke="#B45309" stroke-width="2"/>
+  <path d="M24 76 Q50 82 76 76" fill="none" stroke="#B45309" stroke-width="2"/>
+</svg>

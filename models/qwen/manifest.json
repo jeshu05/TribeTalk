@@ -1,0 +1,20 @@
+{
+  "model": "Qwen2.5-0.5B-Instruct",
+  "role": "curriculum_activity_planner",
+  "runtime": "onnxruntime",
+  "format": "ONNX",
+  "quantization": "INT8",
+  "version": "2.5",
+  "parameters": "490M",
+  "model_file": "model_int8.onnx",
+  "model_size_bytes": 512096557,
+  "model_size_mb": 488.37,
+  "tokenizer": "tokenizer.json",
+  "context_length": 2048,
+  "offline": true,
+  "abi_support": [
+    "arm64-v8a",
+    "x86_64",
+    "universal"
+  ]
+}

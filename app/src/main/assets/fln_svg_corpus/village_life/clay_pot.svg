@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Earthen Clay Pot (Tukuj) -->
+  <!-- Pot body -->
+  <path d="M30 32 C16 46 16 74 34 84 C44 90 56 90 66 84 C84 74 84 46 70 32 Z" 
+        fill="#EA580C" stroke="#9A3412" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Pot neck and rim -->
+  <ellipse cx="50" cy="30" rx="18" ry="6" fill="#C2410C" stroke="#9A3412" stroke-width="2.5"/>
+  <ellipse cx="50" cy="28" rx="15" ry="4" fill="#7C2D12"/>
+  <!-- Decorative tribal band -->
+  <path d="M26 52 Q50 58 74 52" fill="none" stroke="#FED7AA" stroke-width="3" stroke-linecap="round"/>
+  <!-- Highlight shine -->
+  <path d="M28 42 C24 50 26 66 32 74" fill="none" stroke="#FDBA74" stroke-width="3" stroke-linecap="round"/>
+</svg>

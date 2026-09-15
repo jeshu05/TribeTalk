@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Papaya pear-shaped body -->
+  <path d="M50 18 C40 18 34 28 32 40 C30 52 24 64 26 76 C28 88 42 92 50 92 C58 92 72 88 74 76 C76 64 70 52 68 40 C66 28 60 18 50 18 Z" 
+        fill="#F59E0B" stroke="#D97706" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Green top gradient simulation -->
+  <path d="M42 20 C46 18 54 18 58 20 C64 28 64 34 60 40 C56 34 44 34 40 40 C36 34 36 28 42 20 Z" 
+        fill="#84CC16" opacity="0.6"/>
+  <!-- Stem -->
+  <path d="M50 18 C50 12 48 8 46 6" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+</svg>

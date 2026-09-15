@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Cow / Zebu Cattle (Gai) -->
+  <!-- Body -->
+  <path d="M30 46 C34 38 42 36 48 38 C56 40 68 40 76 46 C80 50 82 66 78 72 L76 86 L68 86 L70 72 L46 72 L44 86 L36 86 L38 68 C30 66 26 56 30 46 Z" 
+        fill="#F8FAFC" stroke="#334155" stroke-width="2.8" stroke-linejoin="round"/>
+  <!-- Hump on back (Zebu trait) -->
+  <path d="M40 38 C42 30 48 30 50 38 Z" fill="#F8FAFC" stroke="#334155" stroke-width="2.5"/>
+  <!-- Brown/Black spots -->
+  <path d="M54 46 C60 42 66 46 64 54 C60 58 52 54 54 46 Z" fill="#92400E"/>
+  <path d="M34 52 C38 48 44 52 42 60 C36 62 32 58 34 52 Z" fill="#92400E"/>
+  <!-- Head & Muzzle -->
+  <path d="M28 46 C24 38 18 42 16 48 C14 56 22 62 28 58 Z" fill="#F8FAFC" stroke="#334155" stroke-width="2.5"/>
+  <ellipse cx="18" cy="52" rx="4" ry="3" fill="#FDA4AF"/>
+  <!-- Horns -->
+  <path d="M24 38 C22 28 18 30 18 34" fill="none" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M28 38 C30 28 34 30 32 34" fill="none" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eye -->
+  <circle cx="22" cy="45" r="2" fill="#0F172A"/>
+  <!-- Tail -->
+  <path d="M78 50 C84 56 82 66 84 72" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
+</svg>

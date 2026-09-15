@@ -48,6 +48,7 @@ set(TRIBETALK_SOURCES
     src/translation/translation_engine.cpp
     src/tts/tts_engine.cpp
     src/resource/resource_manager.cpp
+    src/slm/qwen_engine.cpp
     src/pipeline/pipeline.cpp
     jni/tribetalk_jni.cpp
 )

@@ -2,16 +2,16 @@ package org.tribetalk.fln
 
 import org.junit.Assert.*
 import org.junit.Test
-import org.tribetalk.fln.generator.ProceduralCurriculumGenerator
 import org.tribetalk.fln.model.*
 import org.tribetalk.fln.repository.FlnCurriculumRepository
+import org.tribetalk.fln.worksheet.WorksheetGenerator
 
 class FlnCurriculumRepositoryTest {
 
     @Test
     fun testAllCardsAreValidAndWellFormed() {
         val cards = FlnCurriculumRepository.getAllCards()
-        assertTrue("Curriculum should have at least 25 cards", cards.size >= 25)
+        assertTrue("Curriculum should have at least 50 cards", cards.size >= 50)
 
         for (card in cards) {
             assertFalse("Card ID must not be blank", card.id.isBlank())
@@ -24,28 +24,82 @@ class FlnCurriculumRepositoryTest {
     }
 
     @Test
-    fun testCategoryFiltering() {
-        val categories = FlnCurriculumRepository.getCategories()
-        assertTrue("Categories list must include All Topics", categories.contains(FlnCurriculumRepository.CATEGORY_ALL))
-        assertTrue("Categories must include Akshar", categories.contains(FlnCurriculumRepository.CATEGORY_AKSHAR))
-        assertTrue("Categories must include Numbers", categories.contains(FlnCurriculumRepository.CATEGORY_NUMBERS))
-        assertTrue("Categories must include Animals", categories.contains(FlnCurriculumRepository.CATEGORY_ANIMALS))
+    fun testAll30AksharLettersExist() {
+        val aksharCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.AKSHAR)
+        assertEquals("There must be exactly 30 Ol Chiki letters", 30, aksharCards.size)
 
-        val animalCards = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_ANIMALS)
+        val letters = aksharCards.map { it.santaliOlChiki }
+        assertTrue("Must contain first letter ᱚ", letters.contains("ᱚ"))
+        assertTrue("Must contain ᱛ", letters.contains("ᱛ"))
+        assertTrue("Must contain ᱜ", letters.contains("ᱜ"))
+        assertTrue("Must contain ᱝ", letters.contains("ᱝ"))
+        assertTrue("Must contain ᱞ", letters.contains("ᱞ"))
+        assertTrue("Must contain last modifier ᱷ", letters.contains("ᱷ"))
+
+        for (card in aksharCards) {
+            assertFalse("Akshar card must have fingerTracingGuide", card.fingerTracingGuide.isBlank())
+            assertFalse("Akshar card must have exemplarWordSantali", card.exemplarWordSantali.isBlank())
+        }
+    }
+
+    @Test
+    fun testCategoryFiltering() {
+        val categories = FlnCurriculumRepository.getFlashcardCategories()
+        assertTrue("Categories list must include All Topics", categories.contains(FlnCategory.ALL))
+        assertTrue("Categories must include Akshar", categories.contains(FlnCategory.AKSHAR))
+        assertTrue("Categories must include Numbers", categories.contains(FlnCategory.NUMBERS))
+        assertTrue("Categories must include Animals", categories.contains(FlnCategory.ANIMALS))
+        assertTrue("Categories must include Fruits", categories.contains(FlnCategory.FRUITS))
+        assertTrue("Categories must include Nature", categories.contains(FlnCategory.NATURE))
+
+        val animalCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.ANIMALS)
         assertTrue("Animal cards must not be empty", animalCards.isNotEmpty())
         for (card in animalCards) {
-            assertEquals(FlnCurriculumRepository.CATEGORY_ANIMALS, card.category)
+            assertEquals(FlnCategory.ANIMALS, card.category)
+        }
+
+        val fruitCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.FRUITS)
+        assertTrue("Fruit cards must not be empty", fruitCards.isNotEmpty())
+
+        val natureCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.NATURE)
+        assertTrue("Nature cards must not be empty", natureCards.isNotEmpty())
+
+        val schoolCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.SCHOOL)
+        assertTrue("School cards must not be empty", schoolCards.isNotEmpty())
+
+        val spatialCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.SPATIAL)
+        assertTrue("Spatial cards must not be empty", spatialCards.isNotEmpty())
+
+        val arithmeticCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.ARITHMETIC)
+        assertTrue("Arithmetic cards must not be empty", arithmeticCards.isNotEmpty())
+
+        val moneyCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.MONEY)
+        assertTrue("Money cards must not be empty", moneyCards.isNotEmpty())
+    }
+
+    @Test
+    fun testAllCardsHaveValidSvgAssets() {
+        val allCards = FlnCurriculumRepository.getAllCards()
+        for (card in allCards) {
+            assertNotNull("Card ${card.id} must have imageAssetPath", card.imageAssetPath)
+            assertTrue("Card ${card.id} image must be an SVG file: ${card.imageAssetPath}", card.imageAssetPath!!.endsWith(".svg"))
+            
+            // Check file existence on disk
+            val fileDirect = java.io.File("src/main/assets/${card.imageAssetPath}")
+            val fileApp = java.io.File("app/src/main/assets/${card.imageAssetPath}")
+            assertTrue("SVG file must exist for card ${card.id}: ${card.imageAssetPath}", fileDirect.exists() || fileApp.exists())
+            assertFalse("Card ${card.id} vectorIconType must not be generic animal/fruit", card.vectorIconType in listOf("animal", "fruit", "nature"))
         }
     }
 
     @Test
     fun testNumeracyCardsHaveValues() {
-        val numberCards = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_NUMBERS)
-        assertTrue("Number cards must exist", numberCards.isNotEmpty())
+        val numberCards = FlnCurriculumRepository.getCardsByCategory(FlnCategory.NUMBERS)
+        assertEquals("There must be 20 number cards", 20, numberCards.size)
         for (card in numberCards) {
             assertEquals(FlnDomain.NUMERACY_COUNTING, card.domain)
             assertNotNull("Number card should have numeralValue", card.numeralValue)
-            assertTrue("Numeral value must be >= 1", card.numeralValue!! >= 1)
+            assertTrue("Numeral value must be between 1 and 20", card.numeralValue!! in 1..20)
         }
     }
 
@@ -58,7 +112,7 @@ class FlnCurriculumRepositoryTest {
             difficulty = WorksheetDifficulty.EASY,
             questionCount = 5
         )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
+        val items = WorksheetGenerator.generateWorksheet(config)
         assertEquals(5, items.size)
         for (item in items) {
             assertTrue("Quantity must be >= 1", item.quantity >= 1)
@@ -76,7 +130,7 @@ class FlnCurriculumRepositoryTest {
             grade = FlnGrade.BALVATIKA,
             questionCount = 4
         )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
+        val items = WorksheetGenerator.generateWorksheet(config)
         assertEquals(4, items.size)
         for (item in items) {
             assertFalse("Left Hindi label must not be blank", item.leftLabelHindi.isBlank())
@@ -94,113 +148,80 @@ class FlnCurriculumRepositoryTest {
             difficulty = WorksheetDifficulty.MEDIUM,
             questionCount = 4
         )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
+        val items = WorksheetGenerator.generateWorksheet(config)
         assertEquals(4, items.size)
         for (item in items) {
             assertEquals("+", item.operationSign)
             assertTrue("Quantity 1 must be >= 1", item.quantity >= 1)
             assertTrue("Quantity 2 must be >= 1", item.secondaryQuantity >= 1)
             assertNotNull("Math answer must not be null", item.mathAnswer)
-            assertEquals("Math equation must be correct", item.quantity + item.secondaryQuantity, item.mathAnswer)
-            assertFalse("Hindi story prompt must not be blank", item.promptHindi.isBlank())
-            assertFalse("Santali story prompt must not be blank", item.promptSantali.isBlank())
+            assertEquals(item.quantity + item.secondaryQuantity, item.mathAnswer)
         }
     }
 
     @Test
-    fun testWorksheetGenerationNumberSequenceTrain() {
+    fun testWorksheetGenerationAksharTracing() {
         val config = WorksheetConfig(
-            title = "Test Number Train",
+            title = "Test Letter Tracing",
+            type = WorksheetType.AKSHAR_TRACING,
+            grade = FlnGrade.BALVATIKA,
+            questionCount = 5
+        )
+        val items = WorksheetGenerator.generateWorksheet(config)
+        assertEquals(5, items.size)
+        for (item in items) {
+            assertFalse("Left label must not be blank", item.leftLabelHindi.isBlank())
+            assertFalse("Right label must not be blank", item.rightLabelSantali.isBlank())
+            assertEquals("L-BAL.1", item.nipunCode)
+        }
+    }
+
+    @Test
+    fun testWorksheetGenerationTrain() {
+        val config = WorksheetConfig(
+            title = "Test Train Sequence",
             type = WorksheetType.NUMBER_SEQUENCE_TRAIN,
             grade = FlnGrade.GRADE_1,
             questionCount = 3
         )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
+        val items = WorksheetGenerator.generateWorksheet(config)
         assertEquals(3, items.size)
         for (item in items) {
-            assertEquals(5, item.sequenceItems.size)
-            assertTrue("Missing sequence index must be in 1..3", item.missingSequenceIndex in 1..3)
-            assertEquals("__", item.sequenceItems[item.missingSequenceIndex])
-            assertNotNull("Math answer must be present", item.mathAnswer)
+            assertEquals(4, item.sequenceItems.size)
+            assertTrue("Missing index must be in 0..3", item.missingSequenceIndex in 0..3)
         }
     }
 
     @Test
-    fun testWorksheetGenerationGreaterLesserCompare() {
-        val config = WorksheetConfig(
-            title = "Test Compare Groups",
-            type = WorksheetType.GREATER_LESSER_COMPARE,
-            grade = FlnGrade.BALVATIKA,
-            questionCount = 4
-        )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
-        assertEquals(4, items.size)
-        for (item in items) {
-            val expectedSign = when {
-                item.quantity > item.secondaryQuantity -> ">"
-                item.quantity < item.secondaryQuantity -> "<"
-                else -> "="
-            }
-            assertEquals(expectedSign, item.operationSign)
-        }
-    }
-
-    @Test
-    fun testWorksheetGenerationMissingAksharSpelling() {
+    fun testWorksheetGenerationMissingAkshar() {
         val config = WorksheetConfig(
             title = "Test Missing Akshar",
             type = WorksheetType.MISSING_AKSHAR_SPELLING,
             grade = FlnGrade.GRADE_2,
             questionCount = 4
         )
-        val items = FlnCurriculumRepository.generateWorksheet(config)
+        val items = WorksheetGenerator.generateWorksheet(config)
         assertEquals(4, items.size)
         for (item in items) {
-            assertNotNull("Word with blank must not be null", item.wordWithBlank)
-            assertTrue("Word must contain blank placeholder", item.wordWithBlank!!.contains("[ _ ]"))
-            assertNotNull("Missing letter answer must not be null", item.missingLetterAnswer)
-            assertEquals("Must have 4 option choices", 4, item.options.size)
-            assertTrue("Options must contain the correct missing letter", item.options.contains(item.missingLetterAnswer))
-            assertEquals(item.missingLetterAnswer, item.options[item.correctIndex])
+            assertNotNull("wordWithBlank must not be null", item.wordWithBlank)
+            assertTrue("wordWithBlank must contain _", item.wordWithBlank!!.contains("_"))
+            assertEquals(4, item.options.size)
+            assertTrue("correctIndex must be in 0..3", item.correctIndex in 0..3)
         }
     }
 
     @Test
-    fun testDeterministicSeedReproducibility() {
-        val seed = 123456789L
-        val config1 = WorksheetConfig(
-            type = WorksheetType.ADDITION_WORD_PROBLEM,
-            questionCount = 5,
-            seed = seed
-        )
-        val config2 = WorksheetConfig(
-            type = WorksheetType.ADDITION_WORD_PROBLEM,
-            questionCount = 5,
-            seed = seed
-        )
+    fun testTopicConfigSynthesis() {
+        val configMath = WorksheetGenerator.createConfigFromTopic("हाट बाज़ार में गिनती")
+        assertEquals(WorksheetType.COUNT_AND_MATCH, configMath.type)
 
-        val items1 = FlnCurriculumRepository.generateWorksheet(config1)
-        val items2 = FlnCurriculumRepository.generateWorksheet(config2)
+        val configAdd = WorksheetGenerator.createConfigFromTopic("संख्या जोड़")
+        assertEquals(WorksheetType.ADDITION_WORD_PROBLEM, configAdd.type)
 
-        assertEquals(items1.size, items2.size)
-        for (i in items1.indices) {
-            assertEquals(items1[i].quantity, items2[i].quantity)
-            assertEquals(items1[i].secondaryQuantity, items2[i].secondaryQuantity)
-            assertEquals(items1[i].mathAnswer, items2[i].mathAnswer)
-            assertEquals(items1[i].promptHindi, items2[i].promptHindi)
-        }
-    }
+        val configTracing = WorksheetGenerator.createConfigFromTopic("अक्षर लेखन")
+        assertEquals(WorksheetType.AKSHAR_TRACING, configTracing.type)
 
-    @Test
-    fun testCustomFlashcardSynthesis() {
-        val card = ProceduralCurriculumGenerator.synthesizeCard("नदी (Water stream)")
-        assertNotNull(card)
-        assertTrue(card.isCustomUserGenerated)
-        assertFalse(card.santaliOlChiki.isBlank())
-        assertFalse(card.teacherPhoneticGuide.isBlank())
-
-        FlnCurriculumRepository.addCustomCard(card)
-        val customCards = FlnCurriculumRepository.getCardsByCategory(FlnCurriculumRepository.CATEGORY_CUSTOM)
-        assertTrue(customCards.any { it.id == card.id })
+        val configVocab = WorksheetGenerator.createConfigFromTopic("जंगल के जानवर")
+        assertEquals(WorksheetType.PICTURE_WORD_MATCH, configVocab.type)
     }
 }

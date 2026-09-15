@@ -118,6 +118,69 @@ object NativePipeline {
         }
     }
 
+    fun qwenInit(modelDir: String): Boolean {
+        return if (isLibraryLoaded) {
+            try {
+                nativeQwenInit(modelDir)
+            } catch (e: Throwable) {
+                Log.e(TAG, "Error during nativeQwenInit", e)
+                false
+            }
+        } else false
+    }
+
+    fun qwenLoad(): Boolean {
+        return if (isLibraryLoaded) {
+            try {
+                nativeQwenLoad()
+            } catch (e: Throwable) {
+                Log.e(TAG, "Error during nativeQwenLoad", e)
+                false
+            }
+        } else false
+    }
+
+    fun qwenGenerate(prompt: String, maxTokens: Int = 128, temperature: Float = 0.7f, seed: Int = 42): String {
+        return if (isLibraryLoaded) {
+            try {
+                nativeQwenGenerate(prompt, maxTokens, temperature, seed)
+            } catch (e: Throwable) {
+                Log.e(TAG, "Error during nativeQwenGenerate", e)
+                ""
+            }
+        } else ""
+    }
+
+    fun qwenCancel() {
+        if (isLibraryLoaded) {
+            try {
+                nativeQwenCancel()
+            } catch (e: Throwable) {
+                Log.e(TAG, "Error during nativeQwenCancel", e)
+            }
+        }
+    }
+
+    fun qwenUnload() {
+        if (isLibraryLoaded) {
+            try {
+                nativeQwenUnload()
+            } catch (e: Throwable) {
+                Log.e(TAG, "Error during nativeQwenUnload", e)
+            }
+        }
+    }
+
+    fun qwenGetModelInfo(): String {
+        return if (isLibraryLoaded) {
+            try {
+                nativeQwenGetModelInfo()
+            } catch (e: Throwable) {
+                "{}"
+            }
+        } else "{}"
+    }
+
     // Native external declarations matching tribetalk_jni.cpp
     private external fun nativeInit(assetDir: String): Boolean
     private external fun nativeReleaseAll()
@@ -136,4 +199,11 @@ object NativePipeline {
         direction: Int,
         synthesize: Boolean
     ): TranslationExchange?
+
+    private external fun nativeQwenInit(modelDir: String): Boolean
+    private external fun nativeQwenLoad(): Boolean
+    private external fun nativeQwenGenerate(prompt: String, maxTokens: Int, temperature: Float, seed: Int): String
+    private external fun nativeQwenCancel()
+    private external fun nativeQwenUnload()
+    private external fun nativeQwenGetModelInfo(): String
 }

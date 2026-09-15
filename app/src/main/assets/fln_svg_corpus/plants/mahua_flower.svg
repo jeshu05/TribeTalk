@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Cluster of fleshy creamy-amber Mahua blossom corollas -->
+  <g transform="translate(50, 48)">
+    <!-- Central blossom -->
+    <ellipse cx="0" cy="0" rx="14" ry="18" fill="#FDE68A" stroke="#D97706" stroke-width="2.5"/>
+    <ellipse cx="0" cy="-6" rx="8" ry="6" fill="#FBBF24"/>
+    <!-- Petal lobes -->
+    <circle cx="-16" cy="-4" r="10" fill="#FEF08A" stroke="#D97706" stroke-width="2"/>
+    <circle cx="16" cy="-4" r="10" fill="#FEF08A" stroke="#D97706" stroke-width="2"/>
+    <circle cx="-10" cy="14" r="9" fill="#FEF08A" stroke="#D97706" stroke-width="2"/>
+    <circle cx="10" cy="14" r="9" fill="#FEF08A" stroke="#D97706" stroke-width="2"/>
+    <!-- Stem/stalk -->
+    <path d="M0 -18 C0 -28 -4 -34 -6 -40" fill="none" stroke="#65A30D" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-6 -26 C-12 -30 -18 -26 -16 -20 C-12 -22 -8 -24 -6 -26 Z" fill="#84CC16"/>
+  </g>
+</svg>

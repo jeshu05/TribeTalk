@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Elephant (Hati) -->
+  <!-- Elephant body and sturdy legs -->
+  <path d="M38 34 C48 26 70 26 80 38 C86 44 88 56 86 68 L86 86 L74 86 L74 72 L58 72 L58 86 L46 86 L46 64 C42 66 38 66 34 62 Z" 
+        fill="#94A3B8" stroke="#475569" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Head and trunk -->
+  <path d="M42 34 C36 32 26 34 22 42 C18 50 16 66 18 78 C20 84 28 82 26 74 C24 64 26 54 30 50 L34 50" 
+        fill="#94A3B8" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+  <!-- Tusk -->
+  <path d="M26 60 C32 64 36 62 36 58" fill="none" stroke="#FEF08A" stroke-width="3" stroke-linecap="round"/>
+  <!-- Large Ear -->
+  <path d="M38 34 C44 32 46 48 42 56 C38 60 34 56 34 46 Z" 
+        fill="#CBD5E1" stroke="#475569" stroke-width="2.5"/>
+  <!-- Eye -->
+  <circle cx="28" cy="42" r="2.2" fill="#0F172A"/>
+  <!-- Tail -->
+  <path d="M86 48 C90 54 88 64 90 70" fill="none" stroke="#475569" stroke-width="2"/>
+</svg>

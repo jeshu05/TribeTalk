@@ -1,0 +1,1878 @@
+[
+  {
+    "id": "svg_child",
+    "objectKey": "child",
+    "santaliName": "ᱜᱤᱫᱽᱨᱟᱹ",
+    "hindiName": "बच्चा",
+    "englishName": "Child",
+    "category": "people",
+    "relativeFilePath": "fln_svg_corpus/people/child.svg",
+    "viewBox": "0 0 100 100",
+    "tags": ["child", "student", "school", "people"],
+    "ageSuitability": ["BALVATIKA", "GRADE_1", "GRADE_2", "GRADE_3"],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_tiger",
+    "objectKey": "tiger",
+    "santaliName": "ᱛᱟᱹᱨᱩᱵ",
+    "hindiName": "बाघ",
+    "englishName": "Tiger",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/tiger.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "wild",
+      "animal",
+      "forest",
+      "predator"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bear",
+    "objectKey": "bear",
+    "santaliName": "ᱵᱟᱱᱟ",
+    "hindiName": "भालू",
+    "englishName": "Bear",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/bear.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "wild",
+      "animal",
+      "forest"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_horse",
+    "objectKey": "horse",
+    "santaliName": "ᱥᱟᱫᱚᱢ",
+    "hindiName": "घोड़ा",
+    "englishName": "Horse",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/horse.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "domestic",
+      "animal",
+      "riding"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_deer",
+    "objectKey": "deer",
+    "santaliName": "ᱡᱤᱞ",
+    "hindiName": "हिरण",
+    "englishName": "Deer",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/deer.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "wild",
+      "animal",
+      "forest"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_frog",
+    "objectKey": "frog",
+    "santaliName": "ᱨᱚᱴᱮ",
+    "hindiName": "मेंढक",
+    "englishName": "Frog",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/frog.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "amphibian",
+      "water",
+      "rain",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_sheep",
+    "objectKey": "sheep",
+    "santaliName": "ᱵᱷᱮᱰᱟ",
+    "hindiName": "भेड़",
+    "englishName": "Sheep",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/sheep.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "domestic",
+      "animal",
+      "wool",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bull",
+    "objectKey": "bull",
+    "santaliName": "ᱰᱟᱝᱜᱽᱨᱟ",
+    "hindiName": "बैल",
+    "englishName": "Bull / Ox",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/bull.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "domestic",
+      "animal",
+      "farm",
+      "plough"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_parrot",
+    "objectKey": "parrot",
+    "santaliName": "ᱮᱨᱮ",
+    "hindiName": "तोता",
+    "englishName": "Parrot",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/parrot.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "bird",
+      "green",
+      "pet",
+      "talking"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_dog",
+    "objectKey": "dog",
+    "santaliName": "ᱥᱮᱛᱟ",
+    "hindiName": "कुत्ता",
+    "englishName": "Dog",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/dog.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "pet",
+      "domestic",
+      "animal",
+      "village"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_cat",
+    "objectKey": "cat",
+    "santaliName": "ᱵᱤᱞᱟᱹᱭ",
+    "hindiName": "बिल्ली",
+    "englishName": "Cat",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/cat.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "pet",
+      "domestic",
+      "animal",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_cow",
+    "objectKey": "cow",
+    "santaliName": "ᱜᱟᱹᱭ",
+    "hindiName": "गाय",
+    "englishName": "Cow",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/cow.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "domestic",
+      "animal",
+      "milk",
+      "farm"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_elephant",
+    "objectKey": "elephant",
+    "santaliName": "ᱦᱟᱹᱛᱤ",
+    "hindiName": "हाथी",
+    "englishName": "Elephant",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/elephant.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "wild",
+      "animal",
+      "large",
+      "forest"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_monkey",
+    "objectKey": "monkey",
+    "santaliName": "ᱜᱟᱹᱰᱤ",
+    "hindiName": "बंदर",
+    "englishName": "Monkey",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/monkey.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "wild",
+      "animal",
+      "tree",
+      "playful"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_rabbit",
+    "objectKey": "rabbit",
+    "santaliName": "ᱠᱩᱞᱟᱹᱭ",
+    "hindiName": "खरगोश",
+    "englishName": "Rabbit",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/rabbit.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "pet",
+      "animal",
+      "counting_token",
+      "fast"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_duck",
+    "objectKey": "duck",
+    "santaliName": "ᱜᱮᱰᱮ",
+    "hindiName": "बतख",
+    "englishName": "Duck",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/duck.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "bird",
+      "water",
+      "pond",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_hen",
+    "objectKey": "hen",
+    "santaliName": "ᱥᱤᱢ",
+    "hindiName": "मुर्गी",
+    "englishName": "Hen",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/hen.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "bird",
+      "farm",
+      "egg",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_peacock",
+    "objectKey": "peacock",
+    "santaliName": "ᱢᱟᱨᱟᱜ",
+    "hindiName": "मोर",
+    "englishName": "Peacock",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/peacock.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "bird",
+      "national",
+      "dance",
+      "rain"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bird",
+    "objectKey": "bird",
+    "santaliName": "ᱪᱮᱬᱮ",
+    "hindiName": "चिड़िया",
+    "englishName": "Bird",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/bird.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "bird",
+      "flying",
+      "counting_token",
+      "tree"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_butterfly",
+    "objectKey": "butterfly",
+    "santaliName": "ᱯᱤᱯᱤᱲᱤᱭᱟᱹᱝ",
+    "hindiName": "तितली",
+    "englishName": "Butterfly",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/butterfly.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "insect",
+      "colorful",
+      "flower",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_fish",
+    "objectKey": "fish",
+    "santaliName": "ᱦᱟᱹᱠᱩ",
+    "hindiName": "मछली",
+    "englishName": "Fish",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/fish.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "water",
+      "river",
+      "pond",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_goat",
+    "objectKey": "goat",
+    "santaliName": "ᱢᱮᱨᱚᱢ",
+    "hindiName": "बकरी",
+    "englishName": "Goat",
+    "category": "animals",
+    "relativeFilePath": "fln_svg_corpus/animals/goat.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "domestic",
+      "animal",
+      "milk",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_mango",
+    "objectKey": "mango",
+    "santaliName": "ᱩᱞ",
+    "hindiName": "आम",
+    "englishName": "Mango",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/mango.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "sweet",
+      "counting_token",
+      "food",
+      "market"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_banana",
+    "objectKey": "banana",
+    "santaliName": "ᱠᱟᱭᱨᱟ",
+    "hindiName": "केला",
+    "englishName": "Banana",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/banana.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "sweet",
+      "counting_token",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_apple",
+    "objectKey": "apple",
+    "santaliName": "ᱟᱯᱮᱞ",
+    "hindiName": "सेब",
+    "englishName": "Apple",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/apple.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "red",
+      "counting_token",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_orange",
+    "objectKey": "orange",
+    "santaliName": "ᱠᱚᱢᱞᱟ",
+    "hindiName": "संतरा",
+    "englishName": "Orange",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/orange.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "citrus",
+      "counting_token",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_papaya",
+    "objectKey": "papaya",
+    "santaliName": "ᱚᱢᱨᱤᱛ",
+    "hindiName": "पपीता",
+    "englishName": "Papaya",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/papaya.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "sweet",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_guava",
+    "objectKey": "guava",
+    "santaliName": "ᱟᱢᱨᱩᱫᱽ",
+    "hindiName": "अमरूद",
+    "englishName": "Guava",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/guava.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "fruit",
+      "green",
+      "counting_token",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_grapes",
+    "objectKey": "grapes",
+    "santaliName": "ᱟᱝᱜᱩᱨ",
+    "hindiName": "अंगूर",
+    "englishName": "Grapes",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/grapes.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "fruit",
+      "bunch",
+      "sweet",
+      "counting_token",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_watermelon",
+    "objectKey": "watermelon",
+    "santaliName": "ᱛᱚᱨᱵᱩᱡᱽ",
+    "hindiName": "तरबूज",
+    "englishName": "Watermelon",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/plants/watermelon.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "fruit",
+      "summer",
+      "sweet",
+      "food"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_tree",
+    "objectKey": "tree",
+    "santaliName": "ᱫᱟᱨᱮ",
+    "hindiName": "पेड़",
+    "englishName": "Tree",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/plants/tree.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "plant",
+      "forest",
+      "green",
+      "wood"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_sal_leaf",
+    "objectKey": "sal_leaf",
+    "santaliName": "ᱥᱟᱨᱡᱚᱢ ᱥᱟᱠᱟᱢ",
+    "hindiName": "साल का पत्ता",
+    "englishName": "Sal Leaf",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/plants/sal_leaf.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "forest",
+      "leaf",
+      "culture",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_mahua_flower",
+    "objectKey": "mahua_flower",
+    "santaliName": "ᱢᱟᱦᱩᱣᱟ ᱵᱟᱦᱟ",
+    "hindiName": "महुआ का फूल",
+    "englishName": "Mahua Flower",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/plants/mahua_flower.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "forest",
+      "flower",
+      "culture",
+      "tribal"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_mountain",
+    "objectKey": "mountain",
+    "santaliName": "ᱵᱩᱨᱩ",
+    "hindiName": "पहाड़",
+    "englishName": "Mountain",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/mountain.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "landscape",
+      "hill",
+      "earth"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_river",
+    "objectKey": "river",
+    "santaliName": "ᱜᱟᱰᱟ",
+    "hindiName": "नदी",
+    "englishName": "River",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/river.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "water",
+      "stream",
+      "nature"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_water",
+    "objectKey": "water",
+    "santaliName": "ᱫᱟᱜ",
+    "hindiName": "पानी",
+    "englishName": "Water Drop",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/water.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "liquid",
+      "drink",
+      "rain",
+      "nature"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_cloud",
+    "objectKey": "cloud",
+    "santaliName": "ᱨᱤᱢᱤᱞ",
+    "hindiName": "बादल",
+    "englishName": "Cloud",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/cloud.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "sky",
+      "rain",
+      "weather"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_sun",
+    "objectKey": "sun",
+    "santaliName": "ᱥᱤᱧ ᱪᱟᱸᱫᱚ",
+    "hindiName": "सूरज",
+    "englishName": "Sun",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/sun.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "sky",
+      "day",
+      "light",
+      "warmth"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_moon",
+    "objectKey": "moon",
+    "santaliName": "ᱧᱤᱫᱟᱹ ᱪᱟᱸᱫᱚ",
+    "hindiName": "चाँद",
+    "englishName": "Moon",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/moon.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "sky",
+      "night",
+      "light"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_fire",
+    "objectKey": "fire",
+    "santaliName": "ᱥᱮᱸᱜᱮᱞ",
+    "hindiName": "आग",
+    "englishName": "Fire",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/fire.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "heat",
+      "cooking",
+      "light",
+      "element"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_earth",
+    "objectKey": "earth",
+    "santaliName": "ᱚᱛ",
+    "hindiName": "धरती",
+    "englishName": "Earth / Land",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/nature/earth.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "soil",
+      "ground",
+      "planet",
+      "world"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_school",
+    "objectKey": "school",
+    "santaliName": "ᱤᱛᱩᱱ ᱟᱥᱲᱟ",
+    "hindiName": "विद्यालय",
+    "englishName": "School Building",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/school.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "study",
+      "learning",
+      "education"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_book",
+    "objectKey": "book",
+    "santaliName": "ᱯᱚᱛᱚᱵ",
+    "hindiName": "किताब",
+    "englishName": "Book",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/book.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "study",
+      "reading",
+      "learning",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_pencil",
+    "objectKey": "pencil",
+    "santaliName": "ᱯᱮᱱᱥᱤᱞ",
+    "hindiName": "पेंसिल",
+    "englishName": "Pencil",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/pencil.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "writing",
+      "drawing",
+      "study",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_slate",
+    "objectKey": "slate",
+    "santaliName": "ᱥᱞᱮᱴ",
+    "hindiName": "स्लेट",
+    "englishName": "Slate",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/slate.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "writing",
+      "chalk",
+      "study"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bag",
+    "objectKey": "bag",
+    "santaliName": "ᱛᱷᱟᱹᱞᱤ",
+    "hindiName": "बस्ता",
+    "englishName": "School Bag",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/bag.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "carrying",
+      "school",
+      "study"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_ball",
+    "objectKey": "ball",
+    "santaliName": "ᱵᱚᱞ",
+    "hindiName": "गेंद",
+    "englishName": "Play Ball",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/ball.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "game",
+      "sports",
+      "play",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_kite",
+    "objectKey": "kite",
+    "santaliName": "ᱜᱩᱰᱤ",
+    "hindiName": "पतंग",
+    "englishName": "Kite",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/kite.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "game",
+      "flying",
+      "play",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bell",
+    "objectKey": "bell",
+    "santaliName": "ᱜᱷᱟᱹᱱᱴᱤ",
+    "hindiName": "घंटी",
+    "englishName": "School Bell",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/school_and_play/bell.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "school",
+      "sound",
+      "brass"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_straw_hut",
+    "objectKey": "straw_hut",
+    "santaliName": "ᱚᱲᱟᱜ",
+    "hindiName": "घर (झोपड़ी)",
+    "englishName": "Straw Hut / House",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/straw_hut.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "village",
+      "home",
+      "shelter"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_clay_pot",
+    "objectKey": "clay_pot",
+    "santaliName": "ᱴᱩᱠᱩᱡ",
+    "hindiName": "घड़ा (मटका)",
+    "englishName": "Clay Pot",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/clay_pot.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "household",
+      "water",
+      "cooking",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_tumdak_drum",
+    "objectKey": "tumdak_drum",
+    "santaliName": "ᱛᱩᱢᱫᱟᱜ",
+    "hindiName": "मांदर (ढोल)",
+    "englishName": "Tumdak Drum",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/tumdak_drum.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "music",
+      "culture",
+      "dance",
+      "tribal"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_flute",
+    "objectKey": "flute",
+    "santaliName": "ᱛᱤᱨᱤᱭᱟᱹᱣ",
+    "hindiName": "बांसुरी",
+    "englishName": "Tribal Flute",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/flute.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "music",
+      "melody",
+      "bamboo"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bow_arrow",
+    "objectKey": "bow_arrow",
+    "santaliName": "ᱟᱜ ᱥᱟᱨ",
+    "hindiName": "तीर-धनुष",
+    "englishName": "Bow & Arrow",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/bow_arrow.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "culture",
+      "traditional",
+      "archery"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_sickle",
+    "objectKey": "sickle",
+    "santaliName": "ᱫᱟᱹᱛᱨᱟᱹ",
+    "hindiName": "हँसिया",
+    "englishName": "Harvesting Sickle",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/sickle.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "farming",
+      "harvest",
+      "tool"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_well",
+    "objectKey": "well",
+    "santaliName": "ᱰᱟᱹᱰᱤ",
+    "hindiName": "कुआँ",
+    "englishName": "Village Well",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/well.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "water",
+      "village",
+      "drinking"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_basket",
+    "objectKey": "basket",
+    "santaliName": "ᱰᱟᱹᱞᱤ",
+    "hindiName": "टोकरी",
+    "englishName": "Bamboo Basket",
+    "category": "school",
+    "relativeFilePath": "fln_svg_corpus/village_life/basket.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "carrying",
+      "harvest",
+      "bamboo"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_bowl_rice",
+    "objectKey": "bowl_rice",
+    "santaliName": "ᱫᱟᱠᱟ",
+    "hindiName": "भात (चावल)",
+    "englishName": "Rice Bowl",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/tokens/bowl_rice.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "food",
+      "eating",
+      "grain",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_egg",
+    "objectKey": "egg",
+    "santaliName": "ᱵᱤᱞᱤ",
+    "hindiName": "अंडा",
+    "englishName": "Egg",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/tokens/egg.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "food",
+      "breakfast",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_roti",
+    "objectKey": "roti",
+    "santaliName": "ᱨᱩᱴᱤ",
+    "hindiName": "रोटी",
+    "englishName": "Roti / Bread",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/tokens/roti.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "food",
+      "eating",
+      "wheat"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_milk",
+    "objectKey": "milk",
+    "santaliName": "ᱛᱚᱣᱟ",
+    "hindiName": "दूध",
+    "englishName": "Milk",
+    "category": "fruits",
+    "relativeFilePath": "fln_svg_corpus/tokens/milk.svg",
+    "viewBox": "0 0 72 72",
+    "tags": [
+      "food",
+      "drink",
+      "cow",
+      "healthy"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_flower",
+    "objectKey": "flower",
+    "santaliName": "ᱵᱟᱦᱟ",
+    "hindiName": "फूल",
+    "englishName": "Flower",
+    "category": "nature",
+    "relativeFilePath": "fln_svg_corpus/tokens/flower.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "nature",
+      "garden",
+      "beauty",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_pebble",
+    "objectKey": "pebble",
+    "santaliName": "ᱫᱷᱤᱨᱤ",
+    "hindiName": "पत्थर / कंकड़",
+    "englishName": "Pebble",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/tokens/pebble.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "stone",
+      "nature",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_star",
+    "objectKey": "star",
+    "santaliName": "ᱤᱯᱤᱞ",
+    "hindiName": "तारा",
+    "englishName": "Star",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/tokens/star.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "shape",
+      "sky",
+      "night",
+      "counting_token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_circle",
+    "objectKey": "circle",
+    "santaliName": "ᱜᱩᱞᱟᱹᱴ",
+    "hindiName": "वृत्त",
+    "englishName": "Circle",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/tokens/circle.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "shape",
+      "geometry",
+      "round"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_square",
+    "objectKey": "square",
+    "santaliName": "ᱪᱟᱹᱣᱠᱟᱹ",
+    "hindiName": "वर्ग",
+    "englishName": "Square",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/tokens/square.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "shape",
+      "geometry",
+      "four_sides"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_triangle",
+    "objectKey": "triangle",
+    "santaliName": "ᱯᱮᱠᱳᱬ",
+    "hindiName": "त्रिभुज",
+    "englishName": "Triangle",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/tokens/triangle.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "shape",
+      "geometry",
+      "three_sides"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_rectangle",
+    "objectKey": "rectangle",
+    "santaliName": "ᱟᱭᱛᱟᱠᱟᱨ",
+    "hindiName": "आयत",
+    "englishName": "Rectangle",
+    "category": "spatial",
+    "relativeFilePath": "fln_svg_corpus/math/rectangle.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "shape",
+      "geometry",
+      "sides"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_plus",
+    "objectKey": "plus",
+    "santaliName": "ᱡᱚᱲ",
+    "hindiName": "जोड़",
+    "englishName": "Plus (+)",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/plus.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "operator",
+      "addition"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_minus",
+    "objectKey": "minus",
+    "santaliName": "ᱵᱷᱮᱜᱟᱨ",
+    "hindiName": "घटाव",
+    "englishName": "Minus (-)",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/minus.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "operator",
+      "subtraction"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_multiply",
+    "objectKey": "multiply",
+    "santaliName": "ᱜᱩᱬᱟᱹ",
+    "hindiName": "गुणा",
+    "englishName": "Multiply (×)",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/multiply.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "operator",
+      "multiplication"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_divide",
+    "objectKey": "divide",
+    "santaliName": "ᱦᱟᱹᱴᱤᱧ",
+    "hindiName": "भाग",
+    "englishName": "Divide (÷)",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/divide.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "operator",
+      "division"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_equals",
+    "objectKey": "equals",
+    "santaliName": "ᱥᱚᱢᱟᱱ",
+    "hindiName": "बराबर",
+    "englishName": "Equals (=)",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/equals.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "operator",
+      "result"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_dot",
+    "objectKey": "dot",
+    "santaliName": "ᱴᱩᱰᱟᱹᱜ",
+    "hindiName": "बिंदु",
+    "englishName": "Dot Counter",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/dot.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "counter",
+      "ten_frame"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_counter_chip",
+    "objectKey": "counter_chip",
+    "santaliName": "ᱞᱮᱠᱷᱟ ᱜᱩᱞᱟᱹᱴ",
+    "hindiName": "गिनती चिप",
+    "englishName": "Counter Chip",
+    "category": "arithmetic",
+    "relativeFilePath": "fln_svg_corpus/math/counter_chip.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "math",
+      "counter",
+      "token"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_coin_1",
+    "objectKey": "coin_1",
+    "santaliName": "ᱢᱤᱫ ᱴᱟᱠᱟ",
+    "hindiName": "१ रुपया सिक्का",
+    "englishName": "1 Rupee Coin",
+    "category": "money",
+    "relativeFilePath": "fln_svg_corpus/math/coin_1.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "money",
+      "coin",
+      "currency"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_coin_2",
+    "objectKey": "coin_2",
+    "santaliName": "ᱵᱟᱨ ᱴᱟᱠᱟ",
+    "hindiName": "२ रुपये सिक्का",
+    "englishName": "2 Rupee Coin",
+    "category": "money",
+    "relativeFilePath": "fln_svg_corpus/math/coin_2.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "money",
+      "coin",
+      "currency"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_coin_5",
+    "objectKey": "coin_5",
+    "santaliName": "ᱢᱚᱬᱮ ᱴᱟᱠᱟ",
+    "hindiName": "५ रुपये सिक्का",
+    "englishName": "5 Rupee Coin",
+    "category": "money",
+    "relativeFilePath": "fln_svg_corpus/math/coin_5.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "money",
+      "coin",
+      "currency"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_coin_10",
+    "objectKey": "coin_10",
+    "santaliName": "ᱜᱮᱞ ᱴᱟᱠᱟ",
+    "hindiName": "१० रुपये सिक्का",
+    "englishName": "10 Rupee Coin",
+    "category": "money",
+    "relativeFilePath": "fln_svg_corpus/math/coin_10.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "money",
+      "coin",
+      "currency"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  },
+  {
+    "id": "svg_rupee_note",
+    "objectKey": "rupee_note",
+    "santaliName": "ᱴᱟᱠᱟ ᱱᱳᱴ",
+    "hindiName": "रुपया नोट",
+    "englishName": "Rupee Note",
+    "category": "money",
+    "relativeFilePath": "fln_svg_corpus/math/rupee_note.svg",
+    "viewBox": "0 0 100 100",
+    "tags": [
+      "money",
+      "cash",
+      "currency"
+    ],
+    "ageSuitability": [
+      "BALVATIKA",
+      "GRADE_1",
+      "GRADE_2",
+      "GRADE_3"
+    ],
+    "supportsMonochrome": true,
+    "license": "Open Source / CC0"
+  }
+]

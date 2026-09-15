@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Diamond kite -->
+  <polygon points="50,10 86,46 50,82 14,46" fill="#F43F5E" stroke="#BE123C" stroke-width="3"/>
+  <!-- Top triangle highlight -->
+  <polygon points="50,10 86,46 50,46" fill="#FB7185"/>
+  <polygon points="50,46 14,46 50,82" fill="#E11D48"/>
+  <!-- Spine and cross spar -->
+  <line x1="50" y1="10" x2="50" y2="82" stroke="#FEF08A" stroke-width="2"/>
+  <line x1="14" y1="46" x2="86" y2="46" stroke="#FEF08A" stroke-width="2"/>
+  <!-- Kite tail -->
+  <path d="M50 82 Q56 90 48 96" fill="none" stroke="#64748B" stroke-width="2"/>
+  <polygon points="46,92 50,88 54,92" fill="#FBBF24"/>
+  <polygon points="44,97 48,93 52,97" fill="#3B82F6"/>
+</svg>

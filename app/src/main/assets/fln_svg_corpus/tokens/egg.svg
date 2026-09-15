@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Egg oval shape -->
+  <path d="M50 14 C32 14 22 38 22 62 C22 80 34 90 50 90 C66 90 78 80 78 62 C78 38 68 14 50 14 Z" 
+        fill="#FEF3C7" stroke="#D97706" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- Highlight -->
+  <path d="M38 32 C34 44 34 60 40 70" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Trunk -->
+  <path d="M42 92 L44 56 C44 50 38 42 34 38 L42 42 C46 36 48 32 50 28 C52 32 54 36 58 42 L66 38 C62 42 56 50 56 56 L58 92 Z" 
+        fill="#78350F" stroke="#451A03" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Foliage clouds -->
+  <circle cx="50" cy="30" r="20" fill="#16A34A" stroke="#15803D" stroke-width="3"/>
+  <circle cx="32" cy="42" r="16" fill="#22C55E" stroke="#15803D" stroke-width="3"/>
+  <circle cx="68" cy="42" r="16" fill="#22C55E" stroke="#15803D" stroke-width="3"/>
+  <circle cx="50" cy="48" r="18" fill="#15803D" opacity="0.3"/>
+</svg>

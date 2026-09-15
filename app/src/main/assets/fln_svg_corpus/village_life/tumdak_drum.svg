@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Tumdak' Traditional Santhal Drum -->
+  <g transform="rotate(-15 50 50)">
+    <!-- Drum body -->
+    <path d="M22 32 C38 28 62 28 78 32 L74 68 C60 72 40 72 26 68 Z" 
+          fill="#B45309" stroke="#78350F" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Left drumhead -->
+    <ellipse cx="24" cy="50" rx="7" ry="19" fill="#FDE68A" stroke="#78350F" stroke-width="2.5"/>
+    <ellipse cx="24" cy="50" rx="3.5" ry="9.5" fill="#451A03"/>
+    <!-- Right drumhead -->
+    <ellipse cx="76" cy="50" rx="6" ry="19" fill="#FDE68A" stroke="#78350F" stroke-width="2.5"/>
+    <ellipse cx="76" cy="50" rx="3" ry="9.5" fill="#451A03"/>
+    <!-- Leather tension lacings (zigzag) -->
+    <path d="M24 34 L38 68 L50 30 L64 70 L76 34" fill="none" stroke="#FEF3C7" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M24 66 L38 32 L50 70 L64 30 L76 66" fill="none" stroke="#FEF3C7" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+</svg>
