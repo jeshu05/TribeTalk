@@ -240,13 +240,13 @@ object WorksheetPdfExporter {
         paint.textSize = 9.5f
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         val wsText = "कार्य-पत्रक (Worksheet) 1 • ᱠᱟᱹᱢᱤ-ᱥᱟᱠᱟᱢ ᱑"
-        val gradeText = "कक्षा: ${config.grade.hindiName} (${config.grade.displayName})"
+        val gradeText = "कक्षा: ${config.grade.hindiName} • ${config.grade.displayName.uppercase()}"
         val wsWidth = paint.measureText(wsText)
         canvas.drawText(wsText, PAGE_WIDTH - MARGIN - wsWidth - 12f, startY + 20f, paint)
 
-        paint.textSize = 8.5f
-        paint.typeface = Typeface.DEFAULT
-        paint.color = NcertPalette.TextSecondary
+        paint.textSize = 9f
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        paint.color = NcertPalette.NavyPrimary
         val gradeWidth = paint.measureText(gradeText)
         canvas.drawText(gradeText, PAGE_WIDTH - MARGIN - gradeWidth - 12f, startY + 34f, paint)
 
@@ -735,6 +735,11 @@ object WorksheetPdfExporter {
         paint.textSize = 13.5f
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         canvas.drawText("NCERT CNCL • TEACHER ASSESSMENT & PHONICS KEY", MARGIN + 14, MARGIN + 26, paint)
+
+        val teacherGradeText = "कक्षा: ${config.grade.hindiName} • ${config.grade.displayName.uppercase()}"
+        paint.textSize = 10f
+        val tgWidth = paint.measureText(teacherGradeText)
+        canvas.drawText(teacherGradeText, PAGE_WIDTH - MARGIN - tgWidth - 14, MARGIN + 26, paint)
 
         paint.color = NcertPalette.TextSecondary
         paint.textSize = 9f

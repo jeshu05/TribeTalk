@@ -49,7 +49,7 @@ class AudioRecorder {
 
         try {
             audioRecord = AudioRecord(
-                MediaRecorder.AudioSource.VOICE_RECOGNITION,
+                MediaRecorder.AudioSource.MIC,
                 SAMPLE_RATE,
                 CHANNEL_CONFIG,
                 AUDIO_FORMAT,
@@ -77,7 +77,8 @@ class AudioRecorder {
             val recordedShorts = ArrayList<Short>(SAMPLE_RATE * 5)
 
             while (isActive && isRecording.get()) {
-                val readCount = audioRecord?.read(shortBuffer, 0, shortBuffer.size) ?: 0
+                val record = audioRecord ?: break
+                val readCount = record.read(shortBuffer, 0, shortBuffer.size)
                 if (readCount > 0) {
                     var sumSquare = 0.0
                     for (i in 0 until readCount) {
@@ -91,10 +92,52 @@ class AudioRecorder {
                 }
             }
 
-            // Convert captured 16-bit PCM shorts to normalized FloatArray [-1.0, 1.0]
-            val floatArray = FloatArray(recordedShorts.size)
+            // Drain remaining buffered samples so the final spoken syllable/word is never lost
+            val record = audioRecord
+            if (record != null) {
+                var drainCount: Int
+                var drainAttempts = 0
+                while (drainAttempts < 5) {
+                    drainCount = record.read(shortBuffer, 0, shortBuffer.size, AudioRecord.READ_NON_BLOCKING)
+                    if (drainCount > 0) {
+                        for (i in 0 until drainCount) {
+                            recordedShorts.add(shortBuffer[i])
+                        }
+                    } else {
+                        break
+                    }
+                    drainAttempts++
+                }
+            }
+
+            try {
+                audioRecord?.stop()
+                audioRecord?.release()
+            } catch (e: Exception) {
+                Log.w(TAG, "Error stopping AudioRecord", e)
+            } finally {
+                audioRecord = null
+            }
+
+            // Comfort padding: Append 400ms of silence so the Conformer ASR acoustic model
+            // has complete right-context for CTC decoding of the final word.
+            val trailingPadding = (SAMPLE_RATE * 0.4f).toInt()
+            val totalSamples = recordedShorts.size + trailingPadding
+            val floatArray = FloatArray(totalSamples)
+            var maxAbs = 0f
             for (i in recordedShorts.indices) {
-                floatArray[i] = (recordedShorts[i] / 32768f).coerceIn(-1f, 1f)
+                val f = recordedShorts[i] / 32768f
+                floatArray[i] = f
+                val absVal = kotlin.math.abs(f)
+                if (absVal > maxAbs) maxAbs = absVal
+            }
+
+            // Gentle digital gain boost for low-sensitivity tablet microphones
+            if (maxAbs in 0.005f..0.25f) {
+                val gain = (0.5f / maxAbs).coerceAtMost(5.0f)
+                for (i in 0 until recordedShorts.size) {
+                    floatArray[i] = (floatArray[i] * gain).coerceIn(-1f, 1f)
+                }
             }
 
             _amplitude.value = 0f
@@ -105,17 +148,6 @@ class AudioRecorder {
     }
 
     fun stop() {
-        if (!isRecording.getAndSet(false)) {
-            return
-        }
-
-        try {
-            audioRecord?.stop()
-            audioRecord?.release()
-        } catch (e: Exception) {
-            Log.w(TAG, "Error stopping AudioRecord", e)
-        } finally {
-            audioRecord = null
-        }
+        isRecording.set(false)
     }
 }

@@ -135,12 +135,11 @@ fun WorksheetsScreen(
                         verticalArrangement = Arrangement.spacedBy(14.dp)
                     ) {
                         item {
-                            LessonTopicDesignerCard(
-                                topicText = topicInputText,
-                                onTopicChange = { topicInputText = it },
-                                onSynthesize = { topic ->
-                                    flnViewModel.generateWorksheetFromTopic(topic)
-                                }
+                            GradeAndDifficultySelectors(
+                                selectedGrade = config.grade,
+                                selectedDifficulty = config.difficulty,
+                                onGradeSelected = { flnViewModel.setWorksheetGrade(it) },
+                                onDifficultySelected = { flnViewModel.setWorksheetDifficulty(it) }
                             )
                         }
 
@@ -152,11 +151,12 @@ fun WorksheetsScreen(
                         }
 
                         item {
-                            GradeAndDifficultySelectors(
-                                selectedGrade = config.grade,
-                                selectedDifficulty = config.difficulty,
-                                onGradeSelected = { flnViewModel.setWorksheetGrade(it) },
-                                onDifficultySelected = { flnViewModel.setWorksheetDifficulty(it) }
+                            LessonTopicDesignerCard(
+                                topicText = topicInputText,
+                                onTopicChange = { topicInputText = it },
+                                onSynthesize = { topic ->
+                                    flnViewModel.generateWorksheetFromTopic(topic)
+                                }
                             )
                         }
                     }
@@ -264,91 +264,223 @@ fun WorksheetsScreen(
             }
         } else {
             // =========================================================================
-            // PHONE / COMPACT: Single Responsive Flow
+            // PHONE / COMPACT: Clean, Two-Tab Responsive Studio
+            // Tab 0: Printable Sheet Preview (Focused, uncluttered, authentic A4 preview)
+            // Tab 1: Grade, Format & Lesson Studio Settings
             // =========================================================================
-            Box(
+            var mobileViewTab by remember { mutableStateOf(0) }
+
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .background(MaterialTheme.colorScheme.background),
-                contentAlignment = Alignment.TopCenter
+                    .background(MaterialTheme.colorScheme.background)
             ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .widthIn(max = 680.dp)
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                // Sleek Top Tab Switcher
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.surface,
+                    tonalElevation = 2.dp,
+                    border = BorderStroke(0.5.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 ) {
-                    item {
-                        Spacer(modifier = Modifier.height(2.dp))
-                        LessonTopicDesignerCard(
-                            topicText = topicInputText,
-                            onTopicChange = { topicInputText = it },
-                            onSynthesize = { topic ->
-                                flnViewModel.generateWorksheetFromTopic(topic)
+                    TabRow(
+                        selectedTabIndex = mobileViewTab,
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                        divider = {}
+                    ) {
+                        Tab(
+                            selected = mobileViewTab == 0,
+                            onClick = { mobileViewTab = 0 },
+                            text = {
+                                Text(
+                                    text = "Printable Sheet (${config.grade.displayName})",
+                                    fontWeight = if (mobileViewTab == 0) FontWeight.Bold else FontWeight.Normal
+                                )
+                            },
+                            icon = {
+                                Icon(Icons.Rounded.Description, contentDescription = null, modifier = Modifier.size(18.dp))
+                            }
+                        )
+                        Tab(
+                            selected = mobileViewTab == 1,
+                            onClick = { mobileViewTab = 1 },
+                            text = {
+                                Text(
+                                    text = "Grade & Settings",
+                                    fontWeight = if (mobileViewTab == 1) FontWeight.Bold else FontWeight.Normal
+                                )
+                            },
+                            icon = {
+                                Icon(Icons.Rounded.Tune, contentDescription = null, modifier = Modifier.size(18.dp))
                             }
                         )
                     }
+                }
 
-                    item {
-                        WorksheetTypeSelector(
-                            selectedType = config.type,
-                            onTypeSelected = { flnViewModel.setWorksheetType(it) }
-                        )
-                    }
-
-                    item {
-                        GradeAndDifficultySelectors(
-                            selectedGrade = config.grade,
-                            selectedDifficulty = config.difficulty,
-                            onGradeSelected = { flnViewModel.setWorksheetGrade(it) },
-                            onDifficultySelected = { flnViewModel.setWorksheetDifficulty(it) }
-                        )
-                    }
-
-                    item {
-                        PreviewTabSwitcher(
-                            previewTab = previewTab,
-                            onTabSelected = { flnViewModel.setPreviewTab(it) }
-                        )
-                    }
-
-                    if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
+                if (mobileViewTab == 0) {
+                    // PREVIEW TAB: Clean, distraction-free view of the sheet!
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .widthIn(max = 680.dp)
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
                         item {
-                            SimulatedA4Header(config = config)
+                            Spacer(modifier = Modifier.height(4.dp))
+                            // Quick Grade & Format Status Banner with fast Switcher
+                            Surface(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .clickable { mobileViewTab = 1 },
+                                color = EduPrimaryContainer,
+                                border = BorderStroke(1.dp, EduPrimary.copy(alpha = 0.3f)),
+                                shape = RoundedCornerShape(12.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column {
+                                        Text(
+                                            text = "TARGET: ${config.grade.displayName.uppercase()} (${config.grade.hindiName})",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            color = EduPrimaryDark
+                                        )
+                                        Text(
+                                            text = "${config.type.displayName} • ${config.difficulty.displayName}",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    ) {
+                                        Text(
+                                            text = "Change Grade",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Icon(
+                                            imageVector = Icons.Rounded.Edit,
+                                            contentDescription = "Edit Grade",
+                                            tint = MaterialTheme.colorScheme.primary,
+                                            modifier = Modifier.size(14.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
+
                         item {
-                            NcertInstructionBanner(type = config.type)
+                            PreviewTabSwitcher(
+                                previewTab = previewTab,
+                                onTabSelected = { flnViewModel.setPreviewTab(it) }
+                            )
                         }
-                        if (config.type == WorksheetType.COUNT_AND_MATCH || config.type == WorksheetType.PICTURE_WORD_MATCH) {
+
+                        if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
                             item {
-                                NcertMatchingSection(items = items, config = config)
+                                SimulatedA4Header(config = config)
+                            }
+                            item {
+                                NcertInstructionBanner(type = config.type)
+                            }
+                            if (config.type == WorksheetType.COUNT_AND_MATCH || config.type == WorksheetType.PICTURE_WORD_MATCH) {
+                                item {
+                                    NcertMatchingSection(items = items, config = config)
+                                }
                             }
                         }
-                    }
 
-                    if (config.type != WorksheetType.COUNT_AND_MATCH && config.type != WorksheetType.PICTURE_WORD_MATCH || previewTab == WorksheetPreviewTab.TEACHER_KEY) {
-                        itemsIndexed(items) { index, item ->
-                            if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
-                                StudentProblemCard(index = index + 1, item = item, type = config.type)
-                            } else {
-                                TeacherKeyCard(index = index + 1, item = item)
+                        if (config.type != WorksheetType.COUNT_AND_MATCH && config.type != WorksheetType.PICTURE_WORD_MATCH || previewTab == WorksheetPreviewTab.TEACHER_KEY) {
+                            itemsIndexed(items) { index, item ->
+                                if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
+                                    StudentProblemCard(index = index + 1, item = item, type = config.type)
+                                } else {
+                                    TeacherKeyCard(index = index + 1, item = item)
+                                }
                             }
                         }
-                    }
 
-                    if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
-                        item {
-                            NcertLearningOutcomeCard(type = config.type, grade = config.grade)
+                        if (previewTab == WorksheetPreviewTab.STUDENT_SHEET) {
+                            item {
+                                NcertLearningOutcomeCard(type = config.type, grade = config.grade)
+                            }
+                            item {
+                                TeacherRubricCard()
+                            }
                         }
+
                         item {
-                            TeacherRubricCard()
+                            Spacer(modifier = Modifier.height(80.dp))
                         }
                     }
+                } else {
+                    // CONFIGURE TAB: All Grade, format, and lesson topics cleanly arranged!
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .widthIn(max = 680.dp)
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
+                        item {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            GradeAndDifficultySelectors(
+                                selectedGrade = config.grade,
+                                selectedDifficulty = config.difficulty,
+                                onGradeSelected = { flnViewModel.setWorksheetGrade(it) },
+                                onDifficultySelected = { flnViewModel.setWorksheetDifficulty(it) }
+                            )
+                        }
 
-                    item {
-                        Spacer(modifier = Modifier.height(16.dp))
+                        item {
+                            WorksheetTypeSelector(
+                                selectedType = config.type,
+                                onTypeSelected = { flnViewModel.setWorksheetType(it) }
+                            )
+                        }
+
+                        item {
+                            LessonTopicDesignerCard(
+                                topicText = topicInputText,
+                                onTopicChange = { topicInputText = it },
+                                onSynthesize = { topic ->
+                                    flnViewModel.generateWorksheetFromTopic(topic)
+                                    mobileViewTab = 0
+                                }
+                            )
+                        }
+
+                        item {
+                            Button(
+                                onClick = { mobileViewTab = 0 },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                Icon(Icons.Rounded.Visibility, contentDescription = null)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text("View Printable Sheet (${config.grade.displayName})", fontWeight = FontWeight.Bold)
+                            }
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
                     }
                 }
             }
@@ -406,19 +538,6 @@ private fun LessonTopicDesignerCard(
                         fontWeight = FontWeight.Bold,
                         color = EduPrimaryDark,
                         letterSpacing = 0.5.sp
-                    )
-                }
-                Surface(
-                    color = EduPrimaryLight,
-                    shape = RoundedCornerShape(8.dp)
-                ) {
-                    Text(
-                        text = "100% OFFLINE",
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = EduPrimaryDark,
-                        fontSize = 10.sp
                     )
                 }
             }
@@ -596,96 +715,146 @@ private fun GradeAndDifficultySelectors(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        // Grade Row
-        Row(
+        // Target Grade Level Header & Cards
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            Text(
-                text = "GRADE",
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                letterSpacing = 0.5.sp
-            )
             Row(
-                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "TARGET GRADE LEVEL",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    letterSpacing = 0.5.sp
+                )
+                Text(
+                    text = "${selectedGrade.displayName} (${selectedGrade.ageGroup})",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            // 4 Distinct Grade Selection Cards
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 FlnGrade.entries.forEach { grade ->
                     val isSel = selectedGrade == grade
-                    FilterChip(
-                        selected = isSel,
-                        onClick = { onGradeSelected(grade) },
-                        shape = RoundedCornerShape(20.dp),
-                        label = {
-                            Text(
-                                text = grade.displayName.substringBefore(" "),
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                            )
-                        },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = MaterialTheme.colorScheme.primary,
-                            selectedLabelColor = Color.White,
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            labelColor = MaterialTheme.colorScheme.onSurface
+                    val label = when (grade) {
+                        FlnGrade.BALVATIKA -> "Balvatika"
+                        FlnGrade.GRADE_1 -> "Grade 1"
+                        FlnGrade.GRADE_2 -> "Grade 2"
+                        FlnGrade.GRADE_3 -> "Grade 3"
+                    }
+                    val subLabel = when (grade) {
+                        FlnGrade.BALVATIKA -> "Pre-K"
+                        FlnGrade.GRADE_1 -> "कक्षा 1"
+                        FlnGrade.GRADE_2 -> "कक्षा 2"
+                        FlnGrade.GRADE_3 -> "कक्षा 3"
+                    }
+
+                    Surface(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable { onGradeSelected(grade) },
+                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                        border = BorderStroke(
+                            1.5.dp,
+                            if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
                         ),
-                        border = FilterChipDefaults.filterChipBorder(
-                            enabled = true,
-                            selected = isSel,
-                            borderColor = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
-                        )
-                    )
+                        shape = RoundedCornerShape(12.dp),
+                        tonalElevation = if (isSel) 4.dp else 0.dp
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp, horizontal = 2.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = label,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.SemiBold,
+                                color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface,
+                                maxLines = 1
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = subLabel,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontSize = 10.sp,
+                                color = if (isSel) Color.White.copy(alpha = 0.85f) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1
+                            )
+                        }
+                    }
                 }
             }
         }
 
-        // Difficulty Row
-        Row(
+        // Practice Difficulty
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = "LEVEL",
+                text = "PRACTICE DIFFICULTY",
                 style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 letterSpacing = 0.5.sp
             )
+
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 WorksheetDifficulty.entries.forEach { diff ->
                     val isSel = selectedDifficulty == diff
-                    FilterChip(
-                        selected = isSel,
-                        onClick = { onDifficultySelected(diff) },
-                        shape = RoundedCornerShape(20.dp),
-                        label = {
-                            Text(
-                                text = diff.displayName.substringBefore(" "),
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                            )
-                        },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = EduIndigo,
-                            selectedLabelColor = Color.White,
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            labelColor = MaterialTheme.colorScheme.onSurface
+                    val label = when (diff) {
+                        WorksheetDifficulty.EASY -> "Easy (Level 1)"
+                        WorksheetDifficulty.MEDIUM -> "Standard (Level 2)"
+                        WorksheetDifficulty.HARD -> "Challenge (Level 3)"
+                    }
+
+                    Surface(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(10.dp))
+                            .clickable { onDifficultySelected(diff) },
+                        color = if (isSel) EduIndigo else MaterialTheme.colorScheme.surface,
+                        border = BorderStroke(
+                            1.dp,
+                            if (isSel) EduIndigo else MaterialTheme.colorScheme.outline.copy(alpha = 0.6f)
                         ),
-                        border = FilterChipDefaults.filterChipBorder(
-                            enabled = true,
-                            selected = isSel,
-                            borderColor = if (isSel) EduIndigo else MaterialTheme.colorScheme.outline
-                        )
-                    )
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp, horizontal = 4.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = label,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface,
+                                maxLines = 1
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -808,6 +977,52 @@ private fun SimulatedA4Header(config: WorksheetConfig) {
                             fontSize = 10.sp
                         )
                     }
+                }
+            }
+
+            // High-Visibility Prominent Target Grade & Outcome Banner
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                color = NcertUiPalette.NavyPrimary,
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 7.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "TARGET GRADE: ${config.grade.displayName.uppercase()}",
+                            color = Color.White,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 12.sp,
+                            letterSpacing = 0.5.sp
+                        )
+                        Surface(
+                            color = Color.White.copy(alpha = 0.2f),
+                            shape = RoundedCornerShape(4.dp)
+                        ) {
+                            Text(
+                                text = "${config.grade.hindiName} • ${config.grade.ageGroup}",
+                                color = Color.White,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                    Text(
+                        text = "NIPUN CODE: ${config.type.nipunTargetCode}",
+                        color = Color(0xFFFFD54F),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 11.sp
+                    )
                 }
             }
 

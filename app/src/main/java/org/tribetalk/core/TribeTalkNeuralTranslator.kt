@@ -2,9 +2,6 @@ package org.tribetalk.core
 
 import android.content.Context
 import android.util.Log
-import ai.onnxruntime.OrtEnvironment
-import ai.onnxruntime.OrtSession
-import java.io.File
 
 /**
  * Production-grade on-device AI translation engine for Hindi <-> Santali.
@@ -59,51 +56,10 @@ class TribeTalkNeuralTranslator(private val context: Context) {
         )
     }
 
-    // ONNX Runtime session handles (for on-device neural model inference when weights are provided)
-    private var ortEnv: OrtEnvironment? = null
-    private var encoderSession: OrtSession? = null
-    private var decoderSession: OrtSession? = null
-    private var isNeuralModelLoaded = false
+    private val nmtEngine = NmtEngine(context)
 
-    init {
-        initOrtSessions()
-    }
-
-    private fun resolveModelFile(subDir: String, fileName: String): File? {
-        val candidates = listOf(
-            File(context.getExternalFilesDir(null), "models/$subDir/$fileName"),
-            File(context.getExternalFilesDir(null), "models/$fileName"),
-            File("/sdcard/Android/data/org.tribetalk/files/models/$subDir/$fileName"),
-            File("/sdcard/Android/data/org.tribetalk/files/models/$fileName"),
-            File(context.filesDir, "models/$subDir/$fileName"),
-            File(context.filesDir, "models/$fileName")
-        )
-        return candidates.firstOrNull { it.exists() && it.length() > 0 }
-    }
-
-    /**
-     * Initializes ONNX Runtime environment and checks if local neural model weights exist.
-     */
-    private fun initOrtSessions() {
-        try {
-            ortEnv = OrtEnvironment.getEnvironment()
-            val encFile = resolveModelFile("nmt", "encoder_model.onnx")
-            val decFile = resolveModelFile("nmt", "decoder_model.onnx")
-
-            if (encFile != null && decFile != null) {
-                val opts = OrtSession.SessionOptions().apply {
-                    setIntraOpNumThreads(2)
-                }
-                encoderSession = ortEnv?.createSession(encFile.absolutePath, opts)
-                decoderSession = ortEnv?.createSession(decFile.absolutePath, opts)
-                isNeuralModelLoaded = true
-                Log.i(TAG, "Neural ONNX translation sessions loaded successfully from ${encFile.parent}.")
-            } else {
-                Log.i(TAG, "Local ONNX weight files not found in models/nmt. Using high-precision on-device linguistic engine.")
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "ONNX Runtime initialization note: ${e.message}")
-        }
+    fun release() {
+        nmtEngine.release()
     }
 
     /**
@@ -117,13 +73,21 @@ class TribeTalkNeuralTranslator(private val context: Context) {
         val trimmed = input.trim()
         if (trimmed.isEmpty()) return ""
 
-        // If local ONNX neural model is loaded, run neural inference
-        if (isNeuralModelLoaded && encoderSession != null && decoderSession != null) {
+        // Check if neural NMT weights can run under MemoryGovernor budget
+        val gov = org.tribetalk.core.memory.MemoryGovernor.get(context)
+        val decision = gov.canLoad(org.tribetalk.core.memory.GovernorStage.NMT.estimateMb)
+        if (decision is org.tribetalk.core.memory.LoadDecision.Allow) {
+            val lease = gov.tryAcquire(org.tribetalk.core.memory.GovernorStage.NMT)
             try {
-                val neuralResult = runNeuralOnnxInference(trimmed, isHindiToSantali)
-                if (neuralResult.isNotBlank()) return neuralResult
+                val neuralResult = nmtEngine.translate(trimmed, isHindiToSantali)
+                if (neuralResult.isNotBlank()) {
+                    return neuralResult
+                }
             } catch (e: Exception) {
                 Log.w(TAG, "Neural ONNX inference fallback: ${e.message}")
+            } finally {
+                lease?.release()
+                nmtEngine.release() // Bound resident memory on 2 GB tablet
             }
         }
 
@@ -167,9 +131,13 @@ class TribeTalkNeuralTranslator(private val context: Context) {
             if (matchedPhrase) continue
 
             // 2. Lexical & Morphological Translation of Single Word
-            val translatedWord = translateHindiWord(cleanWord)
-            val mappedPunct = mapPunctuation(punct, true)
-            resultWords.add(translatedWord + mappedPunct)
+            if (cleanWord.isNotEmpty()) {
+                val translatedWord = translateHindiWord(cleanWord)
+                val mappedPunct = mapPunctuation(punct, true)
+                resultWords.add(translatedWord + mappedPunct)
+            } else if (punct.isNotEmpty()) {
+                resultWords.add(mapPunctuation(punct, true))
+            }
             i++
         }
 
@@ -209,9 +177,13 @@ class TribeTalkNeuralTranslator(private val context: Context) {
             if (matchedPhrase) continue
 
             // 2. Lexical & Morphological Translation of Single Word
-            val translatedWord = translateSantaliWord(cleanWord)
-            val mappedPunct = mapPunctuation(punct, false)
-            resultWords.add(translatedWord + mappedPunct)
+            if (cleanWord.isNotEmpty()) {
+                val translatedWord = translateSantaliWord(cleanWord)
+                val mappedPunct = mapPunctuation(punct, false)
+                resultWords.add(translatedWord + mappedPunct)
+            } else if (punct.isNotEmpty()) {
+                resultWords.add(mapPunctuation(punct, false))
+            }
             i++
         }
 
@@ -318,14 +290,6 @@ class TribeTalkNeuralTranslator(private val context: Context) {
         return transliterateOlChikiToDevanagari(olChikiText)
     }
 
-    /**
-     * Neural ONNX inference execution placeholder.
-     */
-    private fun runNeuralOnnxInference(text: String, isHindiToSantali: Boolean): String {
-        // When model weights are loaded into OrtSession, executes ONNX tensor graph
-        return ""
-    }
-
     // -------------------------------------------------------------------------
     // Lexical Databases and Linguistic Affix Rules
     // -------------------------------------------------------------------------
@@ -397,7 +361,20 @@ class TribeTalkNeuralTranslator(private val context: Context) {
         "फिल्म देखना" to "ᱪᱚᱞᱚᱛ ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ",
         "स्कूल जाना" to "ᱤᱛᱩᱱ ᱟᱥᱲᱟ ᱪᱟᱞᱟᱜ",
         "घर जाना" to "ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ",
-        "काम करना" to "ᱠᱟᱹᱢᱤ"
+        "काम करना" to "ᱠᱟᱹᱢᱤ",
+        "कैसे हो" to "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ",
+        "कैसे हैं" to "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱜ ᱵᱤᱱᱟ",
+        "कैसा है" to "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱭᱟ",
+        "क्या हाल है" to "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ",
+        "आप कैसे हो" to "ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ",
+        "आप कैसे हैं" to "ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱜ ᱵᱤᱱᱟ",
+        "तुम कैसे हो" to "ᱟᱢ ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ",
+        "किताब निकालो" to "ᱯᱩᱛᱷᱤ ᱩᱰᱩᱠ ᱢᱮ",
+        "घेरे में बैठो" to "ᱜᱩᱞᱟᱹᱭ ᱨᱮ ᱫᱩᱲᱩᱵ ᱯᱮ",
+        "ध्यान से सुनो" to "ᱫᱷᱮᱭᱟᱱ ᱛᱮ ᱟᱸᱡᱚᱢ ᱯᱮ",
+        "हाथ ऊपर करो" to "ᱛᱤ ᱪᱮᱛᱟᱱ ᱨᱟᱠᱟᱵ ᱯᱮ",
+        "बैठ जाओ" to "ᱫᱩᱲᱩᱵ ᱯᱮ",
+        "खड़े हो जाओ" to "ᱛᱤᱸᱜᱩᱱ ᱯᱮ"
     )
 
     private val SANTALI_PHRASAL_VERBS = mapOf(
@@ -411,7 +388,16 @@ class TribeTalkNeuralTranslator(private val context: Context) {
         "ᱫᱟᱜ ᱧᱩ" to "पानी पीना",
         "ᱫᱟᱠᱟ ᱡᱚᱢ" to "खाना खाना",
         "ᱪᱚᱞᱚᱛ ᱪᱤᱛᱟᱹᱨ ᱧᱮᱞ" to "फिल्म देखना",
-        "ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ" to "घर जाना"
+        "ᱚᱲᱟᱜ ᱪᱟᱞᱟᱜ" to "घर जाना",
+        "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ" to "कैसे हो",
+        "ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱜ ᱵᱤᱱᱟ" to "कैसे हैं",
+        "ᱯᱩᱛᱷᱤ ᱩᱰᱩᱠ ᱢᱮ" to "किताब निकालो",
+        "ᱜᱩᱞᱟᱹᱭ ᱨᱮ ᱫᱩᱲᱩᱵ ᱯᱮ" to "घेरे में बैठो",
+        "ᱫᱷᱮᱭᱟᱱ ᱛᱮ ᱟᱸᱡᱚᱢ ᱯᱮ" to "ध्यान से सुनो",
+        "ᱛᱤ ᱪᱮᱛᱟᱱ ᱨᱟᱠᱟᱵ ᱯᱮ" to "हाथ ऊपर करो",
+        "ᱫᱩᱲᱩᱵ ᱯᱮ" to "बैठ जाओ",
+        "ᱛᱤᱸᱜᱩᱱ ᱯᱮ" to "खड़े हो जाओ",
+        "ᱡᱚᱦᱟᱨ" to "नमस्ते"
     )
 
     // Over 300 Core Linguistic Vocabulary Mappings between Hindi & Santali Ol Chiki

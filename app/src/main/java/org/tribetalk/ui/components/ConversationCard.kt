@@ -178,19 +178,7 @@ fun ConversationCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Offline verification badge
-                Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = EduPrimaryLight
-                ) {
-                    Text(
-                        text = "100% Offline ONNX",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = EduPrimaryDark,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                    )
-                }
+                Spacer(modifier = Modifier.weight(1f))
 
                 // Playback & Copy Actions
                 Row(

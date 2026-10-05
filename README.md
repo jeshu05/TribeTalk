@@ -97,23 +97,79 @@ TribeTalk/
 │   └── jni/
 │       └── tribetalk_jni.cpp   # JNI bridge for Android app integration
 │
+├── app/                        # Android Jetpack Compose Application
+│   ├── src/main/java/org/tribetalk/
+│   │   ├── audio/              # OnnxConformer ASR, AudioRecorder & TTS Manager
+│   │   ├── core/               # NativePipeline, NmtEngine, MemoryGovernor
+│   │   │   └── memory/         # Sequential single-model leasing for 2GB tablets
+│   │   ├── curriculum/         # FLN curriculum generator & Qwen 0.5B ONNX SLM
+│   │   ├── fln/                # Flashcards, image loader & PDF worksheet exporter
+│   │   └── ui/                 # Modern Jetpack Compose UI (Screens, Theme, Components)
+│   └── build.gradle.kts        # Modern Android Gradle build configuration
+│
 ├── tests/                      # 121 Comprehensive Unit & Integration Tests
 │   ├── asr/                    # 48 tests (audio, CTC, ONNX, normalization)
 │   ├── translation/            # 28 tests (IndicTrans2, KV-cache, scripts)
 │   ├── tts/                    # 27 tests (MMS, Piper, character mapping)
 │   └── pipeline/               # 18 tests (E2E speech-to-speech, memory manager)
 │
-├── tribe-evaluation/           # FROZEN gold benchmark datasets & scripts
-├── models/                     # Local model directory structures
-├── requirements.txt            # Python dependencies
+├── scripts/                    # Quantization, staging, and model evaluation utilities
+│   ├── run_phase2_asr.py       # ASR quantization and evaluation harness
+│   ├── run_phase2_qwen.py      # Qwen 0.5B INT8 SLM export and benchmark
+│   ├── run_phase3_nmt.py       # IndicTrans2 INT8 quantization and testing
+│   ├── quantize_models.py      # Automated INT8 dynamic quantization
+│   └── migrate_models_to_android.py # Automated ADB model deployment to device
+│
+├── SETUP_GUIDE.md              # Complete Android Studio & on-device model setup guide
+├── ENGINEERING.md              # Detailed low-level engineering specification
+├── APP_AND_AI_STACK.md         # Full architecture and model stack documentation
+├── requirements.txt            # Python PC staging dependencies
 └── README.md                   # System documentation
 ```
 
 ---
 
+## 📱 Android Application & NIPUN Bharat FLN Suite
+
+TribeTalk features a production-ready Android application built with **Jetpack Compose** and **Material 3**:
+
+1. **Bidirectional Voice Bridge (Hindi ↔ Santali)**:
+   - On-device speech recognition via **IndicConformer CTC INT8**.
+   - Offline neural machine translation via **IndicTrans2 INT8**.
+   - Natural voice speech synthesis with authentic Ol Chiki phonetic pronunciation and Hindi TTS.
+2. **NIPUN Bharat Foundational Literacy & Numeracy (FLN)**:
+   - Authentic NCERT CNCL bilingual worksheets covering Balvatika to Grade 3.
+   - Dual-sheet PDF export with dedicated Answer Keys for educators.
+   - 8 worksheet modalities: Letter Tracing, Sound Matching, Word Search, Fill in the Blanks, Math Numeracy, and Story Comprehension.
+3. **Interactive 3D Flashcards**:
+   - Kid-friendly cartoon vector illustrations with touch-flip animations.
+   - Bilingual display (Hindi Devanagari + Santali Ol Chiki) with one-tap phonetic audio pronunciation.
+4. **On-Device SLM Generative Overhaul**:
+   - Local on-device Small Language Model (**Qwen 0.5B INT8 ONNX**) for generating contextual rural classroom exercises without internet connectivity.
+5. **MemoryGovernor for 2GB Edge Tablets**:
+   - Enforces sequential single-stage residency (`ASR` → `NMT` → `SLM` → `TTS`).
+   - Evicts inactive model sessions automatically, maintaining heap footprint well within budget on budget rural classroom devices.
+
+For step-by-step instructions on setting up Android Studio, building the APK, and deploying neural model assets to your physical device or emulator, refer to **[SETUP_GUIDE.md](file:///SETUP_GUIDE.md)**.
+
+---
+
 ## 🚀 Quick Start
 
-### 1. Python Environment Setup
+### 1. Android Development Setup
+Refer to the dedicated **[SETUP_GUIDE.md](file:///SETUP_GUIDE.md)** for Android Studio configuration, Gradle build instructions, and automated model deployment via ADB.
+
+To compile the Android debug APK from the command line:
+```bash
+./gradlew assembleDebug
+```
+
+To run Android unit tests:
+```bash
+./gradlew testDebugUnitTest
+```
+
+### 2. Python Environment Setup
 Ensure Python 3.10+ is installed:
 ```bash
 python -m venv .venv
@@ -125,27 +181,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Running Test Suite
+### 3. Running Test Suite
 Execute the full 121-test verification suite:
 ```bash
 pytest tests/ -v
 ```
 
-### 3. Building the Native C++ Engine (Desktop)
+### 4. Building the Native C++ Engine (Desktop)
 ```bash
 mkdir tribetalk-native/build
 cmake -B tribetalk-native/build -S tribetalk-native
 cmake --build tribetalk-native/build --config Release
-```
-
-### 4. Cross-Compiling for Android (ARM64-v8a)
-To cross-compile `libtribetalk_native.so` using Android NDK:
-```bash
-cmake -B tribetalk-native/build-android -S tribetalk-native \
-  -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
-  -DANDROID_ABI=arm64-v8a \
-  -DANDROID_PLATFORM=android-28
-cmake --build tribetalk-native/build-android
 ```
 
 ---

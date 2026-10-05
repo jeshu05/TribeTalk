@@ -21,18 +21,10 @@ android {
             useSupportLibrary = true
         }
 
-        ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64")
-        }
-
-        externalNativeBuild {
-            cmake {
-                cppFlags += "-std=c++17 -O3 -ffast-math"
-                arguments += listOf(
-                    "-DANDROID_STL=c++_shared"
-                )
-            }
-        }
+        // NOTE: the C++ `tribetalk-native` core is intentionally NOT built into the
+        // APK (2 GB memory program, Phase 1): its engines are stubs with no ONNX
+        // Runtime linked. Real inference runs in Kotlin via onnxruntime-android.
+        // NativePipeline.loadLibrary fails gracefully when the .so is absent.
     }
 
     buildTypes {
@@ -63,13 +55,7 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    externalNativeBuild {
-        cmake {
-            path = file("../tribetalk-native/CMakeLists.txt")
-            version = "3.22.1"
-        }
+        buildConfig = true
     }
 
     packaging {

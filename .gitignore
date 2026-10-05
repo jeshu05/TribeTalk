@@ -36,6 +36,7 @@ CMakeUserPresets.json
 
 # Android & Gradle Build Artifacts
 .gradle/
+.kotlin/
 local.properties
 .cxx/
 **/.cxx/
@@ -64,6 +65,8 @@ models/tts/*
 *.ckpt
 *.onnx
 *.onnx.data
+models/qwen/*.json
+models.zip
 
 # HuggingFace & Cache
 .cache/
@@ -79,3 +82,10 @@ Thumbs.db
 tribe-evaluation/
 *.parquet
 scratch/
+
+# Temporary logs & conversion reports
+*.log
+*.err
+*_report.json
+scripts/*_report.json
+scripts/*_layout.json

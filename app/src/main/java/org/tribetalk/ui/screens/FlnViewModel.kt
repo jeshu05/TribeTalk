@@ -142,7 +142,6 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
         regenerateWorksheet()
         setupNewQuizQuestion()
         initializeDefaultActivityIR()
-        prefetcher.prefetchForLesson(_teachingContext.value, _activeObjective.value)
     }
 
     // -------------------------------------------------------------------------
@@ -204,6 +203,7 @@ class FlnViewModel(application: Application) : AndroidViewModel(application) {
                 _studioGeneratedSpec.value = tunedSpec
             } finally {
                 _isGeneratingStudioContent.value = false
+                localModel.unload()
             }
         }
     }

@@ -13,7 +13,8 @@ import java.util.Locale
 /**
  * Natural voice speech synthesis manager for TribeTalk.
  * Speaks translated Hindi natively via Android TTS and pronounces Santali (Ol Chiki)
- * with authentic phonetic formant articulation. Completely eliminates synthetic tone buzz.
+ * with authentic phonetic formant articulation via Google Hindi TTS.
+ * Restores the high-quality pipeline from e49119f6085f38516408ad69a6e1543fe4dfc0c6.
  */
 class TribeTalkTtsManager(context: Context) {
     companion object {
@@ -29,8 +30,20 @@ class TribeTalkTtsManager(context: Context) {
     private var currentCallback: (() -> Unit)? = null
     private val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
 
+    private var pendingRequest: PendingSpeechRequest? = null
+
+    private data class PendingSpeechRequest(
+        val text: String,
+        val targetLang: String,
+        val onComplete: (() -> Unit)?
+    )
+
     init {
-        tts = TextToSpeech(context) { status ->
+        initTts(context.applicationContext)
+    }
+
+    private fun initTts(appContext: Context) {
+        val listener = TextToSpeech.OnInitListener { status ->
             if (status == TextToSpeech.SUCCESS) {
                 isInitialized = true
                 tts?.setPitch(1.0f)
@@ -57,10 +70,25 @@ class TribeTalkTtsManager(context: Context) {
                         }
                     }
                 })
-                Log.i(TAG, "TextToSpeech initialized successfully")
+                Log.i(TAG, "TextToSpeech initialized successfully (high quality pipeline)")
+
+                // Play any speech queued during startup
+                mainHandler.post {
+                    pendingRequest?.let { req ->
+                        pendingRequest = null
+                        speak(req.text, req.targetLang, req.onComplete)
+                    }
+                }
             } else {
-                Log.w(TAG, "TextToSpeech initialization failed with status $status")
+                Log.w(TAG, "TextToSpeech initialization returned status $status")
             }
+        }
+
+        // Try Google TTS engine first for high quality neural voice; fallback to default
+        tts = try {
+            TextToSpeech(appContext, listener, "com.google.android.tts")
+        } catch (_: Throwable) {
+            TextToSpeech(appContext, listener)
         }
     }
 
@@ -72,8 +100,14 @@ class TribeTalkTtsManager(context: Context) {
      */
     fun speak(text: String, targetLang: String, onComplete: (() -> Unit)? = null) {
         val clean = text.trim()
-        if (clean.isEmpty() || !isInitialized || tts == null) {
+        if (clean.isEmpty()) {
             onComplete?.invoke()
+            return
+        }
+
+        if (!isInitialized || tts == null) {
+            Log.i(TAG, "TTS initializing; queuing utterance: ${clean.take(25)}")
+            pendingRequest = PendingSpeechRequest(clean, targetLang, onComplete)
             return
         }
 
@@ -88,7 +122,7 @@ class TribeTalkTtsManager(context: Context) {
             _isSpeaking.value = true
             tts?.speak(clean, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
         } else {
-            // Santali Ol Chiki: convert to phonetic syllable representation
+            // Santali Ol Chiki: convert to authentic phonetic syllable representation
             val phoneticText = TribeTalkTranslator.olChikiToSpeechPhonetics(clean)
             val result = tts?.setLanguage(Locale("hi", "IN"))
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -107,6 +141,7 @@ class TribeTalkTtsManager(context: Context) {
     }
 
     fun stop() {
+        pendingRequest = null
         _isSpeaking.value = false
         mainHandler.post {
             currentCallback?.invoke()

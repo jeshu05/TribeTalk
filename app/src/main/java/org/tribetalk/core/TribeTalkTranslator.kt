@@ -98,4 +98,10 @@ object TribeTalkTranslator {
             cacheMisses = 0L
         }
     }
+
+    fun release() {
+        synchronized(lock) {
+            neuralTranslator?.release()
+        }
+    }
 }

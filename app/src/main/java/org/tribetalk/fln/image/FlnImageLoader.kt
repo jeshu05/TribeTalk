@@ -18,18 +18,24 @@ import java.io.InputStream
  */
 object FlnImageLoader {
 
-    // 16 MB memory cache for decoded Compose ImageBitmaps
-    private val memoryCache = object : LruCache<String, ImageBitmap>(16 * 1024 * 1024) {
+    // 8 MB memory cache each on 2 GB tabs (Phase 4: right-sized from 16 MB)
+    private val memoryCache = object : LruCache<String, ImageBitmap>(8 * 1024 * 1024) {
         override fun sizeOf(key: String, value: ImageBitmap): Int {
             return value.width * value.height * 4
         }
     }
 
-    // 16 MB memory cache for native Android Bitmaps used by Canvas / PDF rendering
-    private val androidBitmapCache = object : LruCache<String, Bitmap>(16 * 1024 * 1024) {
+    // 8 MB memory cache for native Android Bitmaps used by Canvas / PDF rendering
+    private val androidBitmapCache = object : LruCache<String, Bitmap>(8 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap): Int {
             return value.byteCount
         }
+    }
+
+    /** Memory-pressure hook (governor / onTrimMemory): drop all decoded bitmaps. */
+    fun evictCaches() {
+        memoryCache.evictAll()
+        androidBitmapCache.evictAll()
     }
 
     /**

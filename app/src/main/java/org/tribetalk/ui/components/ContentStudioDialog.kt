@@ -196,7 +196,7 @@ fun ContentStudioDialog(
 
                         StudioState.GENERATING_PROGRESS -> {
                             Text(
-                                text = "Preparing 100% offline curriculum materials...",
+                                text = "Preparing curriculum materials...",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -393,7 +393,7 @@ private fun TeacherReviewView(spec: ActivitySpec, objective: LearningObjective) 
                 Text(text = "VERIFIED BY CURRICULUM PIPELINE", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF166534))
                 ReviewBadge("Objective Matched: ${objective.id} (${objective.titleEnglish})")
                 ReviewBadge("Answers Verified: Target = ${spec.answerSpec.correctValue} (Arithmetically Sound)")
-                ReviewBadge("Visual Assets Verified: 100% Offline SVG (${spec.visualSpec.primaryAssetKey})")
+                ReviewBadge("Visual Assets Verified: Vector Graphics (${spec.visualSpec.primaryAssetKey})")
                 ReviewBadge("Hindi Realized: ${spec.languageSpec.primaryWord}")
                 ReviewBadge("Santhali Realized: ${spec.languageSpec.targetWord} (Ol Chiki)")
             }

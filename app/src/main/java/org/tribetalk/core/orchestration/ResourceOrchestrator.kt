@@ -3,6 +3,9 @@ package org.tribetalk.core.orchestration
 import android.util.Log
 import kotlinx.coroutines.*
 import org.tribetalk.curriculum.ai.LocalLanguageModel
+import org.tribetalk.core.memory.GovernorStage
+import org.tribetalk.core.memory.LoadDecision
+import org.tribetalk.core.memory.MemoryGovernor
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -75,18 +78,32 @@ object ResourceOrchestrator {
 
     /**
      * Checks if background generation can proceed.
+     *
+     * Phase 2 fix: this previously measured the JAVA HEAP (Runtime.maxMemory),
+     * which is meaningless for ONNX sessions living in native RAM on a 2 GB tab.
+     * It now defers to the MemoryGovernor, which reads native PSS + system
+     * headroom-before-LMK-threshold, and additionally honours P0 preemption.
      */
     fun canExecuteP2(): Boolean {
         if (activeP0Count.get() > 0 || isP2PreemptRequested.get()) {
             return false
         }
-        val freeMemMb = getAvailableMemoryMb()
-        if (freeMemMb < MIN_FREE_MEMORY_MB) {
-            Log.w(TAG, "Insufficient free memory ($freeMemMb MB < $MIN_FREE_MEMORY_MB MB). Denying P2 workload.")
+        val governor = sharedGovernor ?: return false // not wired yet: be conservative
+        val decision = governor.canLoad(GovernorStage.SLM.estimateMb, allowWithoutMeasurement = false)
+        if (decision is LoadDecision.Deny) {
+            Log.w(TAG, "Insufficient memory for P2 workload: ${decision.reason}")
             return false
         }
         return true
     }
+
+    /** Called from Application/MainActivity init to wire real memory measurement. */
+    fun attachMemoryGovernor(governor: MemoryGovernor) {
+        sharedGovernor = governor
+    }
+
+    @Volatile
+    private var sharedGovernor: MemoryGovernor? = null
 
     fun isPreemptionRequested(): Boolean = isP2PreemptRequested.get()
 

@@ -29,12 +29,8 @@ class OnnxConformerAsr(private val context: Context) {
     private var satBlankId = DEFAULT_BLANK_ID
 
     private val featureExtractor = ConformerFeatureExtractor()
-    var isReady = false
-        private set
-
-    init {
-        initSessions()
-    }
+    val isReady: Boolean
+        get() = hiSession != null || satSession != null
 
     private fun resolveModelFile(subDir: String, fileName: String): File? {
         val candidates = listOf(
@@ -51,6 +47,7 @@ class OnnxConformerAsr(private val context: Context) {
     private fun loadVocab(vocabFile: File, targetMap: MutableMap<Int, String>): Int {
         var blankId = DEFAULT_BLANK_ID
         try {
+            targetMap.clear()
             vocabFile.forEachLine(Charsets.UTF_8) { line ->
                 val parts = line.trim().split(Regex("\\s+"))
                 if (parts.size >= 2) {
@@ -70,39 +67,75 @@ class OnnxConformerAsr(private val context: Context) {
         return blankId
     }
 
-    fun initSessions() {
+    @Synchronized
+    fun prepareSession(isHindi: Boolean): Boolean {
         try {
-            ortEnv = OrtEnvironment.getEnvironment()
+            if (ortEnv == null) {
+                ortEnv = OrtEnvironment.getEnvironment()
+            }
+            val env = ortEnv ?: return false
             val opts = OrtSession.SessionOptions().apply {
                 setIntraOpNumThreads(2)
+                setInterOpNumThreads(1)
             }
 
-            // 1. Hindi Conformer
-            val hiModelFile = resolveModelFile("asr", "hindi_conformer.onnx")
-            val hiVocabFile = resolveModelFile("asr", "hindi_vocab.txt")
-            if (hiModelFile != null && hiVocabFile != null) {
-                hiBlankId = loadVocab(hiVocabFile, hiVocab)
-                hiSession = ortEnv?.createSession(hiModelFile.absolutePath, opts)
-                Log.i(TAG, "Hindi IndicConformer ASR session loaded successfully (${hiVocab.size} vocab tokens).")
+            if (isHindi) {
+                // Evict Santali session to guarantee single-model residency on 2 GB tablet
+                satSession?.close()
+                satSession = null
+
+                if (hiSession == null) {
+                    val hiModelFile = resolveModelFile("asr", "hindi_conformer.onnx")
+                        ?: resolveModelFile("asr", "hindi_conformer_mobile.onnx")
+                    val hiVocabFile = resolveModelFile("asr", "hindi_vocab.txt")
+                    if (hiModelFile != null && hiVocabFile != null) {
+                        hiBlankId = loadVocab(hiVocabFile, hiVocab)
+                        hiSession = env.createSession(hiModelFile.absolutePath, opts)
+                        Log.i(TAG, "Hindi IndicConformer ASR session loaded successfully (${hiVocab.size} vocab tokens).")
+                    } else {
+                        Log.w(TAG, "Hindi Conformer files not found on device.")
+                        return false
+                    }
+                }
+                return hiSession != null
             } else {
-                Log.w(TAG, "Hindi Conformer files not found on device.")
-            }
+                // Evict Hindi session to guarantee single-model residency on 2 GB tablet
+                hiSession?.close()
+                hiSession = null
 
-            // 2. Santali Conformer
-            val satModelFile = resolveModelFile("asr", "santali_conformer.onnx")
-            val satVocabFile = resolveModelFile("asr", "santali_vocab.txt")
-            if (satModelFile != null && satVocabFile != null) {
-                satBlankId = loadVocab(satVocabFile, satVocab)
-                satSession = ortEnv?.createSession(satModelFile.absolutePath, opts)
-                Log.i(TAG, "Santali IndicConformer ASR session loaded successfully (${satVocab.size} vocab tokens).")
-            } else {
-                Log.w(TAG, "Santali Conformer files not found on device.")
+                if (satSession == null) {
+                    val satModelFile = resolveModelFile("asr", "santali_conformer.onnx")
+                        ?: resolveModelFile("asr", "santali_conformer_mobile.onnx")
+                    val satVocabFile = resolveModelFile("asr", "santali_vocab.txt")
+                    if (satModelFile != null && satVocabFile != null) {
+                        satBlankId = loadVocab(satVocabFile, satVocab)
+                        satSession = env.createSession(satModelFile.absolutePath, opts)
+                        Log.i(TAG, "Santali IndicConformer ASR session loaded successfully (${satVocab.size} vocab tokens).")
+                    } else {
+                        Log.w(TAG, "Santali Conformer files not found on device.")
+                        return false
+                    }
+                }
+                return satSession != null
             }
-
-            isReady = (hiSession != null || satSession != null)
         } catch (e: Exception) {
-            Log.e(TAG, "Failed initializing OnnxConformerAsr sessions", e)
+            Log.e(TAG, "Failed preparing OnnxConformerAsr session (isHindi=$isHindi)", e)
+            return false
         }
+    }
+
+    @Synchronized
+    fun release() {
+        try {
+            hiSession?.close()
+            satSession?.close()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error closing ASR sessions", e)
+        }
+        hiSession = null
+        satSession = null
+        hiVocab.clear()
+        satVocab.clear()
     }
 
     /**
@@ -113,14 +146,15 @@ class OnnxConformerAsr(private val context: Context) {
      * @return Transcribed text in Devanagari or Ol Chiki.
      */
     fun transcribe(audio: FloatArray, isHindi: Boolean): String {
+        if (audio.isEmpty()) return ""
+        if (!prepareSession(isHindi)) return ""
+
         val env = ortEnv ?: return ""
-        val session = if (isHindi) hiSession else satSession
+        val session = (if (isHindi) hiSession else satSession) ?: return ""
         val vocab = if (isHindi) hiVocab else satVocab
         val blankId = if (isHindi) hiBlankId else satBlankId
 
-        if (session == null || vocab.isEmpty() || audio.isEmpty()) {
-            return ""
-        }
+        if (vocab.isEmpty()) return ""
 
         try {
             // 1. Extract 80-channel log-mel features with per-feature normalization
@@ -193,6 +227,8 @@ class OnnxConformerAsr(private val context: Context) {
         } catch (e: Exception) {
             Log.e(TAG, "Error in IndicConformer ONNX inference", e)
             return ""
+        } finally {
+            release()
         }
     }
 }

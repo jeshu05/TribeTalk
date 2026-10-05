@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tribetalk.audio.AndroidSpeechRecognizer
 import org.tribetalk.audio.AudioRecorder
 import org.tribetalk.audio.OnnxConformerAsr
 import org.tribetalk.audio.TribeTalkTtsManager
@@ -24,9 +23,8 @@ class TranslationViewModel(application: Application) : AndroidViewModel(applicat
         private const val TAG = "TranslationViewModel"
     }
 
+    val onnxConformerAsr = OnnxConformerAsr(application)
     private val audioRecorder = AudioRecorder()
-    private val onnxConformerAsr = OnnxConformerAsr(application)
-    private val speechRecognizer = AndroidSpeechRecognizer(application)
     private val ttsManager = TribeTalkTtsManager(application)
 
     val amplitude = audioRecorder.amplitude
@@ -237,14 +235,13 @@ class TranslationViewModel(application: Application) : AndroidViewModel(applicat
 
     fun clearHistory() {
         ttsManager.stop()
-        speechRecognizer.stopListening()
         _conversations.value = emptyList()
         NativePipeline.trimMemory()
     }
 
     override fun onCleared() {
         super.onCleared()
-        speechRecognizer.stopListening()
+        onnxConformerAsr.release()
         ttsManager.shutdown()
         NativePipeline.releaseAll()
     }
