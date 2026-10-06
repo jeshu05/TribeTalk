@@ -2,7 +2,7 @@
 
 **TribeTalk** is a production-grade, fully offline, bidirectional speech-to-speech translation system bridging **Hindi (हिन्दी - Devanagari)** and **Santali (ᱥᱟᱱᱛᱟᱲᱤ - Ol Chiki)**.
 
-Engineered specifically for low-resource edge deployments (3–4 GB RAM, ARM64 Android tablets, CPU-first inference), TribeTalk ensures indigenous communities and healthcare/administrative workers can converse fluidly without requiring internet connectivity or cloud APIs.
+Engineered specifically for low-resource edge deployments (2–3 GB RAM, ARM64 Android tablets, CPU-first inference), TribeTalk ensures non-native language speaking teachers to have conversation and deliver FLN instructions to tribal students without requiring internet connectivity or cloud APIs.
 
 ---
 
