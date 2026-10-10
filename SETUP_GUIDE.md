@@ -197,15 +197,30 @@ All models must be placed inside the app's scoped external files directory:
 
 ### 5.3 Method A: Automated Python / ADB Deployment (Fastest & Recommended)
 
-The project includes an intelligent, cross-platform deployment script that auto-detects your Android SDK, ADB path, and attached physical device or emulator.
+All pre-quantized production ONNX models (~1.34 GB) are publicly hosted on Hugging Face:  
+🔗 **[jeshu05/tribetalk-models](https://huggingface.co/jeshu05/tribetalk-models/blob/main/models.zip)**
 
-1. **Verify Local Staged Models**:
-   Ensure `staged_models/` exists in your project root with the four subdirectories (`asr`, `nmt`, `tts`, `qwen`). If `models.zip` is present, the script can also extract missing files automatically.
+The project includes intelligent deployment tools that auto-detect your Android SDK, ADB path, and attached physical device or emulator.
 
-2. **Run the Automated Deployment Script**:
+1. **Option 1: Automated Download & Push in 1 Command**:
+   If models are not yet on your PC, you can download from Hugging Face and deploy in a single step:
    ```bash
+   python scripts/migrate_models_to_android.py --download
+   ```
+   Or download to PC first:
+   ```bash
+   python scripts/download_models.py
    python scripts/migrate_models_to_android.py
    ```
+
+2. **Option 2: Manual Download from Hugging Face**:
+   * Download `models.zip` directly from [Hugging Face (models.zip)](https://huggingface.co/jeshu05/tribetalk-models/blob/main/models.zip).
+   * Place `models.zip` into the project root folder.
+   * Run the deployment script:
+     ```bash
+     python scripts/migrate_models_to_android.py
+     ```
+     *(The script auto-detects `models.zip`, extracts missing models, and pushes them to your phone).*
 
    **What it does automatically:**
    * Auto-locates `adb` from PATH, `ANDROID_HOME`, `local.properties`, or default SDK directories.

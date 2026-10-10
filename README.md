@@ -63,6 +63,25 @@ With the **Global Model Resource Manager** (`tribetalk/resource_manager.py` / `t
 
 ---
 
+## 📥 Neural Model Downloads (Hugging Face)
+
+All pre-quantized production ONNX model binaries (~1.34 GB) are hosted on Hugging Face:  
+🔗 **[jeshu05/tribetalk-models](https://huggingface.co/jeshu05/tribetalk-models/blob/main/models.zip)**
+
+### 1-Step Automated Download (PC Staging)
+```bash
+python scripts/download_models.py
+```
+*Downloads `models.zip` directly from Hugging Face and unpacks all ASR, NMT, TTS, and Qwen SLM models into `staged_models/`.*
+
+### Deploy Directly to Connected Android Device
+```bash
+python scripts/migrate_models_to_android.py --download
+```
+*Auto-downloads missing models from Hugging Face, initializes app scoped storage, and deploys all weights directly to your phone via ADB.*
+
+---
+
 ## Codebase Layout
 
 ```

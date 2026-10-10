@@ -319,34 +319,22 @@ def main() -> int:
             print(f"  ... and {len(missing) - 10} more.")
 
         if args.download:
-            print("\nAttempting to download missing models via Hugging Face Hub...")
+            print("\nDownloading production model suite from Hugging Face (jeshu05/tribetalk-models)...")
             try:
-                from huggingface_hub import hf_hub_download
-            except ImportError:
-                print("[ERROR] 'huggingface_hub' is required to download models. Run: pip install huggingface_hub")
+                from scripts.download_models import download_models, HUGGINGFACE_MODELS_URL
+                download_models(HUGGINGFACE_MODELS_URL, Path.cwd())
+            except Exception as e:
+                print(f"[ERROR] Automated download failed: {e}")
+                print("You can manually download models.zip from: https://huggingface.co/jeshu05/tribetalk-models/blob/main/models.zip")
                 return 1
 
-            # Download Qwen if missing
-            if any("qwen" in m for m in missing):
-                print("Downloading Qwen 0.5B ONNX files...")
-                qwen_files = [
-                    "config.json", "generation_config.json", "tokenizer.json",
-                    "tokenizer_config.json", "vocab.json", "special_tokens_map.json",
-                    "onnx/model_int8.onnx"
-                ]
-                qwen_dir = source_dir / "qwen"
-                qwen_dir.mkdir(parents=True, exist_ok=True)
-                for f in qwen_files:
-                    print(f"  Fetching {f}...")
-                    p = hf_hub_download(repo_id="onnx-community/Qwen2.5-0.5B-Instruct", filename=f)
-                    dest_file = qwen_dir / (Path(f).name)
-                    shutil.copyfile(p, dest_file)
-
-            # Re-check
+            extract_from_zip_if_needed(source_dir)
             all_ok, available, missing = check_local_staging(source_dir, minimal=not args.all)
         else:
-            print("\n[TIP] If you need to download missing models, run with '--download'")
-            print("or place your model files into 'staged_models/' as documented in SETUP_GUIDE.md.")
+            print("\n[TIP] Models can be downloaded automatically from Hugging Face:")
+            print("  Run: python scripts/download_models.py")
+            print("  Or run: python scripts/migrate_models_to_android.py --download")
+            print("  Direct Web: https://huggingface.co/jeshu05/tribetalk-models/blob/main/models.zip")
 
     # 4. Prepare Destination on Device
     print(f"\nPreparing destination directory on Android device:")
