@@ -2,11 +2,11 @@
 
 **TribeTalk** is a production-grade, fully offline, bidirectional speech-to-speech translation system bridging **Hindi (हिन्दी - Devanagari)** and **Santali (ᱥᱟᱱᱛᱟᱲᱤ - Ol Chiki)**.
 
-Engineered specifically for low-resource edge deployments (3–4 GB RAM, ARM64 Android tablets, CPU-first inference), TribeTalk ensures indigenous communities and healthcare/administrative workers can converse fluidly without requiring internet connectivity or cloud APIs.
+Engineered specifically for low-resource edge deployments (2–3 GB RAM, ARM64 Android tablets, CPU-first inference), TribeTalk ensures non-native language speaking teachers to have conversation and deliver FLN instructions to tribal students without requiring internet connectivity or cloud APIs.
 
 ---
 
-## 🏛️ System Architecture
+## System Architecture
 
 ```
                       [ Audio Input (16 kHz Float32 PCM) ]
@@ -40,7 +40,7 @@ Engineered specifically for low-resource edge deployments (3–4 GB RAM, ARM64 A
 
 ---
 
-## 💾 Model Portfolio (100% Offline ONNX)
+## Model Portfolio (100% Offline ONNX)
 
 To satisfy the strict **≤ 950 MB native RAM budget** on edge tablets, all models have been consolidated into pure ONNX Runtime INT8 architectures:
 
@@ -51,17 +51,19 @@ To satisfy the strict **≤ 950 MB native RAM budget** on edge tablets, all mode
 | **NMT** | Hin ↔ Sat | IndicTrans2 Distilled (320M) | `indictrans2-indic-indic-dist-320M-ONNX-int8` | ~340 MB | INT8 (with past KV-cache) |
 | **TTS** | Santali | Vernacular Piper (VITS) | `Ashraf01k/vernacular-pedagogy-santhali` | ~60.5 MB | FP32 / INT8 ONNX |
 | **TTS** | Hindi | Meta MMS-TTS (VITS) | `Xenova/mms-tts-hin` | ~110 MB | INT8 / FP32 ONNX |
+| **SLM** | Multi | Qwen2.5-0.5B-Instruct | `onnx-community/Qwen2.5-0.5B-Instruct` | ~488 MB | INT8 / INT4 ONNX |
 
-### ⚡ Memory Bounding: Sequential Leasing
+### Memory Bounding: Sequential Leasing
 With the **Global Model Resource Manager** (`tribetalk/resource_manager.py` / `tribetalk-native/src/resource/resource_manager.cpp`), execution stages are strictly isolated:
 - **ASR active**: ~135 MB
 - **NMT active**: ~345 MB
 - **TTS active**: ~110 MB
-- **Peak RAM footprint**: **≤ 350 MB** (well below the 950 MB ceiling).
+- **SLM active**: ~490 MB (or ~260 MB INT4)
+- **Peak RAM footprint**: **≤ 490 MB** (well below the system RAM ceiling via single-stage leasing).
 
 ---
 
-## 📂 Codebase Layout
+## Codebase Layout
 
 ```
 TribeTalk/
@@ -129,7 +131,7 @@ TribeTalk/
 
 ---
 
-## 📱 Android Application & NIPUN Bharat FLN Suite
+## Android Application & NIPUN Bharat FLN Suite
 
 TribeTalk features a production-ready Android application built with **Jetpack Compose** and **Material 3**:
 
@@ -150,14 +152,14 @@ TribeTalk features a production-ready Android application built with **Jetpack C
    - Enforces sequential single-stage residency (`ASR` → `NMT` → `SLM` → `TTS`).
    - Evicts inactive model sessions automatically, maintaining heap footprint well within budget on budget rural classroom devices.
 
-For step-by-step instructions on setting up Android Studio, building the APK, and deploying neural model assets to your physical device or emulator, refer to **[SETUP_GUIDE.md](file:///SETUP_GUIDE.md)**.
+For step-by-step instructions on setting up Android Studio, building the APK, and deploying neural model assets to your physical device or emulator, refer to **[SETUP_GUIDE.md](SETUP_GUIDE.md)**.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Android Development Setup
-Refer to the dedicated **[SETUP_GUIDE.md](file:///SETUP_GUIDE.md)** for Android Studio configuration, Gradle build instructions, and automated model deployment via ADB.
+Refer to the dedicated **[SETUP_GUIDE.md](SETUP_GUIDE.md)** for Android Studio configuration, Gradle build instructions, and automated model deployment via ADB.
 
 To compile the Android debug APK from the command line:
 ```bash
@@ -196,12 +198,12 @@ cmake --build tribetalk-native/build --config Release
 
 ---
 
-## 🔬 Benchmark Verification
+## Benchmark Verification
 Evaluation runs verify bidirectional conversion across gold audio benchmarks from `tribe-evaluation/`:
 - **IndicVoices Hindi Test Audio** $\to$ Hindi ASR $\to$ IndicTrans2 $\to$ Santali Piper TTS.
 - **IndicVoices Santali Test Audio** $\to$ Santali ASR $\to$ IndicTrans2 $\to$ Hindi MMS-TTS.
 
 ---
 
-## 📄 License
+## License
 TribeTalk is distributed under the Apache-2.0 License.

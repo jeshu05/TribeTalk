@@ -53,9 +53,10 @@ class QwenLocalModel(private val context: Context) : LocalLanguageModel {
         )
 
         for (dir in candidateDirs) {
-            val mf = File(dir, "model_int8.onnx")
+            val candidateNames = listOf("model_int8.onnx", "model_int4.onnx", "model_q4f16.onnx", "model.onnx")
+            val mf = candidateNames.map { File(dir, it) }.firstOrNull { it.exists() && it.length() > 1024 * 1024 }
             val vf = File(dir, "vocab.json")
-            if (mf.exists() && mf.length() > 1024 * 1024) {
+            if (mf != null) {
                 modelFile = mf
                 vocabFile = if (vf.exists()) vf else File(dir, "tokenizer.json")
                 Log.i(TAG, "Resolved Qwen model at: ${mf.absolutePath} (${mf.length() / (1024*1024)} MB)")

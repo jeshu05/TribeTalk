@@ -12,7 +12,7 @@ A comprehensive, end-to-end guide to compiling, deploying, and configuring **Tri
 5. [Neural AI Model Installation (Detailed)](#5-neural-ai-model-installation-detailed)
    - [5.1 Model Architecture & Inventory](#51-model-architecture--inventory)
    - [5.2 Target Storage Location on Device](#52-target-storage-location-on-device)
-   - [5.3 Method A: Automated Python / ADB Push (Fastest)](#53-method-a-automated-python--adb-push-fastest)
+   - [5.3 Method A: Automated Python / ADB Deployment (Fastest & Recommended)](#53-method-a-automated-python--adb-deployment-fastest--recommended)
    - [5.4 Method B: Android Studio Device File Explorer (GUI)](#54-method-b-android-studio-device-file-explorer-gui)
    - [5.5 Method C: Direct Windows MTP / USB Transfer](#55-method-c-direct-windows-mtp--usb-transfer)
 6. [First Run, Permissions & Verification](#6-first-run-permissions--verification)
@@ -151,31 +151,30 @@ The models are organized into four dedicated functional directories:
 ```text
 models/
 ├── asr/                      (Automated Speech Recognition)
-│   ├── hindi_conformer.onnx      # AI4Bharat IndicConformer ASR for Hindi (~202 MB)
-│   ├── hindi_vocab.txt           # Hindi CTC character vocabulary
-│   ├── santali_conformer.onnx    # AI4Bharat IndicConformer ASR for Santali (~202 MB)
-│   └── santali_vocab.txt         # Santali Ol Chiki character vocabulary
+│   ├── hindi_conformer.onnx      # AI4Bharat IndicConformer ASR for Hindi (~131 MB INT8 / ~193 MB FP32)
+│   ├── hindi_vocab.txt           # Hindi CTC character vocabulary (~3 KB)
+│   ├── santali_conformer.onnx    # AI4Bharat IndicConformer ASR for Santali (~131 MB INT8 / ~193 MB FP32)
+│   └── santali_vocab.txt         # Santali Ol Chiki character vocabulary (~1 KB)
 │
-├── nmt/                      (Neural Machine Translation)
-│   ├── encoder_model.onnx        # IndicTrans2 320M INT8 Encoder (~1 MB)
-│   ├── encoder_model.onnx.data   # Encoder quantized tensor weights (~120 MB)
-│   ├── decoder_model.onnx        # Initial decoder graph (~2 MB)
-│   ├── decoder_with_past_model.onnx # Autoregressive KV-cache decoder (~2 MB)
-│   ├── decoder_shared.onnx.data  # Decoder shared INT8 tensor weights (~203 MB)
-│   ├── dict.SRC.json & dict.TGT.json # Language dictionary indices
-│   ├── model.SRC & model.TGT     # SentencePiece vocabulary models
-│   ├── tokenizer_src.json & tokenizer_tgt.json # Fast tokenizers
-│   └── generation_config.json & config.json # Transformer hyper-parameters
+├── nmt/                      (Neural Machine Translation - Phase 3 Shipping Stack)
+│   ├── encoder_model_int8_pruned.onnx    # IndicTrans2 320M INT8 Pruned Encoder (~101 MB)
+│   ├── decoder_model_merged_pruned.onnx  # Single fused step-1 & autoregressive KV decoder (~166 MB)
+│   ├── vocab.src.pruned.tsv              # 93,478-token pruned source vocabulary TSV (~2.1 MB)
+│   ├── vocab.tgt.pruned.tsv              # 93,436-token pruned target vocabulary TSV (~2.1 MB)
+│   ├── config.json & generation_config.json # Transformer architecture parameters
+│   └── [Legacy Fallback: unpruned encoder_model_int8.onnx + decoder_model_merged.onnx also supported]
 │
 ├── tts/                      (Text-To-Speech Synthesis)
-│   ├── hindi_tts.onnx            # Meta MMS VITS / Piper Hindi neural voice (~114 MB)
-│   └── hindi_tts_vocab.json      # Hindi phonetic phoneme table
+│   ├── hindi_tts.onnx            # Meta MMS-TTS Hindi VITS neural voice (~109 MB)
+│   ├── hindi_tts_vocab.json      # Hindi phonetic phoneme table (~4 KB)
+│   ├── sat_piper_model.onnx      # Vernacular Piper Santali VITS neural voice (~61 MB)
+│   └── sat_piper_model.onnx.json # Piper audio sampling and phoneme configuration (~5 KB)
 │
 └── qwen/                     (Curriculum & Pedagogical Generator SLM)
-    ├── model_int8.onnx           # Qwen2.5-0.5B-Instruct INT8 ONNX (~512 MB)
-    ├── tokenizer.json            # Fast BPE Byte-Pair Tokenizer (~7 MB)
-    ├── vocab.json                # Vocabulary index (~2.7 MB)
-    ├── tokenizer_config.json     # ChatML special token templates
+    ├── model_int8.onnx           # Qwen2.5-0.5B-Instruct INT8 ONNX (~488 MB, or INT4 ~260 MB)
+    ├── tokenizer.json            # Fast BPE Byte-Pair Tokenizer (~6.7 MB)
+    ├── vocab.json                # Vocabulary index (~2.65 MB)
+    ├── tokenizer_config.json     # ChatML special token templates (~7.3 KB)
     ├── special_tokens_map.json   # <|im_start|>, <|im_end|> mappings
     ├── config.json               # Transformer architecture dimensions
     ├── generation_config.json    # Greedy decoding temperature & repetition penalty
@@ -196,26 +195,38 @@ All models must be placed inside the app's scoped external files directory:
 
 ---
 
-### 5.3 Method A: Automated Python / ADB Push (Fastest & Recommended)
+### 5.3 Method A: Automated Python / ADB Deployment (Fastest & Recommended)
 
-If you have already cloned the repository and have ADB in your PATH, you can push the pre-staged models in a single command.
+The project includes an intelligent, cross-platform deployment script that auto-detects your Android SDK, ADB path, and attached physical device or emulator.
 
 1. **Verify Local Staged Models**:
-   Ensure `staged_models/` exists in your project root with the four subdirectories (`asr`, `nmt`, `tts`, `qwen`).
+   Ensure `staged_models/` exists in your project root with the four subdirectories (`asr`, `nmt`, `tts`, `qwen`). If `models.zip` is present, the script can also extract missing files automatically.
 
-2. **Push Directly via ADB Command**:
+2. **Run the Automated Deployment Script**:
+   ```bash
+   python scripts/migrate_models_to_android.py
+   ```
+
+   **What it does automatically:**
+   * Auto-locates `adb` from PATH, `ANDROID_HOME`, `local.properties`, or default SDK directories.
+   * Auto-detects your connected Android device or emulator.
+   * Creates required directories on the device (`/sdcard/Android/data/org.tribetalk/files/models/{asr,nmt,qwen,tts}`).
+   * Pushes the production model suite (~1.19 GB) with per-file progress.
+   * Runs post-deployment verification and reports confirmation for all models.
+
+3. **Useful Flags**:
+   * Test without copying: `python scripts/migrate_models_to_android.py --dry-run`
+   * Verify what is already on your phone: `python scripts/migrate_models_to_android.py --verify-only`
+   * Target a specific device if multiple are plugged in: `python scripts/migrate_models_to_android.py --device <DEVICE_ID>`
+   * Download missing files from Hugging Face: `python scripts/migrate_models_to_android.py --download`
+
+4. **Manual Single ADB Push Alternative**:
+   If you prefer raw ADB commands:
    ```bash
    adb push staged_models/. /sdcard/Android/data/org.tribetalk/files/models/
    ```
 
-3. **Or Run the Python Automation Script**:
-   The project includes a ready-to-run staging script:
-   ```bash
-   python scripts/migrate_models_to_android.py
-   ```
-   *(If you are using a specific device ID, edit `DEVICE_ID` in `scripts/migrate_models_to_android.py` or omit `-s`)*.
-
-4. **Verify the Push**:
+5. **Verify the Push**:
    ```bash
    adb shell ls -la /sdcard/Android/data/org.tribetalk/files/models/
    ```

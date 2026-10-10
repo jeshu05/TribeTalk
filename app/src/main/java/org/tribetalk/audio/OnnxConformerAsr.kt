@@ -86,6 +86,7 @@ class OnnxConformerAsr(private val context: Context) {
 
                 if (hiSession == null) {
                     val hiModelFile = resolveModelFile("asr", "hindi_conformer.onnx")
+                        ?: resolveModelFile("asr", "hindi_conformer_int8.onnx")
                         ?: resolveModelFile("asr", "hindi_conformer_mobile.onnx")
                     val hiVocabFile = resolveModelFile("asr", "hindi_vocab.txt")
                     if (hiModelFile != null && hiVocabFile != null) {
@@ -105,6 +106,7 @@ class OnnxConformerAsr(private val context: Context) {
 
                 if (satSession == null) {
                     val satModelFile = resolveModelFile("asr", "santali_conformer.onnx")
+                        ?: resolveModelFile("asr", "santali_conformer_int8.onnx")
                         ?: resolveModelFile("asr", "santali_conformer_mobile.onnx")
                     val satVocabFile = resolveModelFile("asr", "santali_vocab.txt")
                     if (satModelFile != null && satVocabFile != null) {
